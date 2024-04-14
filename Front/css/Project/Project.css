@@ -1,0 +1,24 @@
+.pro-header{
+    justify-content: center;
+    display: flex;
+}
+
+
+
+
+
+.pro-main{
+    display: flex;
+}
+
+.pro-main>.pro-content{
+    display: block;
+    width: 70rem;
+}
+
+.carousel .slide{
+    width: 3rem;
+}
+.pro-sub{
+    width: 30rem;
+}
