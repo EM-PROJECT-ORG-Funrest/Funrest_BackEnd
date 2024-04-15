@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Google";
+    src: url("./font/NotoSansKR-VariableFont_wght.ttf");
+}
+
+* {
+    font-family: "Google";
+    box-sizing: border-box;
+}
