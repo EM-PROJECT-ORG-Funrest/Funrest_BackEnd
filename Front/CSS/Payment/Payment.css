@@ -1,0 +1,13 @@
+.container>.order-product-box>.order-product>.table td{
+    vertical-align : middle;
+}
+
+.container>.cost-box>.cost>div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container>.cost-box>.cost>div>p{
+    width: 40vw;
+    text-align: center;
+}
