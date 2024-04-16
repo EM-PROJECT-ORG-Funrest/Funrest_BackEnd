@@ -11,3 +11,7 @@
     width: 40vw;
     text-align: center;
 }
+
+.container>.buyer-info-box>.buyer-info>div{
+    display: flex;
+}
