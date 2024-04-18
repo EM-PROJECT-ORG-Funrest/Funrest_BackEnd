@@ -12,6 +12,17 @@
     text-align: center;
 }
 
-.container>.buyer-info-box>.buyer-info>div{
+.container>.buyer-info-box>.buyer-info>.buyer-info-input .title{
+    text-align: center;
+    line-height: 40px;
+    padding:0;
+}
+
+.container>.buyer-info-box>.buyer-info>.buyer-info-input>.addr>.input-group{
+    padding: 0;
+}
+
+.container>.pay-box>.form-check {
     display: flex;
+    justify-content: center;
 }
