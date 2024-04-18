@@ -8,9 +8,13 @@
     box-sizing: border-box;
 }
 
-.btn-success, .btn-success:hover{
+.btn-success {
     background-color: rgb(171, 199, 114);
     border-color:  rgb(171, 199, 114);
+}
+.btn-success:hover, .btn:active, .btn:focus{
+    background-color:rgb(139, 165, 92);
+    border-color:  rgb(139, 165, 92);
 }
 
 .btn-outline-success{
