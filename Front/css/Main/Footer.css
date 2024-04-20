@@ -1,0 +1,77 @@
+
+/* all */
+a{
+    text-decoration: none;
+    color: black;
+}
+
+/* hr */
+
+.footer-hr{
+    opacity: 0.3;
+    background-color: gray;
+}
+
+/* footer-nav */
+
+.footer-nav{
+    width: 100%;
+    display: flex;
+    margin-left: 15vw;
+}
+
+.footer-policy{
+    margin-right: 3.3rem;
+}
+
+.footer-policy-a:hover{
+    text-decoration: none;
+    color: black;
+    font-weight: 1000;
+}
+
+.footer-personal{
+    margin-right: 65rem;
+}
+
+.footer-personal-a:hover{
+    text-decoration: none;
+    color: black;
+    font-weight: 1000;
+}
+
+.footer-sns-a:hover{
+    text-decoration: none;
+    color: black;
+    font-weight: 1000;
+}
+
+/* footer-explain */
+
+.footer-explain{
+    display: flex;
+}
+
+.footer-logo{
+    margin-left: 7.5vw;
+    width: 15rem;
+    height: 6rem;
+}
+
+.footer-text{
+    margin-left: 7vw;
+}
+
+.footer-text1{
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.funrest{
+    font-weight: 1000;
+}
+
+.footer-text2{
+    opacity: 0.6;
+    font-weight: 300;
+}
