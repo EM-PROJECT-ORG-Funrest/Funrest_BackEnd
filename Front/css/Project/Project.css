@@ -7,9 +7,6 @@ a{
 
 /* pro-header */
 
-.pro-header-container{
-    position: relative;
-}
 
 .pro-header{
     margin-top: 0.1rem;
@@ -162,9 +159,13 @@ a{
 /* pro-sub all */
 
 .pro-main> .pro-sub{
+    position: relative;
+}
+
+.pro-main> .pro-sub >.pro-sub-box{
     border-radius: 5%;
     height: 60vh;
-    width: 31vw;
+    width: 31vw;    
     background-color: rgb(246, 248, 244);
     position: fixed;
     right: 14rem;
@@ -172,20 +173,20 @@ a{
 }
 
 /* pro-sub-header */
-.pro-main >.pro-sub > .pro-sub-header{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-header{
     display: flex;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     justify-content: space-between;
 }
 
-.pro-main >.pro-sub > .pro-sub-header>.pro-category{
+.pro-main >.pro-sub > .pro-sub-box>.pro-sub-header>.pro-category{
     margin-left: 1rem;
     font-size: 1rem;
     opacity: 0.7;
 }
 
-.pro-main >.pro-sub > .pro-sub-header>.pro-shared{
+.pro-main >.pro-sub > .pro-sub-box>.pro-sub-header>.pro-shared{
     margin-right: 1rem;
     font-size: 1.3rem;
     opacity: 0.7;
@@ -193,29 +194,29 @@ a{
 }
 
 /* pro-sub-hr */
-.pro-main >.pro-sub>.pro-sub-hr{
+.pro-main >.pro-sub>.pro-sub-box>.pro-sub-hr{
     opacity: 0.1;
 }
 
 /* pro-sub=text */
-.pro-main >.pro-sub >.pro-sub-text{
+.pro-main >.pro-sub >.pro-sub-box>.pro-sub-text{
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
 
-.pro-main >.pro-sub >.pro-sub-text>.pro-sub-text-title{
+.pro-main >.pro-sub >.pro-sub-box>.pro-sub-text>.pro-sub-text-title{
     font-size: 1.15rem;
     font-weight: 900;
 }
 
-.pro-main >.pro-sub >.pro-sub-text>.pro-sub-text-content{
+.pro-main >.pro-sub >.pro-sub-box>.pro-sub-text>.pro-sub-text-content{
     margin-top: 1rem;
     font-size: 0.85rem;
     opacity: 0.7;
 }
 
-.pro-main >.pro-sub >.pro-sub-text>.pro-sub-text-funding-peoples{
+.pro-main >.pro-sub >.pro-sub-box>.pro-sub-text>.pro-sub-text-funding-peoples{
     margin-top: 1rem;
     font-weight: 700;
     font-size: 1.1rem;
@@ -223,7 +224,7 @@ a{
 
 }
 
-.pro-main >.pro-sub >.pro-sub-text>.pro-sub-text-funding-amount{
+.pro-main >.pro-sub >.pro-sub-box>.pro-sub-text>.pro-sub-text-funding-amount{
     margin-top: 1rem;
     font-weight: 700;
     font-size: 1.1rem;
@@ -235,13 +236,13 @@ a{
 
 /* pro-sub-notify */
 
-.pro-main >.pro-sub > .pro-sub-btns{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns{
     display: flex;
     margin-left: 3rem;
     margin-bottom: 1.5rem;
 }
 
-.pro-main >.pro-sub > .pro-sub-btns>.pro-sub-notify{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns>.pro-sub-notify{
     width: 3rem;
     height: 3rem;
     border: 2px solid;
@@ -250,16 +251,16 @@ a{
     border-radius: 5%;
 }
 
-.pro-main >.pro-sub > .pro-sub-btns>.pro-sub-notify:hover{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns>.pro-sub-notify:hover{
     background-color: rgb(233, 225, 225);
 }
 
-.pro-main >.pro-sub > .pro-sub-btns>.pro-sub-notify>.pro-sub-notify-peoples{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns>.pro-sub-notify>.pro-sub-notify-peoples{
     font-size: 1rem;
     font-weight: 600;
 }
 
-.pro-main >.pro-sub > .pro-sub-btns>.pro-sub-notify>button{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns>.pro-sub-notify>button{
     border: 0;
     background-color: transparent;
     font-size: 1.25rem;
@@ -267,7 +268,7 @@ a{
 
 /* pro-sub-fundding */
 
-.pro-main >.pro-sub > .pro-sub-btns>.pro-sub-fundding{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns>.pro-sub-fundding{
     width: 18rem;
     height: 3rem;
     text-align: center;
@@ -276,37 +277,37 @@ a{
     border-radius: 3%;
 }
 
-.pro-main >.pro-sub > .pro-sub-btns>.pro-sub-fundding> button{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns>.pro-sub-fundding> button{
     border: 0;
     background-color: transparent;
     color: white;
     margin-top: 0.7rem;
 }
 
-.pro-main >.pro-sub > .pro-sub-btns>.pro-sub-fundding:hover{
+.pro-main >.pro-sub >.pro-sub-box> .pro-sub-btns>.pro-sub-fundding:hover{
     background-color: rgb(65, 153, 50);
 }
 
 /* pro-seller */
 
-.pro-main >.pro-sub>.pro-seller{
+.pro-main >.pro-sub>.pro-sub-box>.pro-seller{
     margin-top: 2rem;
     margin-left: 1rem;
 }
 
 /* pro-seller-header */
-.pro-main >.pro-sub>.pro-seller>.pro-seller-header{
+.pro-main >.pro-sub>.pro-sub-box>.pro-seller>.pro-seller-header{
     display: flex;
     align-items: center;
 }
 
 
-.pro-main >.pro-sub>.pro-seller>.pro-seller-header>.pro-seller-header-img>img{
+.pro-main >.pro-sub>.pro-sub-box>.pro-seller>.pro-seller-header>.pro-seller-header-img>img{
     width: 3vw;
     height: 3wh;
 }
 
-.pro-main >.pro-sub>.pro-seller>.pro-seller-header>.pro-seller-header-content{
+.pro-main >.pro-sub>.pro-sub-box>.pro-seller>.pro-seller-header>.pro-seller-header-content{
     font-weight: 700;
     opacity: 0.8;
     font-size: 1.6rem;
@@ -314,7 +315,7 @@ a{
 }
 
 /* pro-seller-content */
-.pro-main >.pro-sub>.pro-seller>.pro-seller-content{
+.pro-main >.pro-sub>.pro-sub-box>.pro-seller>.pro-seller-content{
     margin-top: 1rem;
     opacity: 0.5;
     font-size: 0.9rem;
