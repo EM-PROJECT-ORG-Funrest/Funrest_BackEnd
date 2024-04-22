@@ -1,6 +1,28 @@
+/* 이미지 유효성 검사 함수 */
+function imageValidation(obj) {
+    const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
+    if (obj.size > (10 * 1024 * 1024)) { // 10MB 이상인 경우
+        alert("이미지 용량은 10MB를 초과할 수 없습니다.");
+        return false;
+    } else if (!fileTypes.includes(obj.type)) { // 지원되지 않는 파일 형식인 경우
+        alert("지원되지 않는 파일 형식입니다. GIF, JPEG, PNG, BMP, TIF 형식의 이미지를 선택하세요.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/* 이미지 파일 선택 시 처리 함수 */
 function setThumbnail(event) {
     var maxFileCnt = 1;
     var reader = new FileReader();
+    var imageInput = event.target;
+    
+    // 유효성 검사
+    if (!imageValidation(imageInput.files[0])) {
+        imageInput.value = ""; // 파일 선택 취소
+        return; // 함수 종료
+    }
 
     reader.onload = function(event) {
         // 이전에 추가된 이미지를 모두 삭제
@@ -12,8 +34,11 @@ function setThumbnail(event) {
         imageContainer.appendChild(img);
     };
 
-    reader.readAsDataURL(event.target.files[0]);
+    reader.readAsDataURL(imageInput.files[0]);
 }
+
+
+
 
   var fileNo = 0;
   var filesArr = [];
