@@ -1,0 +1,75 @@
+
+/* create-title */
+.create-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5vh;
+}
+
+/* create-project */
+.create>form>.create-project {
+    display: flex;
+    height: 90vh;
+}
+
+/* create-project-images */
+.create>form>.create-project>.create-project-images {
+    margin-left: 6vw;
+    width: 30vw;
+    height: 90vh; 
+    background-color: rgb(210, 226, 207);
+    
+}
+.create>form>.create-project>.create-project-images #image_container img {
+    height: 30rem;
+    width: 29.9vw;  
+}
+
+/* create-project-info */
+.create>form>.create-project>.create-project-info {
+    margin-left: 7vw;
+    background-color: rgb(210, 226, 207);
+    width: 50vw;
+}
+
+.create>form>.create-project>.create-project-info>.create-project-info-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.create>form>.create-project>.create-project-info>form>.form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2.5vh;
+}
+
+/* create-project-images */
+.create>form>.create-project>.create-project-images>.create-project-image-insert {
+    padding: 20px 30px;
+    width: 100%;
+    margin: 5vh auto;
+    height: 30vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list {
+    padding: 10px;
+}
+
+.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox {
+    margin-bottom: 10px;
+}
+
+.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox .name {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox .delete {
+    display: inline-block;
+    cursor: pointer;
+    color: #ff5353;
+}

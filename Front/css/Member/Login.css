@@ -17,15 +17,10 @@
 
 /* login-form */
 
-.login >.login-container >.login-form>.login-inner-form{
-    justify-content: center;
+.login>.login-container>.login-form>.login-inner-form>form>.input1{
+    margin-bottom: 3rem;
 }
 
-.login >.login-container >.login-form>.login-inner-form >form>.input{
-    width: 30vw;
-    margin-top: 2vw;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
 
 .login >.login-container >.login-form>.login-inner-form >form>.lost-login>a{
     text-decoration: none;
