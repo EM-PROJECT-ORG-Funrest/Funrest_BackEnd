@@ -1,5 +1,4 @@
 document.write('<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
-
 function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -15,8 +14,19 @@ function execDaumPostcode() {
     }).open({
         // 창 띄우는 위치 지정
         // left: (window.screen.width / 2) - (width / 2),
-        // top: (window.screen.height / 2) - (height / 2)
+        // top: (window.screen.height / 2) - (height / 2)\
+        // https://postcode.map.daum.net/guide
     });
 }
 
-// https://postcode.map.daum.net/guide
+function telValidChk() {
+    const tel = document.getElementById("tel").value;
+    const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+    const msg = '유효하지 않는 전화번호입니다.';
+
+	if(pattern.test(tel) === false) { 
+        alert(msg);
+        return false; 
+    }
+    else { return true; }
+}

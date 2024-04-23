@@ -41,6 +41,6 @@
 
 
 /* editProfile-btn */
-.container>.editProfile-btn>.btn{
-    max-width : 28vw;
+.container>form>.editProfile-btn>.btn{
+    max-width : 20vw;
 }
