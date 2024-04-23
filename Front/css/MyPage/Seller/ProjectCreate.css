@@ -17,7 +17,7 @@
 .create>form>.create-project>.create-project-images {
     margin-left: 6vw;
     width: 30vw;
-    height: 90vh; 
+    height: 100vh; 
     background-color: rgb(210, 226, 207);
     
 }
@@ -45,31 +45,88 @@
     margin-top: 2.5vh;
 }
 
+.create>form>.create-project>.create-project-info>.pro-input-text{
+    height: 35vh;
+    width: 48vw;
+}
+
 /* create-project-images */
-.create>form>.create-project>.create-project-images>.create-project-image-insert {
-    padding: 20px 30px;
+
+
+.create>form>.create-project>.create-project-images {
+    margin-left: 6vw;
+    width: 30vw;
+    white-space: nowrap;
+}
+.create>form>.create-project>.create-project-images>.create-project-image-title{
+    font-size: 1.5rem;
+    font-weight: 700;    
+}
+
+.create>form>.create-project>.create-project-images>.create-project-image-mainfile{
+    width: auto;
+}
+
+.create>form>.create-project>.create-project-images>#image_container{
+    height: 25vw;
     width: 100%;
-    margin: 5vh auto;
-    height: 30vh;
+    border: 3px solid rgb(160, 156, 156);
+    overflow: hidden;
+}
+
+
+.create>form>.create-project>.create-project-images>.create-project-image-insert {
+    width: 100%;
+    margin: 2vh auto;
+    height: 20vh;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-x: auto;
+    border: 3px solid rgb(160, 156, 156);
 }
 
-.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list {
-    padding: 10px;
-}
-
-.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox {
-    margin-bottom: 10px;
-}
 
 .create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox .name {
-    display: inline-block;
-    margin-right: 10px;
+    display: flex;
 }
 
 .create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox .delete {
-    display: inline-block;
+    display: flex;
     cursor: pointer;
     color: #ff5353;
+}
+
+
+.create>form>.create-project>.create-project-images>.create-project-image-title{
+    margin-top: 1vh;
+    font-size: 1.5rem;
+    font-weight: 700;    
+    margin-bottom: 2vh;
+}
+
+
+.create>form>.create-project>.create-project-images>.create-project-image-subtitle{
+    margin-top: 1vh;
+    font-size: 1.5rem;
+    font-weight: 700; 
+}
+
+.create>form>.create-project>.create-project-images>.create-project-image-subfile-role{
+    font-size: 0.9rem;
+    font-weight: 700;
+    opacity: 0.7;
+    height: 5vh;
+    width: 100%;
+}
+
+.create>form>.create-pro-button-div{
+    margin-left: 43vw;
+    margin-top: 3vh;
+}
+
+.create>form>.create-pro-button-div>.create-pro-button{
+    width: 50vw;
+    height: 6vh;
+    border: 0;
+    font-weight: 600;
+    font-size: 2rem;
 }
