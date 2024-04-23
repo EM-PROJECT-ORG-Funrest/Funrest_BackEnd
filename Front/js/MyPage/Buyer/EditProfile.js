@@ -19,14 +19,28 @@ function execDaumPostcode() {
     });
 }
 
-function telValidChk() {
+// function telValidChk() {
+//     const tel = document.getElementById("tel").value;
+//     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+//     const msg = '유효하지 않는 전화번호입니다.';
+
+// 	if(pattern.test(tel) === false) { 
+//         alert(msg);
+//         return false; 
+//     }
+//     else { return true; }
+// }
+
+function telValidChk(object) {
     const tel = document.getElementById("tel").value;
     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-    const msg = '유효하지 않는 전화번호입니다.';
+    const el = document.getElementById("tel");
 
-	if(pattern.test(tel) === false) { 
-        alert(msg);
-        return false; 
+    if(pattern.test(tel) === false) { 
+        el.classList.add("is-invalid");
+        return false;
+    } else {
+        el.classList.remove("is-invalid");
+        return true;
     }
-    else { return true; }
 }
