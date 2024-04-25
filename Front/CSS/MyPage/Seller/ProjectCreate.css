@@ -132,5 +132,5 @@
 
 .create>form>.create-pro-button-div>.create-pro-button:hover{
     background-color: rgb(210, 226, 207);
-    transition: 0.7s;
+    transition: 0.5s;
 }

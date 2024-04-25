@@ -83,7 +83,7 @@ function setThumbnail(event) {
               fileBox.appendChild(fileName);
               fileBox.appendChild(deleteBtn);
   
-              document.querySelector('.create-project-image-file-list').appendChild(fileBox);
+              document.querySelector('.update-project-image-file-list').appendChild(fileBox);
   
               fileNo++;
           }
