@@ -4,96 +4,74 @@
 }
 
 /* login-logo */
-
-.login >.login-container > .login-logo{
+.login > .login-logo{
     margin-top: 5vh;
     margin-bottom: 3vh;
 }
 
-.login >.login-container > .login-logo > a >img{
-    width: 13vw;
+.login > .login-logo > a >img{
+    width: 200px;
     height: 9vh;
 }
 
+
 /* login-form */
-
-.login>.login-container>.login-form>.login-inner-form>form>.input1{
-    margin-bottom: 3rem;
+.login .login-form>.login-inner{
+    width:340px;
 }
 
-
-.login >.login-container >.login-form>.login-inner-form >form>.lost-login>a{
-    text-decoration: none;
-    margin-left: 10vw;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    color: black;
-}
-
-.login >.login-container >.login-form>.login-inner-form >form>.lost-login>a:hover{
-    color: rgb(54, 135, 38);
-}
-
-.login >.login-container >.login-form>.login-inner-form >form>button{
-    width: 11vw;
-    height: 5vh;
-    margin-top: 4vh;
-    border: 0;
-    color: white;
-    background-color: rgb(72, 170, 54); 
-    border-radius: 5%;
-    font-size: 1.4rem;
-    font-weight: 700;
-}
-
-
-/* external-login */
-
-.login > .external-login > .external-login-kakao{
-    margin-top: 5vh;
-}
-
-.login > .external-login > .external-login-naver{
-    margin-top: 3vh;
-}
-.login > .external-login > .external-login-kakao>a>img {
-    width: 10vw;
-    height: 4vh;
-    border-radius: 5%;
-}
-
-.login > .external-login > .external-login-naver>a>img {
-    width: 10vw;
-    height: 4vh;
-    border-radius: 5%;
-}
-
-
-
-
-/* join-login */
-
-.login>.join-login{
-    display: flex;
-    justify-content: center;
-    margin-top: 2vh;
-}
-
-
-.login>.join-login>p{
-    opacity: 0.5;
-    font-weight: 700;
+.login .login-form>.login-inner>.lost-login{
+    text-align: end;
     
-    }
-
-.login>.join-login>a{
-    font-weight: 700;
-    text-decoration: none;
-    color: black;
-    opacity: 0.8;
-    margin-left: 1vw;
 }
 
-.login>.join-login>a:hover{
-    color: rgb(54, 135, 38);
+.login .login-form>.login-inner>.lost-login>a{
+    text-decoration: none;
+    color: darkgray
+}
+
+.login .login-form>.login-inner>.btn{
+    width: 300px;
+    height:45px;
+}
+
+.login .login-form>.external-login>.external-login-kakao button{
+    background-color: #FEE500;
+    width:300px; height:45px;
+    position:relative;
+    font-size: smaller;
+}
+
+.login .login-form>.external-login>.external-login-kakao img{
+    width:30px; height:30px;
+    position:absolute;
+    left:8px; top:8px;
+}
+
+.login .login-form>.external-login>.external-login-naver button{
+    background-color: rgb(3, 199, 90); 
+    width:300px; height:45px;
+    position:relative;
+    font-size: smaller;
+    color: white;
+}
+
+.login .login-form>.external-login>.external-login-naver img{
+    width:30px; height:30px;
+    position:absolute;
+    left:8px; top:8px;
+} 
+
+/* login-bottom */
+.login .login-bottom>.join-login>span{
+    color: darkgray;
+}
+
+.login .login-bottom>.join-login>a{
+    text-decoration: none;
+    color: rgb(171, 199, 114);
+}
+
+.login .login-bottom>.join-login>a:hover{
+    color: rgb(139, 165, 92);
 }

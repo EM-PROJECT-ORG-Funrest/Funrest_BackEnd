@@ -1,0 +1,34 @@
+/* mypage-buyer */
+/* buyer-top */
+.container .mypage-buyer>.buyer-top{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.container .mypage-buyer>.buyer-top>div p{
+    line-height: 50px;
+    margin: 0;
+}
+.container .mypage-buyer>.buyer-top>div a{
+    text-decoration: none;
+    color: rgb(171, 199, 114);
+}
+.container .mypage-buyer>.buyer-top>div h1{
+    line-height: 80px;
+}
+
+
+/* buyer-ad */
+.container .mypage-buyer>.buyer-ad>.ad{
+    width:545px;
+    height:130px;
+}
+
+
+/* buyer-bottom */
+.container .mypage-buyer>.buyer-bottom .btn{
+    max-width : 545px;
+}
+.container .mypage-buyer>.buyer-bottom .btn>p{
+    margin : 0;
+}
