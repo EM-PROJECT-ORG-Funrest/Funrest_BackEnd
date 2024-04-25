@@ -30,27 +30,23 @@
 }
 
 /* seller-adzone */
-
 .seller-mypage>.row>.seller-main>.seller-adzone{
-    margin-top: 5vh;
-    margin-left: 22.5vw;
-    width: 35vw;
-    height: 20vh;
-    margin-bottom: 10vh;
+    max-width: 30vw;
 }
 
 .seller-mypage>.row>.seller-main>.seller-adzone>a>img{
-    width: 35vw;
-    height: 20vh;
+    /* width: 35vw;
+    height: 20vh; */
 }
 
 /* seller-currnetproject-block */
 
 .seller-mypage>.row>.seller-main>.seller-currentproject-block{
-    width: 35vw;
+    /* width: 35vw; */
     background-color: rgb(210, 226, 207);
-    margin-left: 22.5vw;
+    /* margin-left: 22.5vw; */
     border-radius: 1%;
+    /* max-width: 50vw; */
 }
 
 /* seller-currnetproject-maintext */
@@ -58,13 +54,13 @@
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject-maintitle{
     padding-top: 1vh;
     margin-bottom: 3vh;
-    margin-left: 1.5vw;
+    /* margin-left: 1.5vw; */
     text-align: left;
     opacity: 0.7;
     font-size: 1.2rem;
     font-weight: 700;
 }
-    
+
 
 
 /* seller-currnetproject */
@@ -73,14 +69,15 @@
 
 /* seller-currentproject-img */
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-img>img{
-    width: 32vw;
-    height: 20vh;
+    /* width: 32vw;
+    height: 20vh; */
 }
 
 /* seller-currentproject-btn */
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn{
-    display: flex;
-    margin-left: 1.5vw;
+    /* display: flex; */
+    /* margin-left: 1.5vw; */
+    --bs-gutter-x: 0;
 }
 
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn>.seller-currentproject-title{
@@ -114,7 +111,7 @@
 
 /* seller-currentproject-projectmanage */
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn{
-    width: 91%;
+    /* width: 91%; */
     margin-top: 2vh;
     margin-bottom: 5vh;
 }
