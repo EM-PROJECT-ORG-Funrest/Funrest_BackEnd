@@ -70,7 +70,7 @@
 .create>form>.create-project>.create-project-images>#image_container{
     height: 25vw;
     width: 100%;
-    border: 3px solid rgb(160, 156, 156);
+    border: 2px solid rgb(255, 255, 255);
     overflow: hidden;
 }
 
@@ -81,8 +81,7 @@
     height: 20vh;
     box-sizing: border-box;
     overflow-x: auto;
-    border: 3px solid rgb(160, 156, 156);
-}
+    border: 2px solid rgb(255, 255, 255);}
 
 
 .create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox .name {
@@ -129,4 +128,9 @@
     border: 0;
     font-weight: 600;
     font-size: 2rem;
+}
+
+.create>form>.create-pro-button-div>.create-pro-button:hover{
+    background-color: rgb(210, 226, 207);
+    transition: 0.7s;
 }

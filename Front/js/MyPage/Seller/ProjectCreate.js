@@ -117,3 +117,94 @@ function setThumbnail(event) {
       document.querySelector("#file" + num).remove();
       filesArr[num].is_delete = true;
   }
+
+
+  function validateForm() {
+    // 카테고리 선택 확인
+    var category = document.querySelector('select[name="language"]').value;
+    if (category === "none") {
+        alert("프로젝트 카테고리를 선택해주세요.");
+        return false;
+    }
+
+    // 프로젝트 이름 확인
+    var projectName = document.querySelector('input[placeholder="프로젝트 이름을 입력하세요."]').value.trim();
+    if (projectName === "") {
+        alert("프로젝트 이름을 입력하세요.");
+        return false;
+    }
+
+    // 프로젝트 가격 확인
+    var projectPrice = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').value.trim();
+    if (projectPrice === "") {
+        alert("프로젝트 가격을 입력하세요.");
+        return false;
+    }
+
+    // 상세 설명 확인
+    var projectDescription = document.querySelector('.pro-input-text').value.trim();
+    if (projectDescription === "") {
+        alert("프로젝트 상세 설명을 입력하세요.");
+        return false;
+    }
+
+    return true;
+}
+
+// 폼 제출 전에 유효성 검사 실행
+document.querySelector('form').addEventListener('submit', function(event) {
+    if (!validateForm()) {
+        event.preventDefault(); // 폼 제출 중지
+    }
+});
+
+// 숫자만 입력되도록 유효성 검사 함수
+function validatePrice(event) {
+    var keyCode = event.keyCode;
+    // 숫자 키의 keyCode는 48부터 57까지입니다.
+    if (keyCode < 48 || keyCode > 57) {
+        event.preventDefault(); // 입력한 키가 숫자가 아니면 입력 방지
+    }
+}
+
+// 프로젝트 가격 입력 필드에 이벤트 리스너 추가
+document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('keypress', validatePrice);
+
+
+// 프로젝트 가격에 쉼표 삽입하는 함수
+function addCommasToPrice(price) {
+    // 숫자를 문자열로 변환 후, 쉼표 삽입
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// 프로젝트 가격 입력 필드의 값이 변경될 때마다 호출되는 함수
+function formatPriceInput() {
+    var projectPriceInput = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]');
+    var currentPrice = projectPriceInput.value.replace(/,/g, ''); // 쉼표 제거한 현재 값
+
+    // 현재 값이 숫자가 아니면 제거하고 리턴
+    if (isNaN(currentPrice)) {
+        projectPriceInput.value = '';
+        return;
+    }
+
+    // 숫자를 천 단위로 쉼표로 구분하여 표시
+    projectPriceInput.value = addCommasToPrice(currentPrice);
+}
+
+// 프로젝트 가격 입력 필드에 이벤트 리스너 추가
+document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('input', formatPriceInput);
+
+
+// 프로젝트 상세설명 입력 필드 길이 제한 함수
+function limitDescriptionLength(event) {
+    var maxLength = 1500; // 최대 길이 설정
+    var descriptionInput = document.querySelector('.pro-input-text');
+    if (descriptionInput.value.length >= maxLength) {
+        // 입력 길이가 최대 길이 이상이면 입력 방지
+        event.preventDefault();
+    }
+}
+
+// 프로젝트 상세설명 입력 필드에 이벤트 리스너 추가
+document.querySelector('.pro-input-text').addEventListener('input', limitDescriptionLength);
