@@ -63,33 +63,6 @@
 } 
 
 /* login-bottom */
-/* .login .login-bottom>.external-login>.external-login-kakao button{
-    background-color: #FEE500;
-    width:300px; height:45px;
-    position:relative;
-    font-size: smaller;
-}
-
-.login .login-bottom>.external-login>.external-login-kakao img{
-    width:30px; height:30px;
-    position:absolute;
-    left:8px; top:8px;
-}
-
-.login .login-bottom>.external-login>.external-login-naver button{
-    background-color: rgb(3, 199, 90); 
-    width:300px; height:45px;
-    position:relative;
-    font-size: smaller;
-    color: white;
-}
-
-.login .login-bottom>.external-login>.external-login-naver img{
-    width:30px; height:30px;
-    position:absolute;
-    left:8px; top:8px;
-} */
-
 .login .login-bottom>.join-login>span{
     color: darkgray;
 }

@@ -1,0 +1,9 @@
+
+.signup>.external-signup{
+    width: 100%;
+    justify-content: center;
+}
+
+.signup>.external-signup>.external-signup-img>a>img{
+    width: 5vw;
+}
