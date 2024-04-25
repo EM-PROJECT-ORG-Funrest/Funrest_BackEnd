@@ -1,60 +1,34 @@
 /* seller-showCurrentBox */
-.seller-mypage>.row>.seller-main>.seller-showCurrentBox{
-    /* text-align: center;
-    align-items: center;
-    margin-left: 31vw;
-    height: 15vh;
-    width: 18vw; */
-    /* background-color: rgb(210, 226, 207);
-    border-radius: 3%; */
-}
-
-.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner{
-    /* font-size: 1rem;
-    font-weight: 700;
-    padding-top: 1.5vh; */
-}
-
 .seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>p{
     line-height: 50px;
     margin: 0;
 }
-
 .seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a{
     text-decoration: none;
     color: rgb(171, 199, 114);
 }
-
 .seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a>h1{
     line-height: 80px;
 }
+
 
 /* seller-adzone */
 .seller-mypage>.row>.seller-main>.seller-adzone{
     max-width: 30vw;
 }
 
-.seller-mypage>.row>.seller-main>.seller-adzone>a>img{
-    /* width: 35vw;
-    height: 20vh; */
-}
 
 /* seller-currnetproject-block */
-
 .seller-mypage>.row>.seller-main>.seller-currentproject-block{
-    /* width: 35vw; */
     background-color: rgb(210, 226, 207);
-    /* margin-left: 22.5vw; */
     border-radius: 1%;
-    /* max-width: 50vw; */
 }
 
-/* seller-currnetproject-maintext */
 
+/* seller-currnetproject-maintext */
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject-maintitle{
     padding-top: 1vh;
     margin-bottom: 3vh;
-    /* margin-left: 1.5vw; */
     text-align: left;
     opacity: 0.7;
     font-size: 1.2rem;
@@ -62,30 +36,15 @@
 }
 
 
-
-/* seller-currnetproject */
-.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject{
-}
-
-/* seller-currentproject-img */
-.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-img>img{
-    /* width: 32vw;
-    height: 20vh; */
-}
-
 /* seller-currentproject-btn */
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn{
-    /* display: flex; */
-    /* margin-left: 1.5vw; */
     --bs-gutter-x: 0;
 }
-
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn>.seller-currentproject-title{
     font-size: 1.15rem;
     margin-top: 0.3rem;
     font-weight: 700;
 }
-
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn>.seller-currentproject-payment{
     background-color: white;
     border-radius: 8%;
@@ -96,7 +55,6 @@
     font-weight: 600;
     opacity: .6;
 }
-
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn>.seller-currentproject-notify{
     background-color: white;
     border-radius: 8%;
@@ -109,24 +67,20 @@
     opacity: .6;
 }
 
+
 /* seller-currentproject-projectmanage */
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn{
-    /* width: 91%; */
     margin-top: 2vh;
     margin-bottom: 5vh;
 }
-
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn:hover{
     background-color: rgb(144, 192, 136);
     transition: .5s;
 }
-
-
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn>.seller-currentproject-projectmanage-btn-flex{
     justify-content: space-between;
     display: flex;
 }
-
 .seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn>.seller-currentproject-projectmanage-btn-flex>.seller-currentproject-projectmanage-text{
     font-weight: 700;
     opacity: 0.7;
