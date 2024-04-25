@@ -31,10 +31,10 @@ function execDaumPostcode() {
 //     else { return true; }
 // }
 
-function telValidChk(object) {
-    const tel = document.getElementById("tel").value;
-    const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+function telValidChk() {
     const el = document.getElementById("tel");
+    const tel = el.value;
+    const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 
     if(pattern.test(tel) === false) { 
         el.classList.add("is-invalid");

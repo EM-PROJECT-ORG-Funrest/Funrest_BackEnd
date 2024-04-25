@@ -46,12 +46,12 @@
                 
                 <label for="" class="">비밀번호</label>
                 <input type="password" id="signup-pw" class="form-control mt-1 mb-2" placeholder="비밀번호 입력">
-                <div class="invalid-feedback"></div>
+                <div class="invalid-feedback">비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.</div>
                 <input type="password" id="signup-pw-chk" class="form-control mb-2" placeholder="비밀번호 확인">
-                <div class="invalid-feedback"></div>
+                <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
 
                 <div class="signup-btn row justify-content-center mt-5">
-                    <button type="submit" class="btn btn-success mb-3" onclick="signupValidChk()">약관 동의 후 가입 완료하기</button>
+                    <button type="button" class="btn btn-success mb-3" onclick="signupValidChk()">약관 동의 후 가입 완료하기</button>
                 </div>
                 <!-- <button class="btn btn-success" onclick="signupValidChk()">약관 동의 후 가입 완료하기</button> -->
             </form>
