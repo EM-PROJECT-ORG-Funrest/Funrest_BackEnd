@@ -1,23 +1,32 @@
-/* seller-showCurrentPage */
-.seller-mypage>.row>.seller-main>.seller-showCurrentPage{
-    text-align: center;
+/* seller-showCurrentBox */
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox{
+    /* text-align: center;
     align-items: center;
     margin-left: 31vw;
     height: 15vh;
-    width: 18vw;
-    background-color: rgb(210, 226, 207);
-    border-radius: 3%;
+    width: 18vw; */
+    /* background-color: rgb(210, 226, 207);
+    border-radius: 3%; */
 }
 
-.seller-mypage>.row>.seller-main>.seller-showCurrentPage>.seller-showCurrentPage-title{
-    font-size: 1rem;
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner{
+    /* font-size: 1rem;
     font-weight: 700;
-    padding-top: 1.5vh;
+    padding-top: 1.5vh; */
 }
 
-.seller-mypage>.row>.seller-main>.seller-showCurrentPage>.seller-showCurrentPage-number{
-    font-weight: 700;
-    font-size: 2rem;
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>p{
+    line-height: 50px;
+    margin: 0;
+}
+
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a{
+    text-decoration: none;
+    color: rgb(171, 199, 114);
+}
+
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a>h1{
+    line-height: 80px;
 }
 
 /* seller-adzone */
