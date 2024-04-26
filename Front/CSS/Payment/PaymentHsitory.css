@@ -1,3 +1,91 @@
+/* order-product-box */
+
+.container>.order-product-box>.order-product-title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container>.order-product-box>.order-product-title>form{
+    margin-top: 2.5vh;
+    display: flex;
+    height: 3vh;
+}
+
+.container>.order-product-box>.order-product-title>form>button{
+    border: 0;
+    margin-left: 1vw;
+    width: 3.5vw;
+    background-color: rgb(72, 170, 54);
+    color: white;
+    border-radius: 7%;
+}
+
+.container>.order-product-box>.order-product-title>form>button:hover{
+    background-color: rgb(30, 134, 12);
+
+}
+
+
+
+/* order-product>.table td */
 .container>.order-product-box>.order-product>.table td{
     vertical-align : middle;
+    
+}
+
+/* payment-order-text */
+
+.container>.payment-order-text{
+    display: flex;
+    background-color: rgb(210, 226, 207);
+    padding: 2rem;
+}
+
+.container>.payment-order-text>.payment-order-text-title{
+    margin-top: 2vh;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.container>.payment-order-text>.payment-order-text-list{
+    margin-left: 7vw;
+}
+
+.container>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
+    font-weight: 700;
+}
+
+
+/* payment-order-btn */
+
+.container>.payment-order-btn{
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.container>.payment-order-btn>.payment-order-btn-home{
+    background-color: rgb(72, 170, 54);
+    color: white;
+    border: 0;
+    padding: 0.7rem 1.3rem 0.7rem 1.3rem;
+    margin-right: 20vw;
+    border-radius: 7%;
+}
+
+.container>.payment-order-btn>.payment-order-btn-home:hover{
+    background-color: rgb(30, 134, 12);
+}
+
+
+.container>.payment-order-btn>.payment-order-btn-mypage{
+    background-color: rgb(72, 170, 54);
+    color: white;
+    border: 0;
+    padding: 0.7rem 2.2rem 0.7rem 2.2rem;
+    border-radius: 7%;
+}
+
+.container>.payment-order-btn>.payment-order-btn-mypage:hover{
+    background-color: rgb(30, 134, 12);
 }
