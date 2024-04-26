@@ -8,8 +8,8 @@ function execDaumPostcode() {
             var roadAddr = data.roadAddress; // 도로명 주소 변수
 
             // 우편번호와 주소 정보를 해당 필드에 넣음.
-            document.getElementById("post-code").value = data.zonecode;
-            document.getElementById("road-addr").value = roadAddr;
+            document.getElementById("edit-post-code").value = data.zonecode;
+            document.getElementById("edit-road-addr").value = roadAddr;
         }
     }).open({
         // 창 띄우는 위치 지정
@@ -18,18 +18,6 @@ function execDaumPostcode() {
         // https://postcode.map.daum.net/guide
     });
 }
-
-// function telValidChk() {
-//     const tel = document.getElementById("tel").value;
-//     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-//     const msg = '유효하지 않는 전화번호입니다.';
-
-// 	if(pattern.test(tel) === false) { 
-//         alert(msg);
-//         return false; 
-//     }
-//     else { return true; }
-// }
 
 function telValidChk() {
     const el = document.getElementById("tel");
@@ -43,4 +31,8 @@ function telValidChk() {
         el.classList.remove("is-invalid");
         return true;
     }
+}
+
+function editProfile() {
+    
 }

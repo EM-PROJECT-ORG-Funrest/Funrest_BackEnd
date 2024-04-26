@@ -12,17 +12,25 @@
     text-align: center;
 }
 
-.container>.buyer-info-box>.buyer-info>.buyer-info-input .title{
-    text-align: center;
-    line-height: 40px;
-    padding:0;
+/* form */
+
+
+/* buyer-info */
+.container>form>.buyer-info-box>.buyer-info input{
+    max-width: 500px;
 }
 
-.container>.buyer-info-box>.buyer-info>.buyer-info-input>.addr>.input-group{
-    padding: 0;
+.container>form>.buyer-info-box>.buyer-info .post-code{
+    max-width: 415px;
 }
 
-.container>.pay-box>.form-check {
-    display: flex;
-    justify-content: center;
+.container>form>.buyer-info-box>.buyer-info .input-group{
+    max-width: 500px;
+}
+.container>form>.buyer-info-box>.buyer-info textarea{
+    max-width: 500px;
+    height: 100px;
+}
+.container>form>.buyer-info-box>.buyer-info>.buyer-info-input .pay-chk>.pay-btn{
+    max-width: 500px;
 }
