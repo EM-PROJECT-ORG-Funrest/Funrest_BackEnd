@@ -1,6 +1,2 @@
--- ~2024/05/01(수) to do list <br>
-전체 코드 살펴보기 <br>
-결제 페이지 부분 미완성  <br>
-유효성 검사 부분 완성하기 (form 태그 부분)  <br>
-- mypage 비밀번호 변경 유효성 검사  <br>
-- 로그인 유효성 검사
+![header](https://capsule-render.vercel.app/api?type=wave&color=auto&height=300&section=header&text=capsule%20render&fontSize=90)
+<img src="https://capsule-render.vercel.app/api?type=wave&color=auto&height=300&section=header&text=capsule%20render&fontSize=90" />
