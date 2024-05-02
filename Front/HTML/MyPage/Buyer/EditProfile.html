@@ -19,7 +19,7 @@
 <body>
     <div class="container p-5">
         <h3>프로필 정보 설정</h3>
-        <form name="edit" id="edit" onsubmit="return editProfile()" action="" method="" enctype="text/plain">
+        <form name="edit" id="edit" onsubmit="editProfile(event)" action="" method="" enctype="text/plain">
             <div class="editProfile-img row">
                 <h5 class="mt-3 text-center">프로필 사진</h5>
                 <div class="img-box mt-4">
@@ -30,10 +30,9 @@
                 </div>
             </div>
             <div class="editProfile-addr row mt-4 justify-content-center p-4">
-                <!-- <div class="title text-center m-2">주소</div> -->
                 <div class="input-group p-0 w-auto justify-content-center">
                     <input id="edit-post-code" class="post-code form-control m-1" type="text" placeholder="우편번호" aria-describedby="edit-post-code-btn" disabled>
-                    <button class="btn btn-outline-success m-1" type="button" id="edit-post-code-btn" onclick="execDaumPostcode()">주소 검색</button>
+                    <button id="edit-post-code-btn" class="btn btn-outline-success m-1" type="button" onclick="execDaumPostcode()">주소 검색</button>
                     <div class="w-100"></div>
                     <input id="edit-road-addr" class="road-addr form-control m-1" type="text" placeholder="도로명주소" disabled>
                     <div class="w-100"></div>
@@ -41,10 +40,9 @@
                 </div>
             </div>
             <div class="editProfile-tel row m-3 justify-content-center">
-                <!-- <div class="title text-center m-2">전화</div> -->
                 <div class="input-group p-0 justify-content-center">
-                    <input id="tel" class="tel form-control m-1" type="text" placeholder="연락처를 입력해 주세요." aria-describedby="button-addon2" required>
-                    <button class="btn btn-outline-success m-1" onclick="telValidChk()" type="button" id="button-addon2">인증하기</button>
+                    <input id="tel" class="tel form-control m-1" type="text" placeholder="연락처를 입력해 주세요." aria-describedby="edit-tel-btn">
+                    <button id="edit-tel-btn" class="btn btn-outline-success m-1" onclick="telValidChk()" type="button">인증하기</button>
                     <div class="invalid-feedback"></div>
                 </div>
             </div>

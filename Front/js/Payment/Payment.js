@@ -19,54 +19,54 @@ function execDaumPostcode() {
     });
 }
 
-function paymentValidChk() {
+function telValidChk(tel) {
+    const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+
+    if(pattern.test(tel.value) === false) { 
+        tel.classList.add("is-invalid");
+        return false;
+    } else {
+        tel.classList.remove("is-invalid");
+        return true;
+    }
+}
+
+function paymentValidChk(event) {
+    event.preventDefault();
+    //console.log("새로고침 그만");
+
+    //이름 not null
+    //연락처 not null & pattern
+    //우편번호 not null
+    //checkbox not null
+    
     const name = document.getElementById("payment-name");
     const phone = document.getElementById("payment-phone");
     const postCode = document.getElementById("payment-post-code");
-    const isChked = document.querySelector('#pay-chk').checked;
+    const chkBox = document.getElementById("pay-chkbox");
 
-    if(!checkExistData(name.value)){
-        //이름 null chk
-        name.classList.add("invalid-feedback");
-        return false;
-    } else if(!checkValidTel(phone)){
-        //연락처 null & valid chk
-        phone.classList.remove("invalid-feedback");
-        phone.classList.add("invalid-feedback");
-        return false;
-    } else if(!checkExistData(postCode.value)){
-        //우편번호 null chk
-        phone.classList.remove("invalid-feedback");
-        postCode.classList.add("invalid-feedback");
-        return false;
-    } else if(!isChked){
-        //pay-radio boolean chk -> alert
-        postCode.classList.remove("invalid-feedback");
-        alert("주문 내용 확인과 회원의 개인정보 이용 및 제공, 결제에 동의해 주세요.");
-        return false;
-    }
-
-    return true;
-}
-
-function checkExistData(value) {
-    //공란 항목 체크
-    if (value == "") {
-        return false;
-    }
-    return true;
-}
-
-function checkValidTel(el) {
-    if(!checkExistData(el.value)){
-        return false;
-    }
-
-    const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-
-    if(pattern.test(el.value) === false) { 
+    if(name.value === ""){
+        name.classList.add("is-invalid");
         return false;
     } else {
-        return true;
+        name.classList.remove("is-invalid");
+    }
+
+    if(phone.value === "" || !telValidChk(phone)){
+        phone.classList.add("is-invalid");
+        return false;
+    } else {
+        phone.classList.remove("is-invalid");
+    }
+
+    if(postCode.value === "") {
+        postCode.classList.add("is-invalid");
+        return false;
+    } else {
+        postCode.classList.remove("is-invalid");
+    }
+
+    if(chkBox.value !== "1"){
+        window.alert("결제 동의 항목에 체크해 주세요.");
     }
 }

@@ -20,19 +20,34 @@ function execDaumPostcode() {
 }
 
 function telValidChk() {
-    const el = document.getElementById("tel");
-    const tel = el.value;
+    const tel = document.getElementById("tel");
     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 
-    if(pattern.test(tel) === false) { 
-        el.classList.add("is-invalid");
+    if(pattern.test(tel.value) === false) { 
+        tel.classList.add("is-invalid");
         return false;
     } else {
-        el.classList.remove("is-invalid");
+        tel.classList.remove("is-invalid");
         return true;
     }
 }
 
-function editProfile() {
-    
+function editProfile(event) {
+    event.preventDefault();
+
+    const postCode = document.getElementById("edit-post-code");
+    const tel = document.getElementById("tel");
+
+    if(postCode.value === "" && tel.value === ""){
+        window.alert("변경을 원하시는 항목에 값을 입력해 주세요.");
+        return false;
+    } 
+
+    if(tel.value !== ""){
+        if(!telValidChk()){
+            return false;
+        } else if(telValidChk){
+            //인증하기 안 하면 못 넘어가게 막아야 하는데 어떻게 하지..?
+        }   
+    }
 }
