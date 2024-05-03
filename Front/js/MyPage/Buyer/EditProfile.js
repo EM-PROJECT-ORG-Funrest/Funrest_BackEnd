@@ -32,6 +32,13 @@ function telValidChk() {
     }
 }
 
+// 휴대폰 번호가 인증되었는지 확인하는 함수
+function isPhoneVerified(phoneNumber) {
+    // 여기에 휴대폰 번호 인증 여부를 확인하는 로직을 추가합니다.
+    // 예를 들어, 휴대폰 번호가 유효한지, 인증된 번호인지 등을 확인할 수 있습니다.
+    return true;
+}
+
 function editProfile(event) {
     event.preventDefault();
 
@@ -44,10 +51,13 @@ function editProfile(event) {
     } 
 
     if(tel.value !== ""){
-        if(!telValidChk()){
+        
+        // 휴대폰 번호가 인증되지 않은 경우
+        if (!isPhoneVerified(phoneValue)) {
+            alert("휴대폰 번호를 인증하세요.");
             return false;
-        } else if(telValidChk){
-            //인증하기 안 하면 못 넘어가게 막아야 하는데 어떻게 하지..?
-        }   
+        }
+
+        this.submit();
     }
 }
