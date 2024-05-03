@@ -18,3 +18,10 @@ function btnClick() {
          pro_story_hidden_button.innerText = "스토리 더보기▽";
       }
   });
+
+
+  const header_btn = document.querySelector('.header-btn');
+
+  header_btn.onclick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });  
+  }
