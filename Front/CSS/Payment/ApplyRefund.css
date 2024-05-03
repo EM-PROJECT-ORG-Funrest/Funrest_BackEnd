@@ -1,0 +1,88 @@
+body{
+    height: 1800px;
+}
+
+/* 결제했던 상품 선택 */
+.container>.refund-product>.choice-box{
+    display: flex;
+    justify-content: right;
+    margin-bottom: 5rem;
+}
+.container>.refund-product>.choice-box>.pay-product-select{
+    width: 30rem;
+    margin-left: 2rem;
+}
+
+th,td{
+    text-align: center;
+    justify-content: center;
+}
+.information-detail{
+    text-align: left;
+    margin-left: 4rem;
+}
+.td1{
+    text-align: left;
+}
+.td2{
+    margin-top: 5rem;
+}
+.td3{
+    margin-top: 4rem;
+}
+.td4{
+    margin-top: 5rem;
+}
+
+
+/* 환불 사유 */
+.container>.reason-box{
+   justify-content: center;
+}
+.container>.reason-box>.refund{}
+.container>.reason-box>.refund .reufnd-reason{
+    width: 200px;
+    height: 30px;
+}
+
+.container>.reason-box>.refund>.refund-reason-text>input{
+    width: 100%;
+    height: 20vh;
+    /* width: 73rem;
+    height: 20rem; */
+}
+
+
+/* payment-order-text */
+.container>.payment-order-text{
+    display: flex;
+    background-color: rgb(210, 226, 207);
+    padding: 2rem;
+}
+.container>.payment-order-text>.payment-order-text-title{
+    margin-top: 2vh;
+    font-weight: 700;
+    font-size: 1.5rem;
+    width: 15rem;
+}
+.container>.payment-order-text>.payment-order-text-list{
+    margin-left: 1vw;
+}
+.container>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
+    font-weight: 700;
+}
+
+/* btn-apply */
+.container>.btn-apply{
+    border: none;
+    background-color: #38872b;
+    color: white;
+    padding: 0.6rem;
+    width: 80%;
+    margin: auto;
+    display: block;
+
+}
+.container>.btn-apply:hover{
+    background-color: #2d6b22;
+}

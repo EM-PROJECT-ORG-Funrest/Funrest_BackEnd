@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "Google";
+    src: url("./font/NotoSansKR-VariableFont_wght.ttf");
+}
+
+* {
+    font-family: "Google";
+    box-sizing: border-box;
+}
+
+.btn-success {
+    background-color: rgb(171, 199, 114);
+    border-color:  rgb(171, 199, 114);
+}
+.btn-success:hover, .btn:active, .btn:focus{
+    background-color:rgb(139, 165, 92);
+    border-color:  rgb(139, 165, 92);
+}
+
+.btn-outline-success{
+    color: rgb(171, 199, 114);
+    border-color: rgb(171, 199, 114);
+}
+
+.btn-outline-success:hover{
+    background-color: rgb(171, 199, 114);
+    border-color: rgb(171, 199, 114);
+}
+
+.btn:active, .btn:focus {
+    outline:none !important;
+    box-shadow:none !important;
+}
