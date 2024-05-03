@@ -1,3 +1,4 @@
+
 document.write('<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
 function execDaumPostcode() {
     new daum.Postcode({
@@ -70,3 +71,4 @@ function paymentValidChk(event) {
         window.alert("결제 동의 항목에 체크해 주세요.");
     }
 }
+

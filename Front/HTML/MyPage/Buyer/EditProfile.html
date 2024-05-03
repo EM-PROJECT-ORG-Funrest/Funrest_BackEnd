@@ -31,8 +31,10 @@
             </div>
             <div class="editProfile-addr row mt-4 justify-content-center p-4">
                 <div class="input-group p-0 w-auto justify-content-center">
-                    <input id="edit-post-code" class="post-code form-control m-1" type="text" placeholder="우편번호" aria-describedby="edit-post-code-btn" disabled>
-                    <button id="edit-post-code-btn" class="btn btn-outline-success m-1" type="button" onclick="execDaumPostcode()">주소 검색</button>
+
+                    <input id="post-code" class="post-code form-control m-1" type="text" placeholder="우편번호" aria-describedby="button-addon1" disabled>
+                    <button class="btn btn-outline-success m-1" onclick="execDaumPostcode()" type="button" id="button-addon1" onclick="execDaumPostcode()">주소 검색</button>
+
                     <div class="w-100"></div>
                     <input id="edit-road-addr" class="road-addr form-control m-1" type="text" placeholder="도로명주소" disabled>
                     <div class="w-100"></div>

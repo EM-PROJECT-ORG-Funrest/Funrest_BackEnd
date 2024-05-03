@@ -164,7 +164,7 @@ a{
 
 .pro-main> .pro-sub >.pro-sub-box{
     border-radius: 5%;
-    height: 60vh;
+    height: 650px;
     width: 31vw;    
     background-color: rgb(246, 248, 244);
     position: fixed;
@@ -319,4 +319,29 @@ a{
     margin-top: 1rem;
     opacity: 0.5;
     font-size: 0.9rem;
+}
+
+/* header-btn */
+.pro-main> .header-btn{
+    position: fixed;
+    top: 90%;
+    left: 90%;
+    border: none;
+}
+
+.pro-main> .header-btn>button{
+    background-color: rgb(72, 170, 54);
+    border: 0;
+    border-radius: 10%;
+    color: white;
+}
+
+.pro-main> .header-btn>button:hover{
+    background-color: rgb(65, 153, 50);
+}
+
+
+
+.pro-main> .header-btn>div{
+    font-size: 0.8rem;
 }

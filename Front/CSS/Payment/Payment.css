@@ -1,3 +1,4 @@
+
 .container>.order-product-box>.order-product>.table td{
     vertical-align : middle;
 }
@@ -37,4 +38,5 @@
 }
 .container>form>.buyer-info-box>.buyer-info>.buyer-info-input .pay-chk>.pay-btn{
     max-width: 500px;
+
 }
