@@ -1,3 +1,4 @@
+
 document.write('<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
 function execDaumPostcode() {
     new daum.Postcode({
@@ -8,8 +9,8 @@ function execDaumPostcode() {
             var roadAddr = data.roadAddress; // 도로명 주소 변수
 
             // 우편번호와 주소 정보를 해당 필드에 넣음.
-            document.getElementById("post-code").value = data.zonecode;
-            document.getElementById("road-addr").value = roadAddr;
+            document.getElementById("edit-post-code").value = data.zonecode;
+            document.getElementById("edit-road-addr").value = roadAddr;
         }
     }).open({
         // 창 띄우는 위치 지정
@@ -19,28 +20,35 @@ function execDaumPostcode() {
     });
 }
 
-// function telValidChk() {
-//     const tel = document.getElementById("tel").value;
-//     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-//     const msg = '유효하지 않는 전화번호입니다.';
-
-// 	if(pattern.test(tel) === false) { 
-//         alert(msg);
-//         return false; 
-//     }
-//     else { return true; }
-// }
-
-function telValidChk(object) {
-    const tel = document.getElementById("tel").value;
+function telValidChk() {
+    const tel = document.getElementById("tel");
     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
-    const el = document.getElementById("tel");
 
-    if(pattern.test(tel) === false) { 
-        el.classList.add("is-invalid");
+    if(pattern.test(tel.value) === false) { 
+        tel.classList.add("is-invalid");
         return false;
     } else {
-        el.classList.remove("is-invalid");
+        tel.classList.remove("is-invalid");
         return true;
+    }
+}
+
+function editProfile(event) {
+    event.preventDefault();
+
+    const postCode = document.getElementById("edit-post-code");
+    const tel = document.getElementById("tel");
+
+    if(postCode.value === "" && tel.value === ""){
+        window.alert("변경을 원하시는 항목에 값을 입력해 주세요.");
+        return false;
+    } 
+
+    if(tel.value !== ""){
+        if(!telValidChk()){
+            return false;
+        } else if(telValidChk){
+            //인증하기 안 하면 못 넘어가게 막아야 하는데 어떻게 하지..?
+        }   
     }
 }

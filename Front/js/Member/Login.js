@@ -1,3 +1,4 @@
+
 // 참고자료: https://soyeon-kim.tistory.com/28
 // 로그인 유효성 검사
 function submit_check() {
