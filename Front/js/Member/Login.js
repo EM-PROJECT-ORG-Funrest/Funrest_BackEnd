@@ -1,20 +1,21 @@
-function loginValidChk() {
-    const elLoginId = document.getElementById("login-id");
-    const elLoginPw = document.getElementById("login-pw");
-    const loginid = elLoginId.value;
-    const loginpw = elLoginPw.value;
+// 참고자료: https://soyeon-kim.tistory.com/28
+// 로그인 유효성 검사
+function submit_check() {
 
-    if (loginid === '') {
-        elLoginId.classList.add("is-invalid");
-        
-        return false;
-    } else if (loginpw === '') {
-        elLoginId.classList.remove("is-invalid");
-        elLoginPw.classList.add("is-invalid");
+    var id = document.getElementById("id");
+    var pw = document.getElementById("pw");
 
+    if (id.value == "") {
+        alert("아이디를 입력하세요");
+        id.focus;
         return false;
+    } else if (pw.value == "") {
+        alert("비밀번호를 입력하세요");
+        pw.focus();
+        return false;
+    } else {
+        alert("제출");
+        submit();
     }
 
-    elLoginPw.classList.remove("is-invalid");
-    return true;
 }

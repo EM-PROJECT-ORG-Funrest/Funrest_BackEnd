@@ -1,0 +1,88 @@
+/* seller-showCurrentBox */
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>p{
+    line-height: 50px;
+    margin: 0;
+}
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a{
+    text-decoration: none;
+    color: rgb(171, 199, 114);
+}
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a>h1{
+    line-height: 80px;
+}
+
+
+/* seller-adzone */
+.seller-mypage>.row>.seller-main>.seller-adzone{
+    max-width: 30vw;
+}
+
+
+/* seller-currnetproject-block */
+.seller-mypage>.row>.seller-main>.seller-currentproject-block{
+    background-color: rgb(210, 226, 207);
+    border-radius: 1%;
+}
+
+
+/* seller-currnetproject-maintext */
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject-maintitle{
+    padding-top: 1vh;
+    margin-bottom: 3vh;
+    text-align: left;
+    opacity: 0.7;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+
+/* seller-currentproject-btn */
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn{
+    --bs-gutter-x: 0;
+}
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn>.seller-currentproject-title{
+    font-size: 1.15rem;
+    margin-top: 0.3rem;
+    font-weight: 700;
+}
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn>.seller-currentproject-payment{
+    background-color: white;
+    border-radius: 8%;
+    padding: 0.3rem;
+    margin-left: 8.5vw;
+    margin-top: .3vw;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: .6;
+}
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-btn>.seller-currentproject-notify{
+    background-color: white;
+    border-radius: 8%;
+    padding: 0.3rem;
+    margin-left: 1.5vw;
+    margin-top: .3vw;
+    margin-right: 1.5vw;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: .6;
+}
+
+
+/* seller-currentproject-projectmanage */
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn{
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+}
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn:hover{
+    background-color: rgb(144, 192, 136);
+    transition: .5s;
+}
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn>.seller-currentproject-projectmanage-btn-flex{
+    justify-content: space-between;
+    display: flex;
+}
+.seller-mypage>.row>.seller-main>.seller-currentproject-block>.seller-currentproject>.seller-currentproject-projectmanage >.seller-currentproject-projectmanage-btn>.seller-currentproject-projectmanage-btn-flex>.seller-currentproject-projectmanage-text{
+    font-weight: 700;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
