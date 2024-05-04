@@ -23,7 +23,12 @@ function telValidChk() {
     const tel = document.getElementById("tel");
     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 
-    if(pattern.test(tel.value) === false) { 
+    if(tel.value === "") {
+        document.getElementById("validationMessageTel").textContent = "연락처가 유효하지 않습니다.";
+        tel.classList.add("is-invalid");
+        return false;
+    } else if(pattern.test(tel.value) === false) { 
+        document.getElementById("validationMessageTel").textContent = "연락처가 유효하지 않습니다.";
         tel.classList.add("is-invalid");
         return false;
     } else {
@@ -34,8 +39,7 @@ function telValidChk() {
 
 // 휴대폰 번호가 인증되었는지 확인하는 함수
 function isTelVerified(telNumber) {
-    // 여기에 휴대폰 번호 인증 여부를 확인하는 로직을 추가합니다.
-    // 예를 들어, 휴대폰 번호가 유효한지, 인증된 번호인지 등을 확인할 수 있습니다.
+    // 여기에 휴대폰 번호 인증 여부를 확인하는 로직을 추가
     return true;
 }
 
@@ -49,15 +53,13 @@ function editProfile(event) {
         window.alert("변경을 원하시는 항목에 값을 입력해 주세요.");
         return false;
     } 
-
-    if(tel.value !== ""){
         
-        // 휴대폰 번호가 인증되지 않은 경우
-        if (!isTelVerified(tel.value)) {
-            alert("휴대폰 번호를 인증하세요.");
-            return false;
-        }
-
-        this.submit();
+    // 휴대폰 번호가 인증되지 않은 경우
+    if (!isTelVerified(tel.value)) {
+        document.getElementById("validationMessageTel").textContent = "연락처 인증을 완료해 주세요.";
+        tel.classList.add("is-invalid");
+        return false;
     }
+
+    //this.submit();
 }
