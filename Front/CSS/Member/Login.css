@@ -68,9 +68,9 @@
 
 .login .login-bottom>.join-login>a{
     text-decoration: none;
-    color: rgb(171, 199, 114);
+    color: #71d089;
 }
 
 .login .login-bottom>.join-login>a:hover{
-    color: rgb(139, 165, 92);
+    color: #5dbb74;
 }

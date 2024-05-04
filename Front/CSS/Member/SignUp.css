@@ -8,8 +8,6 @@
     max-width: 300px;
 }
 
-
-
 /* external-login */
 .signup>.external-signup>.external-login>.external-login-kakao{
     width:300px; height:45px;
@@ -51,4 +49,5 @@
 /* signup-btn */
 .signup>.signup-personal>form>.signup-btn>button{
     width: 300px;
+    height: 45px;
 }

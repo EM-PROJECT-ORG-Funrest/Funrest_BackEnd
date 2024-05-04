@@ -1,0 +1,43 @@
+/* logo */
+.findpw>.row>.logo{
+    margin-top: 5vh;
+    margin-bottom: 3vh;
+}
+.findpw>.row>.logo img{
+    max-width: 300px;
+}
+
+
+/* sub-title */
+.findpw>.sub-title>a{
+    width: 120px;
+    text-decoration: none;
+}
+.findpw>.sub-title>.sub-id{
+    color : darkgray;
+}
+.findpw>.sub-title>.sub-id:hover{
+    color : #71d089;
+}
+.findpw>.sub-title>.sub-pw{
+    color : #71d089;
+
+}
+
+
+/* findpw-main */
+.findpw>.findpw-main{
+    /* background-color: #71d0892c; */
+}
+.findpw>.findpw-main>p{
+    color : rgb(90, 90, 90);
+}
+.findpw>.findpw-main input{
+    max-width: 550px;
+    height: 45px;
+    
+}
+.findpw>.findpw-main>form>.btn{
+    max-width: 550px;
+    height: 45px;
+}
