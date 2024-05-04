@@ -1,3 +1,27 @@
+function chkId() {
+    const id = document.getElementById("signup-id");
+    const pattern =  /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+
+    if(id.value === ""){
+        document.getElementById("validationMessageID").textContent = "유효한 이메일 형식이 아닙니다.";
+        id.classList.add("is-invalid");
+        return false;
+    } else if(pattern.test(id.value) === false) { 
+        document.getElementById("validationMessageID").textContent = "유효한 이메일 형식이 아닙니다.";
+        id.classList.add("is-invalid");
+        return false;
+    } else {
+        id.classList.remove("is-invalid");
+        return true;
+    }
+}
+
+// 이메일 인증되었는지 확인하는 함수
+function isEmailVerified(emailAddr) {
+    // 여기에 이메일 인증 여부를 확인하는 로직을 추가
+    return true;
+}
+
 function chkPW(pwEl){
     var pw = pwEl.value;
     var num = pw.search(/[0-9]/g);
@@ -26,21 +50,13 @@ function signupValidChk(event) {
     const pw = document.getElementById("signup-pw");
     const pwChk = document.getElementById("signup-pw-chk");
 
-    const patternId = /^[a-zA-z0-9]{4,12}$/;
-
-    if(id.value === ""){
+    // 이메일이 인증되지 않은 경우
+    if (!isEmailVerified(id.value)) {
+        document.getElementById("validationMessageID").textContent = "이메일 인증을 완료해 주세요.";
         id.classList.add("is-invalid");
         return false;
-    } else {
-        if(patternId.test(id.value) === false) {
-            id.classList.add("is-invalid");
-            document.getElementById("validationMessageID").textContent = "영문 대소문자와 숫자를 이용하여 4~12자리로 입력해 주세요.";
-            return false;    
-        }
-
-        id.classList.remove("is-invalid");
     }
-    
+
     if(pw.value === "" || !chkPW(pw)){
         pw.classList.add("is-invalid");
         return false;
@@ -51,6 +67,7 @@ function signupValidChk(event) {
             pwChk.classList.add("is-invalid");
             return false;
         } else {
+            pwChk.classList.remove("is-invalid");
             return true;
         }
     }

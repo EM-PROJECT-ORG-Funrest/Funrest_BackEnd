@@ -33,7 +33,7 @@ function telValidChk() {
 }
 
 // 휴대폰 번호가 인증되었는지 확인하는 함수
-function isPhoneVerified(phoneNumber) {
+function isTelVerified(telNumber) {
     // 여기에 휴대폰 번호 인증 여부를 확인하는 로직을 추가합니다.
     // 예를 들어, 휴대폰 번호가 유효한지, 인증된 번호인지 등을 확인할 수 있습니다.
     return true;
@@ -53,7 +53,7 @@ function editProfile(event) {
     if(tel.value !== ""){
         
         // 휴대폰 번호가 인증되지 않은 경우
-        if (!isPhoneVerified(phoneValue)) {
+        if (!isTelVerified(tel.value)) {
             alert("휴대폰 번호를 인증하세요.");
             return false;
         }
