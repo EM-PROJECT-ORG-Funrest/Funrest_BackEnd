@@ -12,6 +12,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../../CSS/Common.css">
     <link rel="stylesheet" href="../../CSS/Member/FindId.css">
+
+    <!-- JS -->
+    <script src="../../js/Member/FindId.js"></script>
 </head>
 <body>
     <div class="findid container">
@@ -31,9 +34,10 @@
                 소유하고 계신 계정을 입력해 보세요. <br>
                 가입여부를 확인해드립니다.
             </p>
-            <form name="findid" id="findid" onsubmit="" action="" class="d-grid gap-2 col-md-6 mx-auto mt-2">
-                <input type="text" id="findid-email" class="form-control mt-3 mb-3 " placeholder="이메일 계정">
-                <button type="submit" class="btn btn-success">아이디 찾기</button>
+            <form name="findid" id="findid" onsubmit="findIdValidChk(event)" action="" class="d-grid gap-2 col-md-6 mx-auto mt-2">
+                <input type="text" id="findid-email" class="form-control mt-3 " placeholder="이메일 계정">
+                <div class="invalid-feedback m-0 mx-1" id="validationMessageEmail">올바른 이메일 형식이 아닙니다.</div>
+                <button type="submit" class="btn btn-success mt-3">아이디 찾기</button>
             </form>
         </div>
     </div>
