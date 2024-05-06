@@ -11,12 +11,35 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../../CSS/Common.css">
     <link rel="stylesheet" href="../../CSS/Payment/ApplyRefund.css">
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      // header 연결
+      $(document).ready(function(){
+        $("#header-ar").load("../../HTML/Main/AfterLoginHeader.html",function(){
+          document.getElementById("header-ar").classList.add("show");
+
+        });
+      })
+      
+      // footer 연결
+      $(document).ready(function(){
+        $("#footer-ar").load("../../HTML/Main/Footer.html",function(){
+            document.getElementById("footer-ar").classList.add("show");
+
+        });
+        })
+    </script>
+
 </head>
 
 <body>
+    <div id="header-ar"></div>
     <div class="container">
         <div class="row refund-product m-2 mb-5">
-            <h4 class="p-4 m-5">반품신청</h4>
+            <h4 class="m-5">반품신청</h4>
             <div class="choice-box">
                 <h5>결제 상품 선택</h5>
                 <select class="pay-product-select " aria-label="Default select example">
@@ -109,5 +132,6 @@
         </div>
         <button type="submit" class="btn-apply" onclick="alert('신청되었습니다.')">교환 및 환불 신청하기</button>
     </div>
+    <div id="footer-ar"></div>
 </body>
 </html>

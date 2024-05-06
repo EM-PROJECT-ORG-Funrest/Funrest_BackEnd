@@ -10,8 +10,7 @@
 }
 
 .login > .login-logo > a >img{
-    width: 200px;
-    height: 9vh;
+    max-width: 300px;
 }
 
 

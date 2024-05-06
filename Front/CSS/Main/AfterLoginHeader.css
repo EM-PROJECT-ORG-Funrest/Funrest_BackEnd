@@ -4,7 +4,7 @@ a{
     text-decoration: none;
 }
 
-.wrapper{
+.wrapper-af{
     height: 4.5vw;
     display: flex;
     text-align: right;
@@ -12,7 +12,10 @@ a{
 
 /* header logo */
 
-.header-logo{
+.header-logo-1{
+    /* background-image: url('logo.jpg'); 
+    background-size: contain;  */
+
     width: 13rem;
     height: 4.5rem;
     margin-left: 2vw;

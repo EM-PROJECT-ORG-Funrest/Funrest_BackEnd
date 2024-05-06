@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,9 +13,36 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../../CSS/Common.css">
     <link rel="stylesheet" href="../../CSS/Payment/Payment.css">
+
+    <!-- JS -->
+    <script src="../../js/Payment/Payment.js" ></script>
+    <script src="../../js/Payment/Payment2.js"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      // header 연결
+      $(document).ready(function(){
+        $("#header-p").load("../../HTML/Main/AfterLoginHeader.html",function(){
+          document.getElementById("header-p").classList.add("show");
+
+        });
+      })
+      
+      // footer 연결
+      $(document).ready(function(){
+        $("#footer-p").load("../../HTML/Main/Footer.html",function(){
+            document.getElementById("footer-p").classList.add("show");
+
+        });
+        })
+    </script>
+    
 </head>
 
 <body>
+    <div id="header-p"></div>
     <div class="container">
         <div class="row order-product-box m-2 mb-5">
             <h4 class="p-4">주문 상품</h4>
@@ -58,75 +86,81 @@
                 </div>
             </div>
         </div>
-        <div class="row payment-info-box m-2 mb-5">
-            <h4 class="p-4">결제 정보</h4>
-            <div class="col payment-info shadow-sm p-4 bg-body rounded">
-                <div class="form-check m-3">
-                  <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio2" checked>
-                  <label class="form-check-label" for="payment-info-radio2">
-                    신용/체크카드
-                  </label>
-                </div>
-                <div class="form-check m-3">
-                    <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio1">
-                    <label class="form-check-label" for="payment-info-radio1">
-                      무통장 입금
+        <form action="">
+            <div class="row payment-info-box m-2 mb-5">
+                <h4 class="p-4">결제 정보</h4>
+                <div class="col payment-info shadow-sm p-4 bg-body rounded">
+                    <div class="form-check m-3">
+                    <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio2" checked>
+                    <label class="form-check-label" for="payment-info-radio2">
+                        신용/체크카드
                     </label>
-                </div>
-                <div class="form-check m-3">
-                    <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio1">
-                    <label class="form-check-label" for="payment-info-radio1">
-                      카카오페이 ㅎㅎ
-                    </label>
-                </div>
-                <div class="form-check m-3">
-                    <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio1">
-                    <label class="form-check-label" for="payment-info-radio1">
-                      네이버페이 ㅠㅠ
-                    </label>
+                    </div>
+                    <div class="form-check m-3">
+                        <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio1">
+                        <label class="form-check-label" for="payment-info-radio1">
+                        무통장 입금
+                        </label>
+                    </div>
+                    <div class="form-check m-3">
+                        <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio1">
+                        <label class="form-check-label" for="payment-info-radio1">
+                        카카오페이 ㅎㅎ
+                        </label>
+                    </div>
+                    <div class="form-check m-3">
+                        <input class="form-check-input" type="radio" name="payment-info-radio" id="payment-info-radio1">
+                        <label class="form-check-label" for="payment-info-radio1">
+                        네이버페이 ㅠㅠ
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row buyer-info-box m-2 mb-5">
-            <h4 class="p-4">주문자 및 배송 정보</h4>
-            <div class="col buyer-info p-3">
-                <div class="buyer-info-input container">
-                    <div class="row m-2 name">
-                        <div class="col title">성함</div>
-                        <input class="form-control col" type="text" placeholder="성함을 입력해 주세요." aria-label="default input example">
-                    </div>
-                    <div class="row m-2 phone">
-                        <div class="col title">연락처</div>
-                        <input class="form-control col" type="text" placeholder="연락처를 입력해 주세요." aria-label="default input example">
-                    </div>
-                    <div class="row m-2 addr">
-                        <div class="col title">배송지 주소</div>
-                        <div class="input-group col">
-                            <input class="form-control m-1" type="text" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-outline-success m-1" type="button" id="button-addon2">주소 검색</button>
-                            <div class="w-100"></div>
-                            <input class="form-control m-1" type="text" placeholder="상세 주소 입력" aria-label="default input example">
+            <div class="row buyer-info-box m-2 mb-5">
+                <h4 class="p-4">주문자 및 배송 정보</h4>
+                <div class="col buyer-info p-3">
+                    <div class="buyer-info-input container">
+                        <div class="row m-2 name">
+                            <div class="col title">성함</div>
+                            <input class="form-control col name" type="text" placeholder="성함을 입력해 주세요." aria-label="default input example">
+                        </div>
+                        <div class="row m-2 phone">
+                            <div class="col title">연락처</div>
+                            <input class="form-control col phone" type="text" placeholder="연락처를 입력해 주세요." aria-label="default input example">
+                        </div>
+                        <div class="row m-2 addr">
+                            <div class="col title">배송지 주소</div>
+                            <div class="input-group col">
+                                <input class="form-control m-1" id="post-code" type="text" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                <button class="btn btn-outline-success m-1" type="button" id="button-addon2" onclick="execDaumPostcode()">주소 검색</button>
+                                <div class="w-100"></div>
+                                <input id="road-addr" class="road-addr form-control m-1" type="text" placeholder="도로명주소" disabled>
+                                <div class="w-100"></div>
+                                <input class="form-control m-1 addr" type="text" placeholder="상세 주소 입력" aria-label="default input example">
+                            </div>
+                        </div>
+                        <div class="row m-2 delivery-ask">
+                            <div class="col title">배송시 요청사항</div>
+                            <div class="form-floating col">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px; font-size: small;"></textarea>
+                                <label for="floatingTextarea2"></label>
+                            </div>
                         </div>
                     </div>
-                    <div class="row m-2 delivery-ask">
-                        <div class="col title">배송시 요청사항</div>
-                        <div class="form-floating col">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px; font-size: small;"></textarea>
-                            <label for="floatingTextarea2"></label>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row pay-box m-2 mb-5 mt-5 justify-content-center">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pay-radio" id="pay-radio">&nbsp;&nbsp;
-                <label class="form-check-label" for="pay-radio">
-                  위 주문 내용을 확인 하였으며, 회원 본인은 개인정보 이용 및 제공, 결제에 동의합니다.
-                </label>
+            <div class="row pay-box m-2 mb-5 mt-5 justify-content-center">
+                <div class="form-check-last">
+                    <input class="form-check-input" type="radio" name="pay-radio" id="pay-radio">&nbsp;&nbsp;
+                    <label class="form-check-label" for="pay-radio">
+                    위 주문 내용을 확인 하였으며, 회원 본인은 개인정보 이용 및 제공, 결제에 동의합니다.
+                    </label>
+                </div>
+                <button class="btn btn-success w-50 m-4" style="height:45px;">결제 하기</button>
             </div>
-            <button type="button" class="btn btn-success w-50 m-4" style="height:45px;">결제 하기</button>
-        </div>
+        </form>
     </div>
+    <div id="footer-p"></div>
 </body>
+
 </html>

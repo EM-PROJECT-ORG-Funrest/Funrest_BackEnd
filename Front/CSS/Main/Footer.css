@@ -5,6 +5,10 @@ a{
     color: black;
 }
 
+.wrapper_f{
+    padding-bottom: 5rem;
+}
+
 /* hr */
 
 .footer-hr{
@@ -17,7 +21,8 @@ a{
 .footer-nav{
     width: 100%;
     display: flex;
-    margin-left: 15vw;
+    /* margin-left: 15vw; */
+    margin-left: 9.5vw;
 }
 
 .footer-policy{
@@ -53,7 +58,11 @@ a{
 }
 
 .footer-logo{
-    margin-left: 7.5vw;
+    background-image: url('logo.jpg'); 
+    background-size: contain; 
+
+    /* margin-left: 7.5vw; */
+    margin-left: 4.5vw;
     width: 15rem;
     height: 6rem;
 }

@@ -9,8 +9,8 @@ function execDaumPostcode() {
             var roadAddr = data.roadAddress; // 도로명 주소 변수
 
             // 우편번호와 주소 정보를 해당 필드에 넣음.
-            document.getElementById("edit-post-code").value = data.zonecode;
-            document.getElementById("edit-road-addr").value = roadAddr;
+            document.getElementById("payment-post-code").value = data.zonecode;
+            document.getElementById("payement-road-addr").value = roadAddr;
         }
     }).open({
         // 창 띄우는 위치 지정
@@ -20,8 +20,7 @@ function execDaumPostcode() {
     });
 }
 
-function telValidChk() {
-    const tel = document.getElementById("tel");
+function telValidChk(tel) {
     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 
     if(pattern.test(tel.value) === false) { 
@@ -33,22 +32,43 @@ function telValidChk() {
     }
 }
 
-function editProfile(event) {
+function paymentValidChk(event) {
     event.preventDefault();
+    //console.log("새로고침 그만");
 
-    const postCode = document.getElementById("edit-post-code");
-    const tel = document.getElementById("tel");
+    //이름 not null
+    //연락처 not null & pattern
+    //우편번호 not null
+    //checkbox not null
+    
+    const name = document.getElementById("payment-name");
+    const phone = document.getElementById("payment-phone");
+    const postCode = document.getElementById("payment-post-code");
+    const chkBox = document.getElementById("pay-chkbox");
 
-    if(postCode.value === "" && tel.value === ""){
-        window.alert("변경을 원하시는 항목에 값을 입력해 주세요.");
+    if(name.value === ""){
+        name.classList.add("is-invalid");
         return false;
-    } 
+    } else {
+        name.classList.remove("is-invalid");
+    }
 
-    if(tel.value !== ""){
-        if(!telValidChk()){
-            return false;
-        } else if(telValidChk){
-            //인증하기 안 하면 못 넘어가게 막아야 하는데 어떻게 하지..?
-        }   
+    if(phone.value === "" || !telValidChk(phone)){
+        phone.classList.add("is-invalid");
+        return false;
+    } else {
+        phone.classList.remove("is-invalid");
+    }
+
+    if(postCode.value === "") {
+        postCode.classList.add("is-invalid");
+        return false;
+    } else {
+        postCode.classList.remove("is-invalid");
+    }
+
+    if(chkBox.value !== "1"){
+        window.alert("결제 동의 항목에 체크해 주세요.");
     }
 }
+
