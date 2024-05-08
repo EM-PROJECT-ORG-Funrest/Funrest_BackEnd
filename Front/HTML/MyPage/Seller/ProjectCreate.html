@@ -14,9 +14,32 @@
     
     <!-- ProjectCreate.js -->
     <script src="../../../js/MyPage/Seller/ProjectCreate.js" defer></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        // header 연결
+        $(document).ready(function(){
+        $("#header-pc").load("../../../HTML/Main/ProjectHeader.html",function(){
+            document.getElementById("header-pc").classList.add("show");
+
+        });
+        })
+        
+        // footer 연결
+        $(document).ready(function(){
+        $("#footer-pc").load("../../../HTML/Main/Footer.html",function(){
+            document.getElementById("footer-pc").classList.add("show");
+
+        });
+        })
+    </script>
+
 </head>
 
 <body>
+    <div id="header-pc"></div>
     <div class="create">
         <div class="create-title"> 프로젝트 생성하기 </div>
         
@@ -64,5 +87,6 @@
             </div>    
         </form> 
     </div>
+    <div id="footer-pc"></div>
 </body>
 </html>

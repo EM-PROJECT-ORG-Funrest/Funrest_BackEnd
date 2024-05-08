@@ -14,9 +14,32 @@
     
     <!-- ProjectUpdate.js -->
     <script src="../../../js/MyPage/Seller/ProjectUpdate.js" defer></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        // header 연결
+        $(document).ready(function(){
+        $("#header-pu").load("../../../HTML/Main/ProjectHeader.html",function(){
+            document.getElementById("header-pu").classList.add("show");
+
+        });
+        })
+        
+        // footer 연결
+        $(document).ready(function(){
+        $("#footer-pu").load("../../../HTML/Main/Footer.html",function(){
+            document.getElementById("footer-pu").classList.add("show");
+
+        });
+        })
+    </script>
+
 </head>
 
 <body>
+    <div id="header-pu"></div>
     <div class="update">
         <div class="update-title"> 프로젝트 수정하기 </div>
         
@@ -64,5 +87,6 @@
             </div>    
         </form> 
     </div>
+    <div id="footer-pu"></div>
 </body>
 </html>

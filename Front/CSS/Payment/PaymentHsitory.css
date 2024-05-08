@@ -10,8 +10,8 @@
     /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
 }
 #footer-ph{
-    position: absolute;
-    top: 100rem;
+    position: relative;
+    top: 15rem;
     bottom: 0; /*화면 하단에 고정 */
     left: 0;
     width: 100%;

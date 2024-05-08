@@ -23,10 +23,32 @@
         'opsz' 48
       }
       </style>
+
+      <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      // header 연결
+      $(document).ready(function(){
+        $("#header-p").load("/HTML/Main/AfterLoginHeader.html",function(){
+          document.getElementById("header-p").classList.add("show");
+
+        });
+      })
+      
+      // footer 연결
+      $(document).ready(function(){
+        $("#footer-p").load("/HTML/Main/Footer.html",function(){
+            document.getElementById("footer-p").classList.add("show");
+
+        });
+        })
+    </script>
+
 </head>
 
 <body>
-  <div>
+  <div id="header-p"></div>
   <div class="pro-header-container">
     <div class="pro-header">
         <div class="story"><a href="#pro-story">프로젝트 스토리</a></div>
@@ -140,6 +162,6 @@
         <div>맨위로</div>
       </div>
     </div>
-
+  <div id="footer-p"></div>
 </body>
 </html>

@@ -14,9 +14,32 @@
 
     <!-- JS -->
     <script language="javascript" src="../../../js/MyPage/Buyer/EditProfile.js"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        // header 연결
+        $(document).ready(function(){
+          $("#header-epro").load("../../../HTML/Main/AfterLoginHeader.html",function(){
+            document.getElementById("header-epro").classList.add("show");
+  
+          });
+        })
+        
+        // footer 연결
+        $(document).ready(function(){
+          $("#footer-epro").load("../../../HTML/Main/Footer.html",function(){
+              document.getElementById("footer-epro").classList.add("show");
+  
+          });
+          })
+      </script>
+
 </head>
 
 <body>
+    <div id="header-epro"></div>
     <div class="container p-5">
         <h3>프로필 정보 설정</h3>
         <form name="edit" id="edit" onsubmit="editProfile(event)" action="" method="" enctype="text/plain">
@@ -53,5 +76,6 @@
             </div>
         </form>
     </div>
+    <div id="footer-epro"></div>
 </body>
 </html>
