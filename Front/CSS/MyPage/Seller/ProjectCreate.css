@@ -1,4 +1,27 @@
 
+/* 헤더, 푸터 연결 */
+#header-pc{
+    /* position: fixed; */
+    top: 3rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    padding-bottom: 4rem;
+    left: 0;
+    width: 100%;
+    height: auto;
+    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
+}
+#footer-pc{
+    position: relative;
+    top: 15rem;
+    bottom: 0; /*화면 하단에 고정 */
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+
+
 /* create-title */
 .create-title {
     text-align: center;

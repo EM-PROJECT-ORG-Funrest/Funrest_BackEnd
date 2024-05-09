@@ -4,7 +4,8 @@ a{
     text-decoration: none;
 }
 
-.wrapper{
+
+.wrapper-af{
     height: 4.5vw;
     display: flex;
     text-align: right;
@@ -12,7 +13,9 @@ a{
 
 /* header logo */
 
-.header-logo{
+
+.header-logo-1{
+
     width: 13rem;
     height: 4.5rem;
     margin-left: 2vw;
@@ -63,9 +66,11 @@ a{
 .HN-4{
     margin-right: 10vw;
     padding: 0.7rem;
-    background-color: #71d089;
+
+    background-color: rgb(72, 170, 54);
 }
 
 .HN-4:hover{
-    background-color: #5dbb74;
+    background-color: green;
+
 }

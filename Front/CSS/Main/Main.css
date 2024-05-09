@@ -1,3 +1,31 @@
+
+/* 헤더, 푸터 연결 */
+#header-m, #footer-m{
+    /* display: block; */
+}
+#header-m{
+    /* position: fixed; */
+    top: 0;
+    margin: 20px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
+}
+#footer-m{
+    position: relative;
+    top: 20rem;
+    bottom: 0; /*화면 하단에 고정*/
+    left: 0;
+    width: 100%;
+    height: auto;
+    /* margin-bottom: 0px; */
+}
+.wrapper1{
+    margin-top: 8rem;
+}
+
+
 .carousel-indicators [data-bs-target] {
     width: 10px;
     height: 10px;

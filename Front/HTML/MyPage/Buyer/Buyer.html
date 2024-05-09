@@ -24,9 +24,31 @@
           'opsz' 24
         }
     </style>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      // header 연결
+      $(document).ready(function(){
+        $("#header-b").load("/HTML/Main/AfterLoginHeader.html",function(){
+          document.getElementById("header-b").classList.add("show");
+
+        });
+      })
+      
+      // footer 연결
+      $(document).ready(function(){
+        $("#footer-b").load("/HTML/Main/Footer.html",function(){
+            document.getElementById("footer-b").classList.add("show");
+
+        });
+        })
+    </script>
 </head>
 
 <body>
+    <div id="header-b"></div>
     <div class="container p-3">
         <div class="row">
             <div class="mypage-left col-md-2">
@@ -75,5 +97,6 @@
             </div>
         </div>
     </div>
+    <div id="footer-b"></div>
 </body>
 </html>
