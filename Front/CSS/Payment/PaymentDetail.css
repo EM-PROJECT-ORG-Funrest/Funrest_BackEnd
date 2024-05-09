@@ -34,7 +34,7 @@
 }
 
 .container>.order-info>.order-info-box{
-    background-color: rgb(210, 226, 207);
+    background-color: rgb(246, 248, 244);
     padding-top: .5vh;
     padding-bottom: 3vh;
 
@@ -55,14 +55,14 @@
     margin-left: 17vw;
     margin-bottom: 3vh;
     border: 0;
-    background-color: rgb(72, 170, 54);
+    background-color: #71d089;
     color: white;
     padding: 0.7rem 1.3rem 0.7rem 1.3rem;
     border-radius: 5%;
 }
 
 .container>.order-info>.order-info-btns>button:hover{
-    background-color: rgb(30, 134, 12);
+    background-color: #5dbb74;
 }
 
 /* payment-order-text */
@@ -70,7 +70,7 @@
 .container>.payment-order-text{
     margin-left: 1.2vw;
     display: flex;
-    background-color: rgb(210, 226, 207);
+    background-color: rgb(246, 248, 244);
     padding: 2rem;
 }
 
@@ -92,4 +92,18 @@
 
 .container>.delivery-state{
     display: flex;
+    justify-content: space-between;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 7vh;
+}
+
+.container>.delivery-state>.delivery-state-contents{
+    align-items: center;
+    text-align: center;
+    
+}
+
+.container>.delivery-state>.delivery-state-contents>.package_2{
+    background-color: #71d089;
 }

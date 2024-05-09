@@ -63,9 +63,9 @@ a{
 .HN-4{
     margin-right: 10vw;
     padding: 0.7rem;
-    background-color: rgb(72, 170, 54);
+    background-color: #71d089;
 }
 
 .HN-4:hover{
-    background-color: green;
+    background-color: #5dbb74;
 }
