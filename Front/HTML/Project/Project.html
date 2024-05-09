@@ -23,10 +23,32 @@
         'opsz' 48
       }
       </style>
+
+      <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      // header 연결
+      $(document).ready(function(){
+        $("#header-p").load("/HTML/Main/AfterLoginHeader.html",function(){
+          document.getElementById("header-p").classList.add("show");
+
+        });
+      })
+      
+      // footer 연결
+      $(document).ready(function(){
+        $("#footer-p").load("/HTML/Main/Footer.html",function(){
+            document.getElementById("footer-p").classList.add("show");
+
+        });
+        })
+    </script>
+
 </head>
 
 <body>
-  <div>
+  <div id="header-p"></div>
   <div class="pro-header-container">
     <div class="pro-header">
         <div class="story"><a href="#pro-story">프로젝트 스토리</a></div>
@@ -64,6 +86,7 @@
             <div class="pro-stroy-caution">◎ 도서산간에 해당되는 구매자님은 배송 가능 여부를 반드시 판매자에게 문의 후 참여해 주세요</div>
             <div class="pro-story-content"><img src="./imgs/ramen.jpg" alt=""></div>
             <div class="pro-story-hidden-content" id="pro-story-hidden-content">
+
               <!-- DB 이미지로 변경 -->
               <img src="./imgs/ramen1.gif" alt="">
               <img src="./imgs/ramen2.jpg" alt="">
@@ -141,6 +164,6 @@
         <div>맨위로</div>
       </div>
     </div>
-
+  <div id="footer-p"></div>
 </body>
 </html>

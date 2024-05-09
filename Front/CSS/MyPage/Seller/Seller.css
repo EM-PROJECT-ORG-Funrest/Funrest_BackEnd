@@ -1,3 +1,25 @@
+
+/* 헤더, 푸터 연결 */
+#header-s{
+    /* position: fixed; */
+    top: 0;
+    margin-top: 2rem;
+    margin-left: 6rem;
+    padding-bottom: 4rem;
+    left: 0;
+    width: 95%;
+    height: auto;
+    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
+}
+#footer-s{
+    position: relative;
+    top: 15rem;
+    bottom: 0; /*화면 하단에 고정 */
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
 /* seller-showCurrentBox */
 .seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>p{
     line-height: 50px;

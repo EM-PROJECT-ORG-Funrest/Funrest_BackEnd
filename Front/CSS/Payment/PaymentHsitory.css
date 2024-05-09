@@ -1,8 +1,38 @@
 
+/* 헤더, 푸터 연결 */
+#header-ph{
+    /* position: fixed; */
+    top: 0;
+    margin-top: 2rem;
+    margin-left: 6rem;
+    left: 0;
+    width: 95%;
+    height: auto;
+    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
+}
+#footer-ph{
+    position: relative;
+    top: 15rem;
+    bottom: 0; /*화면 하단에 고정 */
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+.container{
+    margin-top: 4rem; /* 페이지 상단 여백 추가 */
+    margin-bottom: 5rem; /* 페이지 하단 여백 추가 */
+    padding-bottom: 2.5rem;
+    background-color: rgb(240, 240, 240);
+}
+
+.container>.order-product-box>.order-product{
+    margin-top: 2rem;
+}
+
 /* order-product>.table td */
 .container>.order-product-box>.order-product>.table td{
-    vertical-align : middle;
-    
+    vertical-align : middle;    
 }
 
 /* payment-order-text */
@@ -11,6 +41,7 @@
     display: flex;
     background-color: rgb(246, 248, 244);
     padding: 2rem;
+    margin-top: 10rem;
 }
 
 .container>.payment-order-text>.payment-order-text-title{

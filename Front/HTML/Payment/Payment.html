@@ -17,9 +17,32 @@
     <!-- JS -->
     <script src="../../js/Payment/Payment.js" ></script>
     <script src="../../js/Payment/Payment2.js"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      // header 연결
+      $(document).ready(function(){
+        $("#header-p").load("../../HTML/Main/AfterLoginHeader.html",function(){
+          document.getElementById("header-p").classList.add("show");
+
+        });
+      })
+      
+      // footer 연결
+      $(document).ready(function(){
+        $("#footer-p").load("../../HTML/Main/Footer.html",function(){
+            document.getElementById("footer-p").classList.add("show");
+
+        });
+        })
+    </script>
+    
 </head>
 
 <body>
+    <div id="header-p"></div>
     <div class="container">
         <div class="row order-product-box m-2 mb-5">
             <h4 class="p-4">주문 상품</h4>
@@ -127,7 +150,7 @@
                 </div>
             </div>
             <div class="row pay-box m-2 mb-5 mt-5 justify-content-center">
-                <div class="form-check">
+                <div class="form-check-last">
                     <input class="form-check-input" type="radio" name="pay-radio" id="pay-radio">&nbsp;&nbsp;
                     <label class="form-check-label" for="pay-radio">
                     위 주문 내용을 확인 하였으며, 회원 본인은 개인정보 이용 및 제공, 결제에 동의합니다.
@@ -137,6 +160,7 @@
             </div>
         </form>
     </div>
+    <div id="footer-p"></div>
 </body>
 
 </html>

@@ -14,9 +14,32 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../../CSS/Common.css">
     <link rel="stylesheet" href="../../css/Member/SignUp.css">
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+      // header 연결
+      $(document).ready(function(){
+        $("#header-su").load("/HTML/Main/BeforeLoginHeader.html",function(){
+          document.getElementById("header-su").classList.add("show");
+
+        });
+      })
+      
+      // footer 연결
+      $(document).ready(function(){
+        $("#footer-su").load("/HTML/Main/Footer.html",function(){
+            document.getElementById("footer-su").classList.add("show");
+
+        });
+        })
+    </script>
+
 </head>
 
 <body>
+    <div id="header-su"></div>
      <div class="signup container">
         <div class="external-signup row">
             <div class="external-signup-img d-flex justify-content-center">
@@ -57,5 +80,6 @@
         </div>
 
     </div>
+    <div id="footer-su"></div>
 </body>
 </html>
