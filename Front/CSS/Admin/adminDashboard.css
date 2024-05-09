@@ -1,0 +1,73 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+/* table 값 가운데 정렬 */
+table td, table th {
+    text-align: center;
+}
+
+/* .adminPage-left */
+.container>.row>.adminPage-left{
+    background-color: rgb(246, 248, 244);
+}
+.container>.row>.adminPage-left>.img-box{
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container>.row>.adminPage-left>.img-box>img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.container>.row>.adminPage-left>.side-menu{
+    margin-top: 100px;
+}
+.container>.row>.adminPage-left>.side-menu>.btn{
+    padding-left: 0;
+}
+.container>.row>.adminPage-left>.side-menu>.btn>p{
+    margin-bottom: 5px;
+}
+
+/* .adminPage-right */
+.container>.row>.adminPage-right{
+    background-color:rgb(241, 241, 241)
+}
+
+/* .adminPage-right>.admin-visitor */
+.container>.row>.adminPage-right>.admin-visitor{
+    margin: 30px 10px 10px 10px;
+    background-color: white;
+    border-radius: 1%;
+    /* border: 1px solid red; */
+}
+.container>.row>.adminPage-right>.admin-visitor>.subject{
+    /* border: 1px solid orange; */
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.container>.row>.adminPage-right>.admin-visitor>.visitor-chart{
+    /* border: 1px solid black; */
+    padding: 20px 20px 20px 20px;
+}
+
+/* .adminPage-right>.admin-date */
+.container>.row>.adminPage-right>.admin-date{
+    margin: 12px 10px 30px 10px;
+    background-color: white;
+    border-radius: 1%;
+    /* border: 1px solid green; */
+}
+.container>.row>.adminPage-right>.admin-date>.subject2{
+    /* border: 1px solid violet; */
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.container>.row>.adminPage-right>.admin-date>.daily-chart{
+    /* border: 1px solid saddlebrown; */
+    padding: 20px 20px 20px 20px;
+}
