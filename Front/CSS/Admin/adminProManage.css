@@ -1,0 +1,19 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
+/* .project-manage-left */
+.container>.row>.project-manage-left{}
+.container>.row>.project-manage-left>form{}
+.container>.row>.project-manage-left>form>input{}
+.container>.row>.project-manage-left>form>#image_container{
+    /* 이미지 컨테이너 반응형 적용 부분 보완하기 */
+    height:25vw;
+}
+.container>.row>.project-manage-left>form>.project-image-subfile-list{
+    height: 25vw;
+}
+
+/* .project-manage-right */
+.container>.row>.project-manage-right{}
