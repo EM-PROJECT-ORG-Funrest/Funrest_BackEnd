@@ -10,7 +10,7 @@ function execDaumPostcode() {
 
             // 우편번호와 주소 정보를 해당 필드에 넣음.
             document.getElementById("payment-post-code").value = data.zonecode;
-            document.getElementById("payement-road-addr").value = roadAddr;
+            document.getElementById("payment-road-addr").value = roadAddr;
         }
     }).open({
         // 창 띄우는 위치 지정
@@ -67,8 +67,11 @@ function paymentValidChk(event) {
         postCode.classList.remove("is-invalid");
     }
 
-    if(chkBox.value !== "1"){
+    if(!chkBox.checked){
         window.alert("결제 동의 항목에 체크해 주세요.");
+        return false;
     }
+
+    console.log("성공");
 }
 
