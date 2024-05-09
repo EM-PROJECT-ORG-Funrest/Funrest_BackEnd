@@ -1,0 +1,109 @@
+/* order-product>.table td */
+
+.container>.order-product-box>.order-product>.table td{
+    vertical-align : middle;
+}
+
+/* cost-box */
+
+.container>.cost-box>.cost>div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container>.cost-box>.cost>div>p{
+    width: 40vw;
+    text-align: center;
+}
+
+.name{
+    display: flex;
+}
+
+/* order-info */
+
+.container>.order-info{
+    margin-left: 1.2vw;
+}
+
+.container>.order-info>.order-info-title{
+    font-size: 1.5rem;
+    font-weight: 500;
+    
+
+}
+
+.container>.order-info>.order-info-box{
+    background-color: rgb(246, 248, 244);
+    padding-top: .5vh;
+    padding-bottom: 3vh;
+
+
+}
+
+.container>.order-info>.order-info-box>.order-info-box-name{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* order-info-btns */
+
+
+.container>.order-info>.order-info-btns>button{
+    margin-top: 3vh;
+    margin-left: 17vw;
+    margin-bottom: 3vh;
+    border: 0;
+    background-color: #71d089;
+    color: white;
+    padding: 0.7rem 1.3rem 0.7rem 1.3rem;
+    border-radius: 5%;
+}
+
+.container>.order-info>.order-info-btns>button:hover{
+    background-color: #5dbb74;
+}
+
+/* payment-order-text */
+
+.container>.payment-order-text{
+    margin-left: 1.2vw;
+    display: flex;
+    background-color: rgb(246, 248, 244);
+    padding: 2rem;
+}
+
+.container>.payment-order-text>.payment-order-text-title{
+    margin-top: 2vh;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.container>.payment-order-text>.payment-order-text-list{
+    margin-left: 7vw;
+}
+
+.container>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
+    font-weight: 700;
+}
+
+/* delivery-state */
+
+.container>.delivery-state{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 7vh;
+}
+
+.container>.delivery-state>.delivery-state-contents{
+    align-items: center;
+    text-align: center;
+    
+}
+
+.container>.delivery-state>.delivery-state-contents>.package_2{
+    background-color: #71d089;
+}

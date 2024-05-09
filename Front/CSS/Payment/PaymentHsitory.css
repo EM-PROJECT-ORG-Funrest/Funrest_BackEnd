@@ -13,7 +13,7 @@
 
 .container>.payment-order-text{
     display: flex;
-    background-color: rgba(92, 172, 112, 0.337);
+    background-color: rgb(246, 248, 244);
     padding: 2rem;
 }
 
