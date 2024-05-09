@@ -40,7 +40,6 @@
 
 <body>
     <div id="header-epro"></div>
->>>>>>> jiyun
     <div class="container p-5">
         <h3>프로필 정보 설정</h3>
         <form name="edit" id="edit" onsubmit="editProfile(event)" action="" method="" enctype="text/plain">
@@ -56,7 +55,7 @@
             <div class="editProfile-addr row mt-4 justify-content-center p-4">
                 <div class="input-group p-0 w-auto justify-content-center">
 
-                    <input id="post-code" class="post-code form-control m-1" type="text" placeholder="우편번호" aria-describedby="button-addon1" disabled>
+                    <input id="edit-post-code" class="post-code form-control m-1" type="text" placeholder="우편번호" aria-describedby="button-addon1" disabled>
                     <button class="btn btn-outline-success m-1" onclick="execDaumPostcode()" type="button" id="button-addon1" onclick="execDaumPostcode()">주소 검색</button>
 
                     <div class="w-100"></div>
@@ -66,10 +65,10 @@
                 </div>
             </div>
             <div class="editProfile-tel row m-3 justify-content-center">
-                <div class="input-group p-0 justify-content-center">
-                    <input id="tel" class="tel form-control m-1" type="text" placeholder="연락처를 입력해 주세요." aria-describedby="edit-tel-btn">
-                    <button id="edit-tel-btn" class="btn btn-outline-success m-1" onclick="telValidChk()" type="button">인증하기</button>
-                    <div class="invalid-feedback"></div>
+                <div class="input-group p-0">
+                    <input id="tel" class="tel form-control my-1 me-2" type="text" placeholder="연락처를 입력해 주세요." aria-describedby="edit-tel-btn">
+                    <button id="edit-tel-btn" class="btn btn-outline-success my-1" onclick="telValidChk()" type="button">인증하기</button>
+                    <div class="invalid-feedback ms-1 mt-0" id="validationMessageTel"></div>
                 </div>
             </div>
             <div class="editProfile-btn row justify-content-center mt-5">

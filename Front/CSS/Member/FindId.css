@@ -1,0 +1,41 @@
+/* logo */
+.findid>.row>.logo{
+    margin-top: 5vh;
+    margin-bottom: 3vh;
+}
+.findid>.row>.logo img{
+    max-width: 300px;
+}
+
+
+/* sub-title */
+.findid>.sub-title>a{
+    width: 120px;
+    text-decoration: none;
+}
+.findid>.sub-title>.sub-id{
+    color : #71d089;
+}
+.findid>.sub-title>.sub-pw{
+    color : darkgray;
+}
+.findid>.sub-title>.sub-pw:hover{
+    color : #71d089;
+}
+
+
+/* findid-main */
+.findid>.findid-main{
+    /* background-color: #71d0892c; */
+}
+.findid>.findid-main>p{
+    color : rgb(90, 90, 90);
+}
+.findid>.findid-main input{
+    max-width: 550px;
+    height: 45px;
+}
+.findid>.findid-main>form>.btn{
+    max-width: 550px;
+    height: 45px;
+}

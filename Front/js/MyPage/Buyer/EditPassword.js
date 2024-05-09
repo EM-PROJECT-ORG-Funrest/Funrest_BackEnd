@@ -1,4 +1,3 @@
-
 // 참고자료: https://java119.tistory.com/71
 // 변경할 비밀번호 유효성 검사
 function chkPW(){
@@ -32,7 +31,10 @@ function test(){
     var p1 = document.getElementById('password1').value;
     var p2 = document.getElementById('password2').value;
 
-    if(p1 != p2) {
+    if(p1 === "" && p2 === ""){
+        alert("항목을 입력해 주세요.");
+        return false;
+    } else if(p1 != p2) {
         alert("비밀번호 불일치");
         return false;
     } else {

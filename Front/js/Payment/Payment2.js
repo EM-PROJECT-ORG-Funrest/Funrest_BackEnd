@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener('submit', function(event) {
         var nameInput = form.querySelector('.name input');
         var phoneInput = form.querySelector('.phone input');
-        var postCodeInput = form.querySelector('#post-code');
-        var roadAddrInput = form.querySelector('#road-addr');
+        var postCodeInput = form.querySelector('#payment-post-code');
+        var roadAddrInput = form.querySelector('#payment-road-addr');
         var detailAddrInput = form.querySelector('.addr input[type="text"]');
 
 
@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         var target = event.target;
-        var input = event.target.value.replace(/\D/g, '').substring(0, 10); // 숫자 외의 문자 제거 및 길이 제한
+        var input = event.target.value.replace(/\D/g, '').substring(0, 11); // 숫자 외의 문자 제거 및 길이 제한
 
         var area = input.substring(0, 3);
-        var middle = input.substring(3, 6);
-        var last = input.substring(6, 10);
+        var middle = input.substring(3, 7);
+        var last = input.substring(7, 11);
 
         if (input.length > 6) {
             target.value = `${area}-${middle}-${last}`;

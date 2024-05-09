@@ -1,4 +1,3 @@
-
 /* 헤더, 푸터 연결 */
 #header-b{
     /* position: fixed; */
@@ -24,13 +23,6 @@
 }
 
 /* mypage-buyer */
-.container>.row>.mypage-buyer {
-    margin-bottom: 4rem; /* 페이지 하단 여백 추가 */
-    /* padding-bottom: 4rem; */
-    background-color: rgb(240, 240, 240);
-}
-
-
 /* buyer-top */
 .container .mypage-buyer>.buyer-top{
     display: flex;
@@ -43,7 +35,7 @@
 }
 .container .mypage-buyer>.buyer-top>div a{
     text-decoration: none;
-    color: rgb(171, 199, 114);
+    color: #71d089;
 }
 .container .mypage-buyer>.buyer-top>div h1{
     line-height: 80px;

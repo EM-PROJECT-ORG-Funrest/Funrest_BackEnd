@@ -1,4 +1,3 @@
-
 document.write('<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
 function execDaumPostcode() {
     new daum.Postcode({
@@ -24,13 +23,24 @@ function telValidChk() {
     const tel = document.getElementById("tel");
     const pattern = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 
-    if(pattern.test(tel.value) === false) { 
+    if(tel.value === "") {
+        document.getElementById("validationMessageTel").textContent = "연락처가 유효하지 않습니다.";
+        tel.classList.add("is-invalid");
+        return false;
+    } else if(pattern.test(tel.value) === false) { 
+        document.getElementById("validationMessageTel").textContent = "연락처가 유효하지 않습니다.";
         tel.classList.add("is-invalid");
         return false;
     } else {
         tel.classList.remove("is-invalid");
         return true;
     }
+}
+
+// 휴대폰 번호가 인증되었는지 확인하는 함수
+function isTelVerified(telNumber) {
+    // 여기에 휴대폰 번호 인증 여부를 확인하는 로직을 추가
+    return true;
 }
 
 function editProfile(event) {
@@ -43,12 +53,13 @@ function editProfile(event) {
         window.alert("변경을 원하시는 항목에 값을 입력해 주세요.");
         return false;
     } 
-
-    if(tel.value !== ""){
-        if(!telValidChk()){
-            return false;
-        } else if(telValidChk){
-            //인증하기 안 하면 못 넘어가게 막아야 하는데 어떻게 하지..?
-        }   
+        
+    // 휴대폰 번호가 인증되지 않은 경우
+    if (!isTelVerified(tel.value)) {
+        document.getElementById("validationMessageTel").textContent = "연락처 인증을 완료해 주세요.";
+        tel.classList.add("is-invalid");
+        return false;
     }
+
+    //this.submit();
 }
