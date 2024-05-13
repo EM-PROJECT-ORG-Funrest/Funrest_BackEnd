@@ -8,7 +8,7 @@ table td, table th {
 }
 
 /* .adminPage-left */ 
-.container>.row>.adminPage-left{
+/* .container>.row>.adminPage-left{
     background-color: #71d089;
 }
 .container>.row>.adminPage-left>.img-box{
@@ -31,7 +31,7 @@ table td, table th {
 }
 .container>.row>.adminPage-left>.side-menu>.btn>p{
     margin-bottom: 5px;
-}
+} */
 
 /* .adminPage-right */
 .container>.row>.adminPage-right{
