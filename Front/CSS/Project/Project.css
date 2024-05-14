@@ -1,3 +1,7 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
 
 /* 헤더, 푸터 연결 */
 #header-p{
@@ -19,7 +23,9 @@
     width: 100%;
     height: auto;
 }
-
+body{
+    background-color: red;
+}
 
 /* all */
 
@@ -30,12 +36,12 @@ a{
 
 /* pro-header */
 
-
-.pro-header{
-    margin-top: 0.1rem;
-    text-align: center;
-    justify-content: center;
-    display: flex;
+.container>.pro-header{
+    border: 1px solid green;
+    /* margin-top: 0.1rem; */
+    /* text-align: center; */
+    /* justify-content: center; */
+    /* display: flex; */
 }
 
 .pro-header > .story > a{
