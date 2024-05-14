@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="../../CSS/Project/Project_back.css">
 
     <!-- js -->
-    <!-- <script src="../../../Front/js/Project/Project.js" defer></script> -->
+    <script src="../../js/Project/Project.js" defer></script>
 
     <!-- google-font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         .material-symbols-outlined {
           font-variation-settings:
-          'FILL' 0,
+          'FILL' 1,
           'wght' 700,
           'GRAD' 200,
           'opsz' 48
@@ -30,9 +30,26 @@
     <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <!-- Header, Footer 연결 -->
+    <script>
+        $(document).ready(function(){
+            $("#header-p").load("/../../HTML/Main/AfterLoginHeader.html",function(){
+                document.getElementById("header-p").classList.add("show");
+            });
+        })
+
+        $(document).ready(function(){
+            $("#footer-p").load("../../HTML/Main/Footer.html",function(){
+                document.getElementById("footer-p").classList.add("show");
+            });
+        })
+
+    </script>
+
 </head>
 
 <body>
+    <div id="header-p"></div>
     <div class="container my-custom-container">
         <div class="pro-header d-flex">
             <div class="story"><a href="#pro-story">프로젝트 스토리</a></div>
@@ -122,8 +139,8 @@
                     </div>
                     <hr>
                     <div class="pro-sub-text">
-                        <div class="pro-sub-text-title">도자기로 만든 컵라면 용기, 더 즐겁게 컵라면을 즐겨보세요</div>
-                        <div class="pro-sub-text-content">손녀딸을 사랑하는 40년 차 도자기 장인이 나섰습니다. 컵라면, 좀 더 건강하고 맛있게 먹을 수는 없을까라는 고민에서 시작된 도자기 컵라면 용기로 더 즐겁게 컵라면을 즐겨보세요</div>
+                        <div class="pro-sub-text-title">도자기로 만든 컵라면 용기, 더 즐겁게 컵라면을 즐겨보세요.</div>
+                        <div class="pro-sub-text-content">손녀딸을 사랑하는 40년 차 도자기 장인이 나섰습니다. 컵라면, 좀 더 건강하고 맛있게 먹을 수는 없을까라는 고민에서 시작된 도자기 컵라면 용기로 더 즐겁게 컵라면을 즐겨보세요.</div>
                         <div class="pro-sub-text-funding-peoples">26명참여</div>
                         <div class="pro-sub-text-funding-amount">1,000,000원 달성</div>
                     </div>
@@ -156,11 +173,10 @@
 
             <div class="header-btn">
                 <button class="material-symbols-outlined">keyboard_double_arrow_up</button>
-                <div>맨위로</div>
             </div>
         </div>
     </div>
-
+    <div id="footer-p"></div>
 
 </body>
 </html>
