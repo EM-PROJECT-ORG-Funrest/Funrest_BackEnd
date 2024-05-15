@@ -12,36 +12,43 @@
 }
 #footer-ph{
     position: relative;
-    top: 15rem;
+    /* top: 15rem; */
     bottom: 0; /*화면 하단에 고정 */
     left: 0;
     width: 100%;
     height: auto;
 }
 
+
 .container{
-    margin-top: 4rem; /* 페이지 상단 여백 추가 */
-    margin-bottom: 5rem; /* 페이지 하단 여백 추가 */
-    padding-bottom: 2.5rem;
-    background-color: rgb(240, 240, 240);
+    /* margin-top: 4rem;
+    margin-bottom: 5rem;
+    padding-bottom: 2.5rem; */
+    /* background-color: rgb(240, 240, 240); */
 }
 
-.container>.order-product-box>.order-product{
-    margin-top: 2rem;
+
+/* order-product */
+.container>.order-product-box>.order-product img{
+    min-width : 130px;
+    max-width : 14vw;
+    border-radius: 10px;
 }
 
-/* order-product>.table td */
-.container>.order-product-box>.order-product>.table td{
-    vertical-align : middle;    
+.container>.order-product-box>.order-product .cnt-title{
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.548);
+    font-size: small;
+    color: darkgray;
 }
-.container>.order-product-box>.order-product>.table td>img{
-    min-width : 100px;
-    max-width : 20vw;
+
+.container>.order-product-box>.order-product>.order-main>.col-md-2>.content{
+    vertical-align: middle;
 }
 
 
 /* payment-order-text */
-
 .container>.payment-order-text{
     display: flex;
     background-color: rgb(246, 248, 244);
@@ -65,7 +72,7 @@
 
 
 /* payment-order-btn */
-.container>.payment-order-btn{
+/* .container>.payment-order-btn{
     text-align: center;
     margin-top: 5vh;
     margin-bottom: 5vh;
@@ -94,4 +101,4 @@
 
 .container>.payment-order-btn>.payment-order-btn-mypage:hover{
     background-color: #5dbb74;
-}
+} */
