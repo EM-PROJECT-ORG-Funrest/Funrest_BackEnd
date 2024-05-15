@@ -10,7 +10,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../../CSS/Common.css">
-    <link rel="stylesheet" href="../../CSS/Project/Project_Real.css">
+    <link rel="stylesheet" href="../../CSS/Project/Project.css">
 
     <!-- js -->
     <script src="../../js/Project/Project.js" defer></script>
@@ -33,13 +33,13 @@
     <!-- Header, Footer 연결 -->
     <script>
         $(document).ready(function(){
-            $("#header-p").load("/../../HTML/Main/AfterLoginHeader.html",function(){
+            $("#header-p").load("/Front/HTML/Main/AfterLoginHeader.html",function(){
                 document.getElementById("header-p").classList.add("show");
             });
         })
 
         $(document).ready(function(){
-            $("#footer-p").load("../../HTML/Main/Footer.html",function(){
+            $("#footer-p").load("/Front/HTML/Main/Footer.html",function(){
                 document.getElementById("footer-p").classList.add("show");
             });
         })

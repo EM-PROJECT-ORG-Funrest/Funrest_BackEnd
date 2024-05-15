@@ -12,13 +12,13 @@
     <!-- google icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
-        .material-symbols-outlined {
-          font-variation-settings:
-          'FILL' 0,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 24
-        }
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 200,
+        'opsz' 48
+      }
     </style>
 
     <!-- CSS -->
@@ -31,7 +31,7 @@
     <script>
       // header 연결
       $(document).ready(function(){
-        $("#header-m").load("../../HTML/Main/BeforeLoginHeader.html",function(){
+        $("#header-m").load("/Front/HTML/Main/BeforeLoginHeader.html",function(){
           document.getElementById("header-m").classList.add("show");
 
         });
@@ -39,7 +39,7 @@
       
       // footer 연결
       $(document).ready(function(){
-        $("#footer-m").load("../../HTML/Main/Footer.html",function(){
+        $("#footer-m").load("/Front/HTML/Main/Footer.html",function(){
             document.getElementById("footer-m").classList.add("show");
 
         });
