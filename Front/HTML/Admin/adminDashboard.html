@@ -19,148 +19,162 @@
         .material-symbols-outlined {
           font-variation-settings:
           'FILL' 1,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 24
+          'wght' 700,
+          'GRAD' 200,
+          'opsz' 48
         }
     </style>
 
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Header 연결 -->
+    <script>
+      $(document).ready(function(){
+        $("#header-admin").load("../../HTML/Main/AdminHeader.html",function(){
+          document.getElementById("header-admin").classList.add("show");
+        });
+      })
+    </script>
+
     <!-- chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
-    
-    <div class="container my-custom-container">
-        <!-- Content here -->
-        <div class="row">
-            <div class="adminPage-left col-md-3">
-                <div class="img-box mt-4">
-                    <img src="../MyPage/img/basicProfile.png" class="d-block img-thumbnail" alt="관리자프로필">
-                </div>
-                <p class="text-center">관리자 계정</p>
-                <div class="side-menu">
-                    <p>사이트 관리</p>
-                    <button class="btn d-flex">
-                        <p class="material-symbols-outlined">dashboard</p>
-                        <p class="me-auto">&nbsp;&nbsp;&nbsp;대시보드</p>
-                    </button>
-                    <button class="btn d-flex">
-                        <p class="material-symbols-outlined">group</p>
-                        <p class="me-auto">&nbsp;&nbsp;&nbsp;회원 관리</p>
-                    </button>
-                    <button class="btn d-flex">
-                        <p class="material-symbols-outlined">home_storage</p>
-                        <p class="me-auto">&nbsp;&nbsp;&nbsp;프로젝트 관리</p>
-                    </button>
-                </div>
-            </div>
+  <div id="header-admin"></div>
+  <div class="container my-custom-container">
+      <!-- Content here -->
+      <div class="row">
+          <div class="adminPage-left col-md-3">
+              <div class="img-box mt-4">
+                  <img src="../MyPage/img/basicProfile.png" class="d-block img-thumbnail" alt="관리자프로필">
+              </div>
+              <p class="text-center">관리자 계정</p>
+              <div class="side-menu">
+                  <p>사이트 관리</p>
+                  <button class="btn d-flex">
+                      <p class="material-symbols-outlined">dashboard</p>
+                      <p class="me-auto">&nbsp;&nbsp;&nbsp;대시보드</p>
+                  </button>
+                  <button class="btn d-flex">
+                      <p class="material-symbols-outlined">group</p>
+                      <p class="me-auto">&nbsp;&nbsp;&nbsp;회원 관리</p>
+                  </button>
+                  <button class="btn d-flex">
+                      <p class="material-symbols-outlined">home_storage</p>
+                      <p class="me-auto">&nbsp;&nbsp;&nbsp;프로젝트 관리</p>
+                  </button>
+              </div>
+          </div>
 
-            <div class="adminPage-right col-md-9">
-                <div class="admin-visitor">
-                    <div class="subject">방문자 현황</div>
-                    <hr>
-                    <div class="visitor-chart">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-                <div class="admin-date">
-                    <div class="subject2">일자별 요약</div>
-                    <hr>
-                    <div class="daily-chart">
-                        <table class="table table-striped table-hover table-bordered">
-                            <thead>
-                              <tr>
-                                <th scope="col">일자</th>
-                                <th scope="col">주문 수</th>
-                                <th scope="col">매출액</th>
-                                <th scope="col">가입자 수</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>13</td>
-                                <td>48,000</td>
-                                <td>21</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2024/05/01</th>
-                                <td>12</td>
-                                <td>50,000</td>
-                                <td>23</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+          <div class="adminPage-right col-md-9">
+              <div class="admin-visitor">
+                  <div class="subject">방문자 현황</div>
+                  <hr>
+                  <div class="visitor-chart">
+                      <canvas id="myChart"></canvas>
+                  </div>
+              </div>
+              <div class="admin-date">
+                  <div class="subject2">일자별 요약</div>
+                  <hr>
+                  <div class="daily-chart">
+                      <table class="table table-striped table-hover table-bordered">
+                          <thead>
+                            <tr>
+                              <th scope="col">일자</th>
+                              <th scope="col">주문 수</th>
+                              <th scope="col">매출액</th>
+                              <th scope="col">가입자 수</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>13</td>
+                              <td>48,000</td>
+                              <td>21</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">2024/05/01</th>
+                              <td>12</td>
+                              <td>50,000</td>
+                              <td>23</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
-    <script>    // 해당 부분은 추후 js파일로 따로 관리할 예정
-        const ctx = document.getElementById('myChart');
+  <script>    // 해당 부분은 추후 js파일로 따로 관리할 예정
+      const ctx = document.getElementById('myChart');
 
-        new Chart(ctx, {
-        type: 'line',   // 차트의 종류
-        data: {         // 차트의 데이터
-            labels: ['05/03', '05/04', '05/05', '05/06', '05/07', '05/08'],     // x축 목차(Array)
-            datasets: [{                    // 실제 차트에 표시할 데이터들(Array), dataset 객체들을 담고 있음
-            label: '# of Votes',            // dataset의 이름(String)
-            data: [12, 19, 3, 5, 2, 3],     // dataset의 값(Array)
-            borderColor: 'rgba(255, 99, 132, 1)',   // dataset의 선 색(rgba값을 String으로 표현)
-            borderWidth: 1                  // dataset의 선 두께(Number)
-            }]
-        },
-        options: {      // 차트의 설정
-            scales: {   // x축에 관한 설정
-            y: {        // y축에 대한 설정
-                beginAtZero: true   // 시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
-            }
-            }
-        }
-        });
-    </script>
+      new Chart(ctx, {
+      type: 'line',   // 차트의 종류
+      data: {         // 차트의 데이터
+          labels: ['05/03', '05/04', '05/05', '05/06', '05/07', '05/08'],     // x축 목차(Array)
+          datasets: [{                    // 실제 차트에 표시할 데이터들(Array), dataset 객체들을 담고 있음
+          label: '# of Votes',            // dataset의 이름(String)
+          data: [12, 19, 3, 5, 2, 3],     // dataset의 값(Array)
+          borderColor: 'rgba(255, 99, 132, 1)',   // dataset의 선 색(rgba값을 String으로 표현)
+          borderWidth: 1                  // dataset의 선 두께(Number)
+          }]
+      },
+      options: {      // 차트의 설정
+          scales: {   // x축에 관한 설정
+          y: {        // y축에 대한 설정
+              beginAtZero: true   // 시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
+          }
+          }
+      }
+      });
+  </script>
+
 </body>
 </html>

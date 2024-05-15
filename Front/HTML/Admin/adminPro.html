@@ -25,171 +25,51 @@
           'opsz' 24
         }
     </style>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Header 연결 -->
+    <script>
+      $(document).ready(function(){
+        $("#header-admin").load("../../HTML/Main/AdminHeader.html",function(){
+          document.getElementById("header-admin").classList.add("show");
+        });
+      })
+    </script>
+    
 </head>
 <body>
-    <div class="container my-custom-container">
-        <!-- Content here -->
-        <div class="row">
-            <div class="adminPage-left col-md-3">
-                <div class="img-box mt-4">
-                    <img src="../MyPage/img/basicProfile.png" class="d-block img-thumbnail" alt="관리자프로필">
-                </div>
-                <p class="text-center">관리자 계정</p>
-                <div class="side-menu">
-                    <p>사이트 관리</p>
-                    <button class="btn d-flex">
-                        <p class="material-symbols-outlined">dashboard</p>
-                        <p class="me-auto">&nbsp;&nbsp;&nbsp;대시보드</p>
-                    </button>
-                    <button class="btn d-flex">
-                        <p class="material-symbols-outlined">group</p>
-                        <p class="me-auto">&nbsp;&nbsp;&nbsp;회원 관리</p>
-                    </button>
-                    <button class="btn d-flex">
-                        <p class="material-symbols-outlined">home_storage</p>
-                        <p class="me-auto">&nbsp;&nbsp;&nbsp;프로젝트 관리</p>
-                    </button>
-                </div>
-            </div>
-            <div class="adminPage-right col-md-9">
-                <div class="admin-project">
-                    <div class="subject">신청 프로젝트 관리</div>
-                    <hr>
-                    <div class="apply-project-chart">
-                        <table class="table table-striped table-hover table-bordered">
-                            <thead>
-                              <tr>
-                                <th scope="col">번호</th>
-                                <th scope="col">생성자</th>
-                                <th scope="col">이름</th>
-                                <th scope="col">생성일자</th>
-                                <th scope="col">관리</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">4</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">5</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">6</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">7</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">8</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">9</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">10</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">11</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                              <tr>
-                                <th scope="row">12</th>
-                                <td>hong1234</td>
-                                <td>맛있는 우유</td>
-                                <td>2024.05.07</td>
-                                <td>
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                    <div class="container">
-                        <div class="btns text-end">
-                            <button type="button" class="btn btn-secondary ">삭제</button>
-                            <button type="button" class="btn btn-secondary ">수정</button>
-                            <button type="button" class="btn btn-secondary ">등록</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="admin-project">
-                  <div class="subject">등록된 프로젝트 관리</div>
+  <div id="header-admin"></div>
+  <div class="container my-custom-container">
+      <!-- Content here -->
+      <div class="row">
+          <div class="adminPage-left col-md-3">
+              <div class="img-box mt-4">
+                  <img src="../MyPage/img/basicProfile.png" class="d-block img-thumbnail" alt="관리자프로필">
+              </div>
+              <p class="text-center">관리자 계정</p>
+              <div class="side-menu">
+                  <p>사이트 관리</p>
+                  <button class="btn d-flex">
+                      <p class="material-symbols-outlined">dashboard</p>
+                      <p class="me-auto">&nbsp;&nbsp;&nbsp;대시보드</p>
+                  </button>
+                  <button class="btn d-flex">
+                      <p class="material-symbols-outlined">group</p>
+                      <p class="me-auto">&nbsp;&nbsp;&nbsp;회원 관리</p>
+                  </button>
+                  <button class="btn d-flex">
+                      <p class="material-symbols-outlined">home_storage</p>
+                      <p class="me-auto">&nbsp;&nbsp;&nbsp;프로젝트 관리</p>
+                  </button>
+              </div>
+          </div>
+          <div class="adminPage-right col-md-9">
+              <div class="admin-project">
+                  <div class="subject">신청 프로젝트 관리</div>
                   <hr>
-                  <div class="registered-project-chart">
+                  <div class="apply-project-chart">
                       <table class="table table-striped table-hover table-bordered">
                           <thead>
                             <tr>
@@ -316,11 +196,145 @@
                       <div class="btns text-end">
                           <button type="button" class="btn btn-secondary ">삭제</button>
                           <button type="button" class="btn btn-secondary ">수정</button>
+                          <button type="button" class="btn btn-secondary ">등록</button>
                       </div>
                   </div>
               </div>
+              <div class="admin-project">
+                <div class="subject">등록된 프로젝트 관리</div>
+                <hr>
+                <div class="registered-project-chart">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">생성자</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">생성일자</th>
+                            <th scope="col">관리</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">4</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">5</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">6</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">7</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">8</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">9</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">10</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">11</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">12</th>
+                            <td>hong1234</td>
+                            <td>맛있는 우유</td>
+                            <td>2024.05.07</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="container">
+                    <div class="btns text-end">
+                        <button type="button" class="btn btn-secondary ">삭제</button>
+                        <button type="button" class="btn btn-secondary ">수정</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+          </div>
+      </div>
+  </div>
 </body>
 </html>
