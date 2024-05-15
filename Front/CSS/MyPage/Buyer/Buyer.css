@@ -18,16 +18,12 @@
     height: auto;
 }
 
-.container{
-    border-top : 1px solid lightgray;
-    margin-top: 4rem; /* 페이지 상단 여백 추가 */
-}
-
-/* mypage-left */
-.container>.row>.mypage-left{
-}
 
 /* mypage-buyer */
+.container .mypage-buyer {
+    background-color: #f8f9fa;
+}
+
 /* buyer-top */
 .container .mypage-buyer>.buyer-top{
     display: flex;
