@@ -6,6 +6,11 @@
 a{
     text-decoration: none;
 }
+
+#BeforeLoginHeader{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 /* .container{border: 1px solid blue;} */
 .container>.row{}
 

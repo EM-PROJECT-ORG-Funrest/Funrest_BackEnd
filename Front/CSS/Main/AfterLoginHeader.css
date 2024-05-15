@@ -6,6 +6,12 @@
 a{
     text-decoration: none;
 }
+
+#AfterLoginHeader{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 /* .container{border: 1px solid blue;} */
 .container>.row{}
 
