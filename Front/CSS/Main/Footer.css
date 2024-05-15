@@ -12,6 +12,9 @@ a{
 .container{
     /* border: 1px solid green; */
     margin-top: 50px;
+}
+
+#footer-nav-background-color{
     background-color: #f8f9fa;
 }
 
@@ -50,6 +53,9 @@ a{
     /* border: 1px solid blue; */
     display: flex;
     align-items: center;
+}
+
+#footer-info-background-color{
     background-color: #E5E5E5;
 }
 
