@@ -175,13 +175,15 @@ a{
     width: 15%;
 }
 .container>.row>.pro-right>.sticky-sidebar>.pro-sub-btns>.pro-sub-notify>.material-symbols-outlined{
+    /* border: 1px solid blue; */
+    margin-top: 0;
     width: 100%;
-    font-size: 1.5vw;
+    font-size:25px;
 }
 .container>.row>.pro-right>.sticky-sidebar>.pro-sub-btns>.pro-sub-notify>.pro-sub-notify-peoples{
     /* border: 1px solid green; */
     /* color: rgb(54, 135, 38); */
-    font-size: 1.2vw;
+    font-size: 20px;
     font-weight: bold;
 }
 
