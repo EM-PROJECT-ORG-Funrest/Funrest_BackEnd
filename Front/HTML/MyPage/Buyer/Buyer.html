@@ -49,38 +49,48 @@
 
 <body>
     <div id="header-b"></div>
-    <div class="container p-3 mt-3">
+    <div class="container my-custom-container p-3 mt-3">
         <div class="row">
-            <div class="mypage-left col-md-2">
-                <div class="img-box mt-4">
+            <div class="mypage-left col-md-2 px-3">
+                <div class="float-center py-3 mt-3">
+                    <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center px-3 py-1">
+                        <span class="text-end me-1">Seller</span>
+                        <span class="material-symbols-outlined">
+                            sync
+                        </span>
+                    </a>
+                </div>
+                <div class="img-box">
                     <img src="../img/basicProfile.png" class="d-block img-thumbnail" alt="기본프로필">
                 </div>
                 <h5 class="text-center">Buyer</h5>
                 <p class="text-center">이름</p>
-                <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
-                    <!-- <p class="m-auto">판매자</p> -->
+                <!-- <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
                     <p class="ms-3 mb-0">Seller</p>
                     <span class="material-symbols-outlined">
                         chevron_right
                         </span>
-                </button>
+                </button> -->
             </div>
-            <div class="border-end col-md-1"></div>
-            <div class="mypage-buyer col-md-9 align-self-center text-center p-4">
+            <div class="mypage-buyer col-md-10 align-self-center text-center p-4">
                 <div class="buyer-top row p-4">
-                    <div class="payment-history m-2 mt-3 col-lg-3 border">
+                    <div class="payment-history m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p>결제 내역</p>
                         <hr class="m-0">
                         <a href="javascript:void(0)"><h1>3</h1></a>
                     </div>
-                    <div class="apply-notify m-2 mt-3 col-lg-3 border">
+                    <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p>알림 신청</p>
                         <hr class="m-0">
                         <a href="javascript:void(0)"><h1>3</h1></a>
                     </div>
                 </div>
                 <div class="buyer-ad row justify-content-center p-4">
-                    <div class="ad border">광고zone</div>
+                    <div class="ad">
+                        <a href="javascript:void(0)">
+                            <img src="../Seller/imgs/ad01.jpg" alt="광고zone" class="img-fluid">
+                        </a>
+                    </div>
                 </div>
                 <div class="buyer-bottom row justify-content-center mt-4 p-4">
                     <button class="btn btn-outline-success m-2 text-start d-flex">

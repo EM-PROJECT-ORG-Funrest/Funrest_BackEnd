@@ -2,9 +2,34 @@
     margin-top: 4rem; /* 페이지 상단 여백 추가 */
 }
 
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
+/* mypage-left */
+.container>.row>.mypage-left{
+    background-color: rgb(246, 248, 244);;
+}
+.container>.row>.mypage-left>div>a{
+    text-decoration: none;
+    color : #71d089;
+    transition : .2s;
+    border: 1px solid #71d089;
+    border-radius: 18px;
+}
+.container>.row>.mypage-left>div>a:hover{
+    color : white;
+    background-color: #71d089;
+}
+.container>.row>.mypage-left>div>a>.material-symbols-outlined{
+    font-size: 20px;
+}
+
 /* mypage-buyer */
 .container .mypage-buyer {
     background-color: #f8f9fa;
+    /* background-color: rgb(241, 241, 241); */
 }
 
 /* buyer-top */
@@ -13,9 +38,17 @@
     justify-content:center;
     align-items: center;
 }
+/* .container .mypage-buyer>.buyer-top>div{
+    border-color : #71d089 !important;
+}
+.container .mypage-buyer>.buyer-top>div>hr{
+    color : #71d089;
+    height : 3px;
+} */
 .container .mypage-buyer>.buyer-top>div p{
     line-height: 50px;
     margin: 0;
+    /* color :  #71d089; */
 }
 .container .mypage-buyer>.buyer-top>div a{
     text-decoration: none;
@@ -28,15 +61,24 @@
 
 /* buyer-ad */
 .container .mypage-buyer>.buyer-ad>.ad{
-    width:545px;
-    height:130px;
+    /* width:545px;
+    height:130px; */
+}
+.container .mypage-buyer>.buyer-ad>.ad img{
+    max-height: 22vh;
 }
 
 
 /* buyer-bottom */
 .container .mypage-buyer>.buyer-bottom .btn{
     max-width : 545px;
+    background-color: white;
 }
+.container .mypage-buyer>.buyer-bottom .btn:hover{
+    background-color: #71d089;
+    color : white;
+}
+
 .container .mypage-buyer>.buyer-bottom .btn>p{
     margin : 0;
 }
