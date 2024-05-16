@@ -10,7 +10,19 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../../CSS/Common.css">
-    <link rel="stylesheet" href="../../CSS/Payment/PaymentHsitory.css">
+    <link rel="stylesheet" href="../../CSS/Payment/PaymentHistory.css">
+    
+    <!-- GOOGLE ICON -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
 
     <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -37,7 +49,7 @@
 
 <body>
     <div id="header-ph"></div>
-    <div class="container payment-history-container">
+    <div class="container payment-history-container my-custom-container">
         <div class="row order-product-box m-2">
             <h3 class="my-4 p-4 text-center fw-bolder">결제 내역</h3>
             <div class="order-product shadow-sm p-3 mb-5 bg-body rounded">
@@ -151,27 +163,48 @@
                 </div>
             </div>
         </div>
-        <div class="payment-order-text row rounded/">
-            <div class="payment-order-text-title col-md-2 my-2">주문절차 안내</div>
+        <div class="payment-history-guide row py-4 px-2">
+            <h5 class="guide-title col-md-2 ps-3 pb-3 border-end">
+                주문절차 안내</h5>
+            <div class="guide-content col-md-10">
+                <h6 class="ps-2">교환</h6>
+                <ul>
+                    <li>상품의 교환 신청은 1:1 문의로 신청해주십시오.</li>
+                    <li>상품의 교환은 수령일로부터 5일 이내에 가능합니다.(단 구매자에 의한 상품의 품질 저하 발생 시 교환이 어려울 수 있습니다.)</li>
+                </ul>
+                <h6 class="ps-2">반품</h6>
+                <ul>
+                    <li>상품의 반품은 수령일로부터 5일 이내에 가능합니다.</li>
+                    <li>상품이 출고된 이후에는 배송완료 후, 반품 상품을 회수합니다.</li>
+                    <li>반품비는 선불로 3,000원을 결제하셔야 합니다. (만약 판매자에 의한 과실로 인한 반품일 경우에는 반품비가 부과되지 않습니다.)</li>
+                    <li>영화, 뮤지컬 및 공연의 환불은 시청하지 않았을 시 가능합니다. (당일 오전 9시 까지 반품 가능합니다.)</li>
+                </ul>
+                <h6 class="ps-2">취소</h6>
+                <ul>
+                    <li>상품의 취소는 주문완료 상태에서만 가능합니다.</li>
+                    <li>배송 준비중 상태에서는 취소가 되지 않으며 배송완료 후 환불 처리 하셔야 합니다.</li>
+                </ul>
+            </div>
+            <!-- <div class="payment-order-text-title col-md-2 my-2">주문절차 안내</div>
             <div class="payment-order-text-list col-md-8 mt-3">
                 <div class="payment-order-text-list-title">교환</div>
                 <ul>
-                <li>상품의 교환 신청은 1:1 문의로 신청해주십시오.</li>
-                <li>상품의 교환은 수령일로부터 5일 이내에 가능합니다.(단 구매자에 의한 상품의 품질 저하 발생 시 교환이 어려울 수 있습니다.)</li>
+                    <li>상품의 교환 신청은 1:1 문의로 신청해주십시오.</li>
+                    <li>상품의 교환은 수령일로부터 5일 이내에 가능합니다.(단 구매자에 의한 상품의 품질 저하 발생 시 교환이 어려울 수 있습니다.)</li>
                 </ul>
                 <div class="payment-order-text-list-title" >반품</div>
                 <ul>
-                <li>상품의 반품은 수령일로부터 5일 이내에 가능합니다.</li>
-                <li>상품이 출고된 이후에는 배송완료 후, 반품 상품을 회수합니다.</li>
-                <li>반품비는 선불로 3,000원을 결제하셔야 합니다. (만약 판매자에 의한 과실로 인한 반품일 경우에는 반품비가 부과되지 않습니다.)</li>
-                <li>영화, 뮤지컬 및 공연의 환불은 시청하지 않았을 시 가능합니다. (당일 오전 9시 까지 반품 가능합니다.)</li>
+                    <li>상품의 반품은 수령일로부터 5일 이내에 가능합니다.</li>
+                    <li>상품이 출고된 이후에는 배송완료 후, 반품 상품을 회수합니다.</li>
+                    <li>반품비는 선불로 3,000원을 결제하셔야 합니다. (만약 판매자에 의한 과실로 인한 반품일 경우에는 반품비가 부과되지 않습니다.)</li>
+                    <li>영화, 뮤지컬 및 공연의 환불은 시청하지 않았을 시 가능합니다. (당일 오전 9시 까지 반품 가능합니다.)</li>
                 </ul>
                 <div class="payment-order-text-list-title">취소</div>
                 <ul>
-                <li>상품의 취소는 주문완료 상태에서만 가능합니다.</li>
-                <li>배송 준비중 상태에서는 취소가 되지 않으며 배송완료 후 환불 처리 하셔야 합니다.</li>
+                    <li>상품의 취소는 주문완료 상태에서만 가능합니다.</li>
+                    <li>배송 준비중 상태에서는 취소가 되지 않으며 배송완료 후 환불 처리 하셔야 합니다.</li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
     <div id="footer-ph"></div>
