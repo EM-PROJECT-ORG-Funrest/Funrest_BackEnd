@@ -1,30 +1,9 @@
-
-/* 헤더, 푸터 연결 */
-#header-m, #footer-m{
-    /* display: block; */
-}
-#header-m{
-    /* position: fixed; */
-    top: 0;
-    margin: 20px;
-    left: 0;
-    width: 100%;
-    height: auto;
-    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
-}
-#footer-m{
-    position: relative;
-    top: 20rem;
-    bottom: 0; /*화면 하단에 고정*/
-    left: 0;
-    width: 100%;
-    height: auto;
-    /* margin-bottom: 0px; */
-}
-.wrapper1{
-    margin-top: 8rem;
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
 }
 
+.wrapper1{}
 
 .carousel-indicators [data-bs-target] {
     width: 10px;
@@ -48,7 +27,7 @@
 .main{
     /* border:1px solid; */
     padding: 20px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 .main>.main-header {
@@ -59,13 +38,9 @@
     padding: 10px;
 }
 
-.main>.main-header>.sort-project{
-  height:5vh;
-}
-
 .main>.main-header>.category>.nav a{
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color : rgb(153, 173, 153);
 }
 
@@ -82,6 +57,9 @@
     border-color: green;
 }
 
+.main>.main-header>.sort-project{
+  height:5vh;
+}
 .main>.main-header>.sort-project{
     /* border: 1px solid; */
     /* line-height: 50px; */

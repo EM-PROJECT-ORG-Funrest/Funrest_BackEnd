@@ -7,7 +7,8 @@ a{
     text-decoration: none;
 }
 
-#BeforeLoginHeader{
+#AfterLoginProjectHeader{
+    /* border: 1px solid; */
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -56,6 +57,16 @@ a{
 .container>.row>.header-right>.header-nav>.nav-2>a:hover{
     color: black;
     font-weight: 700;
+}
+.container>.row>.header-right>.header-nav>.nav-3{
+    /* border: 1px solid blue; */
+    margin-left: 15px;
+}
+.container>.row>.header-right>.header-nav>.nav-3>a{
+}
+.container>.row>.header-right>.header-nav>.nav-3>a>span{
+    color: rgb(72, 170, 54);
+    margin-top: 5px;
 }
 .container>.row>.header-right>.header-nav>.nav-4{
     /* border: 1px solid blue; */

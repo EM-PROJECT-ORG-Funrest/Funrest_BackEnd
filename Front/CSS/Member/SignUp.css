@@ -1,23 +1,6 @@
-
-/* 헤더, 푸터 연결 */
-#header-su{
-    /* position: fixed; */
-    top: 5rem;
-    margin-top: 2rem;
-    margin-left: 6rem;
-    padding-bottom: 4rem;
-    left: 0;
-    width: 95%;
-    height: auto;
-    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
-}
-#footer-su{
-    position: absolute;
-    top: 65rem;
-    bottom: 0; /*화면 하단에 고정 */
-    left: 0;
-    width: 100%;
-    height: auto;
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
 }
 
 /* logo */

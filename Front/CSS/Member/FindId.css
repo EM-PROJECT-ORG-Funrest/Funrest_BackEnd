@@ -1,3 +1,8 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
 /* logo */
 .findid>.row>.logo{
     margin-top: 5vh;

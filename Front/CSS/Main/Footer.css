@@ -1,90 +1,88 @@
+/* Common */
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
 
-/* all */
 a{
     text-decoration: none;
     color: black;
 }
 
-.wrapper_f{
-    padding-bottom: 5rem;
+.container{
+    /* border: 1px solid green; */
 }
 
-/* hr */
-
-.footer-hr{
-    opacity: 0.3;
-    background-color: gray;
+#footer-nav-background-color{
+    margin-top: 50px;
+    background-color: #f8f9fa;
 }
 
 /* footer-nav */
+.container>.footer-nav{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* border: 1px solid blue; */
+    display: flex;
+    /* width: 100%; */
+    /* align-items: center; */
+    /* height: 100px; */
+}
+.container>.footer-nav>.policy{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid red; */
+    font-size: smaller;
+}
+.container>.footer-nav>a>span{
+    margin-left: 5px;
+    /* border: 1px solid blue; */
+}
+.container>.footer-nav>.personal-info{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    /* border: 1px solid red; */
+    font-size: smaller;
+}
 
-.footer-nav{
+/* container>.row */
+.container>.row{
+}
+
+#footer-info-background-color{
+    padding-top: 40px;
+    padding-bottom: 40px;
+    /* border: 1px solid blue; */
+    display: flex;
+    align-items: center;
+    background-color: #E5E5E5;
+}
+
+/* footer-info-left */
+.container>.row>.footer-info-left{
+    /* border: 1px solid green; */
+}
+.container>.row>.footer-info-left>img{
+    /* border: 1px solid red; */
     width: 100%;
-    display: flex;
-
-    /* margin-left: 15vw; */
-    margin-left: 9.5vw;
-
 }
 
-.footer-policy{
-    margin-right: 3.3rem;
+/* footer-info-right */
+.container>.row>.footer-info-right{
+    padding: 10px;
+    /* border: 1px solid violet; */
+    font-size: smaller;
+}
+.container>.row>.footer-info-right>.footer-text1{
+    /* border: 1px solid red; */
+}
+.container>.row>.footer-info-right>.footer-text1>.funrest{
+    font-weight:800;
+}
+.container>.row>.footer-info-right>.footer-text2{
+    /* border: 1px solid red; */
+    font-size: 12px;
+    color: gray;
 }
 
-.footer-policy-a:hover{
-    text-decoration: none;
-    color: black;
-    font-weight: 1000;
-}
-
-.footer-personal{
-    margin-right: 65rem;
-}
-
-.footer-personal-a:hover{
-    text-decoration: none;
-    color: black;
-    font-weight: 1000;
-}
-
-.footer-sns-a:hover{
-    text-decoration: none;
-    color: black;
-    font-weight: 1000;
-}
-
-/* footer-explain */
-
-.footer-explain{
-    display: flex;
-}
-
-.footer-logo{
-
-    background-image: url('logo.jpg'); 
-    background-size: contain; 
-
-    /* margin-left: 7.5vw; */
-    margin-left: 4.5vw;
-    width: 15rem;
-    height: 6rem;
-}
-
-.footer-text{
-    margin-left: 7vw;
-
-}
-
-.footer-text1{
-    opacity: 0.8;
-    font-weight: 500;
-}
-
-.funrest{
-    font-weight: 1000;
-}
-
-.footer-text2{
-    opacity: 0.6;
-    font-weight: 300;
-}

@@ -4,16 +4,77 @@
 }
 
 /* .project-manage-left */
-.container>.row>.project-manage-left{}
-.container>.row>.project-manage-left>form{}
-.container>.row>.project-manage-left>form>input{}
-.container>.row>.project-manage-left>form>#image_container{
-    /* 이미지 컨테이너 반응형 적용 부분 보완하기 */
-    height:25vw;
+.container{}
+.container>.row{}
+.container>.row>.project-manage-left{
+    /* border: 1px solid blue; */
 }
-.container>.row>.project-manage-left>form>.project-image-subfile-list{
-    height: 25vw;
+.container>.row>.project-manage-left>.project-image-files{
+    /* border: 1px solid blue; */
+    border-radius: 10px;
+    background-color: #E5E5E5;
+    padding: 15px;
+    height: 100%;
+}
+.container>.row>.project-manage-left>.project-image-files>form{}
+.container>.row>.project-manage-left>.project-image-files>form>.project-image-mainfile{
+    /* border: 1px solid red; */
+    width: 100%; 
+    margin-bottom: 5px;
+}
+.container>.row>.project-manage-left>.project-image-files>form>#image_container{
+    /* height:25vw; */
+    height: 300px;
+    /* border: 1px solid blue; */
+    border-radius: 5px;
+    background-color: white;
+}
+.container>.row>.project-manage-left>.project-image-files>form>.project-image-subfile{
+    /* border: 1px solid red; */
+    width: 100%;
+    margin-bottom: 5px;
+}
+.container>.row>.project-manage-left>.project-image-files>form>.project-image-subfile-list{
+    height: 200px;
+    /* border: 1px solid blue; */
+    border-radius: 5px;
+    background-color: white;
 }
 
+
 /* .project-manage-right */
-.container>.row>.project-manage-right{}
+.container>.row>.project-manage-right{
+    /* border: 1px solid violet; */
+
+}
+.container>.row>.project-manage-right>.project-info{
+    /* border: 1px solid blue; */
+    border-radius: 10px;
+    height: 100%;
+    background-color: #E5E5E5;
+}
+.container>.row>.project-manage-right>.project-info>.form-label{
+    /* border: 1px solid blue; */
+}
+.container>.row>.project-manage-right>.project-info>.form-select{
+    /* border: 1px solid blue; */
+    width: 60%;
+}
+.container>.row>.project-manage-right>.project-info>.form-control{
+    /* border: 1px solid blue; */
+    width: 60%;
+}
+.container>.row>.project-manage-right>.project-info>.form-control-a{
+    /* border: 1px solid #E5E5E5; */
+    /* border-radius: 1%; */
+    width: 95%;
+    height: 300px;
+}
+
+/* buttons */
+.container>.row>.container{}
+.container>.row>.container>.btns{}
+.container>.row>.container>.btns>button{
+    margin-left: 15px;
+    width: 80px;
+}

@@ -1,159 +1,83 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
 
-/* 헤더, 푸터 연결 */
-#header-pc{
-    /* position: fixed; */
-    top: 3rem;
-    margin-top: 2rem;
-    margin-left: 2rem;
-    padding-bottom: 4rem;
-    left: 0;
+/* .project-manage-left */
+.container{
+    /* border: 1px solid; */
+}
+.container>form>.row{
+    /* border: 1px solid red; */
+}
+.container>form>.row>.project-manage-left{
+    /* border: 1px solid blue; */
+}
+.container>form>.row>.project-manage-left>.project-image-files{
+    /* border: 1px solid blue; */
+    border-radius: 10px;
+    background-color: #E5E5E5;
+    padding: 15px;
+    height: 100%;
+}
+.container>form>.row>.project-manage-left>.project-image-files>.project-image-mainfile{
+    /* border: 1px solid red; */
+    width: 100%; 
+    margin-bottom: 5px;
+}
+.container>form>.row>.project-manage-left>.project-image-files>#image_container{
+    /* height:25vw; */
+    height: 300px;
+    /* border: 1px solid blue; */
+    border-radius: 5px;
+    background-color: white;
+}
+.container>form>.row>.project-manage-left>.project-image-files>.project-image-subfile{
+    /* border: 1px solid red; */
     width: 100%;
-    height: auto;
-    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
+    margin-bottom: 5px;
 }
-#footer-pc{
-    position: relative;
-    top: 15rem;
-    bottom: 0; /*화면 하단에 고정 */
-    left: 0;
-    width: 100%;
-    height: auto;
+.container>form>.row>.project-manage-left>.project-image-files>.project-image-subfile-list{
+    height: 200px;
+    /* border: 1px solid blue; */
+    border-radius: 5px;
+    background-color: white;
 }
 
 
+/* .project-manage-right */
+.container>form>.row>.project-manage-right{
+    /* border: 1px solid violet; */
 
-/* create-title */
-.create-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 5vh;
+}
+.container>form>.row>.project-manage-right>.project-info{
+    /* border: 1px solid blue; */
+    border-radius: 10px;
+    height: 100%;
+    background-color: #E5E5E5;
+}
+.container>form>.row>.project-manage-right>.project-info>.form-label{
+    /* border: 1px solid blue; */
+}
+.container>form>.row>.project-manage-right>.project-info>.form-select{
+    /* border: 1px solid blue; */
+    width: 60%;
+}
+.container>form>.row>.project-manage-right>.project-info>.form-control{
+    /* border: 1px solid blue; */
+    width: 60%;
+}
+.container>form>.row>.project-manage-right>.project-info>.form-control-a{
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    width: 95%;
+    height: 300px;
 }
 
-/* create-project */
-.create>form>.create-project {
-    display: flex;
-    height: 90vh;
-}
-
-/* create-project-images */
-.create>form>.create-project>.create-project-images {
-    margin-left: 6vw;
-    width: 30vw;
-    height: 100vh; 
-    background-color: rgb(210, 226, 207);
-    
-}
-.create>form>.create-project>.create-project-images #image_container img {
-    height: 30rem;
-    width: 29.9vw;  
-}
-
-/* create-project-info */
-.create>form>.create-project>.create-project-info {
-    margin-left: 7vw;
-    background-color: rgb(210, 226, 207);
-    width: 50vw;
-}
-
-.create>form>.create-project>.create-project-info>.create-project-info-title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.create>form>.create-project>.create-project-info>form>.form-label {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: 2.5vh;
-}
-
-.create>form>.create-project>.create-project-info>.pro-input-text{
-    height: 35vh;
-    width: 48vw;
-}
-
-/* create-project-images */
-
-
-.create>form>.create-project>.create-project-images {
-    margin-left: 6vw;
-    width: 30vw;
-    white-space: nowrap;
-}
-.create>form>.create-project>.create-project-images>.create-project-image-title{
-    font-size: 1.5rem;
-    font-weight: 700;    
-}
-
-.create>form>.create-project>.create-project-images>.create-project-image-mainfile{
-    width: auto;
-}
-
-.create>form>.create-project>.create-project-images>#image_container{
-    height: 25vw;
-    width: 100%;
-    border: 2px solid rgb(255, 255, 255);
-    overflow: hidden;
-}
-
-
-.create>form>.create-project>.create-project-images>.create-project-image-insert {
-    width: 100%;
-    margin: 2vh auto;
-    height: 20vh;
-    box-sizing: border-box;
-    overflow-x: auto;
-    border: 2px solid rgb(255, 255, 255);}
-
-
-.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox .name {
-    display: flex;
-}
-
-.create>form>.create-project>.create-project-images>.create-project-image-insert .create-project-image-file-list .filebox .delete {
-    display: flex;
-    cursor: pointer;
-    color: #ff5353;
-}
-
-
-.create>form>.create-project>.create-project-images>.create-project-image-title{
-    margin-top: 1vh;
-    font-size: 1.5rem;
-    font-weight: 700;    
-    margin-bottom: 2vh;
-}
-
-
-.create>form>.create-project>.create-project-images>.create-project-image-subtitle{
-    margin-top: 1vh;
-    font-size: 1.5rem;
-    font-weight: 700; 
-}
-
-.create>form>.create-project>.create-project-images>.create-project-image-subfile-role{
-    font-size: 0.9rem;
-    font-weight: 700;
-    opacity: 0.7;
-    height: 5vh;
-    width: 100%;
-}
-
-.create>form>.create-pro-button-div{
-    margin-left: 43vw;
-    margin-top: 3vh;
-}
-
-.create>form>.create-pro-button-div>.create-pro-button{
-    width: 50vw;
-    height: 6vh;
-    border: 0;
-    font-weight: 600;
-    font-size: 2rem;
-}
-
-.create>form>.create-pro-button-div>.create-pro-button:hover{
-    background-color: rgb(210, 226, 207);
-    transition: 0.5s;
+/* buttons */
+.container>form>.row>.container{}
+.container>form>.row>.container>.btns{}
+.container>form>.row>.container>.btns>button{
+    margin-left: 15px;
+    width: 80px;
 }

@@ -3,15 +3,15 @@
     min-width: 500px;
 }
 
+#AdminHeader{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 a{
     text-decoration: none;
 }
 
-#BeforeLoginHeader{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-/* .container{border: 1px solid blue;} */
 .container>.row{}
 
 /* header-left */
@@ -44,28 +44,5 @@ a{
 }
 .container>.row>.header-right>.header-nav>.nav-1>a:hover{
     color: black;
-    font-weight: 700;
-}
-.container>.row>.header-right>.header-nav>.nav-2{
-    /* border: 1px solid blue; */
-    margin-left: 15px;
-}
-.container>.row>.header-right>.header-nav>.nav-2>a{
-    color: black;
-}
-.container>.row>.header-right>.header-nav>.nav-2>a:hover{
-    color: black;
-    font-weight: 700;
-}
-.container>.row>.header-right>.header-nav>.nav-4{
-    /* border: 1px solid blue; */
-    margin-left: 15px;
-}
-.container>.row>.header-right>.header-nav>.nav-4>.btn{
-    background-color: rgb(72, 170, 54);
-    color: white;
-}
-.container>.row>.header-right>.header-nav>.nav-4>.btn:hover{
-    color: white;
     font-weight: 700;
 }
