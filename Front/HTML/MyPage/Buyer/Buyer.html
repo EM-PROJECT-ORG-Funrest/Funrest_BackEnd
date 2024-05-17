@@ -75,14 +75,87 @@
             <div class="mypage-buyer col-md-10 align-self-center text-center p-4">
                 <div class="buyer-top row p-4">
                     <div class="payment-history m-2 mt-3 col-lg-3 border rounded bg-white">
-                        <p>결제 내역</p>
+                        <p class="buyer-top-p">결제 내역</p>
                         <hr class="m-0">
                         <a href="javascript:void(0)"><h1>3</h1></a>
                     </div>
                     <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
-                        <p>알림 신청</p>
+                        <p class="buyer-top-p">알림 신청</p>
                         <hr class="m-0">
-                        <a href="javascript:void(0)"><h1>3</h1></a>
+                        <a data-bs-toggle="modal" href="#notifyModal"><h1>3</h1></a>
+
+                        <!-- Modal -->
+                        <div class="modal fade my-custom-container" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">알림 신청한 프로젝트</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body row p-auto">
+                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2" style="width: 23.8rem;">
+                                        <div class="card-img-box">
+                                            <a href="javascript:void(0)">
+                                                <img src="../Seller/imgs/img1.jpg" class="card-img-top" alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-start">n명이 기다려요 아니면 달성률 표시</h5>
+                                            <p class="card-text text-start text-truncate">프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목</p>
+                                            <a href="#" class="btn btn-outline-success card-btn">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="material-symbols-outlined">
+                                                        notifications_off
+                                                    </span>&nbsp;
+                                                    알림 취소하기
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- =========================나중에 삭제============================= -->
+                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2" style="width: 23.8rem;">
+                                        <div class="card-img-box">
+                                            <img src="../../Main/img/project/project1.jpg" class="card-img-top" alt="...">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-start">100명이 기다려요</h5>
+                                            <p class="card-text text-start">프로젝트 제목</p>
+                                            <a href="#" class="btn btn-outline-success modal-btn">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="material-symbols-outlined">
+                                                        notifications
+                                                    </span>&nbsp;
+                                                    알림 신청 완료
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2" style="width: 23.8rem;">
+                                        <div class="card-img-box">
+                                            <img src="../../Main/img/banner1.jpg" class="card-img-top" alt="...">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-start">달성률 2000%</h5>
+                                            <p class="card-text text-start">프로젝트 제목</p>
+                                            <a href="#" class="btn btn-outline-success modal-btn">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="material-symbols-outlined">
+                                                        notifications
+                                                    </span>&nbsp;
+                                                    알림 신청 완료
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- ========================여기까지 삭제============================-->
+                                </div>
+                                <!-- <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button type="button" class="btn btn-success">확인</button>
+                                </div> -->
+                            </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="buyer-ad row justify-content-center p-4">
