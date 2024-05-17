@@ -1,108 +1,124 @@
 /* 헤더, 푸터 연결 */
 #header-ar{
     /* position: fixed; */
-    /* top: 0; */
-    /* margin-top: 2rem; */
-    /* margin-left: 6rem; */
-    /* left: 0; */
-    /* width: 95%; */
-    /* height: auto; */
+    /* top: 0;
+    margin-top: 2rem;
+    margin-left: 6rem;
+    left: 0;
+    width: 95%;
+    height: auto; */
     /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
 }
 #footer-ar{
-    /* position: relative; */
-    /* top: 15rem; */
-    /* bottom: 0;  */
-    /*화면 하단에 고정 */
-    /* left: 0; */
-    /* width: 100%; */
-    /* height: auto; */
+    /* position: relative;
+    top: 15rem; */
+    /* bottom: 0; 
+    left: 0;
+    width: 90%;
+    height: auto; */
 }
 
+.my-custom-container{
+    min-width: 500px;
+}
+
+@media screen and (max-width: 1024px){
+
+    .container-r>.refund-product>.choice-box {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    #choice1{
+        text-align: left;
+        width: 90%;
+        margin-bottom: 10px;
+        margin-left: 2rem;
+    }
+    #choice2{
+        margin-left: 2rem;
+        width: 90%;
+    }
+
+    .container-r>.payment-order-text{
+        flex-direction: column;
+        align-items: stretch;
+    }
+   
+}
 
 body{
     /* height: 1800px; */
 }
 
-.container {
-    /* margin-top: 4rem; 페이지 상단 여백 추가 */
-    /* margin-bottom: 4rem; 페이지 하단 여백 추가 */
-    /* padding-bottom: 5rem; */
-    /* background-color: rgb(240, 240, 240); */
+.container-r {
+    margin-top: 4rem;
+    padding-bottom: 5rem;
+    background-color: rgb(240, 240, 240);
 }
 
 /* 결제했던 상품 선택 */
-.container>.refund-product>.choice-box{
+.container-r>.refund-product>.choice-box{
     display: flex;
     justify-content: right;
     margin-bottom: 5rem;
 }
-.container>.refund-product>.choice-box>.pay-product-select{
-    width: 30rem;
-    margin-left: 2rem;
+.container-r>.refund-product>.choice-box>div:nth-child(1){
+    text-align: right;
+    margin-right: 2rem;
 }
 
-th,td{
-    text-align: center;
-    justify-content: center;
+.container-r>.refund-product>.choice-box>div>.pay-product-select{
+    width: 100%;
+    
 }
-.information-detail{
-    text-align: left;
-    margin-left: 4rem;
+.container-r>.refund-product>.refund-product-box>.refund-main>.col-md-6{
+    display: flex;
 }
-.td1{
-    text-align: left;
-}
-.td2{
-    margin-top: 5rem;
-}
-.td3{
-    margin-top: 4rem;
-}
-.td4{
-    margin-top: 5rem;
+
+.container-r>.refund-product>.refund-product-box>.refund-main>.col-md-6>img{
+    min-width : 130px;
+    max-width : 14vw;
+    border-radius: 10px;
 }
 
 
 /* 환불 사유 */
-.container>.reason-box{
+/* .container-r>.reason-box{
    justify-content: center;
 }
-.container>.reason-box>.refund{}
-.container>.reason-box>.refund .reufnd-reason{
+.container-r>.reason-box>.refund{}
+.container-r>.reason-box>.refund .reufnd-reason{
     width: 200px;
     height: 30px;
 }
 
-.container>.reason-box>.refund>.refund-reason-text>input{
+.container-r>.reason-box>.refund>.refund-reason-text>input{
     width: 100%;
     height: 20vh;
-    /* width: 73rem;
-    height: 20rem; */
-}
+} */
 
 
 /* payment-order-text */
-.container>.payment-order-text{
+.container-r>.payment-order-text{
     display: flex;
     background-color: rgb(210, 226, 207);
     padding: 2rem;
 }
-.container>.payment-order-text>.payment-order-text-title{
+.container-r>.payment-order-text>.payment-order-text-title{
     margin-top: 2vh;
     font-weight: 700;
     font-size: 1.5rem;
     width: 15rem;
 }
-.container>.payment-order-text>.payment-order-text-list{
+.container-r>.payment-order-text>.payment-order-text-list{
     margin-left: 1vw;
 }
-.container>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
+.container-r>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
     font-weight: 700;
 }
 
 /* btn-apply */
-.container>.btn-apply{
+.container-r>.btn-apply{
     border: none;
     background-color: #38872b;
     color: white;
@@ -112,6 +128,6 @@ th,td{
     display: block;
 
 }
-.container>.btn-apply:hover{
+.container-r>.btn-apply:hover{
     background-color: #2d6b22;
 }
