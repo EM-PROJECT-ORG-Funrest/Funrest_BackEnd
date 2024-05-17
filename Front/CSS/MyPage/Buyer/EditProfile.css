@@ -20,7 +20,6 @@
     /* height: auto; */
 }
 
-
 /* editProfile-img */
 .container>form>.editProfile-img>.img-box{
     width: 100%;
@@ -44,7 +43,7 @@
 /* editProfile-addr */
 .container>form>.editProfile-addr input{
     max-width : 430px;
-}
+}   
 
 /* editProfile-tel */
 .container>form>.editProfile-tel>.input-group{
@@ -66,5 +65,6 @@
 
 /* editProfile-btn */
 .container>form>.editProfile-btn>.btn{
-    max-width : 430px;
+    max-width : 205px;
+    width: 40vw;
 }
