@@ -52,7 +52,6 @@ body{
 
 .container-r {
     margin-top: 4rem;
-    padding-bottom: 5rem;
     background-color: rgb(240, 240, 240);
 }
 
@@ -97,9 +96,13 @@ body{
     height: 20vh;
 } */
 
+/* payment-history-guide */
+.container>.payment-history-guide{
+    background-color: rgb(246, 248, 244);
+}
 
 /* payment-order-text */
-.container-r>.payment-order-text{
+/* .container-r>.payment-order-text{
     display: flex;
     background-color: rgb(210, 226, 207);
     padding: 2rem;
@@ -115,19 +118,23 @@ body{
 }
 .container-r>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
     font-weight: 700;
-}
+} */
 
 /* btn-apply */
-.container-r>.btn-apply{
+.container-b>.btn-apply{
     border: none;
-    background-color: #38872b;
+    /* background-color: #38872b; */
+    background-color: rgb(72, 170, 54);;
     color: white;
     padding: 0.6rem;
     width: 80%;
-    margin: auto;
+    /* margin: auto; */
     display: block;
+    border-radius: 5px;
 
 }
-.container-r>.btn-apply:hover{
-    background-color: #2d6b22;
+.container-b>.btn-apply:hover{
+    background-color: #3f9230;
+    color: white;
+    font-weight: 700;
 }
