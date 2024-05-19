@@ -20,51 +20,75 @@
     height: auto; */
 }
 
-.container{
-    /* margin-top: 4rem; 페이지 상단 여백 추가 */
-    /* margin-bottom: 1rem; 페이지 하단 여백 추가 */
-    /* padding-bottom: 1rem; */
+
+.container-p {
+    margin-top: 4rem;
+    background-color: rgb(240, 240, 240);
+}
+
+.my-custom-container{
+    min-width: 500px;
 }
 
 
-.container>.order-product-box>.order-product>.table td{
+/* .container-p>.order-product-box>.order-product>.table td{
     vertical-align : middle;
 }
 
-.container>.order-product-box>.order-product>.table>tr>td>img{
+.container-p>.order-product-box>.order-product>.table>tr>td>img{
     width: 50px;
-}
+} */
 
-.container>.cost-box>.cost>div{
+.container-p>.cost-box>.cost-box2{
+    /* background-color: white; */
+}
+.container-p>.cost-box>.cost-box2>.cost>div{
     display: flex;
     justify-content: space-between;
 }
 
-.container>.cost-box>.cost>div>p{
+.container-p>.cost-box>.cost-box2>.cost>div>p{
     width: 40vw;
     text-align: center;
 }
+
+/*  */
+.container-p>.cost-box>.order-product-box2>.order-main>.col-6:nth-child(1){
+    padding-left: 0;
+}
+.container-p>.cost-box>.order-product-box2>.order-main>.col-6:nth-child(2){
+    /* border: 1px solid blue; */
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+.container-p>.cost-box>.order-product-box2>.order-main>.order-price>.text-center:nth-child(2){
+    /* margin-left: 3px; */
+    padding-right: 0;
+    /* border: 1px solid red; */
+    
+}
+
 
 /* form */
 
 
 /* buyer-info */
-.container>form>.buyer-info-box>.buyer-info input{
+.container-p>form>.buyer-info-box>.buyer-info input{
     max-width: 500px;
 }
 
-.container>form>.buyer-info-box>.buyer-info .post-code{
+.container-p>form>.buyer-info-box>.buyer-info .post-code{
     max-width: 415px;
 }
 
-.container>form>.buyer-info-box>.buyer-info .input-group{
+.container-p>form>.buyer-info-box>.buyer-info .input-group{
     max-width: 500px;
 }
-.container>form>.buyer-info-box>.buyer-info textarea{
+.container-p>form>.buyer-info-box>.buyer-info textarea{
     max-width: 500px;
     height: 100px;
 }
-.container>form>.buyer-info-box>.buyer-info>.buyer-info-input .pay-chk>.pay-btn{
+.container-p>form>.buyer-info-box>.buyer-info>.buyer-info-input .pay-chk>.pay-btn{
     max-width: 500px;
 
 
