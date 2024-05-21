@@ -45,16 +45,16 @@
 }
 
 .main>.main-header>.category>.nav *:focus{
-    color: green;
+    color: #44ad5f;
 }
 
 .main>.main-header .input-group>.btn{
-    background-color: green;
+    background-color: #44ad5f;
 }
 
 .main>.main-header .input-group>.btn-outline-primary{
     color : white;
-    border-color: green;
+    border-color: #44ad5f;
 }
 
 .main>.main-header>.sort-project{

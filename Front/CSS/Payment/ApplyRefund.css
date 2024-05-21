@@ -53,6 +53,7 @@ body{
 .container-r {
     margin-top: 4rem;
     background-color: rgb(240, 240, 240);
+    border-radius: 5px;
 }
 
 /* 결제했던 상품 선택 */
@@ -131,8 +132,7 @@ body{
 /* btn-apply */
 .container-b>.btn-apply{
     border: none;
-    /* background-color: #38872b; */
-    background-color: rgb(72, 170, 54);;
+    background-color: #4cc069;
     color: white;
     padding: 0.6rem;
     width: 80%;
@@ -142,7 +142,7 @@ body{
 
 }
 .container-b>.btn-apply:hover{
-    background-color: #3f9230;
+    background-color: #44ad5f;
     color: white;
-    font-weight: 700;
+    /* font-weight: 700; */
 }

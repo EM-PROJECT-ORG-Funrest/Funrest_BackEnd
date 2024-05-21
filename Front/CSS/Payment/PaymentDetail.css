@@ -5,6 +5,7 @@
 .container-d {
     margin-top: 4rem;
     background-color: rgb(240, 240, 240);
+    border-radius: 5px;
 }
 
 /* order-product>.table td */
@@ -83,7 +84,7 @@
     /* margin-left: 15vw; */
     /* margin-bottom: 3vh; */
     border: 0;
-    background-color: rgb(72, 170, 54);
+    background-color: #4cc069;
     color: white;
     padding: 0.7rem 1.3rem 0.7rem 1.3rem;
     border-radius: 5px;
@@ -94,7 +95,7 @@
 }
 
 .container-d>.cost-box>.order-info-btns>button:hover{
-    background-color: rgb(30, 134, 12);
+    background-color: #44ad5f;
 }
 
 /* payment-order-text */

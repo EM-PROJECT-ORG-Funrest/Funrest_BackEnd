@@ -4,14 +4,14 @@
 }
 .container>.row>.mypage-left>div>a{
     text-decoration: none;
-    color : #71d089;
+    color : #4cc069;
     transition : .2s;
-    border: 1px solid #71d089;
+    border: 1px solid #4cc069;
     border-radius: 18px;
 }
 .container>.row>.mypage-left>div>a:hover{
     color : white;
-    background-color: #71d089;
+    background-color: #4cc069;
 }
 .container>.row>.mypage-left>div>a>.material-symbols-outlined{
     font-size: 20px;
