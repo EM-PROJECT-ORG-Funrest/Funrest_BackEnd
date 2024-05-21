@@ -41,7 +41,7 @@
 }
 .seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a{
     text-decoration: none;
-    color: #71d089;
+    color: #4cc069;
 }
 .seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a>h1{
     line-height: 80px;
@@ -60,10 +60,10 @@
 
 /* seller-list */
 .seller-mypage>.row>.seller-main>.seller-project-list>.seller-project>.seller-project-title>a{
-    color : #71d089;
+    color : #4cc069;
 }
 .seller-mypage>.row>.seller-main>.seller-project-list>.seller-project>.seller-project-title>a:hover{
-    color : #5dbb74;
+    color : #44ad5f;
 }
 .seller-mypage>.row>.seller-main>.seller-project-list>.seller-project>.row>.seller-project-img {
     height: 240px;

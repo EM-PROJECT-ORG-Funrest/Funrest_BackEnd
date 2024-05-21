@@ -37,7 +37,7 @@
 }
 .container .mypage-buyer>.buyer-top>div a{
     text-decoration: none;
-    color: #71d089;
+    color: #4cc069;
 }
 .container .mypage-buyer>.buyer-top>div h1{
     line-height: 80px;
@@ -58,7 +58,7 @@
     transition: 1s;
 }
 .container .mypage-buyer>.buyer-top>.apply-notify>.modal .card-body>.card-title {
-    color: #71d089;
+    color: #4cc069;
 }
 .container .mypage-buyer>.buyer-top>.apply-notify>.modal .card-body .card-btn:hover{
     color : white;
@@ -89,7 +89,7 @@
     background-color: white;
 }
 .container .mypage-buyer>.buyer-bottom .btn:hover{
-    background-color: #71d089;
+    background-color: #4cc069;
     color : white;
 }
 

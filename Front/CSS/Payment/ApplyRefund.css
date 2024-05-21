@@ -52,8 +52,8 @@ body{
 
 .container-r {
     margin-top: 4rem;
-    padding-bottom: 5rem;
     background-color: rgb(240, 240, 240);
+    border-radius: 5px;
 }
 
 /* 결제했던 상품 선택 */
@@ -81,6 +81,14 @@ body{
     border-radius: 10px;
 }
 
+/*  */
+/* .container-r>.refund-product>.refund-product-box>.refund-main>.refund-choice{
+    display: flex !important;
+    
+} */
+
+
+
 
 /* 환불 사유 */
 /* .container-r>.reason-box{
@@ -97,9 +105,13 @@ body{
     height: 20vh;
 } */
 
+/* payment-history-guide */
+.container>.payment-history-guide{
+    background-color: rgb(246, 248, 244);
+}
 
 /* payment-order-text */
-.container-r>.payment-order-text{
+/* .container-r>.payment-order-text{
     display: flex;
     background-color: rgb(210, 226, 207);
     padding: 2rem;
@@ -115,19 +127,22 @@ body{
 }
 .container-r>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
     font-weight: 700;
-}
+} */
 
 /* btn-apply */
-.container-r>.btn-apply{
+.container-b>.btn-apply{
     border: none;
-    background-color: #38872b;
+    background-color: #4cc069;
     color: white;
     padding: 0.6rem;
     width: 80%;
-    margin: auto;
+    /* margin: auto; */
     display: block;
+    border-radius: 5px;
 
 }
-.container-r>.btn-apply:hover{
-    background-color: #2d6b22;
+.container-b>.btn-apply:hover{
+    background-color: #44ad5f;
+    color: white;
+    /* font-weight: 700; */
 }
