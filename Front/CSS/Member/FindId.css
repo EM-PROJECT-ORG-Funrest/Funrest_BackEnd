@@ -19,13 +19,13 @@
     text-decoration: none;
 }
 .findid>.sub-title>.sub-id{
-    color : #71d089;
+    color : #4cc069;
 }
 .findid>.sub-title>.sub-pw{
     color : darkgray;
 }
 .findid>.sub-title>.sub-pw:hover{
-    color : #71d089;
+    color : #4cc069;
 }
 
 

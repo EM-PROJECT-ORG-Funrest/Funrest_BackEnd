@@ -15,7 +15,7 @@
 .carousel-indicators .active{
     width: 10px !important;
     height: 10px !important;
-    background-color: #71d089 !important;
+    background-color: #44ad5f !important;
 }
 .carousel-inner>.carousel-item p.text-start {
     margin : 0;
@@ -44,14 +44,14 @@
     color : rgb(153, 173, 153);
 }
 .main>.main-header>.category>.nav *:focus{
-    color: #71d089;
+    color: #44ad5f;
 }
 .main>.main-header .input-group>.btn{
-    background-color: #71d089;
+    background-color: #44ad5f;
 }
 .main>.main-header .input-group>.btn-outline-primary{
     color : white;
-    border-color: #71d089;
+    border-color: #44ad5f;
 }
 .main>.main-header>.sort-project{
   height:5vh;
@@ -103,5 +103,5 @@
     fill: #5dbb74;
 }
 .main>.section>.project-list .row>.col>.pro-content>.pro-paid{
-    color : #71d089;
+    color : #5dbb74;
 }
