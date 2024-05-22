@@ -3,7 +3,7 @@
     min-width: 500px;
 }
 
-/* BS5 */
+/* banner > carousel */
 .carousel-indicators [data-bs-target] {
     width: 10px !important;
     height: 10px !important;
@@ -16,6 +16,19 @@
     width: 10px !important;
     height: 10px !important;
     background-color: #44ad5f !important;
+}
+.carousel-inner {
+    width: 100%;
+    height: 350px;
+}
+.carousel-inner>.carousel-item {
+    width: 100%;
+    height: 100%;
+}
+.carousel-inner>.carousel-item>img{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
 }
 .carousel-inner>.carousel-item p.text-start {
     margin : 0;
@@ -44,22 +57,33 @@
     color : rgb(153, 173, 153);
 }
 .main>.main-header>.category>.nav *:focus{
-    color: #44ad5f;
+    /* color: #44ad5f; */
 }
-.main>.main-header .input-group>.btn{
-    background-color: #44ad5f;
+.main>.main-header>.category>.nav .active{
+    color : #44ad5f;
 }
-.main>.main-header .input-group>.btn-outline-primary{
-    color : white;
-    border-color: #44ad5f;
+.main>.main-header>.category>.nav .nav-link:hover{
+    color : #44ad5f;
 }
 .main>.main-header>.sort-project{
-  height:5vh;
+    /* height:5vh; */
 }
 .main>.main-header>.sort-project{
     /* border: 1px solid; */
     /* line-height: 50px; */
-    padding: 15px;
+    /* padding: 15px; */
+}
+.main>.main-header .input-group>input{
+    height: 33px;
+    
+}
+.main>.main-header .input-group>.btn{
+    background-color: #44ad5f;
+    height: 33px;
+}
+.main>.main-header .input-group>.btn-outline-primary{
+    color : white;
+    border-color: #44ad5f;
 }
 
 
@@ -80,7 +104,12 @@
   overflow: hidden;
   position:relative;
 }
-.main>.section>.project-list .row>.col>.border>img{
+.main>.section>.project-list .row>.col>.border>a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.main>.section>.project-list .row>.col>.border img{
     width: 100%;
     height: 100%;
     object-fit: cover;
