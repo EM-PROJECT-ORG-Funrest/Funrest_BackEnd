@@ -1,0 +1,113 @@
+/* 헤더, 푸터 연결 */
+#header-ph{
+    /* position: fixed; */
+    /* top: 0;
+    margin-top: 2rem;
+    margin-left: 6rem;
+    left: 0;
+    width: 95%;
+    height: auto; */
+    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
+}
+#footer-ph{
+    /* position: relative;
+    top: 15rem; */
+    /* bottom: 0;  */
+    /*화면 하단에 고정 */
+    /* left: 0;
+    width: 100%;
+    height: auto; */
+}
+
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
+.payment-history-container{
+    /* margin-top: 4rem; 페이지 상단 여백 추가 */
+    /* margin-bottom: 5rem; 페이지 하단 여백 추가 */
+    /* padding-bottom: 2.5rem; */
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+}
+
+
+/* order-product */
+.container>.order-product-box>.order-product img{
+    min-width : 130px;
+    max-width : 14vw;
+    border-radius: 10px;
+}
+.container>.order-product-box>.order-product .cnt-title{
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.548);
+    font-size: small;
+    color: darkgray;
+}
+.container>.order-product-box>.order-product>.order-main>.col-md-2>.content{
+    vertical-align: middle;
+}
+
+
+/* payment-history-guide */
+.container>.payment-history-guide{
+    background-color: rgb(246, 248, 244);
+}
+
+
+/* payment-order-text */
+/* .container>.payment-order-text{
+    display: flex;
+    background-color: rgb(246, 248, 244);
+    padding: 2rem;
+    margin-top: 10rem;
+}
+
+.container>.payment-order-text>.payment-order-text-title{
+    margin-top: 2vh;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.container>.payment-order-text>.payment-order-text-list{
+    margin-left: 7vw;
+}
+
+.container>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
+    font-weight: 700;
+} */
+
+
+/* payment-order-btn */
+/* .container>.payment-order-btn{
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.container>.payment-order-btn>.payment-order-btn-home{
+    background-color: #71d089;
+    color: white;
+    border: 0;
+    padding: 0.7rem 1.3rem 0.7rem 1.3rem;
+    border-radius: 7%;
+}
+
+.container>.payment-order-btn>.payment-order-btn-home:hover{
+    background-color: #5dbb74;
+}
+
+
+.container>.payment-order-btn>.payment-order-btn-mypage{
+    background-color: #71d089;
+    color: white;
+    border: 0;
+    padding: 0.7rem 2.2rem 0.7rem 2.2rem;
+    border-radius: 7%;
+}
+
+.container>.payment-order-btn>.payment-order-btn-mypage:hover{
+    background-color: #5dbb74;
+} */

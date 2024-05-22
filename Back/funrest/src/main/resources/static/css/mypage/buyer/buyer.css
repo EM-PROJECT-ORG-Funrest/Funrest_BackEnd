@@ -1,0 +1,98 @@
+.container{
+    margin-top: 4rem; /* 페이지 상단 여백 추가 */
+}
+
+
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
+
+/* mypage-buyer */
+.container .mypage-buyer {
+    background-color: #f8f9fa;
+    /* background-color: rgb(241, 241, 241); */
+}
+
+
+
+/* buyer-top */
+.container .mypage-buyer>.buyer-top{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+/* .container .mypage-buyer>.buyer-top>div{
+    border-color : #71d089 !important;
+}
+.container .mypage-buyer>.buyer-top>div>hr{
+    color : #71d089;
+    height : 3px;
+} */
+.container .mypage-buyer>.buyer-top>div .buyer-top-p{
+    line-height: 50px;
+    margin: 0;
+    /* color :  #71d089; */
+}
+.container .mypage-buyer>.buyer-top>div a{
+    text-decoration: none;
+    color: #4cc069;
+}
+.container .mypage-buyer>.buyer-top>div h1{
+    line-height: 80px;
+}
+/* buyer-top > modal */
+.container .mypage-buyer>.buyer-top>.apply-notify>.modal .modal-body .card-img-box{
+    width: 386px;
+    height: 240px;
+    overflow: hidden;
+}
+.container .mypage-buyer>.buyer-top>.apply-notify>.modal .modal-body .card-img-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.container .mypage-buyer>.buyer-top>.apply-notify>.modal .modal-body .card-img-box img:hover{
+    transform: scale(1.2);
+    transition: 1s;
+}
+.container .mypage-buyer>.buyer-top>.apply-notify>.modal .card-body>.card-title {
+    color: #4cc069;
+}
+.container .mypage-buyer>.buyer-top>.apply-notify>.modal .card-body .card-btn:hover{
+    color : white;
+}
+/* .container .mypage-buyer>.buyer-top>.apply-notify>.modal .modal-body .card-img-box>a{
+    filter: brightness(1);
+    transition: .2s;
+}
+.container .mypage-buyer>.buyer-top>.apply-notify>.modal .modal-body .card-img-box>a:hover{
+    filter: brightness(0.6);
+} */
+
+
+
+/* buyer-ad */
+.container .mypage-buyer>.buyer-ad>.ad{
+    /* width:545px;
+    height:130px; */
+}
+.container .mypage-buyer>.buyer-ad>.ad img{
+    max-height: 22vh;
+}
+
+
+/* buyer-bottom */
+.container .mypage-buyer>.buyer-bottom .btn{
+    max-width : 545px;
+    background-color: white;
+}
+.container .mypage-buyer>.buyer-bottom .btn:hover{
+    background-color: #4cc069;
+    color : white;
+}
+
+.container .mypage-buyer>.buyer-bottom .btn>p{
+    margin : 0;
+}
