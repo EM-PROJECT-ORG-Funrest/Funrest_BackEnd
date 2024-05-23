@@ -1,0 +1,38 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+/* table 값 가운데 정렬 */
+table td, table th {
+    text-align: center;
+}
+
+/* .adminPage-right */
+.container>.row>.adminPage-right{
+    background-color:rgb(241, 241, 241)
+}
+
+/* .adminPage-right>.admin-date */
+.container>.row>.adminPage-right>.admin-member{
+    margin: 30px 10px 30px 10px;
+    background-color: white;
+    border-radius: 1%;
+    /* border: 1px solid green; */
+}
+.container>.row>.adminPage-right>.admin-member>.subject{
+    /* border: 1px solid violet; */
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.container>.row>.adminPage-right>.admin-member>.member-chart{
+    /* border: 1px solid saddlebrown; */
+    padding: 20px 20px 10px 20px;
+}
+.container>.row>.adminPage-right>.admin-member>.container{
+    /* margin-bottom: 20px; */
+}
+.container>.row>.adminPage-right>.admin-member>.container>.delete-button{
+    margin-bottom: 20px;
+}
+.container>.row>.adminPage-right>.admin-member>.container>.delete-button>button:hover{}
+

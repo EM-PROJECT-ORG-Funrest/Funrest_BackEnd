@@ -1,0 +1,150 @@
+.my-custom-container{
+    min-width: 500px;
+}
+
+.container-d {
+    margin-top: 4rem;
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+}
+
+/* order-product>.table td */
+
+/* .container-d>.order-product-box>.order-product>.table td{
+    vertical-align : middle;
+} */
+
+/* cost-box */
+
+/* .container-d>.cost-box>.cost>div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-d>.cost-box>.cost>div>p{
+    width: 40vw;
+    text-align: center;
+} */
+
+/* .name{
+    display: flex;
+} */
+
+/*  */
+.container-d>.costdetail-box>.orderdetail-product-box2>.orderdetail-main2>.col-6:nth-child(1){
+    padding-left: 0;
+}
+.container-d>.costdetail-box>.orderdetail-product-box2>.orderdetail-main2>.col-6:nth-child(2){
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+.container-d>.costdetail-box>.orderdetail-product-box2>.orderdetail-main2>.orderdetail-price>.text-center:nth-child(2){
+    /* margin-left: 3px; */
+    padding-right: 0;  
+}
+
+.container-d>.orderdetail-product-box>.orderdetail-product-box2>.orderdetail-main>.col-md-8>img{
+    min-width : 130px;
+    max-width : 14vw;
+    border-radius: 10px;
+}
+/* order-info */
+
+/* .container-d>.order-info{
+    margin-left: 1.2vw;
+}
+
+.container-d>.order-info>.order-info-title{
+    font-size: 1.5rem;
+    font-weight: 500;
+    
+
+} */
+
+/* .container-d>.order-info>.order-info-box{
+    background-color: rgb(210, 226, 207);
+    padding-top: .5vh;
+    padding-bottom: 3vh;
+
+
+} */
+
+/* .container-d>.order-info>.order-info-box>.order-info-box-name{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-around;
+} */
+
+/* order-info-btns */
+
+
+.container-d>.cost-box>.order-info-btns>button{
+/* .container-d>.order-info>.order-info-btns>button{ */
+    /* margin-top: 3vh; */
+    /* margin-left: 15vw; */
+    /* margin-bottom: 3vh; */
+    border: 0;
+    background-color: #4cc069;
+    color: white;
+    padding: 0.7rem 1.3rem 0.7rem 1.3rem;
+    border-radius: 5px;
+    display: inline;
+}
+.container-d>.cost-box>.order-info-btns>button:nth-child(2){
+    /* margin-left: 20vw; */
+}
+
+.container-d>.cost-box>.order-info-btns>button:hover{
+    background-color: #44ad5f;
+}
+
+/* payment-order-text */
+
+/* .container-d>.payment-order-text{
+    margin-left: 1.2vw;
+    display: flex;
+    background-color: rgb(246, 248, 244);
+    padding: 2rem;
+}
+
+.container-d>.payment-order-text>.payment-order-text-title{
+    margin-top: 2vh;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.container-d>.payment-order-text>.payment-order-text-list{
+    margin-left: 7vw;
+}
+
+.container-d>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
+    font-weight: 700;
+} */
+
+/* delivery-state */
+
+.container-d>.delivery-state{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 14vh;
+    margin-bottom: 4vh;
+}
+
+.container-d>.delivery-state>.delivery-state-contents{
+    align-items: center;
+    text-align: center;
+    
+}
+
+.container-d>.delivery-state>.delivery-state-contents>.package_2{
+    background-color: #71d089;
+}
+
+/* payment-history-guide */
+.container>.payment-history-guide{
+    background-color: rgb(246, 248, 244);
+}
+
+

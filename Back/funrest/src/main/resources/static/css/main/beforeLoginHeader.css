@@ -1,0 +1,71 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
+a{
+    text-decoration: none;
+}
+
+#BeforeLoginHeader{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/* .container{border: 1px solid blue;} */
+.container>.row{}
+
+/* header-left */
+.container>.row>.header-left{
+    /* border: 1px solid red; */
+}
+.container>.row>.header-left>a{}
+.container>.row>.header-left>a>.header-logo{
+    width: 100%;
+}
+
+/* header-right */
+.container>.row>.header-right{
+    /* border: 1px solid blue; */
+    display: flex;
+    align-items: center;
+}
+.container>.row>.header-right>.header-nav{
+    /* border: 1px solid red; */
+    width: 100%;
+    justify-content: end;
+    display: flex;
+    align-items: center;
+}
+.container>.row>.header-right>.header-nav>.nav-1{
+    /* border: 1px solid blue; */
+}
+.container>.row>.header-right>.header-nav>.nav-1>a{
+    color: black;
+}
+.container>.row>.header-right>.header-nav>.nav-1>a:hover{
+    color: black;
+    font-weight: 700;
+}
+.container>.row>.header-right>.header-nav>.nav-2{
+    /* border: 1px solid blue; */
+    margin-left: 15px;
+}
+.container>.row>.header-right>.header-nav>.nav-2>a{
+    color: black;
+}
+.container>.row>.header-right>.header-nav>.nav-2>a:hover{
+    color: black;
+    font-weight: 700;
+}
+.container>.row>.header-right>.header-nav>.nav-4{
+    /* border: 1px solid blue; */
+    margin-left: 15px;
+}
+.container>.row>.header-right>.header-nav>.nav-4>.btn{
+    background-color: #44ad5f;
+    color: white;
+}
+.container>.row>.header-right>.header-nav>.nav-4>.btn:hover{
+    color: white;
+    font-weight: 700;
+}

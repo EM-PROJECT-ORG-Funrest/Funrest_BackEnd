@@ -1,0 +1,25 @@
+/* .adminPage-left */
+.container>.row>.adminPage-left{
+    background-color: rgb(246, 248, 244);
+}
+.container>.row>.adminPage-left>.img-box{
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container>.row>.adminPage-left>.img-box>img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.container>.row>.adminPage-left>.side-menu{
+    margin-top: 100px;
+}
+.container>.row>.adminPage-left>.side-menu>.btn{
+    padding-left: 0;
+}
+.container>.row>.adminPage-left>.side-menu>.btn>p{
+    margin-bottom: 5px;
+}

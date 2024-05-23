@@ -1,0 +1,136 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
+/* banner > carousel */
+.carousel-indicators [data-bs-target] {
+    width: 10px !important;
+    height: 10px !important;
+    border: 0;
+    border-radius:50%;
+    margin-left: 10px;
+    background-color: white;
+}
+.carousel-indicators .active{
+    width: 10px !important;
+    height: 10px !important;
+    background-color: #44ad5f !important;
+}
+.carousel-inner {
+    width: 100%;
+    height: 350px;
+}
+.carousel-inner>.carousel-item {
+    width: 100%;
+    height: 100%;
+}
+.carousel-inner>.carousel-item>img{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+}
+.carousel-inner>.carousel-item p.text-start {
+    margin : 0;
+}
+
+
+/* main */
+.main{
+    /* border:1px solid; */
+    padding: 20px;
+    /* margin-bottom: 30px; */
+}
+
+
+/* main-header */
+.main>.main-header {
+    /* border: 1px solid; */
+    justify-content: center;
+    align-items:flex-end;
+    /* height: 12vh; */
+    padding: 10px;
+}
+.main>.main-header>.category>.nav a{
+    text-decoration: none;
+    font-size: 1.1rem;
+    color : rgb(153, 173, 153);
+}
+.main>.main-header>.category>.nav *:focus{
+    /* color: #44ad5f; */
+}
+.main>.main-header>.category>.nav .active{
+    color : #44ad5f;
+}
+.main>.main-header>.category>.nav .nav-link:hover{
+    color : #44ad5f;
+}
+.main>.main-header>.sort-project{
+    /* height:5vh; */
+}
+.main>.main-header>.sort-project{
+    /* border: 1px solid; */
+    /* line-height: 50px; */
+    /* padding: 15px; */
+}
+.main>.main-header .input-group>input{
+    height: 33px;
+    
+}
+.main>.main-header .input-group>.btn{
+    background-color: #44ad5f;
+    height: 33px;
+}
+.main>.main-header .input-group>.btn-outline-primary{
+    color : white;
+    border-color: #44ad5f;
+}
+
+
+/* section */
+.main>.section {
+    /* border:1px solid; */
+}
+.main>.section>.project-list .row>.col{
+  height: auto;
+}
+.main>.section>.project-list .row>.col>.border{
+  height: 20vh;
+  /* border-radius: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  overflow: hidden;
+  position:relative;
+}
+.main>.section>.project-list .row>.col>.border>a{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.main>.section>.project-list .row>.col>.border img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.main>.section>.project-list .row>.col>.border>button{
+    position:absolute;
+    top: 0; right:0;
+}
+.main>.section>.project-list .row>.col>.border>button:focus{
+    background-color: #dddddd00;
+    border:0;
+}
+#notification{
+    width: 25px;
+    fill:#ddd;
+    /* stroke:darkgray;
+    stroke-width: 10; */
+}
+#notification.active{
+    fill: #5dbb74;
+}
+.main>.section>.project-list .row>.col>.pro-content>.pro-paid{
+    color : #5dbb74;
+}
