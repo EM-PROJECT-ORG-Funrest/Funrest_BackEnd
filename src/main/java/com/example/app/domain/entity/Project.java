@@ -1,5 +1,6 @@
 package com.example.app.domain.entity;
 
+import com.example.app.domain.dto.ProjectDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +29,7 @@ public class Project {
     @Column(name = "proImg", nullable = false)
     private String proImg; // project's all images
     @Column(name = "proMainImg", nullable = false)
-    private boolean proMainImg; // project's main image
+    private String proMainImg; // project's main image
     @Column(name = "proPrice", nullable = false)
     private int proPrice;
     @Column(name = "proDate", nullable = false)
@@ -38,7 +39,7 @@ public class Project {
     @Column(name = "proEndDate", nullable = false)
     private Date proEndDate;
     @Column(name = "proStatus", nullable = false)
-    private boolean proStatus; // project permission (Y/N)
+    private String proStatus; // project permission (Y/N)
     @Column(name = "proPaidCnt", nullable = false, columnDefinition = "integer default 0")
     private int proPaidCnt;
     @Column(name = "proNotifyCnt", nullable = false, columnDefinition = "integer default 0")
@@ -49,4 +50,27 @@ public class Project {
     private String sellerName;
     @Column(name = "sellerDetail", nullable = false)
     private String sellerDetail;
+
+
+
+    public static Project ProjectDtoToEntity(ProjectDto projectDto) {
+        return Project.builder()
+                .proCode(projectDto.getProCode())
+                .userId(projectDto.getUserId())
+                .proCategory(projectDto.getProCategory())
+                .proName(projectDto.getProName())
+                .proImg(projectDto.getProImg())
+                .proMainImg(projectDto.getProMainImg())
+                .proPrice(projectDto.getProPrice())
+                .proDate(projectDto.getProDate())
+                .proStartDate(projectDto.getProStartDate())
+                .proEndDate(projectDto.getProEndDate())
+                .proStatus(projectDto.getProStatus())
+                .proPaidCnt(projectDto.getProPaidCnt())
+                .proNotifyCnt(projectDto.getProNotifyCnt())
+                .proScript(projectDto.getProScript())
+                .sellerName(projectDto.getSellerName())
+                .sellerDetail(projectDto.getSellerDetail())
+                .build();
+    }
 }
