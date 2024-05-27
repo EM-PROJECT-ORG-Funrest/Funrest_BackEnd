@@ -29,8 +29,10 @@ public class KakaoController {
 
         String redirectUrl = kakaoService.KakaoLoginRedirectUrl();
         return new ModelAndView("redirect:"+redirectUrl);
+
     }
 
+    //callback
     @GetMapping("th/member/login/kakaoCallback")
     public String kakaoCallback(@RequestParam("code")String code) {
         log.info("GET th/member/login/kakao/code..." + code);
@@ -46,16 +48,19 @@ public class KakaoController {
     @GetMapping("th/member/login/kakaoLogout")
     public ModelAndView kakaoLogout(){
         log.info("GET /th/member/login/kakaoLogout...");
-        String redirectUrl = kakaoService.KakaoLogoutRedirectUrl();
-        return new ModelAndView("redirect:"+redirectUrl);
+        String redirectUrlMain = kakaoService.KakaoLogoutRedirectUrl();
+        return new ModelAndView("redirect:"+redirectUrlMain);
     }
 
-    @GetMapping("kakao/profile")
-    public @ResponseBody void kakaoGetProfile(@RequestParam("accessToken") String accessToken){
-        log.info("GET /kakao/profile...");
+    //profile
+    @GetMapping("th/member/login/kakao/profile")
+    public String kakaoGetProfile(@RequestParam("accessToken") String accessToken){
+        log.info("GET th/member/login/kakao/profile...");
 
         kakaoService.KakaoGetProfile(accessToken);
         log.info(accessToken);
+
+        return "th/main/main";
     }
 
 }

@@ -16,7 +16,8 @@ import org.springframework.web.client.RestTemplate;
 public class KakaoService {
 
     private String CLIENT_ID="c4b54896a51bc9c782e2794ae7954da1";
-    private String REDIRECT_URI="http://localhost:8080/th/main/main";
+    private String REDIRECT_URI="http://localhost:8080/th/member/login/kakaoCallback";
+    private String REDIRECT_URI_MAIN="http://localhost:8080/th/main/main";
 
     //login
     public String KakaoLoginRedirectUrl(){
@@ -55,9 +56,10 @@ public class KakaoService {
 
     //logout
     public String KakaoLogoutRedirectUrl(){
-        return "https://kauth.kakao.com/oauth/logout"+"?client_id="+CLIENT_ID+"&logout_redirect_uri="+REDIRECT_URI;
+        return "https://kauth.kakao.com/oauth/logout"+"?client_id="+CLIENT_ID+"&logout_redirect_uri="+REDIRECT_URI_MAIN;
     }
 
+    //profile
     public @ResponseBody void KakaoGetProfile(String accessToken){
         //URL
         String url = "https://kapi.kakao.com/v2/user/me";
@@ -80,7 +82,7 @@ public class KakaoService {
 
 
     @Data
-    public class KakaoAuthResponse{
+    private static class KakaoAuthResponse{
         public String access_token;
         public String token_type;
         public String refresh_token;
