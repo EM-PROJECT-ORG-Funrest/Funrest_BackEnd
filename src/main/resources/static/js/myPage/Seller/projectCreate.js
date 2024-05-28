@@ -208,3 +208,23 @@ function limitDescriptionLength(event) {
 
 // 프로젝트 상세설명 입력 필드에 이벤트 리스너 추가
 document.querySelector('.pro-input-text').addEventListener('input', limitDescriptionLength);
+
+// DateRangePicker
+$(function() {
+    $('input[name="datetimes"]').daterangepicker({
+      timePicker: false, // 시간 선택 비활성화
+      startDate: moment().startOf('day'),
+      endDate: moment().startOf('day').add(1, 'day'),
+      locale: {
+        format: 'YYYY-MM-DD'    // 날짜 포맷 설정
+      }
+    });
+  });
+
+// apply 버튼을 클릭했을 때 trigger 되는 코드안에서 시작/종료 날짜를 받기
+$('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+    let startDate = picker.startDate.format('YYYY-MM-DD');
+    let endDate = picker.endDate.format('YYYY-MM-DD');
+    console.log("StartDate : " + startDate);    // console 창에서 확인 가능
+    console.log("EndDate : " + endDate);
+});
