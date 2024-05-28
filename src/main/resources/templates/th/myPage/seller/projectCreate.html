@@ -28,13 +28,14 @@
     <div class="container my-custom-container">
         <h3 class="text-center">프로젝트 생성하기</h3>
         <hr>
-        <form action="" method="GET" enctype="multipart/form-data">
-            <div class="row g-3">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="row g-3">       <!-- g-3 : 이 클래스를 사용하면 컨테이너의 크기가 축소될 때 두열의 위아래로 만날 때 간격이 생김--> 
                 <div class="project-manage-left col-md-4">
                     <div class="project-image-files">
-                        <input type="hidden" value="${model.userID}">
+                        <input type="text" th:field="*{userId}">
                         <p class="text-center">프로젝트 썸네일 이미지</p>
                         <input type="file" class="project-image-mainfile" id="image" accept="image/*" onchange="setThumbnail(event);" name="proMainImg"/>
+                        <!-- img파일 선택 시 크키가 image_container에 맞게 조절(기능 추가하기) -->
                         <div id="image_container"></div>
                         <br>
                         <hr>

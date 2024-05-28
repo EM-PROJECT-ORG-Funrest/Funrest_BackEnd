@@ -30,7 +30,6 @@
 <div layout:fragment="content">
 
 <body>
-<form action="">
     <div class="seller-mypage container p-3 my-custom-container">
         <div class="row">
             <div class="mypage-left col-md-2 px-3">
@@ -46,7 +45,7 @@
                     <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="기본프로필">
                 </div>
                 <h5 class="text-center">Seller</h5>
-                <p class="text-center">${model.userName}</p>
+                <p class="text-center" name="">hong1</p>
                 <!-- <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
                     <p class="ms-3 mb-0">Buyer</p>
                     <span class="material-symbols-outlined">
@@ -82,15 +81,17 @@
                         나의 프로젝트 목록
                     </h3>
                     <div class="seller-project row m-1 p-2 border rounded mb-2 bg-white">
-                        <div class="seller-project-title d-flex justify-content-between border-bottom p-3">
-                            <span class="">등록일 : 2024.05.15</span>
-                            <input type="hidden" value="${model.userName}">
-                            <button href="javascript:void(0)">
-                                <span class="material-symbols-outlined">
-                                    arrow_forward
-                                </span>
-                            </button>
-                        </div>
+                        <form action="/th/myPage/seller/projectCreate" method="post">
+                            <div class="seller-project-title d-flex justify-content-between border-bottom p-3">
+                                <span class="">등록일 : 2024.05.15</span>
+                                <input type="hidden" value="userididid" name="userId">
+                                <button href="javascript:void(0)">
+                                    <span class="material-symbols-outlined">
+                                        arrow_forward
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
                         <div class="p-3 row m-auto">
                             <div class="seller-project-img col-md-5">
                                 <a href="javascript:void(0)">
@@ -185,7 +186,6 @@
 
         </div>
     </div>
-</form>
 </body>
 
 </div>
