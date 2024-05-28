@@ -22,7 +22,6 @@ public class SellerController {
 
     private UserRepository userRepository;
 
-
     @GetMapping("/seller")
     public void selectUserID1(User user, Model model){
         UserDto userDto = new UserDto();
