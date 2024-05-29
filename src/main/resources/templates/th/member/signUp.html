@@ -46,7 +46,7 @@
         </div>
         <hr class="my-4 m-auto" style="width:30vw;">
         <div class="signup-personal row justify-content-center">
-            <form name="signup" id="signup" class="p-0" onsubmit="signupValidChk(event)" action="">
+            <form name="signup" id="signup" class="p-0" onsubmit="return signupValidChk(event)" action="/signUp/join" method="post">
                 <label class="mt-2">아이디</label>
                 <div class="input-group">
                     <input type="text" name="id" id="signup-id" class="form-control mt-1" placeholder="아이디 입력">

@@ -1,19 +1,31 @@
 package com.example.app.domain.service.member;
 
+import com.example.app.domain.dto.UserDto;
+import com.example.app.domain.entity.User;
+import com.example.app.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
 @Service
 public class SignUpService {
 
+    private int authNumber;
+
     @Autowired
     private JavaMailSender javaMailSender;
-    private int authNumber;
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void makeAuthNumber(HttpSession session) {
         Random r = new Random();
@@ -37,7 +49,12 @@ public class SignUpService {
         javaMailSender.send(message);
     }
 
-    public void userJoin() {
-
+    @Transactional(rollbackFor = Exception.class)
+    public void userJoin(UserDto userDto) {
+        System.out.println("service userDto : " + userDto);
+        String password = passwordEncoder.encode(userDto.getUserPw());
+        userDto.setUserPw(password);
+        User user = User.UserDtoToEntity(userDto);
+        userRepository.save(user);
     }
 }

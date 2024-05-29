@@ -1,5 +1,6 @@
 package com.example.app.controller.member;
 
+import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.service.member.SignUpService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.NoSuchElementException;
-
 @RestController
 @Slf4j
 @RequestMapping("/signUp")
@@ -17,6 +16,7 @@ public class SignUpController {
 
     @Autowired
     private SignUpService signUpService;
+
 
     @GetMapping("/mail/req/{id}")
     public ResponseEntity req(@PathVariable("id") String id, HttpSession session) {
@@ -40,7 +40,9 @@ public class SignUpController {
     public void join() { log.info("GET /join.."); }
 
     @PostMapping("/join")
-    public void join_post() {
+    public void join_post(UserDto userDto) {
         log.info("POST /join");
+        log.info("controller userDto : " + userDto);
+        signUpService.userJoin(userDto);
     }
 }

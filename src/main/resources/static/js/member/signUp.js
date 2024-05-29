@@ -86,7 +86,7 @@ function chkPW(pwEl){
         document.getElementById("validationMessagePW").textContent = "영문,숫자, 특수문자를 혼합하여 입력해주세요.";
         return false;
     }else {
-        console.log("통과"); 
+        console.log("패스워드 통과");
         return true;
     }
 }
@@ -115,9 +115,8 @@ function signupValidChk(event) {
             pwChk.classList.add("is-invalid");
             return false;
         } else {
+            console.log("회원가입 통과");
             pwChk.classList.remove("is-invalid");
-
-            axios.get
             return true;
         }
     }
