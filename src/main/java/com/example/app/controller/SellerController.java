@@ -29,20 +29,18 @@ public class SellerController {
         String userId = userDto.getUserId();
         model.addAttribute("userId", userId);
         log.info("GET /th/myPage/seller/seller .....");
-
     }
 
     @PostMapping("/seller")
     public void selectUserID(User user, Model model){
         log.info("post /th/myPage/seller/seller .....");
-
     }
 
-    @PostMapping("/projectCreate")
-    public void InsertProject(ProjectDto projectDto){
-      log.info("POST /th/myPage/seller/projectCreate .....");
-      //insert문 만들어서 여기서 삽입
-        //
-    }
+//    @PostMapping("/projectCreate")
+//    public void InsertProject(ProjectDto projectDto){
+//      log.info("POST /th/myPage/seller/projectCreate .....");
+//      //insert문 만들어서 여기서 삽입
+//        //
+//    }
 
 }

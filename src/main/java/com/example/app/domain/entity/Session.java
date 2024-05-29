@@ -5,6 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,6 +17,6 @@ public class Session {
     private String sessionId;
     @OneToOne
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_SESSION_USER",
-    foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
+            foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
     private User userId;
 }

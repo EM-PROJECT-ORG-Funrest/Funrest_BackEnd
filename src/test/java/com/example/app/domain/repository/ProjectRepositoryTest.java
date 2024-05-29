@@ -40,31 +40,31 @@ class ProjectRepositoryTest {
     }
 
 
-    @Test
-    public void insert(){
-
-//         User user1 = User.builder()
-//                .userId("12")
+//    @Test
+//    public void insert(){
+//
+////         User user1 = User.builder()
+////                .userId("12")
+////                .build();
+//        Project project = Project.builder()
+//                .proCode(1203)
+//                .userId(user)
+//                .proCategory("영화")
+//                .proName("트랜스포머3")
+//                .proImg("movie.img")
+//                .proMainImg("movieMain.img")
+//                .proPrice(1200)
+//                .proDate(new Date())
+//                .proStartDate(new Date())
+//                .proEndDate(new Date())
+//                .proStatus("승인")
+//                .proPaidCnt(1)
+//                .proNotifyCnt(2)
+//                .proScript("영화입니다")
+//                .sellerName("홍길동")
+//                .sellerDetail("영화판매자입니다")
 //                .build();
-        Project project = Project.builder()
-                .proCode(1203)
-                .userId(user)
-                .proCategory("영화")
-                .proName("트랜스포머3")
-                .proImg("movie.img")
-                .proMainImg("movieMain.img")
-                .proPrice(1200)
-                .proDate(new Date())
-                .proStartDate(new Date())
-                .proEndDate(new Date())
-                .proStatus("승인")
-                .proPaidCnt(1)
-                .proNotifyCnt(2)
-                .proScript("영화입니다")
-                .sellerName("홍길동")
-                .sellerDetail("영화판매자입니다")
-                .build();
-
-        projectRepository.save(project);
-    }
+//
+//        projectRepository.save(project);
+//    }
 }
