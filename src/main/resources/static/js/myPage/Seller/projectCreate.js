@@ -173,7 +173,7 @@ document.querySelector('input[placeholder="프로젝트 가격을 설정해주�
 
 // 프로젝트 가격에 쉼표 삽입하는 함수
 function addCommasToPrice(price) {
-    // 숫자를 문자열로 변환 후, 쉼표 삽입
+//     숫자를 문자열로 변환 후, 쉼표 삽입
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -219,12 +219,17 @@ $(function() {
         format: 'YYYY-MM-DD'    // 날짜 포맷 설정
       }
     });
-  });
+});
 
 // apply 버튼을 클릭했을 때 trigger 되는 코드안에서 시작/종료 날짜를 받기
 $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
-    let startDate = picker.startDate.format('YYYY-MM-DD');
-    let endDate = picker.endDate.format('YYYY-MM-DD');
-    console.log("StartDate : " + startDate);    // console 창에서 확인 가능
-    console.log("EndDate : " + endDate);
+    const proStartDate = picker.startDate.format('YYYY-MM-DD');
+    const proEndDate = picker.endDate.format('YYYY-MM-DD');
+    console.log("proStartDate : " + proStartDate);    // console 창에서 확인 가능
+    console.log("proEndDate : " + proEndDate);
+
+    // javascript -> html 값 전달
+    // 참고자료: https://martinnoh.tistory.com/184
+    document.proCreateForm.proStartDate.value = new Date(proStartDate);
+    document.proCreateForm.proEndDate.value = new Date(proEndDate);
 });

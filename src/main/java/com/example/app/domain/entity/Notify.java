@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,11 +21,11 @@ public class Notify {
     private int notifyCode;
     @ManyToOne
     @JoinColumn(name = "proCode", foreignKey = @ForeignKey(name = "FK_NOTIFY_PROJECT",
-    foreignKeyDefinition = "FOREIGN KEY(proCode) REFERENCES tbl_project(proCode) ON DELETE CASCADE ON UPDATE CASCADE"))
+            foreignKeyDefinition = "FOREIGN KEY(proCode) REFERENCES tbl_project(proCode) ON DELETE CASCADE ON UPDATE CASCADE"))
     private Project proCode;
     @ManyToOne
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_NOTIFY_USER",
-    foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
+            foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
     private User userId;
     @Column(name = "notifyDate", nullable = false)
     private Date notifyDate;
