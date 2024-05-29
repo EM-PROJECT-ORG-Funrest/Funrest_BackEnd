@@ -18,12 +18,12 @@
     <div class="findid container my-custom-container">
         <div class="row">
             <div class="logo d-flex justify-content-center">
-                <a href=""><img th:src="@{/images/member/logo.jpg}" alt="" class="img-fluid"></a>
+                <a th:href="@{/th/main/main}"><img th:src="@{/images/member/logo.jpg}" alt="" class="img-fluid"></a>
             </div>
         </div>
         <div class="row sub-title d-flex mx-3 mt-5 mb-2 justify-content-center">
-            <a href="javascript:void(0)" class="sub-id d-block m-2">아이디 찾기</a>
-            <a href="javascript:void(0)" class="sub-pw d-block m-2">비밀번호 찾기</a>            
+            <a th:href="@{/th/member/findId}" class="sub-id d-block m-2">아이디 찾기</a>
+            <a th:href="@{/th/member/findPw}" class="sub-pw d-block m-2">비밀번호 찾기</a>
         </div>
         <hr class="m-0 mx-auto">
         <div class="findid-main row m-0 p-4">
@@ -41,7 +41,6 @@
                 </form>
             </div>
             <div class="col-0 col-md-3"></div>
-            
         </div>
     </div>
 </body>

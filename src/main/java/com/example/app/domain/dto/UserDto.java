@@ -18,4 +18,7 @@ public class UserDto {
     private String addrCode; // 우편번호
     private String addrRoad;
     private String addrDetail;
+    private String snsType;
+    private String snsId;
+    private String snsConnectDate;
 }
