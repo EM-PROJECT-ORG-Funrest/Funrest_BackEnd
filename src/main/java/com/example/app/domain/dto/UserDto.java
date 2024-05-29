@@ -1,5 +1,6 @@
 package com.example.app.domain.dto;
 
+import com.example.app.domain.entity.User;
 import lombok.*;
 
 @Getter
@@ -18,7 +19,26 @@ public class UserDto {
     private String addrCode; // 우편번호
     private String addrRoad;
     private String addrDetail;
+    // SNS 로그인
     private String snsType;
     private String snsId;
     private String snsConnectDate;
+
+    public static UserDto EntityToUserDto(User user){
+
+        return UserDto.builder()
+                .userId(user.getUserId())
+                .userPw(user.getUserPw())
+                .userName(user.getUserName())
+                .phone(user.getPhone())
+                .role(user.getRole())
+                .userImg(user.getUserImg())
+                .addrCode(user.getAddrCode())
+                .addrRoad(user.getAddrRoad())
+                .addrDetail(user.getAddrDetail())
+                .snsType(user.getSnsType())
+                .snsId(user.getSnsId())
+                .snsConnectDate(user.getSnsConnectDate())
+                .build();
+    }
 }

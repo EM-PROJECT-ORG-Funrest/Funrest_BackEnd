@@ -17,10 +17,11 @@ public class DtoEntityTransferTestService {
 
         // ENTITY TO DTO
 //        UserAnalyticsDto dto = UserAnalyticsDto.toDto(saveEntity);
-//        System.out.println("To DTO : " + dto);
-
-
+//        System.out.println("To DTO : " + dto)
         return null;
+
+
+        
     }
 
 }

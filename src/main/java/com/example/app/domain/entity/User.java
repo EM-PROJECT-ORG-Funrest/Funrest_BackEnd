@@ -1,5 +1,6 @@
 package com.example.app.domain.entity;
 
+import com.example.app.domain.dto.UserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -39,4 +40,21 @@ public class User {
     private String snsId;
     @Column(name = "sns_connect_date")
     private String snsConnectDate;
+
+    public static User UserDtoToEntity(UserDto userDto) {
+        return User.builder()
+                .userId(userDto.getUserId())
+                .userPw(userDto.getUserPw())
+                .userName(userDto.getUserName())
+                .phone(userDto.getPhone())
+                .role(userDto.getRole())
+                .userImg(userDto.getUserImg())
+                .addrCode(userDto.getAddrCode())
+                .addrRoad(userDto.getAddrRoad())
+                .addrDetail(userDto.getAddrDetail())
+                .snsType(userDto.getSnsType())
+                .snsId(userDto.getSnsId())
+                .snsConnectDate(userDto.getSnsConnectDate())
+                .build();
+    }
 }
