@@ -23,24 +23,9 @@ public class SellerController {
     private UserRepository userRepository;
 
     @GetMapping("/seller")
-    public void selectUserID1(User user, Model model){
-        UserDto userDto = new UserDto();
-        userDto.EntityToUserDto(user);
-        String userId = userDto.getUserId();
-        model.addAttribute("userId", userId);
+    public void selectUserID1(){
         log.info("GET /th/myPage/seller/seller .....");
     }
 
-    @PostMapping("/seller")
-    public void selectUserID(User user, Model model){
-        log.info("post /th/myPage/seller/seller .....");
-    }
-
-//    @PostMapping("/projectCreate")
-//    public void InsertProject(ProjectDto projectDto){
-//      log.info("POST /th/myPage/seller/projectCreate .....");
-//      //insert문 만들어서 여기서 삽입
-//        //
-//    }
 
 }
