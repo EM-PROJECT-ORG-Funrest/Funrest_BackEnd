@@ -94,6 +94,10 @@ function chkPW(pwEl){
 function signupValidChk(event) {
     event.preventDefault();
 
+     // 폼 데이터 수집
+    const form = document.getElementById('signup');
+    const formData = new FormData(form);
+
     const id = document.getElementById("signup-id");
     const pw = document.getElementById("signup-pw");
     const pwChk = document.getElementById("signup-pw-chk");
@@ -117,7 +121,16 @@ function signupValidChk(event) {
         } else {
             console.log("회원가입 통과");
             pwChk.classList.remove("is-invalid");
-            return true;
+
+            axios.post("/signUp/join", formData)
+            .then(resp => {
+                console.log("회원가입 완");
+                return true;
+            })
+            .catch(error => {
+                console.log("회원가입 실패");
+                return false;
+            });
         }
     }
 }

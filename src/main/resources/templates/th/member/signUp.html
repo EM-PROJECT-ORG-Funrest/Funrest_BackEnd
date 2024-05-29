@@ -49,7 +49,7 @@
             <form name="signup" id="signup" class="p-0" onsubmit="return signupValidChk(event)" action="/signUp/join" method="post">
                 <label class="mt-2">아이디</label>
                 <div class="input-group">
-                    <input type="text" name="id" id="signup-id" class="form-control mt-1" placeholder="아이디 입력">
+                    <input type="text" name="userId" id="signup-id" class="form-control mt-1" placeholder="아이디 입력">
                     <button id="signup-email-btn" class="btn btn-outline-success mt-1 ms-1" onclick="chkId()" type="button">메일전송</button>
                     <div class="invalid-feedback m-0" id="validationMessageID"></div>
                     <div class="valid-feedback m-0">인증번호가 전송되었습니다.</div>
@@ -63,7 +63,7 @@
                 <label class="mt-3">비밀번호</label>
                 <input type="password" id="signup-pw" class="form-control mt-1" placeholder="비밀번호 입력">
                 <div class="invalid-feedback m-0" id="validationMessagePW">비밀번호를 입력해 주세요.</div>
-                <input type="password" id="signup-pw-chk" class="form-control mt-2" placeholder="비밀번호 확인">
+                <input type="password" name="userPw" id="signup-pw-chk" class="form-control mt-2" placeholder="비밀번호 확인">
                 <div class="invalid-feedback m-0">비밀번호가 일치하지 않습니다.</div>
 
                 <div class="signup-btn row justify-content-center mt-5">

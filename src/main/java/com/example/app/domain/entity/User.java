@@ -19,7 +19,7 @@ public class User {
     @Id
     @Column(name = "userId", nullable = false)
     private String userId;
-    @Column(name = "userPw", length = 20)
+    @Column(name = "userPw", length = 60)
     private String userPw;
     @Column(name = "userName", nullable = false)
     private String userName;

@@ -44,7 +44,7 @@ public class SignUpService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(id);
         message.setSubject("[펀레스트] 회원가입 인증 이메일입니다.");
-        message.setText("펀레스트 가입 신청을 해주셔서 감사드립니다.\n" + "다음 인증번호를 정확히 입력하고 인증을 완료해 주세요.\n" + authNumber);
+        message.setText("다음 인증번호를 정확히 입력하고 인증을 완료해 주세요.\n" + authNumber);
 
         javaMailSender.send(message);
     }
@@ -52,8 +52,8 @@ public class SignUpService {
     @Transactional(rollbackFor = Exception.class)
     public void userJoin(UserDto userDto) {
         System.out.println("service userDto : " + userDto);
-        String password = passwordEncoder.encode(userDto.getUserPw());
-        userDto.setUserPw(password);
+        userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
+        userDto.setRole("ROLE_USER");
         User user = User.UserDtoToEntity(userDto);
         userRepository.save(user);
     }
