@@ -101,6 +101,8 @@ function signupValidChk(event) {
     const id = document.getElementById("signup-id");
     const pw = document.getElementById("signup-pw");
     const pwChk = document.getElementById("signup-pw-chk");
+    const chkBox1 = document.getElementById("agree1");
+    const chkBox2 = document.getElementById("agree2");
 
     // 이메일이 인증되지 않은 경우
     if (!isPassEmailChk) {
@@ -119,8 +121,13 @@ function signupValidChk(event) {
             pwChk.classList.add("is-invalid");
             return false;
         } else {
-            console.log("회원가입 통과");
+            //console.log("회원가입 통과");
             pwChk.classList.remove("is-invalid");
+
+            if(!chkBox1.checked || !chkBox2.checked) {
+                window.alert("필수 동의 항목을 체크해 주세요.");
+                return false;
+            }
 
             axios.post("/signUp/join", formData)
             .then(resp => {
