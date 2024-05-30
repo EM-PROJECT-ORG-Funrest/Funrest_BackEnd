@@ -21,7 +21,7 @@ public class ProjectDto {
     private String proName;
 
     // 단일 이미지 파일
-    private MultipartFile proMainImg; // 프로젝트 썸네일 이미지 // projectCreate.html -> Controller 파일 담는 용도
+    //private MultipartFile proMainImg; // 프로젝트 썸네일 이미지 // projectCreate.html -> Controller 파일 담는 용도
     private String originalFileName; // 원본 파일 이름
     private String storedFileName; // 서버 저장용 파일 이름 (같은 이름의 파일이름을 구분하기 위한 용도)
     private int fileAttached; // 파일 첨부 여부 (첨부 1, 미첨부 0)
@@ -39,25 +39,25 @@ public class ProjectDto {
     private String sellerName; // 판매자 이름
     private String sellerDetail; // 프로젝트 판매자 소개글
 
-    // Entity To Dto
-//    public static ProjectDto ToDto(Project project) {
-//        return ProjectDto.builder()
-//                .proCode(project.getProCode())
-//                .userId(project.getUserId())
-//                .proCategory(project.getProCategory())
-//                .proName(project.getProName())
-////                .proImg(project.getProImg())
+  //   Entity To Dto
+    public static ProjectDto ToDto(Project project) {
+        return ProjectDto.builder()
+                .proCode(project.getProCode())
+                .userId(project.getUserId())
+                .proCategory(project.getProCategory())
+                .proName(project.getProName())
+//                .proImg(project.getProImg())
 //                .proMainImg(project.getProMainImg())
-//                .proPrice(project.getProPrice())
-//                .proDate(project.getProDate())
-//                .proStartDate(project.getProStartDate())
-//                .proEndDate(project.getProEndDate())
-//                .proStatus(project.getProStatus())
-//                .proPaidCnt(project.getProPaidCnt())
-//                .proNotifyCnt(project.getProNotifyCnt())
-//                .proScript(project.getProScript())
-//                .sellerName(project.getSellerName())
-//                .sellerDetail(project.getSellerDetail())
-//                .build();
-//    }
+                .proPrice(project.getProPrice())
+                .proDate(project.getProDate())
+                .proStartDate(project.getProStartDate())
+                .proEndDate(project.getProEndDate())
+                .proStatus(project.getProStatus())
+                .proPaidCnt(project.getProPaidCnt())
+                .proNotifyCnt(project.getProNotifyCnt())
+                .proScript(project.getProScript())
+                .sellerName(project.getSellerName())
+                .sellerDetail(project.getSellerDetail())
+                .build();
+    }
 }

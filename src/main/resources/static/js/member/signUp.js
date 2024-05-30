@@ -124,12 +124,30 @@ function signupValidChk(event) {
 
             axios.post("/signUp/join", formData)
             .then(resp => {
-                console.log("회원가입 완");
-                return true;
+                if(resp.status === 200) {
+                    console.log("회원가입 완료");
+                    window.alert("회원가입이 완료 되었습니다.");
+                    return location.href="/th/main/main";
+                }
             })
             .catch(error => {
-                console.log("회원가입 실패");
-                return false;
+                if(error.response) {
+                    console.log(error.response.status + " " + error.response.data);
+                    if(error.response.status === 400) {
+                        window.alert("이미 가입된 이메일 계정입니다.");
+                        return false;
+                    } else if(error.response.status === 502) {
+                        window.alert("서버 에러! 관리자에게 문의해 주세요.");
+                        return false;
+                    }
+                }
+                else if (error.request) {
+                  // 요청이 만들어졌지만 응답을 받지 못했을 때
+                  console.log('No response received:', error.request);
+                } else {
+                  // 요청을 설정하는 과정에서 에러가 발생했을 때
+                  console.log('Error setting up request:', error.message);
+                }
             });
         }
     }

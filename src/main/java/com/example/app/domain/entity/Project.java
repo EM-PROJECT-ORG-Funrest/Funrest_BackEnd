@@ -30,8 +30,8 @@ public class Project {
     private String proCategory;
     @Column(name = "proName", nullable = false)
     private String proName;
-    @Column(name = "proMainImg", nullable = false)
-    private MultipartFile proMainImg; // project's main image
+//    @Column(name = "proMainImg", nullable = false)
+//    private MultipartFile proMainImg; // project's main image
 //    @Column(name = "proImg", nullable = false)
 //    private MultipartFile proImg; // project's all images
     @Column(name = "proPrice", nullable = false)
@@ -66,7 +66,7 @@ public class Project {
         project.setProCategory(projectDto.getProCategory());
         project.setProName(projectDto.getProName());
         // project.setProImg(projectDto.getProImg());
-        project.setProMainImg(projectDto.getProMainImg());
+        //project.setProMainImg(projectDto.getProMainImg());
         project.setProPrice(projectDto.getProPrice());
         project.setProDate(projectDto.getProDate());
         project.setProStartDate(projectDto.getProStartDate());

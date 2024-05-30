@@ -1,7 +1,7 @@
 package com.example.app.controller;
 
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.domain.service.ProjectServiceImpl;
+import com.example.app.domain.service.member.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +21,6 @@ public class ProjectController {
     @Autowired
     private ProjectServiceImpl projectServiceImpl;
 
-    @Autowired
-    private FileUpload fileUpload;
 
     // projectCreate 페이지로 GetMapping (확인용 로깅)
     @GetMapping("/myPage/seller/projectCreate")

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -50,11 +51,16 @@ public class SignUpService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void userJoin(UserDto userDto) {
+    public boolean userJoin(UserDto userDto) throws Exception {
         System.out.println("service userDto : " + userDto);
+        Optional<User> userOptional = userRepository.findById(userDto.getUserId());
+        if(!userOptional.isEmpty()) {
+            return false;
+        }
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         userDto.setRole("ROLE_USER");
         User user = User.UserDtoToEntity(userDto);
         userRepository.save(user);
+        return true;
     }
 }
