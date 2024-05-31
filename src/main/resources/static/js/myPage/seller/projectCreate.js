@@ -42,7 +42,7 @@ function setThumbnail(event) {
 
         // 인라인 스타일로 크기 조정
         img.style.width = "100%";
-        img.style.height = "auto";
+        img.style.height = "100%";
 
         imageContainer.appendChild(img);
     };
@@ -129,38 +129,53 @@ function deleteFile(num) {
     filesArr[num].is_delete = true;
 }
 
+// 모듬 입력 필드 null(빈 값) 체크
 document.addEventListener('DOMContentLoaded', function() {
     function validateForm() {
+        // 판매자 이름 확인
+        var sellerName = document.querySelector('input[name="sellerName"]').value.trim();
+        if (sellerName === "") {
+            alert("판매자 이름을 입력하세요.");
+            return false;
+        }
+        // 판매자 소개글 확인
+        var sellerDetail = document.querySelector('textarea[name="sellerDetail"]').value.trim();
+        if (sellerDetail === "") {
+            alert("판매자 소개글을 입력하세요.");
+            return false;
+        }
         // 카테고리 선택 확인
-        var category = document.querySelector('select[name="language"]').value;
+        var category = document.querySelector('select[name="proCategory"]').value;
         if (category === "none") {
             alert("프로젝트 카테고리를 선택해주세요.");
             return false;
         }
-
         // 프로젝트 이름 확인
-        var projectName = document.querySelector('input[placeholder="프로젝트 이름을 입력하세요."]').value.trim();
+        var projectName = document.querySelector('input[name="proName"]').value.trim();
         if (projectName === "") {
             alert("프로젝트 이름을 입력하세요.");
             return false;
         }
-
         // 프로젝트 가격 확인
-        var projectPrice = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').value.trim();
+        var projectPrice = document.querySelector('input[name="proPrice"]').value.trim();
         if (projectPrice === "") {
             alert("프로젝트 가격을 입력하세요.");
             return false;
         }
-
-        // 상세 설명 확인
-        var projectDescription = document.querySelector('.pro-input-text').value.trim();
-        if (projectDescription === "") {
+        // 프로젝트 목표 금액 확인
+        var projectGoalAmount = document.querySelector('input[name="proGoalAmount"]').value.trim();
+        if (projectGoalAmount === "") {
+            alert("프로젝트 목표 금액을 입력하세요.");
+            return false;
+        }
+        // 프로젝트 상세설명 확인
+        var projectScript = document.querySelector('textarea[name="proScript"]').value.trim();
+        if (projectScript === "") {
             alert("프로젝트 상세 설명을 입력하세요.");
             return false;
         }
         return true;
     }
-
     // 폼 제출 전에 유효성 검사 실행
     document.querySelector('form').addEventListener('submit', function(event) {
         if (!validateForm()) {
@@ -170,16 +185,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 숫자만 입력되도록 유효성 검사 함수
-function validatePrice(event) {
-    var keyCode = event.keyCode;
-    // 숫자 키의 keyCode는 48부터 57까지입니다.
-    if (keyCode < 48 || keyCode > 57) {
-        event.preventDefault(); // 입력한 키가 숫자가 아니면 입력 방지
-    }
-}
-
-// 프로젝트 가격 입력 필드에 이벤트 리스너 추가
-document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('keypress', validatePrice);
+//function validatePrice(event) {
+//    var keyCode = event.keyCode;
+//    // 숫자 키의 keyCode는 48부터 57까지입니다.
+//    if (keyCode < 48 || keyCode > 57) {
+//        event.preventDefault(); // 입력한 키가 숫자가 아니면 입력 방지
+//    }
+//}
+// 프로젝트 가격 입력 필드에 'validatePrice' 이벤트 리스너 추가
+//document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('keypress', validatePrice);
+// 프로젝트 목표 금액 입력 필드에 'validatePrice' 이벤트 리스너 추가
+//document.querySelector('input[placeholder="프로젝트 목표금액을 설정해주세요."]').addEventListener('keypress', validatePrice);
 
 
 // 프로젝트 가격에 쉼표 삽입하는 함수
@@ -190,35 +206,58 @@ function addCommasToPrice(price) {
 
 // 프로젝트 가격 입력 필드의 값이 변경될 때마다 호출되는 함수
 function formatPriceInput() {
-    var projectPriceInput = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]');
+    var projectPriceInput = document.querySelector('input[name="proPrice"]');
     var currentPrice = projectPriceInput.value.replace(/,/g, ''); // 쉼표 제거한 현재 값
-
     // 현재 값이 숫자가 아니면 제거하고 리턴
     if (isNaN(currentPrice)) {
         projectPriceInput.value = '';
         return;
     }
-
     // 숫자를 천 단위로 쉼표로 구분하여 표시
     projectPriceInput.value = addCommasToPrice(currentPrice);
 }
-
 // 프로젝트 가격 입력 필드에 이벤트 리스너 추가
-document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('input', formatPriceInput);
+document.querySelector('input[name="proPrice"]').addEventListener('input', formatPriceInput);
 
+// 프로젝트 목표 금액 입력 필드의 값이 변경될 때마다 호출되는 함수
+function formatGoalAmountInput() {
+    var projectGoalAmountInput = document.querySelector('input[name="proGoalAmount"]'); // 프로젝트 목표 금액 입력 필드 변수 선언
+    var currentGoalAmount = projectGoalAmountInput.value.replace(/,/g, ''); // 쉼표 제거한 현재 값 변수 선언
+    // 현재 값이 숫자가 아니면 제거하고 리턴
+    if (isNaN(currentGoalAmount)) {
+        projectGoalAmountInput.value = '';
+        return;
+    }
+    // 숫자를 천 단위로 쉼표로 구분하여 표시
+    projectGoalAmountInput.value = addCommasToPrice(currentGoalAmount);
+}
+// 프로젝트 목표 금액 입력 필드에 'formatGoalAmountInput' 이벤트 리스너 추가
+document.querySelector('input[name="proGoalAmount"]').addEventListener('input', formatGoalAmountInput);
 
-// 프로젝트 상세설명 입력 필드 길이 제한 함수
-function limitDescriptionLength(event) {
-    var maxLength = 1500; // 최대 길이 설정
-    var descriptionInput = document.querySelector('.pro-input-text');
-    if (descriptionInput.value.length >= maxLength) {
-        // 입력 길이가 최대 길이 이상이면 입력 방지
-        event.preventDefault();
+// 판매자 소개글 입려 필드 길이 제한 함수
+function limitSellerDetailLength(event) {
+    var maxLength = 300; // 최대 길이 설정
+    var sellerDetailInput = document.querySelector('textarea[name="sellerDetail"]'); // 판매자 소개글 입력 필드 변수 선언
+    if (sellerDetailInput.value.length >= maxLength) // 판매자 소개글 입력 필드의 값이 최대 길이 이상이면
+    {
+        sellerDetailInput.value = sellerDetailInput.value.substring(0, maxLength); // 최대 길이까지 잘라내기
     }
 }
+// 판매자 소개글 입력 필드에 이벤트 리스너 추가
+document.querySelector('textarea[name="sellerDetail"]').addEventListener('input', limitSellerDetailLength)
 
+// 프로젝트 상세설명 입력 필드 길이 제한 함수
+function limitProScriptLength(event) {
+    var maxLength = 300; // 최대 길이 설정
+    var proScripInput = document.querySelector('textarea[name="proScript"]'); // 프로젝트 상세설명 입력 필드 변수 선언
+    if (proScripInput.value.length >= maxLength) // 프로젝트 상세설명 입력 필드의 값이 최대 길이 이상이면
+    {
+        // event.preventDefault(); // input 이벤트는 기본 동작을 취소하지 않아 해당 코드 적용 안됨
+        proScripInput.value = proScripInput.value.substring(0, maxLength); // 최대 길이까지 잘라내기
+    }
+}
 // 프로젝트 상세설명 입력 필드에 이벤트 리스너 추가
-document.querySelector('.pro-input-text').addEventListener('input', limitDescriptionLength);
+document.querySelector('textarea[name="proScript"]').addEventListener('input', limitProScriptLength);
 
 // DateRangePicker
 $(function() {
@@ -236,11 +275,11 @@ $(function() {
 $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
     const proStartDate = picker.startDate.format('YYYY-MM-DD');
     const proEndDate = picker.endDate.format('YYYY-MM-DD');
-    console.log("proStartDate : " + proStartDate);    // console 창에서 확인 가능
-    console.log("proEndDate : " + proEndDate);
+    // console.log("proStartDate : " + proStartDate);    // console 창에서 확인 가능
+    // console.log("proEndDate : " + proEndDate);
 
     // javascript -> html 값 전달
     // 참고자료: https://martinnoh.tistory.com/184
-    document.proCreateForm.proStartDate.value = new Date(proStartDate);
-    document.proCreateForm.proEndDate.value = new Date(proEndDate);
+    document.proCreateForm.proStartDate.value = proStartDate;
+    document.proCreateForm.proEndDate.value = proEndDate;
 });

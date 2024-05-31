@@ -22,10 +22,10 @@ public class SellerController {
 
     private UserRepository userRepository;
 
-    @GetMapping("/seller")
-    public void selectUserID1() {
-        log.info("GET /th/myPage/seller/seller .....");
-    }
+//    @GetMapping("/seller")
+//    public void selectUserID1() {
+//        log.info("GET /th/myPage/seller/seller .....");
+//    }
 
 
 }

@@ -30,6 +30,7 @@ public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
 
+    // projectCreate 페이지로 이동
     @GetMapping("/projectCreate")
     public void projectCreate() {
         log.info("/th/myPage/seller/projectCreate invoke...");
@@ -43,6 +44,11 @@ public class ProjectController {
         projectServiceImpl.insertProject(projectDto);
 
         return "redirect:/th/myPage/seller/seller";
+    }
+
+    @GetMapping("/seller")
+    public void seller() {
+        log.info("GET /th/myPage/seller/seller .....");
     }
 
 //    @GetMapping("/myPage/seller/projectUpdatecallBack")

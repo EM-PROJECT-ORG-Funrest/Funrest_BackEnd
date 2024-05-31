@@ -29,8 +29,8 @@ public class ProjectDto {
     private String proPrice; // 프로젝트 가격
     private String proGoalAmount; // 프로젝트 목표 금액
     private Date proDate; // 프로젝트 승인 일자 (관리자 페이지 구현 초기 전엔 프로젝트 생성 일자로 통일)
-    private Date proStartDate; // 프로젝트 기간 (시작일자)
-    private Date proEndDate; // 프로젝트 기간 (종료일자)
+    private String proStartDate; // 프로젝트 기간 (시작일자)
+    private String proEndDate; // 프로젝트 기간 (종료일자)
     private int proStatus; // 프로젝트 승인 (승인:1 / 미승인:0)
     private int proPaidCnt; // 프로젝트 결제 횟수
     private int proNotifyCnt; // 프로젝트 알림신청 횟수
@@ -56,6 +56,7 @@ public class ProjectDto {
         projectDto.setProScript(project.getProScript());
         projectDto.setSellerName(project.getSellerName());
         projectDto.setSellerDetail(project.getSellerDetail());
+
         if (project.getFileAttached() == 0) {
             projectDto.setFileAttached(project.getFileAttached()); // 0, 파일 없음
         } else {

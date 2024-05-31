@@ -30,12 +30,7 @@
 <div layout:fragment="content">
 
 <body>
-    <div>
-        <tr th:if="${project.fileAttached == 1}">
-            <th>image</th>
-            <td><img th:src="@{|/upload/${project.storedFileName}|}" alt=""></td>
-        </tr>
-    </div>
+
     <div class="seller-mypage container p-3 my-custom-container">
         <div class="row">
             <div class="mypage-left col-md-2 px-3">
@@ -101,7 +96,12 @@
                         <div class="p-3 row m-auto">
                             <div class="seller-project-img col-md-5">
                                 <a href="javascript:void(0)">
-                                    <img th:src="@{/images/myPage/seller/img1.jpg}" alt="" class="img-fluid rounded">
+                                    <tr th:if="${project.fileAttached == 1}">
+                                        <td>
+                                            <img th:src="@{|/upload/${project.storedFileName}|}" alt="" class="img-fluid rounded">
+                                        </td>
+                                    </tr>
+<!--                                    <img th:src="@{/images/myPage/seller/img1.jpg}" alt="" class="img-fluid rounded">-->
                                 </a>
                             </div>
                             <div class="seller-project-info col-md-7 my-auto">

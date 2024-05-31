@@ -30,7 +30,7 @@ public class ProjectServiceImpl {
     private ProjectFileRepository projectFileRepository;
 
     public boolean insertProject(ProjectDto projectDto) throws IOException {
-        System.out.println("projectDto : " + projectDto);
+        System.out.println("ProjectServiceImpl's projectDto : " + projectDto);
         // Dto, Entity 변환 작업은 Service Layer (구현은 Dto,Entity 단)
         // 파일 첨부 여부에 따라 로직 분리
         if (projectDto.getProMainImg().isEmpty()){
@@ -84,8 +84,8 @@ public class ProjectServiceImpl {
             // Entity 로 변환
             Project projectEntity = Project.toSaveFileEntity(projectDto);
             // 자식 Entity 에서는 부모 Entity 의 proCode 데이터가 필요
+            // projectEntity 에는 proCode 가 없기 때문에 DB에 저장 후 proCode 를 얻는 후 proCode 를 사용해 해당 project 엔터티를 가져옴
             Integer savedProCode = projectRepository.save(projectEntity).getProCode();
-            // projectEntity에는 proCode 가 없기 때문에 DB에 저장 후 proCode를 얻는 후 proCode 를 사용해 해당 project 엔터티를 가져옴
             // Project project = projectRepository.findByProCode(savedProCode).get() 오류 발생;
             Project project = projectRepository.findByProCode(savedProCode).get();
             // 7. tbl_project_file 에 해당 데이터 save 처리

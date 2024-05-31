@@ -43,27 +43,27 @@ public class Project {
     @Column(name = "proDate")
     private Date proDate; // project's permission date
     @Column(name = "proStartDate")
-    private Date proStartDate;
+    private String proStartDate;
     @Column(name = "proEndDate")
-    private Date proEndDate;
+    private String proEndDate;
     @Column(name = "proStatus", nullable = false, columnDefinition = "integer default 0")
     private int proStatus; // project permission (승인:1 / 미승인:0)
     @Column(name = "proPaidCnt", nullable = false, columnDefinition = "integer default 0")
     private int proPaidCnt;
     @Column(name = "proNotifyCnt", nullable = false, columnDefinition = "integer default 0")
     private int proNotifyCnt;
-    @Column(name = "proScript", nullable = false)
+    @Column(name = "proScript", nullable = false, length = 300)
     private String proScript;
     @Column(name = "sellerName", nullable = false)
     private String sellerName;
-    @Column(name = "sellerDetail", nullable = false)
+    @Column(name = "sellerDetail", nullable = false, length = 300)
     private String sellerDetail;
     @Column
     private int fileAttached;   // 파일 첨부 여부 (1 = 첨부O, 0 = 첨부X)
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProjectFile> projectFileList = new ArrayList<>();
 
-    // 파일이 없는 경우 호출
+    // 파일이 없는 경우 toSaveEntity 메소드 호출
     // Dto to Entity
     public static Project toSaveEntity(ProjectDto projectDto) {
         Project project = new Project();
@@ -88,7 +88,7 @@ public class Project {
         return project;
     }
 
-    // 파일이 있는 경우 호출
+    // 파일이 있는 경우 toSaveFileEntity 메소드 호출
     // Dto to Entity
     public static Project toSaveFileEntity(ProjectDto projectDto) {
         Project project = new Project();
