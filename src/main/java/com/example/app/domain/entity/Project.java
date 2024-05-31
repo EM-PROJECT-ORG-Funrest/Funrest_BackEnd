@@ -1,8 +1,12 @@
 package com.example.app.domain.entity;
 
+import com.example.app.domain.dto.ProjectDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.Date;
 
 @Getter
@@ -11,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString
 @Table(name = "tbl_project")
 public class Project {
     @Id
@@ -19,26 +24,26 @@ public class Project {
     private int proCode;
     @ManyToOne
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_PROJECT_USER",
-    foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
+            foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
     private User userId;
     @Column(name = "proCategory", nullable = false)
     private String proCategory;
     @Column(name = "proName", nullable = false)
     private String proName;
-    @Column(name = "proImg", nullable = false)
-    private String proImg; // project's all images
-    @Column(name = "proMainImg", nullable = false)
-    private boolean proMainImg; // project's main image
+    //@Column(name = "proMainImg", nullable = false)
+    //private MultipartFile proMainImg; // project's main image
+//    @Column(name = "proImg", nullable = false)
+//    private MultipartFile proImg; // project's all images
     @Column(name = "proPrice", nullable = false)
-    private int proPrice;
-    @Column(name = "proDate", nullable = false)
+    private String proPrice;
+    @Column(name = "proDate")
     private Date proDate; // project's permission date
-    @Column(name = "proStartDate", nullable = false)
+    @Column(name = "proStartDate")
     private Date proStartDate;
-    @Column(name = "proEndDate", nullable = false)
+    @Column(name = "proEndDate")
     private Date proEndDate;
-    @Column(name = "proStatus", nullable = false)
-    private boolean proStatus; // project permission (Y/N)
+    @Column(name = "proStatus", nullable = false, columnDefinition = "integer default 0")
+    private int proStatus; // project permission (승인:1 / 미승인:0)
     @Column(name = "proPaidCnt", nullable = false, columnDefinition = "integer default 0")
     private int proPaidCnt;
     @Column(name = "proNotifyCnt", nullable = false, columnDefinition = "integer default 0")
@@ -49,4 +54,56 @@ public class Project {
     private String sellerName;
     @Column(name = "sellerDetail", nullable = false)
     private String sellerDetail;
+
+    @Column
+    private int fileAttached;   // 1 or 0
+
+    // Dto to Entity
+    public static Project toSaveEntity(ProjectDto projectDto){
+        Project project = new Project();
+        project.setProCode(projectDto.getProCode());
+        project.setUserId(projectDto.getUserId());
+        project.setProCategory(projectDto.getProCategory());
+        project.setProName(projectDto.getProName());
+        // project.setProImg(projectDto.getProImg());
+        //project.setProMainImg(projectDto.getProMainImg());
+        project.setProPrice(projectDto.getProPrice());
+        project.setProDate(projectDto.getProDate());
+        project.setProStartDate(projectDto.getProStartDate());
+        project.setProEndDate(projectDto.getProEndDate());
+        project.setProStatus(projectDto.getProStatus());
+        project.setProPaidCnt(projectDto.getProPaidCnt());
+        project.setProNotifyCnt(projectDto.getProNotifyCnt());
+        project.setProScript(projectDto.getProScript());
+        project.setSellerName(projectDto.getSellerName());
+        project.setSellerDetail(projectDto.getSellerDetail());
+        project.setFileAttached(0); // 파일 없음.
+        return project;
+    }
+
+
+
+    // Dto to Entity
+//    public static Project ToEntity(ProjectDto projectDto) {
+//
+//        return Project.builder()
+//                .proCode(projectDto.getProCode())
+//                .userId(projectDto.getUserId())
+//                .proCategory(projectDto.getProCategory())
+//                .proName(projectDto.getProName())
+////                .proImg(projectDto.getProImg())
+//                .proMainImg(projectDto.getProMainImg())
+//                .proPrice(projectDto.getProPrice())
+//                .proDate(projectDto.getProDate())
+//                .proStartDate(projectDto.getProStartDate())
+//                .proEndDate(projectDto.getProEndDate())
+//                .proStatus(projectDto.getProStatus())
+//                .proPaidCnt(projectDto.getProPaidCnt())
+//                .proNotifyCnt(projectDto.getProNotifyCnt())
+//                .proScript(projectDto.getProScript())
+//                .sellerName(projectDto.getSellerName())
+//                .sellerDetail(projectDto.getSellerDetail())
+//                .fileAttached(projectDto.setFileAttached(0))
+//                .build();
+//    }
 }

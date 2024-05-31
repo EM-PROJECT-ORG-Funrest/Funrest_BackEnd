@@ -20,7 +20,7 @@
     <div id="header-l"></div>
     <div class="login container my-custom-container">
         <div class="login-logo row">
-            <a href=""><img th:src="@{/images/member/logo.jpg}" alt="" class="img-fluid"></a>
+            <a th:href="@{/th/main/main}"><img th:src="@{/images/member/logo.jpg}" alt="" class="img-fluid"></a>
         </div>
         <div class="row justify-content-center">
             <div class="login-form row justify-content-center">
@@ -28,7 +28,7 @@
                     <input type="text" id="id" class="form-control mt-3 mb-3" placeholder="아이디 입력">
                     <input type="password" id="pw" class="form-control mt-3 mb-3" placeholder="패스워드 입력">
                     <div class="lost-login">
-                        <a href="">로그인 정보를 잊으셨나요?</a>
+                        <a th:href="@{/th/member/findId}">로그인 정보를 잊으셨나요?</a>
                     </div>
                     <button type="submit" onclick="submit_check()" class="btn btn-success mt-5">로그인</button>
                 </form>
@@ -67,7 +67,7 @@
                 </div> -->
                 <div class="join-login mt-4">
                     <span>아직 펀레스트 회원이 아니신가요?</span>
-                    <a href="">회원가입</a>
+                    <a th:href="@{/th/member/signUp}">회원가입</a>
                 </div>
             </div>
         </div>
