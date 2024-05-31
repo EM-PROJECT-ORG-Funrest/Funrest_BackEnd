@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
@@ -49,36 +53,59 @@ public class ProjectServiceImpl {
         return true;
     }
 
+    public boolean ParseDate(ProjectDto projectDto) throws ParseException {
+        SimpleDateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    public boolean UpdateProject(ProjectDto projectDto){
-//        Project project = Project.toSaveEntity(projectDto);
-//
-//        Project projectSelect = projectRepository.findByProCode(project.getProCode());
-//
-//        projectSelect.setProCode(project.getProCode());
-//        projectSelect.setUserId(project.getUserId());
-//        projectSelect.setProCategory(project.getProCategory());
-//        projectSelect.setProName(project.getProName());
-//        projectSelect.setProPrice(project.getProPrice());
-//        projectSelect.setProDate(project.getProDate());
-//        projectSelect.setProStartDate(project.getProStartDate());
-//        projectSelect.setProEndDate(project.getProEndDate());
-//        projectSelect.setProStatus(project.getProStatus());
-//        projectSelect.setProPaidCnt(project.getProPaidCnt());
-//        projectSelect.setProNotifyCnt(project.getProNotifyCnt());
-//        projectSelect.setProScript(project.getProScript());
-//        projectSelect.setSellerName(project.getSellerName());
-//        projectSelect.setSellerDetail(project.getSellerDetail());
-//
-//        projectRepository.save(projectSelect);
-//
-//        return true;
-        System.out.println("UpdateProject method is called.");
-        System.out.println(projectDto);
-        Project project = Project.toSaveEntity(projectDto);
-        System.out.println(project);
 
+        // projectDto.getProStartDate()와 projectDto.getProEndDate()가 String 에서 Date로 변환
+
+        Date proStartDate = inputFormatter.parse((String) projectDto.getProStartDate());
+        String proStartDateStr = outputFormatter.format(proStartDate);
+
+        Date proEndDate = inputFormatter.parse((String) projectDto.getProEndDate());
+        String proEndDateStr = outputFormatter.format(proEndDate);
+
+        // datetime 즉 달력 input칸에 넣어 줄 데이터 생성
+        String datetime = proStartDateStr + " - " + proEndDateStr;
+        projectDto.setDatetime(datetime);
+
+        return true;
+    }
+
+    public boolean UpdateProject(ProjectDto projectDto)  {
+
+        SimpleDateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        // String 형으로 일단 양식에 맞게 잘라주기 yyyy-MM-dd 형태로 잘라줌
+        String proStartDateStr = projectDto.getDatetime().substring(0,10);
+        String proEndDateStr = projectDto.getDatetime().substring(13,23);
+
+        // 잘라 준 형태의 String 값을 Dto에 삽입
+        projectDto.setProStartDate(proStartDateStr);
+        projectDto.setProEndDate(proEndDateStr);
+
+        // 문자열을 Date 객체로 변환 과정
+        Date proStartDate = null;
+        Date proEndDate = null;
+
+        // parsing 작업 project에 넣어 주기 위해 한거
+        try {
+            proStartDate = inputFormatter.parse(proStartDateStr);
+            proEndDate = inputFormatter.parse(proEndDateStr);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        // ProjectDto에 넣어주는건데 굳이 필요하진 않음
+        projectDto.setProStartDate(proStartDateStr); // 여전히 String으로 설정
+        projectDto.setProEndDate(proEndDateStr); // 여전히 String으로 설정
+
+        // Project 엔티티 변환 및 저장 toSaveEntity 추가 했음 Project에는 이때 Date 값으로 넣음....
+        Project project = Project.toSaveEntity(projectDto, proStartDate, proEndDate);
+        // dirty checking 사용
         projectRepository.save(project);
+
         return true;
     }
 

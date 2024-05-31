@@ -3,6 +3,7 @@ package com.example.app.domain.dto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.User;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,7 +17,7 @@ import java.util.Date;
 @Builder
 public class ProjectDto {
     private int proCode;
-    private User userId;
+    private String userId;
     private String proCategory;
     private String proName;
 
@@ -30,29 +31,29 @@ public class ProjectDto {
 
     private String proPrice;
     private Date proDate; // 프로젝트 승인 일자 (관리자 페이지 구현 초기 전엔 프로젝트 생성 일자로 통일)
-    private Date proStartDate; // 프로젝트 기간 (시작일자)
-    private Date proEndDate; // 프로젝트 기간 (종료일자)
+    private String proStartDate; // 프로젝트 기간 (시작일자)
+    private String proEndDate; // 프로젝트 기간 (종료일자)
     private int proStatus; // 프로젝트 승인 (승인:1 / 미승인:0)
     private int proPaidCnt; // 프로젝트 결제 횟수
     private int proNotifyCnt; // 프로젝트 알림신청 횟수
     private String proScript; // 프로젝트 상세설명
     private String sellerName; // 판매자 이름
     private String sellerDetail; // 프로젝트 판매자 소개글
-    private String datetimes;
+    private String datetime; //
 
      //Entity To Dto
     public static ProjectDto ToDto(Project project) {
         return ProjectDto.builder()
                 .proCode(project.getProCode())
-                .userId(project.getUserId())
+                .userId(project.getUserId().getUserId())
                 .proCategory(project.getProCategory())
                 .proName(project.getProName())
 //                .proImg(project.getProImg())
 //                .proMainImg(project.getProMainImg())
                 .proPrice(project.getProPrice())
                 .proDate(project.getProDate())
-                .proStartDate(project.getProStartDate())
-                .proEndDate(project.getProEndDate())
+                .proStartDate(project.getProStartDate().toString())
+                .proEndDate(project.getProEndDate().toString())
                 .proStatus(project.getProStatus())
                 .proPaidCnt(project.getProPaidCnt())
                 .proNotifyCnt(project.getProNotifyCnt())

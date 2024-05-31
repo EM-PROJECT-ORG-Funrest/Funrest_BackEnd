@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
+import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.service.member.ProjectServiceImpl;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @Slf4j
@@ -50,32 +55,30 @@ public class ProjectController {
 
     @GetMapping("/myPage/seller/projectUpdatecallBack")
     public String projectUpdatecallBack(@RequestParam("proCode") int proCode, HttpSession session){
-        System.out.println(proCode);
         Project project = projectRepository.findByProCode(proCode);
-        System.out.println(project);
+
         ProjectDto projectDto  = ProjectDto.ToDto(project);
-        System.out.println(projectDto);
+
         session.setAttribute("projectDto", projectDto);
         return "redirect:/th/myPage/seller/projectUpdate";
     }
 
     @GetMapping("/myPage/seller/projectUpdate")
-    public String  projectUpdate(HttpSession session, Model model) {
+    public String  projectUpdate(HttpSession session, Model model) throws ParseException {
         ProjectDto projectDto = (ProjectDto) session.getAttribute("projectDto");
-        System.out.println("/th/myPage/seller/projectUpdate invoke... projectDto :" + projectDto);
-        String datetimes = projectDto.getProStartDate() + "-" + projectDto.getProEndDate();
-        projectDto.setDatetimes(datetimes);
+        //파싱작업
+        projectServiceImpl.ParseDate(projectDto);
+
         model.addAttribute("projectDto", projectDto);
         session.removeAttribute("projectDto"); // 세션 낭비 방지
 
         return "th/myPage/seller/projectUpdate";
     }
 
-    @GetMapping("/th/myPage/seller/projectCreateUpdateCallBack")
-    public String  projectCreateUpdateCallBack( ProjectDto projectDto) {
+    @GetMapping("/myPage/seller/projectCreateUpdateCallBack")
+    public String  projectCreateUpdateCallBack(ProjectDto projectDto) throws ParseException {
         System.out.println("projectCreateUpdateCallBack projectDto" + projectDto);
-        projectServiceImpl.UpdateProject(projectDto);
-        System.out.println("dsasaddasadadsadsadsadsadasd");
+            projectServiceImpl.UpdateProject(projectDto);
         return "redirect:/th/myPage/seller/seller";
     }
 }

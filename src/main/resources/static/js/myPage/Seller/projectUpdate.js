@@ -119,43 +119,45 @@ function setThumbnail(event) {
   }
 
 
-  function validateForm() {
-    // 카테고리 선택 확인
-    var category = document.querySelector('select[name="language"]').value;
-    if (category === "none") {
-        alert("프로젝트 카테고리를 선택해주세요.");
-        return false;
+document.addEventListener('DOMContentLoaded', function() {
+    function validateForm() {
+        // 카테고리 선택 확인
+        var category = document.querySelector('select[name="proCategory"]').value;
+        if (category === "none") {
+            alert("프로젝트 카테고리를 선택해주세요.");
+            return false;
+        }
+
+        // 프로젝트 이름 확인
+        var projectName = document.querySelector('input[placeholder="프로젝트 이름을 입력하세요."]').value.trim();
+        if (projectName === "") {
+            alert("프로젝트 이름을 입력하세요.");
+            return false;
+        }
+
+        // 프로젝트 가격 확인
+        var projectPrice = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').value.trim();
+        if (projectPrice === "") {
+            alert("프로젝트 가격을 입력하세요.");
+            return false;
+        }
+
+        // 상세 설명 확인
+        var projectDescription = document.querySelector('.pro-input-text').value.trim();
+        if (projectDescription === "") {
+            alert("프로젝트 상세 설명을 입력하세요.");
+            return false;
+        }
+
+        return true;
     }
 
-    // 프로젝트 이름 확인
-    var projectName = document.querySelector('input[placeholder="프로젝트 이름을 입력하세요."]').value.trim();
-    if (projectName === "") {
-        alert("프로젝트 이름을 입력하세요.");
-        return false;
-    }
-
-    // 프로젝트 가격 확인
-    var projectPrice = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').value.trim();
-    if (projectPrice === "") {
-        alert("프로젝트 가격을 입력하세요.");
-        return false;
-    }
-
-    // 상세 설명 확인
-    var projectDescription = document.querySelector('.pro-input-text').value.trim();
-    if (projectDescription === "") {
-        alert("프로젝트 상세 설명을 입력하세요.");
-        return false;
-    }
-
-    return true;
-}
-
-// 폼 제출 전에 유효성 검사 실행
-document.querySelector('form').addEventListener('submit', function(event) {
-    if (!validateForm()) {
-        event.preventDefault(); // 폼 제출 중지
-    }
+    // 폼 제출 전에 유효성 검사 실행
+    document.querySelector('form').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // 폼 제출 중지
+        }
+    });
 });
 
 // 숫자만 입력되도록 유효성 검사 함수
@@ -211,7 +213,7 @@ document.querySelector('.pro-input-text').addEventListener('input', limitDescrip
 
 // DateRangePicker
 $(function() {
-    $('input[name="datetimes"]').daterangepicker({
+    $('input[name="datetime"]').daterangepicker({
       timePicker: false, // 시간 선택 비활성화
       startDate: moment().startOf('day'),
       endDate: moment().startOf('day').add(1, 'day'),
@@ -221,15 +223,19 @@ $(function() {
     });
   });
 
-// apply 버튼을 클릭했을 때 trigger되는/ 발동되는 코드안에서 시작/종료 날짜를 받기
-$('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
-    let startDate = picker.startDate.format('YYYY-MM-DD');
-    let endDate = picker.endDate.format('YYYY-MM-DD');
-    console.log("StartDate : " + startDate);    // console 창에서 확인 가능
-    console.log("EndDate : " + endDate);
-
-    // javascript -> html 값 전달
-    // 참고자료: https://martinnoh.tistory.com/184
-    document.proCreateForm.proStartDate.value = new Date(proStartDate);
-    document.proCreateForm.proEndDate.value = new Date(proEndDate);
-});
+// 백엔드에서 처리 근데 저 위에 달력 부분은 안먹는데 어카지 ....
+//document.addEventListener('DOMContentLoaded', function() {
+//    $('input[name="datetimes"]').daterangepicker();
+//
+//    // apply 버튼을 클릭했을 때 trigger 되는 코드 안에서 시작/종료 날짜를 받기
+//    $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+//        const proStartDate = picker.startDate.format('YYYY-MM-DD');
+//        const proEndDate = picker.endDate.format('YYYY-MM-DD');
+//        console.log("proStartDate : " + proStartDate);    // console 창에서 확인 가능
+//        console.log("proEndDate : " + proEndDate);
+//
+//        // javascript -> html 값 전달
+//        document.querySelector('form[name="proUpdateForm"] input[name="proStartDate"]').value = proStartDate;
+//        document.querySelector('form[name="proUpdateForm"] input[name="proEndDate"]').value = proEndDate;
+//    });
+//});

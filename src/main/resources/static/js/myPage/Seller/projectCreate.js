@@ -119,43 +119,45 @@ function setThumbnail(event) {
   }
 
 
-  function validateForm() {
-    // 카테고리 선택 확인
-    var category = document.querySelector('select[name="language"]').value;
-    if (category === "none") {
-        alert("프로젝트 카테고리를 선택해주세요.");
-        return false;
+document.addEventListener('DOMContentLoaded', function() {
+    function validateForm() {
+        // 카테고리 선택 확인
+        var category = document.querySelector('select[name="proCategory"]').value;
+        if (category === "none") {
+            alert("프로젝트 카테고리를 선택해주세요.");
+            return false;
+        }
+
+        // 프로젝트 이름 확인
+        var projectName = document.querySelector('input[placeholder="프로젝트 이름을 입력하세요."]').value.trim();
+        if (projectName === "") {
+            alert("프로젝트 이름을 입력하세요.");
+            return false;
+        }
+
+        // 프로젝트 가격 확인
+        var projectPrice = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').value.trim();
+        if (projectPrice === "") {
+            alert("프로젝트 가격을 입력하세요.");
+            return false;
+        }
+
+        // 상세 설명 확인
+        var projectDescription = document.querySelector('.pro-input-text').value.trim();
+        if (projectDescription === "") {
+            alert("프로젝트 상세 설명을 입력하세요.");
+            return false;
+        }
+
+        return true;
     }
 
-    // 프로젝트 이름 확인
-    var projectName = document.querySelector('input[placeholder="프로젝트 이름을 입력하세요."]').value.trim();
-    if (projectName === "") {
-        alert("프로젝트 이름을 입력하세요.");
-        return false;
-    }
-
-    // 프로젝트 가격 확인
-    var projectPrice = document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').value.trim();
-    if (projectPrice === "") {
-        alert("프로젝트 가격을 입력하세요.");
-        return false;
-    }
-
-    // 상세 설명 확인
-    var projectDescription = document.querySelector('.pro-input-text').value.trim();
-    if (projectDescription === "") {
-        alert("프로젝트 상세 설명을 입력하세요.");
-        return false;
-    }
-
-    return true;
-}
-
-// 폼 제출 전에 유효성 검사 실행
-document.querySelector('form').addEventListener('submit', function(event) {
-    if (!validateForm()) {
-        event.preventDefault(); // 폼 제출 중지
-    }
+    // 폼 제출 전에 유효성 검사 실행
+    document.querySelector('form').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // 폼 제출 중지
+        }
+    });
 });
 
 // 숫자만 입력되도록 유효성 검사 함수

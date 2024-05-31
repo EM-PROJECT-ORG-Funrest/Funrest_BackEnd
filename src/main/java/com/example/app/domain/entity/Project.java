@@ -62,15 +62,16 @@ public class Project {
     public static Project toSaveEntity(ProjectDto projectDto){
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
-        project.setUserId(projectDto.getUserId());
+        project.setUserId(new User(projectDto.getUserId()));
         project.setProCategory(projectDto.getProCategory());
         project.setProName(projectDto.getProName());
         // project.setProImg(projectDto.getProImg());
         //project.setProMainImg(projectDto.getProMainImg());
         project.setProPrice(projectDto.getProPrice());
         project.setProDate(projectDto.getProDate());
-        project.setProStartDate(projectDto.getProStartDate());
-        project.setProEndDate(projectDto.getProEndDate());
+        //projectDto에서 바로 넣으면 여기 두개에는 NUll값 들어감 그래서 밑에 overloading 해놓음
+        project.setProStartDate(new Date(projectDto.getProStartDate()));
+        project.setProEndDate(new Date(projectDto.getProEndDate()));
         project.setProStatus(projectDto.getProStatus());
         project.setProPaidCnt(projectDto.getProPaidCnt());
         project.setProNotifyCnt(projectDto.getProNotifyCnt());
@@ -78,6 +79,29 @@ public class Project {
         project.setSellerName(projectDto.getSellerName());
         project.setSellerDetail(projectDto.getSellerDetail());
         project.setFileAttached(0); // 파일 없음.
+        return project;
+    }
+
+    // Project 엔티티 변환 메서드 수정
+    public static Project toSaveEntity(ProjectDto projectDto, Date proStartDate, Date proEndDate) {
+        Project project = new Project();
+        project.setProCode(projectDto.getProCode());
+        project.setUserId(new User(projectDto.getUserId()));
+        project.setProCategory(projectDto.getProCategory());
+        project.setProName(projectDto.getProName());
+        // project.setProImg(projectDto.getProImg());
+        // project.setProMainImg(projectDto.getProMainImg());
+        project.setProPrice(projectDto.getProPrice());
+        project.setProDate(projectDto.getProDate());
+        project.setProStartDate(proStartDate); // Date 객체 설정
+        project.setProEndDate(proEndDate); // Date 객체 설정
+        project.setProStatus(projectDto.getProStatus());
+        project.setProPaidCnt(projectDto.getProPaidCnt());
+        project.setProNotifyCnt(projectDto.getProNotifyCnt());
+        project.setProScript(projectDto.getProScript());
+        project.setSellerName(projectDto.getSellerName());
+        project.setSellerDetail(projectDto.getSellerDetail());
+        project.setFileAttached(0); // 파일 없음
         return project;
     }
 
