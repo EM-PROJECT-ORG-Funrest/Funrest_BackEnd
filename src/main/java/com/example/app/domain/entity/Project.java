@@ -7,7 +7,9 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,12 +32,14 @@ public class Project {
     private String proCategory;
     @Column(name = "proName", nullable = false)
     private String proName;
-    //@Column(name = "proMainImg", nullable = false)
-    //private MultipartFile proMainImg; // project's main image
-//    @Column(name = "proImg", nullable = false)
-//    private MultipartFile proImg; // project's all images
+    // @Column(name = "proMainImg", nullable = false)
+    // private MultipartFile proMainImg; // project's main image
+    // @Column(name = "proImg", nullable = false)
+    // private MultipartFile proImg; // project's all images
     @Column(name = "proPrice", nullable = false)
     private String proPrice;
+    @Column(name = "proGoalAmount", nullable = false)
+    private String proGoalAmount;
     @Column(name = "proDate")
     private Date proDate; // project's permission date
     @Column(name = "proStartDate")
@@ -54,20 +58,23 @@ public class Project {
     private String sellerName;
     @Column(name = "sellerDetail", nullable = false)
     private String sellerDetail;
-
     @Column
-    private int fileAttached;   // 1 or 0
+    private int fileAttached;   // 파일 첨부 여부 (1 = 첨부O, 0 = 첨부X)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProjectFile> projectFileList = new ArrayList<>();
 
+    // 파일이 없는 경우 호출
     // Dto to Entity
-    public static Project toSaveEntity(ProjectDto projectDto){
+    public static Project toSaveEntity(ProjectDto projectDto) {
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
         project.setUserId(projectDto.getUserId());
         project.setProCategory(projectDto.getProCategory());
         project.setProName(projectDto.getProName());
         // project.setProImg(projectDto.getProImg());
-        //project.setProMainImg(projectDto.getProMainImg());
+        // project.setProMainImg(projectDto.getProMainImg());
         project.setProPrice(projectDto.getProPrice());
+        project.setProGoalAmount(projectDto.getProGoalAmount());
         project.setProDate(projectDto.getProDate());
         project.setProStartDate(projectDto.getProStartDate());
         project.setProEndDate(projectDto.getProEndDate());
@@ -81,8 +88,32 @@ public class Project {
         return project;
     }
 
+    // 파일이 있는 경우 호출
+    // Dto to Entity
+    public static Project toSaveFileEntity(ProjectDto projectDto) {
+        Project project = new Project();
+        project.setProCode(projectDto.getProCode());
+        project.setUserId(projectDto.getUserId());
+        project.setProCategory(projectDto.getProCategory());
+        project.setProName(projectDto.getProName());
+        // project.setProImg(projectDto.getProImg());
+        // project.setProMainImg(projectDto.getProMainImg());
+        project.setProPrice(projectDto.getProPrice());
+        project.setProGoalAmount(projectDto.getProGoalAmount());
+        project.setProDate(projectDto.getProDate());
+        project.setProStartDate(projectDto.getProStartDate());
+        project.setProEndDate(projectDto.getProEndDate());
+        project.setProStatus(projectDto.getProStatus());
+        project.setProPaidCnt(projectDto.getProPaidCnt());
+        project.setProNotifyCnt(projectDto.getProNotifyCnt());
+        project.setProScript(projectDto.getProScript());
+        project.setSellerName(projectDto.getSellerName());
+        project.setSellerDetail(projectDto.getSellerDetail());
+        project.setFileAttached(1); // 파일 있음.
+        return project;
+    }
 
-
+    // 빌더 패턴은 setter 메서드가 되지 않아 잠시 보류
     // Dto to Entity
 //    public static Project ToEntity(ProjectDto projectDto) {
 //
