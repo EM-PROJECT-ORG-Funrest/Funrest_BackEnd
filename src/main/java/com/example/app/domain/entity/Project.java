@@ -82,7 +82,7 @@ public class Project {
         return project;
     }
 
-    // Project 엔티티 변환 메서드 수정
+    // Project 엔티티 변환 메서드 수정 OVERLOADING 사용
     public static Project toSaveEntity(ProjectDto projectDto, Date proStartDate, Date proEndDate) {
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
