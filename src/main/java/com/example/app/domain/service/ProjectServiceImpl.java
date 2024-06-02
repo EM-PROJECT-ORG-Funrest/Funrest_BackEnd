@@ -1,4 +1,4 @@
-package com.example.app.domain.service.member;
+package com.example.app.domain.service;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -4,7 +4,6 @@ import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,10 +18,8 @@ import java.util.Random;
 public class SignUpService {
 
     private int authNumber;
-
     @Autowired
     private JavaMailSender javaMailSender;
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
