@@ -84,9 +84,15 @@ public class ProjectServiceImpl {
 
         // String 형으로 일단 양식에 맞게 잘라주기 yyyy-MM-dd 형태로 잘라줌
         // yyyy-MM-dd 형태로 추출 과정임
+        // 변형 필요
         String proStartDateStr = projectDto.getDatetime().substring(0,10);
         String proEndDateStr = projectDto.getDatetime().substring(13,23);
-        
+
+        // 이렇게 쓸지 아님 위에처럼 쓸지는 못 정함
+        //int idx = projectDto.getDatetime().indexOf(" ");
+        //String proStartDateString = projectDto.getDatetime().substring(0, idx);
+        //String proEndDateSrt = projectDto.getDatetime().substring(idx + 3);
+
         // 문자열을 Date 객체로 변환 과정
         Date proStartDate = null;
         Date proEndDate = null;
