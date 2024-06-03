@@ -90,8 +90,6 @@ public class ThymeleafTestController {
 //    // myPage > seller view page test
 //    @GetMapping("/myPage/seller/projectCreate")
 //    public void test20(){}
-//    @GetMapping("/myPage/seller/projectUpdate")
-//    public void test21(){}
 //    @GetMapping("/myPage/seller/seller")
 //    public void test22(){}
 

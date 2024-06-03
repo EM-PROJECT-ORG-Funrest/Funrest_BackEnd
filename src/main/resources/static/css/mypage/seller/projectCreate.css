@@ -5,7 +5,7 @@
 
 /* .project-manage-left */
 .container{
-    /* border: 1px solid; */
+    /*border: 1px solid;*/
 }
 .container>form>.row{
     /* border: 1px solid red; */
@@ -33,15 +33,34 @@
     background-color: white;
 }
 .container>form>.row>.project-manage-left>.project-image-files>.project-image-subfile{
-    /* border: 1px solid red; */
+    /*border: 1px solid red;*/
     width: 100%;
     margin-bottom: 5px;
 }
 .container>form>.row>.project-manage-left>.project-image-files>.project-image-subfile-list{
     height: 300px;
-    /* border: 1px solid blue; */
+    overflow: auto;
+    /*border: 1px solid blue;*/
     border-radius: 5px;
     background-color: white;
+    padding: 10px;
+}
+.project-image-subfile-list .filebox p {
+    font-size:13px;
+    display: inline-block;
+}
+.project-image-subfile-list .filebox .delete{
+    margin-left: 10px;
+    /*border: 1px solid red;*/
+    /*display: inline-block;*/
+    width: 30px
+}
+.project-image-subfile-list .filebox .delete p {
+    /*border: 1px solid red;*/
+    color: #ff5353;
+    margin-left: 5px;
+    display: inline-block;
+    cursor: pointer;
 }
 
 
