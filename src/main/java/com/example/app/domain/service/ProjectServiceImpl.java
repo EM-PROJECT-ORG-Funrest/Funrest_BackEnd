@@ -118,37 +118,4 @@ public class ProjectServiceImpl {
         return projectDtoList;
     }
 
-
-//    public boolean UpdateProject(ProjectDto projectDto){
-//        Project project = Project.toSaveEntity(projectDto);
-//
-//        Project projectSelect = projectRepository.findByProCode(project.getProCode());
-//
-//        projectSelect.setProCode(project.getProCode());
-//        projectSelect.setUserId(project.getUserId());
-//        projectSelect.setProCategory(project.getProCategory());
-//        projectSelect.setProName(project.getProName());
-//        projectSelect.setProPrice(project.getProPrice());
-//        projectSelect.setProDate(project.getProDate());
-//        projectSelect.setProStartDate(project.getProStartDate());
-//        projectSelect.setProEndDate(project.getProEndDate());
-//        projectSelect.setProStatus(project.getProStatus());
-//        projectSelect.setProPaidCnt(project.getProPaidCnt());
-//        projectSelect.setProNotifyCnt(project.getProNotifyCnt());
-//        projectSelect.setProScript(project.getProScript());
-//        projectSelect.setSellerName(project.getSellerName());
-//        projectSelect.setSellerDetail(project.getSellerDetail());
-//
-//        projectRepository.save(projectSelect);
-//
-//        return true;
-//        System.out.println("UpdateProject method is called.");
-//        System.out.println(projectDto);
-//        Project project = Project.toSaveEntity(projectDto);
-//        System.out.println(project);
-//
-//        projectRepository.save(project);
-//        return true;
-//    }
-
 }

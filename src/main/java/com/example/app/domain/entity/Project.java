@@ -57,18 +57,13 @@ public class Project {
 
     @Column
     private int fileAttached;   // proMainImg 파일 첨부 여부 (1:첨부, 0:미첨부)
-    // 이 부분 이해 안됨
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProjectFile> projectFileList = new ArrayList<>();
 
     @Column
     private int subFileAttached; // proSubImg 파일 첨부 여부 (1:첨부, 0:미첨부)
-    // 이 부분 이해 안됨
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProjectSubFile> projectSubFileList = new ArrayList<>();
-
-    //@OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    //private List<ProjectFile> projectSubFileList = new ArrayList<>();
 
 
     // Dto to Entity
@@ -95,7 +90,6 @@ public class Project {
         return project;
     }
 
-
     // Dto to Entity
     // 파일이 있는 경우 toSaveFileEntity 메소드 호출
     public static Project toSaveFileEntity(ProjectDto projectDto) {
@@ -119,28 +113,5 @@ public class Project {
         project.setSubFileAttached(1); // subImg 파일 있음.
         return project;
     }
-    // 빌더 패턴은 setter 메서드가 되지 않아 잠시 보류
-    // Dto to Entity
-//    public static Project ToEntity(ProjectDto projectDto) {
-//
-//        return Project.builder()
-//                .proCode(projectDto.getProCode())
-//                .userId(projectDto.getUserId())
-//                .proCategory(projectDto.getProCategory())
-//                .proName(projectDto.getProName())
-////                .proImg(projectDto.getProImg())
-//                .proMainImg(projectDto.getProMainImg())
-//                .proPrice(projectDto.getProPrice())
-//                .proDate(projectDto.getProDate())
-//                .proStartDate(projectDto.getProStartDate())
-//                .proEndDate(projectDto.getProEndDate())
-//                .proStatus(projectDto.getProStatus())
-//                .proPaidCnt(projectDto.getProPaidCnt())
-//                .proNotifyCnt(projectDto.getProNotifyCnt())
-//                .proScript(projectDto.getProScript())
-//                .sellerName(projectDto.getSellerName())
-//                .sellerDetail(projectDto.getSellerDetail())
-//                .fileAttached(projectDto.setFileAttached(0))
-//                .build();
-//    }
+
 }

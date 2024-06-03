@@ -23,13 +23,12 @@ public class ProjectDto {
     private User userId;
     private String proCategory;
     private String proName;
-    // 다중 이미지 파일
+
     private List<MultipartFile> proMainImg; // projectCreate.html -> Controller 파일 담는 용도
     private List<String> originalFileName; // 원본 파일 이름 // 아래 3가지는 서비스단에서 처리
     private List<String> storedFileName; // 서버 저장용 파일 이름 (같은 이름의 파일이름을 구분하기 위한 용도)
     private int fileAttached; // 파일 첨부 여부 (첨부 1, 미첨부 0), boolean 타입은 작업이 상대적으로 복잡
 
-    // 다중 이미지 파일
     private List<MultipartFile> proSubImg; // 프로젝트 추가 이미지, projectCreate.html -> Controller 파일 담는 용도
     private List<String> subOriginalFileName; // 원본 파일 이름
     private List<String> subStoredFileName; // 서버 저장용 파일 이름
@@ -47,8 +46,6 @@ public class ProjectDto {
     private String sellerName; // 판매자 이름
     private String sellerDetail; // 프로젝트 판매자 소개글
 
-
-    // 여기가 왜 필요한지 모르겠음!!!
     // Entity to Dto
     public static ProjectDto toProjectDto(Project project) {
         ProjectDto projectDto = new ProjectDto();
@@ -110,26 +107,4 @@ public class ProjectDto {
         return projectDto;
     }
 
-
-    //Entity To Dto
-//    public static ProjectDto ToDto(Project project) {
-//        return ProjectDto.builder()
-//                .proCode(project.getProCode())
-//                .userId(project.getUserId())
-//                .proCategory(project.getProCategory())
-//                .proName(project.getProName())
-////                .proImg(project.getProImg())
-////                .proMainImg(project.getProMainImg())
-//                .proPrice(project.getProPrice())
-//                .proDate(project.getProDate())
-//                .proStartDate(project.getProStartDate())
-//                .proEndDate(project.getProEndDate())
-//                .proStatus(project.getProStatus())
-//                .proPaidCnt(project.getProPaidCnt())
-//                .proNotifyCnt(project.getProNotifyCnt())
-//                .proScript(project.getProScript())
-//                .sellerName(project.getSellerName())
-//                .sellerDetail(project.getSellerDetail())
-//                .build();
-//    }
 }

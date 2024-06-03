@@ -51,34 +51,4 @@ public class ProjectController {
         log.info("GET /th/myPage/seller/seller .....");
     }
 
-//    @GetMapping("/myPage/seller/projectUpdatecallBack")
-//    public String projectUpdatecallBack(@RequestParam("proCode") int proCode, HttpSession session) {
-//        System.out.println(proCode);
-//        Project project = projectRepository.findByProCode(proCode);
-//        System.out.println(project);
-//        ProjectDto projectDto = ProjectDto.ToDto(project);
-//        System.out.println(projectDto);
-//        session.setAttribute("projectDto", projectDto);
-//        return "redirect:/th/myPage/seller/projectUpdate";
-//    }
-//
-//    @GetMapping("/myPage/seller/projectUpdate")
-//    public String projectUpdate(HttpSession session, Model model) {
-//        ProjectDto projectDto = (ProjectDto) session.getAttribute("projectDto");
-//        System.out.println("/th/myPage/seller/projectUpdate invoke... projectDto :" + projectDto);
-//        String datetimes = projectDto.getProStartDate() + "-" + projectDto.getProEndDate();
-//        projectDto.setDatetimes(datetimes);
-//        model.addAttribute("projectDto", projectDto);
-//        session.removeAttribute("projectDto"); // 세션 낭비 방지
-//
-//        return "th/myPage/seller/projectUpdate";
-//    }
-//
-//    @GetMapping("/th/myPage/seller/projectCreateUpdateCallBack")
-//    public String projectCreateUpdateCallBack(ProjectDto projectDto) {
-//        System.out.println("projectCreateUpdateCallBack projectDto" + projectDto);
-//        projectServiceImpl.UpdateProject(projectDto);
-//        System.out.println("dsasaddasadadsadsadsadsadasd");
-//        return "redirect:/th/myPage/seller/seller";
-//    }
 }
