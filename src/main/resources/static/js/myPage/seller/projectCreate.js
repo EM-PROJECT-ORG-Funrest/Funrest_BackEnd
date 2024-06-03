@@ -52,9 +52,10 @@ function setThumbnail(event) {
 
 
 var fileNo = 0;
-var filesArr = [];
+//var filesArr = [];
 
 // 첨부파일 추가
+// 이 부분 문제 있음!!!!! (이 함수를 html 에 추가하니 dto 에 저장이 올바르게 되지 않음!!!!! > 수정 필요!!)
 function addFile(obj) {
     var maxFileCnt = 5;   // 첨부파일 최대 개수
     var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
@@ -72,31 +73,31 @@ function addFile(obj) {
 
         // 첨부파일 검증
         if (validation(file)) {
-        // 파일 배열에 담기
-        filesArr.push(file);
+            // 파일 배열에 담기
+//            filesArr.push(file);
 
-        // 목록 추가
-        let fileBox = document.createElement('div');
-        fileBox.className = 'filebox';
-        fileBox.id = 'file' + fileNo;
+            // 목록 추가
+            let fileBox = document.createElement('div');
+            fileBox.className = 'filebox';
+            fileBox.id = 'file' + fileNo;
 
-        let fileName = document.createElement('p');
-        fileName.className = 'name';
-        fileName.textContent = file.name;
+            let fileName = document.createElement('p');
+            fileName.className = 'name';
+            fileName.textContent = file.name;
 
-        let deleteBtn = document.createElement('a');
-        deleteBtn.className = 'delete';
-        deleteBtn.innerHTML = '<i class="far fa-minus-square"></i>';
-        deleteBtn.onclick = function () {
-            deleteFile(fileNo);
-        };
+//            let deleteBtn = document.createElement('button');
+//            deleteBtn.className = 'delete';
+//            deleteBtn.innerHTML = '<i class="far fa-minus-square"></i>';
+//            deleteBtn.onclick = function () {
+//                deleteFile(fileNo);
+//            };
 
-        fileBox.appendChild(fileName);
-        fileBox.appendChild(deleteBtn);
+            fileBox.appendChild(fileName);
+//            fileBox.appendChild(deleteBtn);
 
-        document.querySelector('.project-image-subfile-list').appendChild(fileBox);
+            document.querySelector('.project-image-subfile-list').appendChild(fileBox);
 
-        fileNo++;
+            fileNo++;
         }
     }
 // 초기화
@@ -124,10 +125,15 @@ function validation(obj) {
 }
 
 /* 첨부파일 삭제 */
-function deleteFile(num) {
-    document.querySelector("#file" + num).remove();
-    filesArr[num].is_delete = true;
-}
+//function deleteFile(num) {
+//    var fileToRemove = document.querySelector("#file" + num); // 고유한 ID를 사용하여 파일 요소 선택
+//    if (fileToRemove) { // 요소가 존재하는지 확인
+//        fileToRemove.remove(); // 파일 요소 삭제
+//        filesArr[num].is_delete = true; // 파일 배열에서 삭제 플래그 설정
+//    } else {
+//        console.error("Element with ID 'file" + num + "' not found."); // 파일 요소가 존재하지 않을 경우 에러 메시지 출력
+//    }
+//}
 
 // 모듬 입력 필드 null(빈 값) 체크
 document.addEventListener('DOMContentLoaded', function() {

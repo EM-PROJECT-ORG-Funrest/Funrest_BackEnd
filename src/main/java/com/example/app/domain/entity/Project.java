@@ -32,19 +32,15 @@ public class Project {
     private String proCategory;
     @Column(name = "proName", nullable = false)
     private String proName;
-    // @Column(name = "proMainImg", nullable = false)
-    // private MultipartFile proMainImg; // project's main image
-    // @Column(name = "proImg", nullable = false)
-    // private MultipartFile proImg; // project's all images
     @Column(name = "proPrice", nullable = false)
     private String proPrice;
     @Column(name = "proGoalAmount", nullable = false)
     private String proGoalAmount;
     @Column(name = "proDate")
     private Date proDate; // project's permission date
-    @Column(name = "proStartDate")
+    @Column(name = "proStartDate", nullable = false)
     private String proStartDate;
-    @Column(name = "proEndDate")
+    @Column(name = "proEndDate", nullable = false)
     private String proEndDate;
     @Column(name = "proStatus", nullable = false, columnDefinition = "integer default 0")
     private int proStatus; // project permission (승인:1 / 미승인:0)
@@ -58,21 +54,31 @@ public class Project {
     private String sellerName;
     @Column(name = "sellerDetail", nullable = false, length = 300)
     private String sellerDetail;
+
     @Column
-    private int fileAttached;   // 파일 첨부 여부 (1 = 첨부O, 0 = 첨부X)
+    private int fileAttached;   // proMainImg 파일 첨부 여부 (1:첨부, 0:미첨부)
+    // 이 부분 이해 안됨
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProjectFile> projectFileList = new ArrayList<>();
 
-    // 파일이 없는 경우 toSaveEntity 메소드 호출
+    @Column
+    private int subFileAttached; // proSubImg 파일 첨부 여부 (1:첨부, 0:미첨부)
+    // 이 부분 이해 안됨
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProjectSubFile> projectSubFileList = new ArrayList<>();
+
+    //@OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    //private List<ProjectFile> projectSubFileList = new ArrayList<>();
+
+
     // Dto to Entity
+    // 파일이 없는 경우 toSaveEntity 메소드 호출
     public static Project toSaveEntity(ProjectDto projectDto) {
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
         project.setUserId(projectDto.getUserId());
         project.setProCategory(projectDto.getProCategory());
         project.setProName(projectDto.getProName());
-        // project.setProImg(projectDto.getProImg());
-        // project.setProMainImg(projectDto.getProMainImg());
         project.setProPrice(projectDto.getProPrice());
         project.setProGoalAmount(projectDto.getProGoalAmount());
         project.setProDate(projectDto.getProDate());
@@ -84,20 +90,20 @@ public class Project {
         project.setProScript(projectDto.getProScript());
         project.setSellerName(projectDto.getSellerName());
         project.setSellerDetail(projectDto.getSellerDetail());
-        project.setFileAttached(0); // 파일 없음.
+        project.setFileAttached(0); // mainImg 파일 없음.
+        project.setSubFileAttached(0); // subImg 파일 없음.
         return project;
     }
 
-    // 파일이 있는 경우 toSaveFileEntity 메소드 호출
+
     // Dto to Entity
+    // 파일이 있는 경우 toSaveFileEntity 메소드 호출
     public static Project toSaveFileEntity(ProjectDto projectDto) {
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
         project.setUserId(projectDto.getUserId());
         project.setProCategory(projectDto.getProCategory());
         project.setProName(projectDto.getProName());
-        // project.setProImg(projectDto.getProImg());
-        // project.setProMainImg(projectDto.getProMainImg());
         project.setProPrice(projectDto.getProPrice());
         project.setProGoalAmount(projectDto.getProGoalAmount());
         project.setProDate(projectDto.getProDate());
@@ -109,10 +115,10 @@ public class Project {
         project.setProScript(projectDto.getProScript());
         project.setSellerName(projectDto.getSellerName());
         project.setSellerDetail(projectDto.getSellerDetail());
-        project.setFileAttached(1); // 파일 있음.
+        project.setFileAttached(1); // mainImg 파일 있음.
+        project.setSubFileAttached(1); // subImg 파일 있음.
         return project;
     }
-
     // 빌더 패턴은 setter 메서드가 되지 않아 잠시 보류
     // Dto to Entity
 //    public static Project ToEntity(ProjectDto projectDto) {

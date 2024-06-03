@@ -1,12 +1,16 @@
 package com.example.app.domain.dto;
 
 import com.example.app.domain.entity.Project;
+import com.example.app.domain.entity.ProjectFile;
+import com.example.app.domain.entity.ProjectSubFile;
 import com.example.app.domain.entity.User;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,13 +23,18 @@ public class ProjectDto {
     private User userId;
     private String proCategory;
     private String proName;
-    // 단일 이미지 파일
-    private MultipartFile proMainImg; // projectCreate.html -> Controller 파일 담는 용도
-    private String originalFileName; // 원본 파일 이름 // 아래 3가지는 서비스단에서 처리
-    private String storedFileName; // 서버 저장용 파일 이름 (같은 이름의 파일이름을 구분하기 위한 용도)
-    private int fileAttached; // 파일 첨부 여부 (첨부 1, 미첨부 0), boolean 타입은 작업이 상대적으로 복잡
     // 다중 이미지 파일
-    // private MultipartFile proImg; // 프로젝트 추가 이미지
+    private List<MultipartFile> proMainImg; // projectCreate.html -> Controller 파일 담는 용도
+    private List<String> originalFileName; // 원본 파일 이름 // 아래 3가지는 서비스단에서 처리
+    private List<String> storedFileName; // 서버 저장용 파일 이름 (같은 이름의 파일이름을 구분하기 위한 용도)
+    private int fileAttached; // 파일 첨부 여부 (첨부 1, 미첨부 0), boolean 타입은 작업이 상대적으로 복잡
+
+    // 다중 이미지 파일
+    private List<MultipartFile> proSubImg; // 프로젝트 추가 이미지, projectCreate.html -> Controller 파일 담는 용도
+    private List<String> subOriginalFileName; // 원본 파일 이름
+    private List<String> subStoredFileName; // 서버 저장용 파일 이름
+    private int subFileAttached; // 파일 첨부 여부 (첨부 1, 미첨부 0)
+
     private String proPrice; // 프로젝트 가격
     private String proGoalAmount; // 프로젝트 목표 금액
     private Date proDate; // 프로젝트 승인 일자 (관리자 페이지 구현 초기 전엔 프로젝트 생성 일자로 통일)
@@ -38,6 +47,8 @@ public class ProjectDto {
     private String sellerName; // 판매자 이름
     private String sellerDetail; // 프로젝트 판매자 소개글
 
+
+    // 여기가 왜 필요한지 모르겠음!!!
     // Entity to Dto
     public static ProjectDto toProjectDto(Project project) {
         ProjectDto projectDto = new ProjectDto();
@@ -56,27 +67,47 @@ public class ProjectDto {
         projectDto.setProScript(project.getProScript());
         projectDto.setSellerName(project.getSellerName());
         projectDto.setSellerDetail(project.getSellerDetail());
-
-        if (project.getFileAttached() == 0) {
-            projectDto.setFileAttached(project.getFileAttached()); // 0, 파일 없음
-        } else {
-            projectDto.setFileAttached(project.getFileAttached()); // 1, 파일 있음
-            // 뷰페이지에서 사용자가 업로드한 파일(이미지)의 정보를 확인하기 위해 이름도 가져가야함
-            // originalFileName, storedFileName 의 위치: tbl_project_file (ProjectFile)
-            // 서로 다른 테이블에 담겨 있는 값을 가져올 때는 join 문법을 사용해야함
-            // join
-            // select * from tbl_project p, tbl_project_file pf where p.proCode = pf.proCode
-            // and where p.id = ?;
-            // but, 이것을 Spring JPA 가 join 문법을 사용하는 대신
-            // Project 엔터티와 ProjectFile 엔터티간 연관 관계를 맺어
-            // 부모 엔터티 객체가 하위 엔터티 객체의 값을 직접적으로 사용할 수 있다.
-            // get(0): ProjectFileList 리스트에 하나의 값만 들어있기 때문에 Index 를 '0'으로 설정, 첨부파일이 여러개일때 반복문 사용
-            projectDto.setOriginalFileName(project.getProjectFileList().get(0).getOriginalFileName());
-            projectDto.setStoredFileName(project.getProjectFileList().get(0).getStoredFileName());
+        if (project.getFileAttached() == 0)
+        // 0, proMainImg 파일 없음
+        {
+            projectDto.setFileAttached(project.getFileAttached());
         }
-
+        else
+        // 1, proMainImg 파일 있음
+        {
+            List<String> originalFileNameList = new ArrayList<>();
+            List<String> storedFileNameList = new ArrayList<>();
+            projectDto.setFileAttached(project.getFileAttached());
+            for (ProjectFile projectFile : project.getProjectFileList())
+            // 리스트형 originalFileName 에 다중 값을 넣어주기 위해 반복문으로 list 에 넣기
+            // 리스트형 storedFileName 에 다중 값을 넣어주기 위해 반복문으로 list 에 넣기
+            {
+                originalFileNameList.add(projectFile.getOriginalFileName());
+                storedFileNameList.add(projectFile.getStoredFileName());
+            }
+            projectDto.setOriginalFileName(originalFileNameList);
+            projectDto.setStoredFileName(storedFileNameList);
+        }
+        if (project.getSubFileAttached() == 0)
+        // 0, proSubFile 파일 없음
+        {
+            projectDto.setSubFileAttached(project.getSubFileAttached());
+        }
+        else
+        // 1, proSubFile 파일 있음
+        {
+            List<String> subOriginalFileNameList = new ArrayList<>();
+            List<String> subStoredFileNameList = new ArrayList<>();
+            projectDto.setSubFileAttached(project.getSubFileAttached());
+            for (ProjectSubFile projectSubFile : project.getProjectSubFileList())
+            {
+                subOriginalFileNameList.add(projectSubFile.getSubOriginalFileName());
+                subStoredFileNameList.add(projectSubFile.getSubStoredFileName());
+            }
+            projectDto.setSubStoredFileName(subOriginalFileNameList);
+            projectDto.setSubStoredFileName(subStoredFileNameList);
+        }
         return projectDto;
-
     }
 
 

@@ -3,8 +3,10 @@ package com.example.app.domain.service;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.ProjectFile;
+import com.example.app.domain.entity.ProjectSubFile;
 import com.example.app.domain.repository.ProjectFileRepository;
 import com.example.app.domain.repository.ProjectRepository;
+import com.example.app.domain.repository.ProjectSubFileRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,70 +32,66 @@ public class ProjectServiceImpl {
     @Autowired
     private ProjectFileRepository projectFileRepository;
 
-    public boolean insertProject(ProjectDto projectDto) throws IOException {
+    @Autowired
+    private ProjectSubFileRepository projectSubFileRepository;
+
+    public void insertProject(ProjectDto projectDto) throws IOException {
         System.out.println("ProjectServiceImpl's projectDto : " + projectDto);
         // Dto, Entity 변환 작업은 Service Layer (구현은 Dto,Entity 단)
         // 파일 첨부 여부에 따라 로직 분리
-        if (projectDto.getProMainImg().isEmpty()){
-            // 첨부 파일 없음.
+
+        // 'ProMainImg 첨부x' and 'ProSubImg 첨부x'
+        if ((projectDto.getProMainImg() == null || projectDto.getProMainImg().isEmpty()
+                || projectDto.getProMainImg().stream().allMatch(MultipartFile::isEmpty))
+            && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
+                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty)))
+        {
             Project project = Project.toSaveEntity(projectDto);
-//            System.out.println("project Entity : " + project);
+            System.out.println("project : " + project);
             projectRepository.save(project);
-        } else {
-            // 첨부 파일 있음.
-            // 1. Dto 에 담긴 파일을 꺼냄
-            MultipartFile projectImgFile = projectDto.getProMainImg(); // proMainImg 의 자료형이 MultipartFile 이기 때문
-            // 2. 파일의 이름(확장자까지)  가져옴
-            String originalFilename = projectImgFile.getOriginalFilename();
-            // 3. 서버 저장용 이름을 만듦 (내사진.jpg => 1812911871_내사진.jpg)
-            // currenTimeMillis (UUID 로 대체 가능)
-            // : the difference, measured in milliseconds, between the current time and midnight, January 1, 1970 UTC
-            // 1970년 1월 1일 이후로 지금까지 몇 밀리초 까지 지났는 지에 대한 값
-            // 0.001초 찰나의 순간 동시에 동일 이름의 파일이 올릴 경우 중복 but, 가능성 매우 희박
-            String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
-            // 4. 저장 경로 설정 (해당 경로에 미리 폴더 생성해야함)
-            // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
-            // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
-            String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
-            // 5. 해당 경로에 파일 저장 (예외 발생 -> 예외 처리 -> 컨트롤러 단에서 예외처리)
-            projectImgFile.transferTo(new File(savePath));
-            // 6 이전에 tbl_project_file 생성 (Entity 생성)
-            // tbl_project (부모) - tbl_project_file (자식)
-            // 하나의 프로젝트의 여러개의 파일이 첨부 가능
-            // 하나의 파일에 여러개의 프로젝트 불가
-            // 네이티브한 쿼리문으로 설명 -> 이 쿼리를 Entity 로 지정해야함
-            // create table tbl_project
-            // (
-            // proCode              int             auto_increment primary key,
-            // ...                  ...             ...
-            // file_attached        int             null
-            // );
-
-            // create table tbl_project_file
-            // (
-            // id                   int             auto_increment primary key,
-            // ...                  ...             ...
-            // originalFilename     varchar(255)    null,
-            // storedFileName       varchar(255)    null,
-            // proCode              int             null,
-            // constraint FK_tbl_project_file_tbl_project
-            //      foreign key (proCode) references tbl_project (proCode) on delete cascade
-            // );
-            // Entity 생성하러 ㄱㄱ!
-
-            // 6. tbl_project 에 해당 데이터 save 처리
-            // Entity 로 변환
-            Project projectEntity = Project.toSaveFileEntity(projectDto);
-            // 자식 Entity 에서는 부모 Entity 의 proCode 데이터가 필요
-            // projectEntity 에는 proCode 가 없기 때문에 DB에 저장 후 proCode 를 얻는 후 proCode 를 사용해 해당 project 엔터티를 가져옴
-            Integer savedProCode = projectRepository.save(projectEntity).getProCode();
-            // Project project = projectRepository.findByProCode(savedProCode).get() 오류 발생;
-            Project project = projectRepository.findByProCode(savedProCode).get();
-            // 7. tbl_project_file 에 해당 데이터 save 처리
-            ProjectFile projectFile = ProjectFile.toProjectFileEntity(project, originalFilename, storedFileName);
-            projectFileRepository.save(projectFile);
         }
-        return true;
+        // 'ProMainImg 첨부o' and 'ProSubImg 첨부o'
+        else {
+            // 1. 부모 테이블 tbl_project 에 해당 데이터 먼저 저장 처리
+            Project projectEntity = Project.toSaveFileEntity(projectDto); // 전달된 dto -> entity 변환
+            System.out.println("projectEntity : " + projectEntity);
+            Integer savedProCode = projectRepository.save(projectEntity).getProCode(); // entity db에 저장 후 proCode 가져오
+            Project project = projectRepository.findByProCode(savedProCode).get(); // 가져온 proCode 로 해당하는 부모 엔터티 객체의 데이터를 가져옴
+            // 2. projectDto 에 담긴 다중 ProMainImg 차례로 꺼내서 proMainImgFile 에 담기
+            for (MultipartFile proMainImgFile : projectDto.getProMainImg()) // proMainImg 가 여러 개이기 때문에 반복문 작성
+            {
+                // 2-1. 파일의 이름 가져오기 및 저장
+                String originalFilename = proMainImgFile.getOriginalFilename();
+                // 2-2. 서버 저장용 이름 생성 (내사진.jpg => 1812911871_내사진.jpg)
+                String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
+                // 2-3. 저장 경p로 설정 (헤당 경로에 미리 폴더 생성하기)
+                // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
+                // 2-4. 해당 경로에 파일 저장 (예외 발생 > 컨트롤러 단에서 예외처리)
+                proMainImgFile.transferTo(new File(savePath));
+                // 2-5. tbl_project_file 에 해당 데이터 저장 처리
+                ProjectFile projectFile = ProjectFile.toProjectFileEntity(project, originalFilename, storedFileName);
+                projectFileRepository.save(projectFile);
+            }
+            // 3. projectDto 에 담긴 다중 ProSubImg 차례로 꺼내서 proSubImgFile 에 담기
+            for (MultipartFile proSubImgFile : projectDto.getProSubImg()) // proSubImg 가 여러 개이기 때문에 반복문 작성
+            {
+                System.out.println("dskslafsadfljjfkals");
+                // 3-1. 파일의 이름 가져오기 및 저장
+                String subOriginalFileName = proSubImgFile.getOriginalFilename();
+                // 3-2. 서버 저장용 이름 생성
+                String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
+                // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
+                String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
+                // 3-4. 해당 경로에 파일 저장
+                proSubImgFile.transferTo(new File(subSavePath));
+                // 3-5. tbl_project_subFile 에 해당 데이터 저장 처리
+                ProjectSubFile projectSubFile = ProjectSubFile.toProjectSubFileEntity(project, subOriginalFileName, subStoredFileName);
+                projectSubFileRepository.save(projectSubFile);
+            }
+        }
+
     }
 
     // proCode 를 기준으로 해당 ProjectDto 조회(파일까지 조회)
