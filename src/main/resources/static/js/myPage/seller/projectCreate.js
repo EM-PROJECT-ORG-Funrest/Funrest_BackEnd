@@ -21,7 +21,7 @@ function setThumbnail(event) {
 
     // 파일 개수 제한
     if (imageInput.files.length > maxFileCnt) {
-        alert("You can only upload up to " + maxFileCnt + " files.");
+        alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
         imageInput.value = ""; // 파일 선택 취소
         return; // 함수 종료
     }
@@ -50,12 +50,9 @@ function setThumbnail(event) {
     reader.readAsDataURL(imageInput.files[0]); // 파일을 읽고 그 결과를 데이터 URL(data URL)로 변환
 }
 
-
 var fileNo = 0;
-//var filesArr = [];
 
-// 첨부파일 추가
-// 이 부분 문제 있음!!!!! (이 함수를 html 에 추가하니 dto 에 저장이 올바르게 되지 않음!!!!! > 수정 필요!!)
+/* 첨부파일 추가 */
 function addFile(obj) {
     var maxFileCnt = 5;   // 첨부파일 최대 개수
     var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
@@ -65,47 +62,27 @@ function addFile(obj) {
     // 첨부파일 개수 확인
     if (curFileCnt > remainFileCnt) {
         alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
-        return; // 함수 종료
-    }
-
-    for (var i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
-        const file = obj.files[i];
-
-        // 첨부파일 검증
-        if (validation(file)) {
-            // 파일 배열에 담기
-//            filesArr.push(file);
-
-            // 목록 추가
-            let fileBox = document.createElement('div');
-            fileBox.className = 'filebox';
-            fileBox.id = 'file' + fileNo;
-
-            let fileName = document.createElement('p');
-            fileName.className = 'name';
-            fileName.textContent = file.name;
-
-//            let deleteBtn = document.createElement('button');
-//            deleteBtn.className = 'delete';
-//            deleteBtn.innerHTML = '<i class="far fa-minus-square"></i>';
-//            deleteBtn.onclick = function () {
-//                deleteFile(fileNo);
-//            };
-
-            fileBox.appendChild(fileName);
-//            fileBox.appendChild(deleteBtn);
-
-            document.querySelector('.project-image-subfile-list').appendChild(fileBox);
-
-            fileNo++;
+    } else {
+        for (const file of obj.files) {
+            // 첨부파일 검증
+            if (validation(file)) {
+                // 목록 추가
+                let htmlData = '';
+                htmlData += '<div id="file' + fileNo + '" class="filebox">';
+                htmlData += '   <p class="name">' + file.name + '</p>';
+                htmlData += '   <a class="delete" onclick="deleteFile(' + fileNo + ');"><p class="text-center">X</p></a>';
+                htmlData += '</div>';
+                $('.project-image-subfile-list').append(htmlData);
+                fileNo++;
+            } else {
+                continue;
+            }
         }
     }
-// 초기화
-obj.value = "";
 }
 
 /* 첨부파일 검증 */
-function validation(obj) {
+function validation(obj){
     const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'application/haansofthwp', 'application/x-hwp'];
     if (obj.name.length > 100) {
         alert("파일명이 100자 이상인 파일은 제외되었습니다.");
@@ -125,15 +102,9 @@ function validation(obj) {
 }
 
 /* 첨부파일 삭제 */
-//function deleteFile(num) {
-//    var fileToRemove = document.querySelector("#file" + num); // 고유한 ID를 사용하여 파일 요소 선택
-//    if (fileToRemove) { // 요소가 존재하는지 확인
-//        fileToRemove.remove(); // 파일 요소 삭제
-//        filesArr[num].is_delete = true; // 파일 배열에서 삭제 플래그 설정
-//    } else {
-//        console.error("Element with ID 'file" + num + "' not found."); // 파일 요소가 존재하지 않을 경우 에러 메시지 출력
-//    }
-//}
+function deleteFile(num) {
+    document.querySelector("#file" + num).remove();
+}
 
 // 모듬 입력 필드 null(빈 값) 체크
 document.addEventListener('DOMContentLoaded', function() {
@@ -189,20 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
 });
-
-// 숫자만 입력되도록 유효성 검사 함수
-//function validatePrice(event) {
-//    var keyCode = event.keyCode;
-//    // 숫자 키의 keyCode는 48부터 57까지입니다.
-//    if (keyCode < 48 || keyCode > 57) {
-//        event.preventDefault(); // 입력한 키가 숫자가 아니면 입력 방지
-//    }
-//}
-// 프로젝트 가격 입력 필드에 'validatePrice' 이벤트 리스너 추가
-//document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('keypress', validatePrice);
-// 프로젝트 목표 금액 입력 필드에 'validatePrice' 이벤트 리스너 추가
-//document.querySelector('input[placeholder="프로젝트 목표금액을 설정해주세요."]').addEventListener('keypress', validatePrice);
-
 
 // 프로젝트 가격에 쉼표 삽입하는 함수
 function addCommasToPrice(price) {
