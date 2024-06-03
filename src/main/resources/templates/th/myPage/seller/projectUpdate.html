@@ -22,17 +22,17 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
-<div layout:fragment="content">
 
-    <body>
+<body>
+<div layout:fragment="content">
     <div class="container my-custom-container">
         <h3 class="text-center">프로젝트 수정하기</h3>
         <hr>
-        <form action="" method="GET" enctype="multipart/form-data">
+        <form action="/th/myPage/seller/projectCreateUpdateCallBack" method="GET" enctype="multipart/form-data">
             <div class="row g-3">
                 <div class="project-manage-left col-md-4">
                     <div class="project-image-files">
-                        <input type="hidden" value="${model.userID}">
+                        <input type="hidden" th:value="${projectDto.sellerName}" name="userId">
                         <p class="text-center">프로젝트 썸네일 이미지</p>
                         <input type="file" class="project-image-mainfile" id="image" accept="image/*" onchange="setThumbnail(event);" name="proMainImg"/>
                         <div id="image_container"></div>
@@ -50,10 +50,10 @@
                         <p class="text-center">기본 정보</p>
 
                         <label class="form-label m-3">판매자 이름</label>
-                        <input type="text" class=" form-control m-3" placeholder="판매자 이름을 입력하세요." name="sellerName"/>
+                        <input type="text" class=" form-control m-3" placeholder="판매자 이름을 입력하세요." name="sellerName" th:value="${projectDto.sellerName}"/>
 
                         <label class="form-label m-3 pro-label-text">판매자 소개글</label>
-                        <textarea class="form-control-a m-3 pro-input-text" placeholder="판매자 소개글을 입력하세요." name="sellerDetail"></textarea>
+                        <textarea class="form-control-a m-3 pro-input-text" placeholder="판매자 소개글을 입력하세요." name="sellerDetail" th:text="${projectDto.sellerDetail}"></textarea>
 
                         <label  class="form-label m-3">프로젝트 카테고리 설정</label>
                         <select name="language" class="form-select m-3">
@@ -64,16 +64,19 @@
                         </select>
 
                         <label class="form-label m-3">프로젝트 이름</label>
-                        <input type="text" class=" form-control m-3" placeholder="프로젝트 이름을 입력하세요." name="proName"/>
+                        <input type="text" class=" form-control m-3" placeholder="프로젝트 이름을 입력하세요." name="proName" th:value="${projectDto.proName}"/>
 
                         <label class="form-label m-3">프로젝트 가격</label>
-                        <input type="text" class=" form-control m-3" placeholder="프로젝트 가격을 설정해주세요." name="proPrice">
+                        <input type="text" class=" form-control m-3" placeholder="프로젝트 가격을 설정해주세요." name="proPrice" th:value="${projectDto.proPrice}"/>
 
                         <label class="form-label m-3">프로젝트 기간</label>
-                        <input type="text" class=" form-control m-3" name="datetimes" />
+                        <input type="text" class=" form-control m-3" name="datetimes" th:value="${projectDto.datetimes}"/>
+
+                        <input type="hidden" name="proStartDate" value="">
+                        <input type="hidden" name="proEndDate" value="">
 
                         <label class="form-label m-3 pro-label-text">프로젝트 상세설명</label>
-                        <textarea class="form-control-a m-3 pro-input-text" placeholder="프로젝트 상세설명을 입력하세요." name="proScript"></textarea>
+                        <textarea class="form-control-a m-3 pro-input-text" placeholder="프로젝트 상세설명을 입력하세요." name="proScript" th:text="${projectDto.proScript}"></textarea>
                     </div>
                 </div>
 
@@ -87,7 +90,7 @@
             </div>
         </form>
     </div>
-    </body>
-
 </div>
+</body>
+
 </html>

@@ -21,7 +21,7 @@ public class ProjectDto {
     private String proName;
 
     // 단일 이미지 파일
-    //private MultipartFile proMainImg; // 프로젝트 썸네일 이미지 // projectCreate.html -> Controller 파일 담는 용도
+ //   private MultipartFile proMainImg; // 프로젝트 썸네일 이미지 // projectCreate.html -> Controller 파일 담는 용도
     private String originalFileName; // 원본 파일 이름
     private String storedFileName; // 서버 저장용 파일 이름 (같은 이름의 파일이름을 구분하기 위한 용도)
     private int fileAttached; // 파일 첨부 여부 (첨부 1, 미첨부 0)
@@ -38,8 +38,9 @@ public class ProjectDto {
     private String proScript; // 프로젝트 상세설명
     private String sellerName; // 판매자 이름
     private String sellerDetail; // 프로젝트 판매자 소개글
+    private String datetimes;
 
-  //   Entity To Dto
+     //Entity To Dto
     public static ProjectDto ToDto(Project project) {
         return ProjectDto.builder()
                 .proCode(project.getProCode())

@@ -227,4 +227,9 @@ $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
     let endDate = picker.endDate.format('YYYY-MM-DD');
     console.log("StartDate : " + startDate);    // console 창에서 확인 가능
     console.log("EndDate : " + endDate);
+
+    // javascript -> html 값 전달
+    // 참고자료: https://martinnoh.tistory.com/184
+    document.proCreateForm.proStartDate.value = new Date(proStartDate);
+    document.proCreateForm.proEndDate.value = new Date(proEndDate);
 });
