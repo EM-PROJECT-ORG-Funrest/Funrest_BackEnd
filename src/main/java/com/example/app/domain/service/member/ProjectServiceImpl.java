@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -120,6 +122,11 @@ public class ProjectServiceImpl {
         projectRepository.save(project);
 
         return true;
+    }
+
+    public Page<ProjectDto> getProjects(Pageable pageable) {
+        Page<Project> projects = projectRepository.findAll(pageable);
+        return projects.map(ProjectDto::ToDto);
     }
 
 }
