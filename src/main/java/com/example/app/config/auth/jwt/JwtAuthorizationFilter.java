@@ -29,7 +29,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
     // JWT 토큰의 인증 정보를 현재 실행중인 SecurityContext에 저장하는 역할
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String jwt = resolveToken(request);
+        String jwt = CookieUtil.resolveToken(request);
         String requestURI = request.getRequestURI();
 
         if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
@@ -41,27 +41,5 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
         }
 
         filterChain.doFilter(request, response);
-    }
-
-
-    private String resolveToken(HttpServletRequest request) {
-        //Request Header에서 토큰 정보 꺼내오기
-//        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-//        log.info("JwtAuthorizationFilter's resolveToken execute.. bearerToken : " + bearerToken);
-//        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-//            return bearerToken.substring(7);
-//        }
-//        return null;
-
-        //Cookie에서 토큰 정보 꺼내오기
-        if (request.getCookies() == null) {
-            log.info("No cookies found in the request");
-            return null;
-        }
-
-        return Arrays.stream(request.getCookies())
-                .filter(cookie -> cookie.getName().equals(JwtAuthorizationFilter.AUTHORIZATION_HEADER)).findFirst()
-                .map(cookie -> cookie.getValue())
-                .orElse(null);
     }
 }

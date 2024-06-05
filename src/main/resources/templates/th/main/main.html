@@ -2,8 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/beforeLoginDefaultLayout">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,9 +29,14 @@
     <link rel="stylesheet" type="text/css" href="/css/main/main.css">
 
 </head>
-<div layout:fragment="content">
 
-  <body>
+<body>
+  <th:block sec:authorize="isAnonymous()">
+    <div th:replace="fragments/beforeLoginHeader"></div>
+  </th:block>
+  <th:block sec:authorize="isAuthenticated()">
+    <div th:replace="fragments/afterLoginHeader"></div>
+  </th:block>
   <div id="header-m"></div>
   <div class="wrapper1">
     <div class="banner my-custom-container">
@@ -224,7 +228,8 @@
     </div>
   </div>
   <div id="footer-m"></div>
-  </body>
+  </div>
+</body>
 
   <script>
     var notificationBtn = document.getElementById("notification");
@@ -237,5 +242,5 @@
     //https://recordingding.tistory.com/entry/JS-%EC%84%A0%ED%83%9D%ED%95%9C-%EB%A9%94%EB%89%B4%EC%97%90-active-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%A3%BC%EA%B8%B0
   </script>
 
-</div>
+
 </html>

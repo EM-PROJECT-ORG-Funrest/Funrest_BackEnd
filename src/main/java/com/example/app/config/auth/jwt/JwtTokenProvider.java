@@ -83,6 +83,14 @@ public class JwtTokenProvider implements InitializingBean {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
+    public String extractUsername(String token) {
+        if(validateToken(token)) {
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+        } else {
+            return null;
+        }
+    }
+
     // 토큰의 유효성 검증 및 토큰을 파싱하여 exception을 캐치
     public boolean validateToken(String token) {
         try {
