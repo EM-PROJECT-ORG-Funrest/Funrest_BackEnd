@@ -37,7 +37,6 @@
   <th:block sec:authorize="isAuthenticated()">
     <div th:replace="fragments/afterLoginHeader"></div>
   </th:block>
-  <div id="header-m"></div>
   <div class="wrapper1">
     <div class="banner my-custom-container">
       <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -227,8 +226,7 @@
       </div>
     </div>
   </div>
-  <div id="footer-m"></div>
-  </div>
+  <th:block th:replace="fragments/footer"></th:block>
 </body>
 
   <script>

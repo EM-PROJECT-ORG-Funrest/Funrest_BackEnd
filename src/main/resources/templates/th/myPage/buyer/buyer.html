@@ -2,8 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/afterLoginDefaultLayout">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -28,9 +27,14 @@
         }
     </style>
 </head>
-<div layout:fragment="content">
 
 <body>
+    <th:block sec:authorize="isAnonymous()">
+        <div th:replace="fragments/beforeLoginHeader"></div>
+    </th:block>
+    <th:block sec:authorize="isAuthenticated()">
+        <div th:replace="fragments/afterLoginHeader"></div>
+    </th:block>
     <div class="container my-custom-container p-3 mt-3">
         <div class="row">
             <div class="mypage-left col-md-2 px-3">
@@ -246,7 +250,6 @@
             </div>
         </div>
     </div>
+    <th:block th:replace="fragments/footer"></th:block>
 </body>
-
-</div>
 </html>
