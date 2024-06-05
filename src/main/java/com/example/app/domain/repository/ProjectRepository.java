@@ -5,6 +5,8 @@ import com.example.app.domain.entity.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -29,5 +31,10 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     List<Project> findAll();
 
     // 키워드별 검색
-    List<Project> findAllByProCategory(String proCategory);
+    Page<Project> findAllByProCategoryOrderByProCode(String proCategory, Pageable pageable);
+
+    // 키워드별 검색
+    @Query("SELECT p FROM Project p WHERE p.proName LIKE %:proName%")
+    Page<Project> findByProNameContaining(@Param("proName") String proName, Pageable pageable);
+
 }
