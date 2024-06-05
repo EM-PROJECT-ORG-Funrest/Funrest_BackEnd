@@ -105,7 +105,7 @@ public class ThymeleafTestController {
     @GetMapping("/payment/paymentHistory")
     public void test27(){}
 
-    // project view page test
-    @GetMapping("/project/project")
-    public void test28(){}
+//    // project view page test
+//    @GetMapping("/project/project")
+//    public void test28(){}
 }
