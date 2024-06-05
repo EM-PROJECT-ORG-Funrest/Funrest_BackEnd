@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/afterLoginDefaultLayout">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,82 +22,82 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 </head>
-<div layout:fragment="content">
 
-    <body>
-    <div class="container my-custom-container">
-        <h3 class="text-center">프로젝트 생성하기</h3>
-        <hr>
-        <form action="/th/myPage/seller/projectSave" method="POST" enctype="multipart/form-data" name="proCreateForm">
-            <div class="row g-3">
-                <div class="project-manage-left col-md-4">
-                    <div class="project-image-files">
-                        <input type="hidden" value="${model.userID}">
-                        <p class="text-center">프로젝트 썸네일 이미지</p>
-                        <input type="file" class="project-image-mainfile" id="image" accept="image/*" multiple
-                               onchange="setThumbnail(event);" name="proMainImg"/>
-                        <div id="image_container"></div>
-                        <br>
-                        <hr>
-                        <p class="text-center">프로젝트 추가 이미지</p>
-                        <input type="file" class="project-image-subfile" multiple
-                               onchange="addFile(this)" name="proSubImg"/>
-                        <div class="project-image-subfile-list"></div>
-                        <p>* 추가 이미지 삽입 시 파일이름에 이미지의 순서를 알 수 있도록 이름을 정해주세요.</p>
-                    </div>
-                </div>
-
-                <div class="project-manage-right col-md-8">
-                    <div class="project-info">
-                        <p class="text-center">기본 정보</p>
-
-                        <label class="form-label m-3">판매자 이름</label>
-                        <input type="text" class=" form-control m-3" placeholder="판매자 이름을 입력하세요." name="sellerName"/>
-
-                        <label class="form-label m-3 pro-label-text">판매자 소개글</label>
-                        <textarea class="form-control-a m-3 pro-input-text" placeholder="판매자 소개글을 입력하세요."
-                                  name="sellerDetail"></textarea>
-
-                        <label class="form-label m-3">프로젝트 카테고리 설정</label>
-                        <select name="proCategory" class="form-select m-3">
-                            <option value="none">카테고리 선택</option>
-                            <option value="movie" name="movie">영화</option>
-                            <option value="book" name="book">도서</option>
-                            <option value="musical" name="musical">뮤지컬&연극</option>
-                        </select>
-
-                        <label class="form-label m-3">프로젝트 이름</label>
-                        <input type="text" class=" form-control m-3" placeholder="프로젝트 이름을 입력하세요." name="proName">
-
-                        <label class="form-label m-3">프로젝트 가격</label>
-                        <input type="text" class=" form-control m-3" placeholder="프로젝트 가격을 설정해주세요." name="proPrice">
-
-                        <label class="form-label m-3">프로젝트 목표 금액</label>
-                        <input type="text" class=" form-control m-3" placeholder="프로젝트 목표금액을 설정해주세요." name="proGoalAmount">
-
-                        <label class="form-label m-3">프로젝트 기간</label>
-                        <input type="text" class=" form-control m-3" name="datetimes" placeholder="프로젝트 기간을 설정해주세요."/>
-
-                        <input type="hidden" name="proStartDate" value="">
-                        <input type="hidden" name="proEndDate" value="">
-
-                        <label class="form-label m-3 pro-label-text">프로젝트 상세설명</label>
-                        <textarea class="form-control-a m-3 pro-input-text" placeholder="프로젝트 상세설명을 입력하세요."
-                                  name="proScript"></textarea>
-                    </div>
-                </div>
-
-                <div class="container mt-5 mb-4">
-                    <div class="btns text-end">
-                        <button type="button" class="btn btn-secondary btn-sm">삭제</button>
-                        <button type="button" class="btn btn-secondary btn-sm">저장</button>
-                        <button type="submit" class="btn btn-primary btn-sm" id="applyProject">신청</button>
-                    </div>
+<div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
+<body>
+<div class="container my-custom-container">
+    <h3 class="text-center">프로젝트 생성하기</h3>
+    <hr>
+    <form action="/th/myPage/seller/projectSave" method="POST" enctype="multipart/form-data" name="proCreateForm">
+        <div class="row g-3">
+            <div class="project-manage-left col-md-4">
+                <div class="project-image-files">
+                    <input type="hidden" value="${model.userID}">
+                    <p class="text-center">프로젝트 썸네일 이미지</p>
+                    <input type="file" class="project-image-mainfile" id="image" accept="image/*" multiple
+                           onchange="setThumbnail(event);" name="proMainImg"/>
+                    <div id="image_container"></div>
+                    <br>
+                    <hr>
+                    <p class="text-center">프로젝트 추가 이미지</p>
+                    <input type="file" class="project-image-subfile" multiple
+                           onchange="addFile(this)" name="proSubImg"/>
+                    <div class="project-image-subfile-list"></div>
+                    <p>* 추가 이미지 삽입 시 파일이름에 이미지의 순서를 알 수 있도록 이름을 정해주세요.</p>
                 </div>
             </div>
-        </form>
-    </div>
-    </body>
 
+            <div class="project-manage-right col-md-8">
+                <div class="project-info">
+                    <p class="text-center">기본 정보</p>
+
+                    <label class="form-label m-3">판매자 이름</label>
+                    <input type="text" class=" form-control m-3" placeholder="판매자 이름을 입력하세요." name="sellerName"/>
+
+                    <label class="form-label m-3 pro-label-text">판매자 소개글</label>
+                    <textarea class="form-control-a m-3 pro-input-text" placeholder="판매자 소개글을 입력하세요."
+                              name="sellerDetail"></textarea>
+
+                    <label class="form-label m-3">프로젝트 카테고리 설정</label>
+                    <select name="proCategory" class="form-select m-3">
+                        <option value="none">카테고리 선택</option>
+                        <option value="movie" name="movie">영화</option>
+                        <option value="book" name="book">도서</option>
+                        <option value="musical" name="musical">뮤지컬&연극</option>
+                    </select>
+
+                    <label class="form-label m-3">프로젝트 이름</label>
+                    <input type="text" class=" form-control m-3" placeholder="프로젝트 이름을 입력하세요." name="proName">
+
+                    <label class="form-label m-3">프로젝트 가격</label>
+                    <input type="text" class=" form-control m-3" placeholder="프로젝트 가격을 설정해주세요." name="proPrice">
+
+                    <label class="form-label m-3">프로젝트 목표 금액</label>
+                    <input type="text" class=" form-control m-3" placeholder="프로젝트 목표금액을 설정해주세요." name="proGoalAmount">
+
+                    <label class="form-label m-3">프로젝트 기간</label>
+                    <input type="text" class=" form-control m-3" name="datetimes" placeholder="프로젝트 기간을 설정해주세요."/>
+
+                    <input type="hidden" name="proStartDate" value="">
+                    <input type="hidden" name="proEndDate" value="">
+
+                    <label class="form-label m-3 pro-label-text">프로젝트 상세설명</label>
+                    <textarea class="form-control-a m-3 pro-input-text" placeholder="프로젝트 상세설명을 입력하세요."
+                              name="proScript"></textarea>
+                </div>
+            </div>
+
+            <div class="container mt-5 mb-4">
+                <div class="btns text-end">
+                    <button type="button" class="btn btn-secondary btn-sm">삭제</button>
+                    <button type="button" class="btn btn-secondary btn-sm">저장</button>
+                    <button type="submit" class="btn btn-primary btn-sm" id="applyProject">신청</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
+</body>
+<div th:replace="~{/fragments/footer.html::footer}"></div>
+
 </html>

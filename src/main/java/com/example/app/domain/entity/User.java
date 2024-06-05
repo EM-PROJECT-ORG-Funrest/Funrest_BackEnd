@@ -36,7 +36,7 @@ public class User {
     private String addrRoad;
     @Column(name = "addrDetail")
     private String addrDetail;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
     //카카오
 //    @Id
@@ -59,7 +59,7 @@ public class User {
 //    @Column(name = "refreshToken")
 //    private String refreshToken;
 
-=======
+//=======
     @Column(name = "sns_type")
     private String snsType;
     @Column(name = "sns_id")
@@ -83,7 +83,7 @@ public class User {
                 .snsConnectDate(userDto.getSnsConnectDate())
                 .build();
     }
->>>>>>> 79d0ad9c4a8afa4deb77ef97c0e5c0446393bc35
+//>>>>>>> 79d0ad9c4a8afa4deb77ef97c0e5c0446393bc35
 }
 
 
