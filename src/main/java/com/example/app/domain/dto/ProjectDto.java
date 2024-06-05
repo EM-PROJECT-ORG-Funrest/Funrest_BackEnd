@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 public class ProjectDto {
     private int proCode;
-    private User userId;
+    private String userId;
     private String proCategory;
     private String proName;
 
@@ -45,12 +45,13 @@ public class ProjectDto {
     private String proScript; // 프로젝트 상세설명
     private String sellerName; // 판매자 이름
     private String sellerDetail; // 프로젝트 판매자 소개글
+    private String datetime; //
 
     // Entity to Dto
     public static ProjectDto toProjectDto(Project project) {
         ProjectDto projectDto = new ProjectDto();
         projectDto.setProCode(project.getProCode());
-        projectDto.setUserId(project.getUserId());
+        projectDto.setUserId(project.getUserId().getUserId());
         projectDto.setProCategory(project.getProCategory());
         projectDto.setProName(project.getProName());
         projectDto.setProPrice(project.getProPrice());
@@ -106,5 +107,6 @@ public class ProjectDto {
         }
         return projectDto;
     }
+
 
 }

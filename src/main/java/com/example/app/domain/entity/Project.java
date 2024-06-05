@@ -71,12 +71,13 @@ public class Project {
     public static Project toSaveEntity(ProjectDto projectDto) {
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
-        project.setUserId(projectDto.getUserId());
+        project.setUserId(new User(projectDto.getUserId()));
         project.setProCategory(projectDto.getProCategory());
         project.setProName(projectDto.getProName());
         project.setProPrice(projectDto.getProPrice());
         project.setProGoalAmount(projectDto.getProGoalAmount());
         project.setProDate(projectDto.getProDate());
+        //projectDto에서 바로 넣으면 여기 두개에는 NUll값 들어감 그래서 밑에 overloading 해놓음
         project.setProStartDate(projectDto.getProStartDate());
         project.setProEndDate(projectDto.getProEndDate());
         project.setProStatus(projectDto.getProStatus());
@@ -95,7 +96,7 @@ public class Project {
     public static Project toSaveFileEntity(ProjectDto projectDto) {
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
-        project.setUserId(projectDto.getUserId());
+        project.setUserId(new User(projectDto.getUserId()));
         project.setProCategory(projectDto.getProCategory());
         project.setProName(projectDto.getProName());
         project.setProPrice(projectDto.getProPrice());
