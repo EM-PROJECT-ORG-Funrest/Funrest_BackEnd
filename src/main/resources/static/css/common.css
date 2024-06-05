@@ -36,3 +36,22 @@ input:focus{
     box-shadow: none !important;
     border : 1px solid #4cc069 !important;
 }
+
+.form-check-input:checked{
+    background-color: #4cc069 !important;
+    border-color: #4cc069 !important;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+    border-color:#4cc069 !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color : #4cc069 !important;
+    background-color :  #f8f9fa;
+}
+
+.accordion-button::after {
+    width: 0;
+}

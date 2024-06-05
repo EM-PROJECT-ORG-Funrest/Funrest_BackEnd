@@ -45,11 +45,22 @@
 }
 
 
-/* signup-personnal */
+
+/* signup-personal */
 .signup>.signup-personal>form{
     width: 300px;
 }
-
+/* accordion */
+.signup>.signup-personal>form>.accordion .accordion-header button{
+    height : 45px;
+}
+.signup>.signup-personal>form>.accordion .accordion-header span{
+    color : #4cc069;
+}
+.signup>.signup-personal>form>.accordion .accordion-body{
+    height: 150px;
+    overflow-y: scroll;
+}
 /* signup-btn */
 .signup>.signup-personal>form>.signup-btn>button{
     width: 300px;
