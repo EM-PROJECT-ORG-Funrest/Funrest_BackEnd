@@ -94,9 +94,15 @@ function chkPW(pwEl){
 function signupValidChk(event) {
     event.preventDefault();
 
+     // 폼 데이터 수집
+    const form = document.getElementById('signup');
+    const formData = new FormData(form);
+
     const id = document.getElementById("signup-id");
     const pw = document.getElementById("signup-pw");
     const pwChk = document.getElementById("signup-pw-chk");
+    const chkBox1 = document.getElementById("agree1");
+    const chkBox2 = document.getElementById("agree2");
 
     // 이메일이 인증되지 않은 경우
     if (!isPassEmailChk) {
@@ -115,9 +121,41 @@ function signupValidChk(event) {
             pwChk.classList.add("is-invalid");
             return false;
         } else {
-            console.log("회원가입 통과");
+            //console.log("회원가입 통과");
             pwChk.classList.remove("is-invalid");
-            return true;
+
+            if(!chkBox1.checked || !chkBox2.checked) {
+                window.alert("필수 동의 항목을 체크해 주세요.");
+                return false;
+            }
+
+            axios.post("/signUp/join", formData)
+            .then(resp => {
+                if(resp.status === 200) {
+                    console.log("회원가입 완료");
+                    window.alert("회원가입이 완료 되었습니다.");
+                    return location.href="/th/main/main";
+                }
+            })
+            .catch(error => {
+                if(error.response) {
+                    console.log(error.response.status + " " + error.response.data);
+                    if(error.response.status === 400) {
+                        window.alert("이미 가입된 이메일 계정입니다.");
+                        return false;
+                    } else if(error.response.status === 502) {
+                        window.alert("서버 에러! 관리자에게 문의해 주세요.");
+                        return false;
+                    }
+                }
+                else if (error.request) {
+                  // 요청이 만들어졌지만 응답을 받지 못했을 때
+                  console.log('No response received:', error.request);
+                } else {
+                  // 요청을 설정하는 과정에서 에러가 발생했을 때
+                  console.log('Error setting up request:', error.message);
+                }
+            });
         }
     }
 }

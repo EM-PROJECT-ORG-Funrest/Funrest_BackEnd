@@ -20,7 +20,7 @@ public class User {
     @Id
     @Column(name = "userId", nullable = false)
     private String userId;
-    @Column(name = "userPw", length = 20)
+    @Column(name = "userPw", length = 60)
     private String userPw;
     @Column(name = "userName", nullable = false)
     private String userName;
@@ -36,7 +36,6 @@ public class User {
     private String addrRoad;
     @Column(name = "addrDetail")
     private String addrDetail;
-//<<<<<<< HEAD
 
     //카카오
 //    @Id
@@ -59,13 +58,16 @@ public class User {
 //    @Column(name = "refreshToken")
 //    private String refreshToken;
 
-//=======
     @Column(name = "sns_type")
     private String snsType;
     @Column(name = "sns_id")
     private String snsId;
     @Column(name = "sns_connect_date")
     private String snsConnectDate;
+
+    public User(String userId) {
+        this.userId = userId;
+    }
 
     public static User UserDtoToEntity(UserDto userDto) {
         return User.builder()
@@ -83,7 +85,6 @@ public class User {
                 .snsConnectDate(userDto.getSnsConnectDate())
                 .build();
     }
-//>>>>>>> 79d0ad9c4a8afa4deb77ef97c0e5c0446393bc35
 }
 
 

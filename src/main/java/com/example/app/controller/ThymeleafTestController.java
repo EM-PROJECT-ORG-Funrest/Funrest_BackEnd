@@ -34,10 +34,7 @@ public class ThymeleafTestController {
     public void test6(){
         log.info("/GET /th/main/footer...");
     }
-    @GetMapping("/main/main")
-    public void test7(){
-        log.info("/GET /th/main/main...");
-    }
+
 
     // admin view page test
     @GetMapping("/admin/adminDashboard")
