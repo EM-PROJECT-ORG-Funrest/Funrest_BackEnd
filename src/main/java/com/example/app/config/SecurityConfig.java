@@ -17,12 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    public static final String AUTHORIZATION_HEADER = "Authorization";
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
@@ -46,7 +48,12 @@ public class SecurityConfig {
                     .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, "/th/main/main"))
                     .failureHandler(new CustomAuthenticationFailureHandler())
             )
-            .logout((logout) -> logout.permitAll());
+            .logout((logout) -> logout
+                    .permitAll()
+                    .logoutUrl("/logout")
+                    .deleteCookies("JSESSIONID", AUTHORIZATION_HEADER)
+                    .invalidateHttpSession(true)
+            );
 
         //세션 비활성화
         http.sessionManagement(
