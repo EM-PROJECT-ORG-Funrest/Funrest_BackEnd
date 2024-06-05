@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/afterLoginDefaultLayout">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +14,8 @@
     <!-- JS -->
     <script language="javascript" src="/js/myPage/buyer/editProfile.js"></script>
 </head>
-<div layout:fragment="content">
 
+<div th:replace="~{/fragments/header.html::adminHeader }"></div>
 <body>
     <div class="container py-5">
         <h3 class="fw-bolder mb-4 text-center">프로필 정보 설정</h3>
@@ -58,6 +55,6 @@
         </form>
     </div>
 </body>
+<div th:replace="~{/fragments/footer.html::footer}"></div>
 
-</div>
 </html>

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/adminDefaultLayout">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,8 +29,8 @@
     <script src="/js/admin/adminProManage.js" defer></script>
     
 </head>
-<div layout:fragment="content">
 
+<div th:replace="~{/fragments/header.html::adminHeader }"></div>
 <body>
     <div class="container my-custom-container">
         <h3 class="text-center">프로젝트 관리</h3>
@@ -60,7 +57,7 @@
             <div class="project-manage-right col-md-8">
                 <div class="project-info">
                     <p class="text-center">기본 정보</p>
-                    <label for="" class="form-label m-3">프로젝트 카테고리 설정</label>
+                    <label class="form-label m-3">프로젝트 카테고리 설정</label>
                     <select name="language" class="form-select m-3">
                         <option value="none">카테고리 선택</option>
                         <option value="movie">영화</option>
@@ -68,13 +65,13 @@
                         <option value="musical">뮤지컬&연극</option>
                     </select>
 
-                    <label for="" class="form-label m-3">프로젝트 이름</label>
+                    <label class="form-label m-3">프로젝트 이름</label>
                     <input type="text" class=" form-control m-3" placeholder="프로젝트 이름을 입력하세요.">
                         
-                    <label for="" class="form-label m-3">프로젝트 가격</label>
+                    <label class="form-label m-3">프로젝트 가격</label>
                     <input type="text" class=" form-control m-3" placeholder="프로젝트 가격을 설정해주세요.">
                     <!-- 텍스트란 크기 보완하기 -->
-                    <label for="" class="form-label m-3 pro-label-text">프로젝트 상세설명</label>
+                    <label class="form-label m-3 pro-label-text">프로젝트 상세설명</label>
                     <textarea class="form-control-a m-3 pro-input-text" placeholder="프로젝트 상세설명을 입력하세요." ></textarea>
                 </div>
             </div>
@@ -89,6 +86,6 @@
         </div>
     </div>
 </body>
+<div th:replace="~{/fragments/footer.html::footer}"></div>
 
-</div>
 </html>

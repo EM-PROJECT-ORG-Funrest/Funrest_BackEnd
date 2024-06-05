@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/afterLoginDefaultLayout">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,8 +23,8 @@
         }
     </style>
 </head>
-<div layout:fragment="content">
 
+<div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
 <body>
     <div class="container payment-history-container my-custom-container">
         <div class="row order-product-box m-2">
@@ -188,6 +185,6 @@
         </div>
     </div>
 </body>
+<div th:replace="~{/fragments/footer.html::footer}"></div>
 
-</div>
 </html>
