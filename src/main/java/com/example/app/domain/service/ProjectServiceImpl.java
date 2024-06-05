@@ -56,7 +56,7 @@ public class ProjectServiceImpl {
             Project projectEntity = Project.toSaveFileEntity(projectDto); // 전달된 dto -> entity 변환
             System.out.println("projectEntity : " + projectEntity);
             Integer savedProCode = projectRepository.save(projectEntity).getProCode(); // entity db에 저장 후 proCode 가져오
-            Project project = projectRepository.findByProCode(savedProCode).get(); // 가져온 proCode 로 해당하는 부모 엔터티 객체의 데이터를 가져옴
+            Project project = projectRepository.findByProCode1(savedProCode).get(); // 가져온 proCode 로 해당하는 부모 엔터티 객체의 데이터를 가져옴
             // 2. projectDto 에 담긴 다중 ProMainImg 차례로 꺼내서 proMainImgFile 에 담기
             for (MultipartFile proMainImgFile : projectDto.getProMainImg()) // proMainImg 가 여러 개이기 때문에 반복문 작성
             {
@@ -98,7 +98,7 @@ public class ProjectServiceImpl {
     // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
     @Transactional
     public ProjectDto findByProCode(int proCode){
-        Optional<Project> optionalProject = projectRepository.findByProCode(proCode);
+        Optional<Project> optionalProject = projectRepository.findByProCode1(proCode);
         if (optionalProject.isPresent()){
             Project project = optionalProject.get();
             ProjectDto projectDto = ProjectDto.toProjectDto(project);

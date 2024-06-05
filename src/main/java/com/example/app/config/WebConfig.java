@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     // 윈도우의 경우
     // private String savePath = "file:///C:/springboot_img/"; // 실제 파일 저장 경로
     // 맥인 경우
-    private String savePath = "file:///Users/hongjaeseong/springboot_img/"; // 실제 파일 저장 경로
+    private String savePath = "file:/Users/hongjaeseong/springboot_img/"; // 실제 파일 저장 경로
 
     // view 에서 접근한 경로를 spring 이 실제 파일 저장 경로에서 찾아준다
     @Override

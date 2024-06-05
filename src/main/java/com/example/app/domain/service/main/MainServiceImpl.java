@@ -22,7 +22,7 @@ public class MainServiceImpl {
     public List<ProjectDto> getAllProjectsOrderedByProCode() {
         List<Project> projects = projectRepository.findAllByOrderByProCodeDesc();
         List<ProjectDto> projectDtos = projects.stream()
-                .map(ProjectDto::ToDto)
+                .map(ProjectDto::toProjectDto)
                 .collect(Collectors.toList());
 
         return projectDtos;
@@ -31,7 +31,7 @@ public class MainServiceImpl {
 
     public Page<ProjectDto> getAllProjectsOrderedByProCode(Pageable pageable) {
         Page<Project> projects = projectRepository.findAllByOrderByProCodeDesc(pageable);
-        return projects.map(ProjectDto::ToDto);
+        return projects.map(ProjectDto::toProjectDto);
     }
 
 
@@ -39,14 +39,14 @@ public class MainServiceImpl {
     public List<ProjectDto> getAllProject(){
         List<Project> projects =  projectRepository.findAll();
         List<ProjectDto> projectDtos = projects.stream()
-                .map(ProjectDto::ToDto)
+                .map(ProjectDto::toProjectDto)
                 .collect(Collectors.toList());
         return projectDtos;
     }
 
     public Page<ProjectDto> getAllProjectByProCategory(String proCategory, Pageable pageable){
         Page<Project> projectPage = projectRepository.findAllByProCategoryOrderByProCode(proCategory, pageable);
-        return projectPage.map(ProjectDto::ToDto);
+        return projectPage.map(ProjectDto::toProjectDto);
     }
 
     public Page<ProjectDto> ListToPage(int page, int size, List<ProjectDto> projectDtoList){
@@ -64,9 +64,9 @@ public class MainServiceImpl {
         // 첫번째 페이지에서 12개 이상이 안되면 페이지에 도출 자체가 안되서  이코드 추가
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
             Page<Project> projectPage2 = projectRepository.findByProNameContaining(proName, pageable.previousOrFirst());
-            return projectPage2.map(ProjectDto::ToDto);
+            return projectPage2.map(ProjectDto::toProjectDto);
         }
-        return projectPage.map(ProjectDto::ToDto);
+        return projectPage.map(ProjectDto::toProjectDto);
     }
 
 
