@@ -30,7 +30,7 @@ public class ProjectDetailController {
     String project(@PathVariable("proCode") String proCode, Model model) {
         System.out.println(proCode);
         Integer projectCode = Integer.parseInt(proCode);
-        Optional<Project> project = projectRepository.findByProCode(projectCode);
+        Optional<Project> project = projectRepository.findByProCode1(projectCode);
         List<ProjectFile> projectFileList = project.get().getProjectFileList();
         System.out.println(project);
         System.out.println(projectFileList);
