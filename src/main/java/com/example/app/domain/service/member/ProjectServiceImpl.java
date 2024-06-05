@@ -2,20 +2,24 @@ package com.example.app.domain.service.member;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
+import com.example.app.domain.entity.ProjectFile;
+import com.example.app.domain.entity.ProjectSubFile;
+import com.example.app.domain.repository.ProjectFileRepository;
 import com.example.app.domain.repository.ProjectRepository;
+import com.example.app.domain.repository.ProjectSubFileRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import javax.sound.midi.Soundbank;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,108 +29,93 @@ public class ProjectServiceImpl {
     @Autowired
     private ProjectRepository projectRepository;
 
-    @Transactional
-    public boolean insertProject(ProjectDto projectDto){
+    @Autowired
+    private ProjectFileRepository projectFileRepository;
 
-        System.out.println("projectDto : " + projectDto);
+    @Autowired
+    private ProjectSubFileRepository projectSubFileRepository;
 
+    public void insertProject(ProjectDto projectDto) throws IOException {
+        System.out.println("ProjectServiceImpl's projectDto : " + projectDto);
         // Dto, Entity 변환 작업은 Service Layer (구현은 Dto,Entity 단)
         // 파일 첨부 여부에 따라 로직 분리
-       // if (projectDto.getProMainImg().isEmpty()){
-            // 첨부 파일 없음.
+
+        // 'ProMainImg 첨부x' and 'ProSubImg 첨부x'
+        if ((projectDto.getProMainImg() == null || projectDto.getProMainImg().isEmpty()
+                || projectDto.getProMainImg().stream().allMatch(MultipartFile::isEmpty))
+                && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
+                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty)))
+        {
             Project project = Project.toSaveEntity(projectDto);
-            System.out.println("project Entity : " + project);
+            System.out.println("project : " + project);
             projectRepository.save(project);
-        //} else {
-            // 첨부 파일 있음.
-            /*
-             *   1. Dto 에 담긴 파일을 꺼냄
-             *   2. 파일의 이름 가져옴
-             *   3. 서버 저장용 이름을 만듦
-             *   4. 저장 경로 설정
-             *   5. 해당 경로에 파일 저장
-             *   6. project_table 에 해당 데이터 save 처리
-             *   7. project_file_table 에 해당 데이터 save 처리
-             * */
-           // MultipartFile projectFile = projectDto.getProMainImg(); // proMainImg 의 자료형이 MultipartFile 이기 때문
-         //   String originalFilename = projectFile.getOriginalFilename();
-       // }
-
-        return true;
-    }
-
-    //String 값을 Date형으로 변환 작업 할때 사용
-    public boolean ParseDate(ProjectDto projectDto) throws ParseException {
-        // SimpleDateFormat 사용해서 변환 -> 이거 사용 시 Date 양식 예를들면 (yyyy-MM-dd) -> (yyyy-MM-dd HH:mm:ss) 형태로 변환하거나
-        // String 형태에서 Date 형태로 변환 가능
-        SimpleDateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
-
-
-        // projectDto.getProStartDate()와 projectDto.getProEndDate()가 String 에서 Date로 변환
-        // parse 사용 시 형 변환 가능 !!
-        //format 사용 시 위에서 말했듯이 날짜 형태 변환 가능
-        Date proStartDate = inputFormatter.parse((String) projectDto.getProStartDate());
-        String proStartDateStr = outputFormatter.format(proStartDate);
-
-        Date proEndDate = inputFormatter.parse((String) projectDto.getProEndDate());
-        String proEndDateStr = outputFormatter.format(proEndDate);
-
-        // datetime 즉 달력 input칸에 넣어 줄 데이터 생성
-        // dto 객체에 datetime String 형태의 datetime 삽입
-        String datetime = proStartDateStr + " - " + proEndDateStr;
-        projectDto.setDatetime(datetime);
-
-        return true;
-    }
-
-    public boolean UpdateProject(ProjectDto projectDto)  {
-
-        SimpleDateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        // String 형으로 일단 양식에 맞게 잘라주기 yyyy-MM-dd 형태로 잘라줌
-        // yyyy-MM-dd 형태로 추출 과정임
-        // 변형 필요
-        String proStartDateStr = projectDto.getDatetime().substring(0,10);
-        String proEndDateStr = projectDto.getDatetime().substring(13,23);
-
-        // 이렇게 쓸지 아님 위에처럼 쓸지는 못 정함
-        //int idx = projectDto.getDatetime().indexOf(" ");
-        //String proStartDateString = projectDto.getDatetime().substring(0, idx);
-        //String proEndDateSrt = projectDto.getDatetime().substring(idx + 3);
-
-        // 문자열을 Date 객체로 변환 과정
-        Date proStartDate = null;
-        Date proEndDate = null;
-
-        // parsing 작업 project에 넣어 주기 위해 한거
-        try {
-            //parse 메서드 사용 시 예외 처리 해줘야 하는데 controller 보다 여기서 처리하는게 나을꺼 같아서 여기서 처리함 
-            // 이것도 위에서 말했듯이 date로 형변환 해주는 거임 
-            // 그리고 dto에 넣어주는게 아니라 따로 변수 만들어 주고 toSaveEntity에서 사용함
-            proStartDate = inputFormatter.parse(proStartDateStr);
-            proEndDate = inputFormatter.parse(proEndDateStr);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        }
+        // 'ProMainImg 첨부o' and 'ProSubImg 첨부o'
+        else {
+            // 1. 부모 테이블 tbl_project 에 해당 데이터 먼저 저장 처리
+            Project projectEntity = Project.toSaveFileEntity(projectDto); // 전달된 dto -> entity 변환
+            System.out.println("projectEntity : " + projectEntity);
+            Integer savedProCode = projectRepository.save(projectEntity).getProCode(); // entity db에 저장 후 proCode 가져오
+            Project project = projectRepository.findByProCode1(savedProCode).get(); // 가져온 proCode 로 해당하는 부모 엔터티 객체의 데이터를 가져옴
+            // 2. projectDto 에 담긴 다중 ProMainImg 차례로 꺼내서 proMainImgFile 에 담기
+            for (MultipartFile proMainImgFile : projectDto.getProMainImg()) // proMainImg 가 여러 개이기 때문에 반복문 작성
+            {
+                // 2-1. 파일의 이름 가져오기 및 저장
+                String originalFilename = proMainImgFile.getOriginalFilename();
+                // 2-2. 서버 저장용 이름 생성 (내사진.jpg => 1812911871_내사진.jpg)
+                String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
+                // 2-3. 저장 경p로 설정 (헤당 경로에 미리 폴더 생성하기)
+                // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
+                // 2-4. 해당 경로에 파일 저장 (예외 발생 > 컨트롤러 단에서 예외처리)
+                proMainImgFile.transferTo(new File(savePath));
+                // 2-5. tbl_project_file 에 해당 데이터 저장 처리
+                ProjectFile projectFile = ProjectFile.toProjectFileEntity(project, originalFilename, storedFileName);
+                projectFileRepository.save(projectFile);
+            }
+            // 3. projectDto 에 담긴 다중 ProSubImg 차례로 꺼내서 proSubImgFile 에 담기
+            for (MultipartFile proSubImgFile : projectDto.getProSubImg()) // proSubImg 가 여러 개이기 때문에 반복문 작성
+            {
+                System.out.println("dskslafsadfljjfkals");
+                // 3-1. 파일의 이름 가져오기 및 저장
+                String subOriginalFileName = proSubImgFile.getOriginalFilename();
+                // 3-2. 서버 저장용 이름 생성
+                String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
+                // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
+                String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
+                // 3-4. 해당 경로에 파일 저장
+                proSubImgFile.transferTo(new File(subSavePath));
+                // 3-5. tbl_project_subFile 에 해당 데이터 저장 처리
+                ProjectSubFile projectSubFile = ProjectSubFile.toProjectSubFileEntity(project, subOriginalFileName, subStoredFileName);
+                projectSubFileRepository.save(projectSubFile);
+            }
         }
 
-        
-        // ProjectDto에 넣어주는건데 굳이 필요하진 않음
-        projectDto.setProStartDate(proStartDateStr); // 여전히 String으로 설정
-        projectDto.setProEndDate(proEndDateStr); // 여전히 String으로 설정
-
-        // Project엔티티에  변환 및 저장 toSaveEntity 추가 했음 Project에는 이때 Date 값으로 넣음.... OVERLOADING 사용
-        Project project = Project.toSaveEntity(projectDto, proStartDate, proEndDate);
-
-        // JPA  - dirty checking 사용 해서 UPDATE 수행
-        projectRepository.save(project);
-
-        return true;
     }
 
-    public Page<ProjectDto> getProjects(Pageable pageable) {
-        Page<Project> projects = projectRepository.findAll(pageable);
-        return projects.map(ProjectDto::ToDto);
+    // proCode 를 기준으로 해당 ProjectDto 조회(파일까지 조회)
+    // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
+    @Transactional
+    public ProjectDto findByProCode(int proCode){
+        Optional<Project> optionalProject = projectRepository.findByProCode1(proCode);
+        if (optionalProject.isPresent()){
+            Project project = optionalProject.get();
+            ProjectDto projectDto = ProjectDto.toProjectDto(project);
+            return  projectDto;
+        } else {
+            return null;
+        }
+    }
+
+    @Transactional
+    public List<ProjectDto> findAll(){
+        List<Project> projectList = projectRepository.findAll();
+        List<ProjectDto> projectDtoList = new ArrayList<>();
+        for (Project project : projectList){
+            projectDtoList.add(ProjectDto.toProjectDto(project));
+        }
+        return projectDtoList;
     }
 
 }

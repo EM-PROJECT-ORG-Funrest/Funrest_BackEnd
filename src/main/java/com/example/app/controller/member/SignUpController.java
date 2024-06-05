@@ -40,9 +40,19 @@ public class SignUpController {
     public void join() { log.info("GET /join.."); }
 
     @PostMapping("/join")
-    public void join_post(UserDto userDto) {
+    public ResponseEntity join_post(UserDto userDto) {
         log.info("POST /join");
         log.info("controller userDto : " + userDto);
-        signUpService.userJoin(userDto);
+        try {
+            boolean isSignUpSuccess = signUpService.userJoin(userDto);
+            log.info("isSignUpSuccess : "  + isSignUpSuccess);
+            if(!isSignUpSuccess) {
+                return new ResponseEntity("SignUp Failed - already exist account", HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity("SignUp Successful", HttpStatus.OK);
+        } catch (Exception e) {
+            log.info("error : " + e);
+            return new ResponseEntity("Internal Server Error", HttpStatus.BAD_GATEWAY);
+        }
     }
 }

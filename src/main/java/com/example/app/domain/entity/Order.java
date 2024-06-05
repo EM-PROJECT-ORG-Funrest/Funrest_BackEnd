@@ -20,11 +20,11 @@ public class Order {
     private int orderCode;
     @ManyToOne
     @JoinColumn(name = "proCode", foreignKey = @ForeignKey(name = "FK_ORDER_PROJECT",
-    foreignKeyDefinition = "FOREIGN KEY(proCode) REFERENCES tbl_project(proCode) ON DELETE CASCADE ON UPDATE CASCADE"))
+            foreignKeyDefinition = "FOREIGN KEY(proCode) REFERENCES tbl_project(proCode) ON DELETE CASCADE ON UPDATE CASCADE"))
     private Project proCode;
     @ManyToOne
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_ORDER_USER",
-    foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
+            foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
     private User userId;
     @Column(nullable = false, columnDefinition = "integer default 3000")
     private int deliveryPay;

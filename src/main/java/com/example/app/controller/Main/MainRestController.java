@@ -1,41 +1,6 @@
 package com.example.app.controller.Main;
 
 
-//import com.example.app.domain.dto.ProjectDto;
-//import com.example.app.domain.service.main.MainServiceImpl;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//public class MainRestController {
-//
-//    private final MainServiceImpl mainService;
-//
-//    @Autowired
-//    public MainRestController(MainServiceImpl mainService) {
-//        this.mainService = mainService;
-//    }
-//
-//    @GetMapping("/th/main/main/projects")
-//    public Page<ProjectDto> getProjects(@RequestParam(defaultValue = "0") int page,
-//                                        @RequestParam(defaultValue = "12") int size,
-//                                        Model model) {
-//        // 프로젝트를 페이지별로 검색하여 반환
-//        Page<ProjectDto> projectDtoPage =  mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
-//        List<ProjectDto> projectDto = projectDtoPage.getContent();
-//        model.addAttribute("projectDtos", projectDto);
-//        System.out.println(projectDto);
-//
-//        return projectDtoPage;
-//    }
-//}
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.service.main.MainServiceImpl;

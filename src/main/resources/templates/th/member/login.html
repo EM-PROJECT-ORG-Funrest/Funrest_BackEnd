@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,9 +24,12 @@
         </div>
         <div class="row justify-content-center">
             <div class="login-form row justify-content-center">
-                <form action="" class="login-inner m-3">
-                    <input type="text" id="id" class="form-control mt-3 mb-3" placeholder="아이디 입력">
-                    <input type="password" id="pw" class="form-control mt-3 mb-3" placeholder="패스워드 입력">
+                <form th:action="@{/th/member/login}" method="post" class="login-inner m-3">
+                    <input type="text" name="userId" id="id" class="form-control mt-3 mb-3" placeholder="아이디 입력">
+                    <input type="password" name="password" id="pw" class="form-control mt-3 mb-3" placeholder="패스워드 입력">
+                    <div th:if="${param.error}">
+                        <p th:text="${param.exception}" class="alert alert-danger"></p>
+                    </div>
                     <div class="lost-login">
                         <a th:href="@{/th/member/findId}">로그인 정보를 잊으셨나요?</a>
                     </div>
@@ -34,7 +37,7 @@
                 </form>
                 <div class="external-login">
                     <div class="external-login-kakao">
-                        <button type="button" class="btn mb-3">
+                        <button type="button" class="btn mb-3" onclick="location.href='http://localhost:8080/th/member/login/kakaoLogin'">
                             <img th:src="@{/images/member/icon_kakao.png}" alt="">
                             카카오 로그인
                         </button>
