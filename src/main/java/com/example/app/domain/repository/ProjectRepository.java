@@ -16,7 +16,6 @@ import java.util.Optional;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {    // <T:엔터티 클래스 타입. ID: 엔터티 클래스의 ID 타입>
 
-    Optional<Project> findByProCode1(int proCode);
 
     Project findByProCode(int proCode);
 

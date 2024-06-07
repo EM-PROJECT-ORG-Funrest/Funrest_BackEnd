@@ -34,9 +34,9 @@ public class SecurityConfig {
 
         http
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/", "/th/main/main", "/th/member/signUp", "/th/member/login").permitAll()
+                    .requestMatchers("/**", "/th/main/main", "/th/member/signUp", "/th/member/login", "/th/project/project").permitAll()
                     .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
-                    .anyRequest().authenticated()
+                    //.anyRequest().authenticated()
             )
             .formLogin((login) -> login
                     .permitAll()
