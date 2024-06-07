@@ -1,10 +1,14 @@
 package com.example.app.config.auth.jwt;
 
+import ch.qos.logback.core.spi.ErrorCodes;
+import com.example.app.domain.entity.RefreshToken;
+import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,18 +30,24 @@ import java.util.stream.Collectors;
 @PropertySource("classpath:application-SECRET-KEY.properties")
 public class JwtTokenProvider implements InitializingBean {
 
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
     private static final String AUTHORITIES_KEY = "auth";
 
     private final String secret;
-    private final long tokenValidityInMilliseconds;
+    private final long tokenValidityInMilliseconds; // ACCESS TOKEN 만료 시간
+    private final long refreshTokenValidityInMilliseconds; // REFRESH TOKEN 만료 시간
 
     private Key key;
 
     public JwtTokenProvider(
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
+            @Value("${jwt.refresh-token-validity-in-seconds}") long refreshTokenValidityInMilliseconds) {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000; // 60 * 60 * 24 * 1000
+        this.refreshTokenValidityInMilliseconds = refreshTokenValidityInMilliseconds * 1000; // 60 * 60 * 24 * 3 * 1000
     }
 
     // 빈 생성이 되고 의존성 주입 받은 secret 값을 Base64 Decode 해서 key 변수에 할당
@@ -47,7 +57,7 @@ public class JwtTokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // Authentication의 권한 정보 이용해서 토큰 생성
+    // Authentication의 권한 정보 이용해서 토큰(access Token) 생성
     public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -61,6 +71,18 @@ public class JwtTokenProvider implements InitializingBean {
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
+                .compact();
+    }
+
+    // refresh token - 액세스 토큰을 재발급해주는 용도이므로, 사용자 정보 담을 필요 X
+    public String createRefreshToken() {
+        Claims claims = Jwts.claims();
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenValidityInMilliseconds))
+                .signWith(SignatureAlgorithm.HS512, key)
                 .compact();
     }
 
@@ -100,6 +122,11 @@ public class JwtTokenProvider implements InitializingBean {
             log.info("잘못된 JWT 서명");
         } catch(ExpiredJwtException e) {
             log.info("만료된 JWT 토큰");
+
+            // redis에 저장되어 있는 토큰 정보를 만료된 access token으로 찾아옴
+//            RefreshToken foundTokenInfo = refreshTokenRepository.findByAccessToken(token)
+//                    .orElseThrow(() -> new );
+
         } catch(UnsupportedJwtException e) {
             log.info("지원되지 않는 JWT 토큰");
         } catch(IllegalArgumentException e) {

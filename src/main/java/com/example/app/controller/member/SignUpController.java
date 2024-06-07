@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping("/signUp")
+@RequestMapping("/th/member/signUp")
 public class SignUpController {
 
     @Autowired

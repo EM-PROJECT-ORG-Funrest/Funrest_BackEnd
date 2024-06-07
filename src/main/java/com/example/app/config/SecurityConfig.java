@@ -4,6 +4,7 @@ import com.example.app.config.auth.jwt.JwtAuthorizationFilter;
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.config.auth.loginHandler.CustomAuthenticationFailureHandler;
 import com.example.app.config.auth.loginHandler.CustomLoginSuccessHandler;
+import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +25,12 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private CorsFilter corsFilter;
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
@@ -36,7 +38,7 @@ public class SecurityConfig {
 
         http
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/", "/th/main/main", "/th/member/signUp", "/th/member/login").permitAll()
+                    .requestMatchers("/", "/th/main/main", "/th/member/signUp/**", "/th/member/login").permitAll()
                     .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
                     .anyRequest().authenticated()
             )
@@ -45,13 +47,13 @@ public class SecurityConfig {
                     .loginPage("/th/member/login")
                     .usernameParameter("userId") //식별자가 userId이므로 username -> userId로 변경
                     //.successHandler(new CustomLoginSuccessHandler(jwtTokenProvider))
-                    .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, "/th/main/main"))
+                    .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/th/main/main"))
                     .failureHandler(new CustomAuthenticationFailureHandler())
             )
             .logout((logout) -> logout
                     .permitAll()
                     .logoutUrl("/logout")
-                    .deleteCookies("JSESSIONID", AUTHORIZATION_HEADER)
+                    .deleteCookies("JSESSIONID", JwtAuthorizationFilter.AUTHORIZATION_HEADER)
                     .invalidateHttpSession(true)
             );
 

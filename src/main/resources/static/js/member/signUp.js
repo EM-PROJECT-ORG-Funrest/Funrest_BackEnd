@@ -26,7 +26,7 @@ function chkId() {
         idVal.classList.remove("d-none");
         idValBtn.classList.remove("d-none");
 
-        axios.get("/signUp/mail/req/" + id.value)
+        axios.get("/th/member/signUp/mail/req/" + id.value)
         .then(resp => {
             console.log(resp);
             return true;
@@ -47,7 +47,7 @@ function chkAuth() {
         inputCode.classList.add("is-invalid");
         return false;
     } else {
-        axios.get("/signUp/mail/verifyCode/" + inputCode.value)
+        axios.get("/th/member/signUp/mail/verifyCode/" + inputCode.value)
         .then(resp => {
             console.log(resp);
             if(resp.data) {
@@ -129,7 +129,7 @@ function signupValidChk(event) {
                 return false;
             }
 
-            axios.post("/signUp/join", formData)
+            axios.post("/th/member/signUp/join", formData)
             .then(resp => {
                 if(resp.status === 200) {
                     console.log("회원가입 완료");
