@@ -40,7 +40,7 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         // 액세스 토큰 저장
         Cookie cookie = new Cookie(JwtAuthorizationFilter.AUTHORIZATION_HEADER, accessToken);
-        cookie.setMaxAge(3600); //1시간 후 만료
+        cookie.setMaxAge(86400);
         cookie.setPath("/");
         log.info("Setting cookie with name: " + JwtAuthorizationFilter.AUTHORIZATION_HEADER + " and value: " + accessToken);
         response.addCookie(cookie);

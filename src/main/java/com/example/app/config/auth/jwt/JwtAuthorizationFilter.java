@@ -1,10 +1,15 @@
 package com.example.app.config.auth.jwt;
 
+import com.example.app.domain.entity.RefreshToken;
+import com.example.app.domain.repository.UserRepository;
+import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -29,7 +34,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter{
         String jwt = resolveToken(request);
         String requestURI = request.getRequestURI();
 
-        if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+        if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt, request, response)) {
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             log.info("Security Context에 저장 완료.. 인증 정보 : " + authentication.getName() + " uri : " + requestURI);

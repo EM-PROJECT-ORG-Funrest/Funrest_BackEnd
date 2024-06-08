@@ -55,6 +55,7 @@ public class SecurityConfig {
                     .logoutUrl("/logout")
                     .deleteCookies("JSESSIONID", JwtAuthorizationFilter.AUTHORIZATION_HEADER)
                     .invalidateHttpSession(true)
+                    //Redis에서도 delete refresh token 로직 추가하기
             );
 
         //세션 비활성화
@@ -67,8 +68,7 @@ public class SecurityConfig {
 
 //        http.addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider),
 //                BasicAuthenticationFilter.class);
-        JwtAuthorizationFilter customFilter = new JwtAuthorizationFilter(jwtTokenProvider);
-        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
 
         return http.build();
