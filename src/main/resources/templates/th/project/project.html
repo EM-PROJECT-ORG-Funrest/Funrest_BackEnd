@@ -42,42 +42,16 @@
     <div class="row">
         <div class="pro-left col-6">
             <!-- pro-banner -->
-<!--            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">-->
-<!--                <div class="carousel-inner">-->
-<!--                    <div th:each="file, iterStat : ${ProjectFileList}" th:class="carousel-item" th:classappend="${iterStat.index == 0} ? ' active'">-->
-<!--                        <img th:src="${file.storedFileName}" class="d-block w-100" th:alt="${file.originalFileName}" />-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">-->
-<!--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--                    <span class="visually-hidden">Previous</span>-->
-<!--                </button>-->
-<!--                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">-->
-<!--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--                    <span class="visually-hidden">Next</span>-->
-<!--                </button>-->
-<!--            </div>-->
-
-            <!-- Optional JavaScript -->
-<!--            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
-<!--            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
-<!--            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
-
-            <!-- pro-banner -->
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img th:src="@{${image1}}" alt="Image 1">
-<!--                        <img th:src="@{/images/projects/img1.jpg}" class="d-block w-100" alt="...">-->
+                        <img th:src="@{${image1}}" alt="Image 1" class="d-block w-100 h-100">
                     </div>
                     <div class="carousel-item">
-                        <img th:src="@{${image2}}" alt="Image 2">
-<!--                        <img th:src="@{/images/projects/img2.jpg}" class="d-block w-100" alt="...">-->
+                        <img th:src="@{${image2}}" alt="Image 2" class="d-block w-100 h-100">
                     </div>
                     <div class="carousel-item">
-                        <img th:src="@{${image3}}" alt="Image 3">
-<!--                        <img th:src="@{/images/projects/img3.jpg}" class="d-block w-100" alt="...">-->
+                        <img th:src="@{${image3}}" alt="Image 3" class="d-block w-100 h-100">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
@@ -96,18 +70,15 @@
             <div class="pro-story-caution">도서산간에 해당되는 구매자님은 배송 가능 여부를 반드시 판매자에게 문의 후 참여해 주세요</div>
             <!-- pro-story-content -->
             <div class="pro-story-content">
-                <img th:src="@{/images/projects/ramen.jpg}" alt="">
+                <img th:src="@{${subImage1}}" alt="subImage 1">
             </div>
             <!-- pro-story-hidden-content -->
             <div class="pro-story-hidden-content" id="pro-story-hidden-content">
                 <!-- DB 이미지로 변경 -->
-                <img th:src="@{/images/projects/ramen1.jpg}" alt="">
-                <img th:src="@{/images/projects/ramen2.jpg}" alt="">
-                <img th:src="@{/images/projects/ramen3.jpg}" alt="">
-                <img th:src="@{/images/projects/ramen4.jpg}" alt="">
-                <img th:src="@{/images/projects/ramen5.jpg}" alt="">
-                <img th:src="@{/images/projects/ramen6.jpg}" alt="">
-                <img th:src="@{/images/projects/ramen7.jpg}" alt="">
+                <img th:src="@{${subImage2}}" alt="subImage 2">
+                <img th:src="@{${subImage3}}" alt="subImage 3">
+                <img th:src="@{${subImage4}}" alt="subImage 4">
+                <img th:src="@{${subImage5}}" alt="subImage 5">
             </div>
             <!-- pro-story-hidden-button -->
             <div class="pro-story-hidden-button">
