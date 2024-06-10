@@ -42,6 +42,8 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         Cookie cookie = new Cookie(JwtAuthorizationFilter.AUTHORIZATION_HEADER, accessToken);
         cookie.setMaxAge(86400);
         cookie.setPath("/");
+//        cookie.setHttpOnly(true);
+//        cookie.setSecure(true); // HTTPS 사용 시
         log.info("Setting cookie with name: " + JwtAuthorizationFilter.AUTHORIZATION_HEADER + " and value: " + accessToken);
         response.addCookie(cookie);
         // 응답 헤더 확인

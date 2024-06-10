@@ -75,6 +75,7 @@ public class JwtTokenProvider implements InitializingBean {
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
+                .claim("userId", authentication.getName())
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
@@ -152,7 +153,6 @@ public class JwtTokenProvider implements InitializingBean {
             cookie.setMaxAge(86400);
             cookie.setPath("/");
             response.addCookie(cookie);
-            // 액세스 토큰 재발급 - 쿠키 유지 되는데 새로고침 해야 로그인 상태 반영됨 ㅠ
             // 근데 액세스 토큰 만료 -> 액세스 토큰 재발급, 리프레스 토큰 재발급, 쿠키 재생성
             // -> 로그아웃 버튼 누르지 않는 이상 로그인 상태가 계속 유지 -> 이게 맞나..?
             response.setContentType("text/html");
