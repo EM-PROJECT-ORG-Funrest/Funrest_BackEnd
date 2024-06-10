@@ -50,8 +50,8 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         });
 
         // 리프레시 토큰 저장
-        log.info("refresh 토큰용 userId 확인 : " + authentication.getName());
-        log.info("refresh token : " + refreshToken);
+        log.info("loginSuccessHandler refresh 토큰용 userId 확인 : " + authentication.getName());
+        log.info("loginSuccessHandler refresh token 저장.. " + refreshToken);
         refreshTokenRepository.save(new RefreshToken(authentication.getName(), refreshToken, accessToken));
 
         super.onAuthenticationSuccess(request, response, authentication);
