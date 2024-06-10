@@ -4,6 +4,7 @@ import com.example.app.config.auth.jwt.JwtAuthorizationFilter;
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.config.auth.loginHandler.CustomAuthenticationFailureHandler;
 import com.example.app.config.auth.loginHandler.CustomLoginSuccessHandler;
+import com.example.app.config.auth.loginHandler.Oauth2JwtLoginSuccessHandler;
 import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -58,6 +59,13 @@ public class SecurityConfig {
                     //Redis에서도 delete refresh token 로직 추가하기
             );
 
+        //OAUTH2-CLIENT
+        http.oauth2Login((oauth2) -> oauth2
+                .loginPage("/th/member/login")
+                .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository,"/th/main/main"))
+            );
+
+
         //세션 비활성화
         http.sessionManagement(
                 httpSecuritySessionManagementConfigurer ->
@@ -66,8 +74,6 @@ public class SecurityConfig {
                         )
         );
 
-//        http.addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider),
-//                BasicAuthenticationFilter.class);
         http.addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
 
