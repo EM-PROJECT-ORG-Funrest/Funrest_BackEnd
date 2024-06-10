@@ -33,6 +33,7 @@ package com.example.app.controller.Main;
 //
 //}
 
+import com.example.app.config.WebConfig;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.service.main.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class MainController {
 
     @Autowired
     private MainServiceImpl mainServiceImpl;
+
+    @Autowired
+    private WebConfig webConfig;
 
     @GetMapping("/main")
     public String getProjects(Model model) {

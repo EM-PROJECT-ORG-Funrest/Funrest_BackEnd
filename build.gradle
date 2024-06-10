@@ -68,6 +68,9 @@ dependencies {
 	// Thymeleaf Extras Springsecurity6
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
 
+	// 이미지 리사이징 을 위한 라이브러리
+	implementation group: 'org.imgscalr', name: 'imgscalr-lib', version: '4.2'
+
 }
 
 tasks.named('test') {
