@@ -4,6 +4,7 @@ import com.example.app.config.auth.jwt.JwtAuthorizationFilter;
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.config.auth.loginHandler.CustomAuthenticationFailureHandler;
 import com.example.app.config.auth.loginHandler.CustomLoginSuccessHandler;
+import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -27,8 +27,8 @@ public class SecurityConfig {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private CorsFilter corsFilter;
+//    @Autowired
+//    private CorsFilter corsFilter;
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
@@ -53,9 +53,9 @@ public class SecurityConfig {
             .logout((logout) -> logout
                     .permitAll()
                     .logoutUrl("/logout")
+                    .addLogoutHandler(new CustomLogoutHandler(refreshTokenRepository))
                     .deleteCookies("JSESSIONID", JwtAuthorizationFilter.AUTHORIZATION_HEADER)
                     .invalidateHttpSession(true)
-                    //Redis에서도 delete refresh token 로직 추가하기
             );
 
         //세션 비활성화
