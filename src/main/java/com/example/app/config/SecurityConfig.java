@@ -6,6 +6,7 @@ import com.example.app.config.auth.loginHandler.CustomAuthenticationFailureHandl
 import com.example.app.config.auth.loginHandler.CustomLoginSuccessHandler;
 import com.example.app.config.auth.loginHandler.Oauth2JwtLoginSuccessHandler;
 import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
+import com.example.app.config.auth.logoutHandler.CustomLogoutSuccessHandler;
 import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,8 @@ public class SecurityConfig {
 //    private CorsFilter corsFilter;
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
@@ -55,7 +58,7 @@ public class SecurityConfig {
             .logout((logout) -> logout
                     .permitAll()
                     .logoutUrl("/logout")
-                    .addLogoutHandler(new CustomLogoutHandler(refreshTokenRepository))
+                    .addLogoutHandler(new CustomLogoutHandler(refreshTokenRepository, customLogoutSuccessHandler, jwtTokenProvider))
                     .deleteCookies("JSESSIONID", JwtAuthorizationFilter.AUTHORIZATION_HEADER)
                     .invalidateHttpSession(true)
             );
