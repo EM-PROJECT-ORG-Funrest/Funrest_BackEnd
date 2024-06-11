@@ -40,21 +40,30 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
         log.info("kakaoUserInfo : " + kakaoUserInfo);
         String username = kakaoUserInfo.getName();
 
-        // DB에서 이미 가입한 회원인지 조회
-        Optional<User> userOptional = userRepository.findByUserId(id);
+
 
         UserDto userDto = null;
+
+        Map<String,Object> kakaoAccount = (Map<String,Object>) oAuth2User.getAttribute("kakao_account");
+        log.info("kakao account : " + kakaoAccount);
+        String email = (String) kakaoAccount.get("email");
+        log.info("kakao email : " + email);
+        String phone = (String) kakaoAccount.get("phone_number");
+        log.info("kakao phone : " + phone);
+
+        // DB에서 이미 가입한 회원인지 조회
+        Optional<User> userOptional = userRepository.findByUserId(email);
 
         if(userOptional.isEmpty()) {
             // 가입하지 않은 회원이면
             User user = new User();
-            user.setUserId(id);
+            user.setUserId(email);
             user.setUserName(kakaoUserInfo.getName());
             user.setRole("ROLE_USER");
             user.setSnsType(kakaoUserInfo.getSnsType());
             user.setUserImg(kakaoUserInfo.getUserImg());
             user.setSnsConnectDate((String) super.loadUser(userRequest).getAttributes().get("connected_at"));
-            user.setPhone(kakaoUserInfo.getPhone());
+            user.setPhone(phone);
             userRepository.save(user);
 
             userDto = UserDto.EntityToUserDto(user);
