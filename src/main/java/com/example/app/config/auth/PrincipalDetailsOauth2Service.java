@@ -40,8 +40,6 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
         log.info("kakaoUserInfo : " + kakaoUserInfo);
         String username = kakaoUserInfo.getName();
 
-
-
         UserDto userDto = null;
 
         Map<String,Object> kakaoAccount = (Map<String,Object>) oAuth2User.getAttribute("kakao_account");

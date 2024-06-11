@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +19,14 @@ import java.net.URLEncoder;
 @Slf4j
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    @Value("${kakao.rest-api}")
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String KAKAO_CLIENT_ID;
     @Value("${spring.security.oauth2.client.kakao.logout.redirect.uri}")
     private String KAKAO_LOGOUT_REDIRECT_URI;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        log.info("CustomLogoutSuccessHandler : " + authentication.getPrincipal());
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         String snsType = principalDetails.getUserDto().getSnsType();
         log.info("snstype : "+snsType);

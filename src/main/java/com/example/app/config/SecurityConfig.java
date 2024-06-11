@@ -36,6 +36,8 @@ public class SecurityConfig {
     private RefreshTokenRepository refreshTokenRepository;
     @Autowired
     private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    @Autowired
+    private CustomLogoutHandler customLogoutHandler;
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
@@ -58,7 +60,8 @@ public class SecurityConfig {
             .logout((logout) -> logout
                     .permitAll()
                     .logoutUrl("/logout")
-                    .addLogoutHandler(new CustomLogoutHandler(refreshTokenRepository, customLogoutSuccessHandler, jwtTokenProvider))
+                    .addLogoutHandler(customLogoutHandler)
+                    .logoutSuccessHandler(customLogoutSuccessHandler)
                     .deleteCookies("JSESSIONID", JwtAuthorizationFilter.AUTHORIZATION_HEADER)
                     .invalidateHttpSession(true)
             );
@@ -99,4 +102,9 @@ public class SecurityConfig {
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+//    @Bean
+//    public CustomLogoutHandler customLogoutHandler() {
+//        return new CustomLogoutHandler(refreshTokenRepository, customLogoutSuccessHandler, jwtTokenProvider);
+//    }
 }

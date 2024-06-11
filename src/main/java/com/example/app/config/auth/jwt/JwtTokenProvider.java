@@ -1,6 +1,8 @@
 package com.example.app.config.auth.jwt;
 
+import com.example.app.config.auth.PrincipalDetails;
 import com.example.app.config.auth.PrincipalDetailsService;
+import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.RefreshToken;
 import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import io.jsonwebtoken.*;
@@ -72,10 +74,21 @@ public class JwtTokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
+//        return Jwts.builder()
+//                .setSubject(authentication.getName())
+//                .claim(AUTHORITIES_KEY, authorities)
+//                .signWith(key, SignatureAlgorithm.HS512)
+//                .setExpiration(validity)
+//                .compact();
+
+        PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
+        UserDto userDto = principalDetails.getUserDto();
+
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
-                .claim("userId", authentication.getName())
+                .claim("accessToken", principalDetails.getAccessToken())
+                .claim("provider", userDto.getSnsType())
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
@@ -107,9 +120,23 @@ public class JwtTokenProvider implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        //User principal = new User(claims.getSubject(), "", authorities);
+        //return new UsernamePasswordAuthenticationToken(principal, token, authorities);
 
+        String oauthAccessToken = (String)claims.get("accessToken");
+        String snsType = (String)claims.get("provider");
+        String auth = (String)claims.get(AUTHORITIES_KEY);
+        UserDto userDto = new UserDto();
+        userDto.setSnsType(snsType);
+        userDto.setUserId(claims.getSubject());
+        userDto.setRole(auth);
+
+        PrincipalDetails principal = new PrincipalDetails();
+        principal.setUserDto(userDto);
+        principal.setAccessToken(oauthAccessToken);
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+
+
     }
 
     // 토큰의 유효성 검증 및 토큰을 파싱하여 exception을 캐치
