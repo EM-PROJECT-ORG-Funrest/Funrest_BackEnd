@@ -41,6 +41,10 @@ public class User {
     @Column(name = "sns_connect_date")
     private String snsConnectDate;
 
+    public User(String userId) {
+        this.userId = userId;
+    }
+
     public static User UserDtoToEntity(UserDto userDto) {
         return User.builder()
                 .userId(userDto.getUserId())

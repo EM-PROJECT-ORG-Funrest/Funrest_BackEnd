@@ -37,5 +37,7 @@ out/
 #.vscode/
 
 ### DataSourceConfig ###
-## /src/main/java/com/example/app/config/DataSourceConfig.java
+#/src/main/java/com/example/app/config/DataSourceConfig.java
 
+### SECRET KEY INFO ###
+#application-SECRET-KEY.properties

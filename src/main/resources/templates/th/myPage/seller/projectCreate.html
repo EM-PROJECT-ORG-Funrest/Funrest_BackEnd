@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/myPage/seller/projectCreate.css">
     <!-- projectCreate.js -->
-    <script src="/js/myPage/seller/projectCreate.js" defer></script>
+    <script src="/js/myPage/Seller/projectCreate.js" defer></script>
     <!-- DateRangePicker CDN -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -32,7 +32,7 @@
         <div class="row g-3">
             <div class="project-manage-left col-md-4">
                 <div class="project-image-files">
-                    <input type="hidden" value="${model.userID}">
+                    <input type="hidden" value="hjs971102@naver.com" name="userId">
                     <p class="text-center">프로젝트 썸네일 이미지</p>
                     <input type="file" class="project-image-mainfile" id="image" accept="image/*" multiple
                            onchange="setThumbnail(event);" name="proMainImg"/>

@@ -1,4 +1,3 @@
-/* 이미지 유효성 검사 함수 */
 function imageValidation(obj) {
     const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
     const maxSize = 10 * 1024 * 1024; // 10MB
