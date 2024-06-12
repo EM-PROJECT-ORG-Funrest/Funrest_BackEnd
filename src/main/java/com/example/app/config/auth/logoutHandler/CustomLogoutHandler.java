@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -24,6 +25,13 @@ public class CustomLogoutHandler implements LogoutHandler {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    @Value("${naver.rest-api}")
+    private String NAVER_CLIENT_ID;
+    @Value("${naver.client-secret}")
+    private String NAVER_CLIENT_SECRET;
+
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
@@ -72,6 +80,23 @@ public class CustomLogoutHandler implements LogoutHandler {
             }catch (Exception ex){
                 System.out.println("An error occurred while logout from kakao. Error : "+ ex.getMessage());
             }
+        } else if(snsType!=null && snsType.startsWith("naver")){
+            //Naver LOGOUT
+            String url="https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id="+NAVER_CLIENT_ID+"&client_secret="+NAVER_CLIENT_SECRET+"&access_token="+accessToken;
+            //HEADER
+            HttpHeaders headers = new HttpHeaders();
+            //PARAM
+            MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
+
+            //ENTITY
+            HttpEntity< MultiValueMap<String,String> > entity = new HttpEntity(params,headers);
+
+            //REQUEST
+            RestTemplate rt = new RestTemplate();
+            ResponseEntity<String> resp = rt.exchange(url, HttpMethod.GET,null,String.class);
+
+            //RESPONSE
+            System.out.println(resp.getBody());
         }
     }
 }

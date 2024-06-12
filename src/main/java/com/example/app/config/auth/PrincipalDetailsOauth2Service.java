@@ -1,6 +1,8 @@
 package com.example.app.config.auth;
 
 import com.example.app.config.auth.provider.KakaoUserInfo;
+import com.example.app.config.auth.provider.NaverUserInfo;
+import com.example.app.config.auth.provider.OAuth2UserInfo;
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
@@ -33,21 +35,49 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         log.info("oAuth2User : " + oAuth2User);
 
-        // 정보 꺼내오기
-        String id = oAuth2User.getAttributes().get("id").toString();
-        Map<String, Object> attributes = (Map<String, Object>) oAuth2User.getAttributes().get("properties");
-        KakaoUserInfo kakaoUserInfo = new KakaoUserInfo(id, attributes);
-        log.info("kakaoUserInfo : " + kakaoUserInfo);
-        String username = kakaoUserInfo.getName();
+        //provider 선별하기
+        String snsType = userRequest.getClientRegistration().getRegistrationId();
+        log.info("loadUser request snsType : " + snsType );
+
+        OAuth2UserInfo oAuth2UserInfo = null;
+        String snsConnectDate = null;
+        String phone = null;
+        String email = null;
+
+        //정보 꺼내오기
+        if(snsType!=null && snsType.startsWith("kakao")) {
+            String id = oAuth2User.getAttributes().get("id").toString();
+            Map<String, Object> attributes = (Map<String, Object>) oAuth2User.getAttributes().get("properties");
+            oAuth2UserInfo = new KakaoUserInfo(id, attributes);
+            log.info("kakaoUserInfo : " + oAuth2UserInfo);
+            String username = oAuth2UserInfo.getName();
+
+
+
+            Map<String, Object> kakaoAccount = (Map<String, Object>) oAuth2User.getAttribute("kakao_account");
+            log.info("kakao account : " + kakaoAccount);
+            email = (String) kakaoAccount.get("email");
+            log.info("kakao email : " + email);
+            phone = (String) kakaoAccount.get("phone_number");
+            log.info("kakao phone : " + phone);
+        } else if(snsType!=null && snsType.startsWith("naver")){
+            Map<String, Object> resp = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+            String id = (String)resp.get("id");
+            oAuth2UserInfo = new NaverUserInfo(id,resp);
+
+//            NaverUserInfo naverUserInfo = (NaverUserInfo)oAuth2User;
+//            String snsConnectDate = naverUserInfo.getSnsConnectDate();
+            snsConnectDate = oAuth2UserInfo.getSnsConnectDate();
+
+            phone = oAuth2UserInfo.getPhone();
+            email = oAuth2UserInfo.getUserId();
+
+            System.out.println("naverUserInfo : " +oAuth2UserInfo);
+            System.out.println("naverUserInfo snsType : " + oAuth2UserInfo.getSnsType());
+        }
 
         UserDto userDto = null;
-
-        Map<String,Object> kakaoAccount = (Map<String,Object>) oAuth2User.getAttribute("kakao_account");
-        log.info("kakao account : " + kakaoAccount);
-        String email = (String) kakaoAccount.get("email");
-        log.info("kakao email : " + email);
-        String phone = (String) kakaoAccount.get("phone_number");
-        log.info("kakao phone : " + phone);
+        String username = oAuth2UserInfo.getName();
 
         // DB에서 이미 가입한 회원인지 조회
         Optional<User> userOptional = userRepository.findByUserId(email);
@@ -56,11 +86,13 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             // 가입하지 않은 회원이면
             User user = new User();
             user.setUserId(email);
-            user.setUserName(kakaoUserInfo.getName());
+//            user.setUserName(oAuth2UserInfo.getName());
+            user.setUserName(username);
             user.setRole("ROLE_USER");
-            user.setSnsType(kakaoUserInfo.getSnsType());
-            user.setUserImg(kakaoUserInfo.getUserImg());
-            user.setSnsConnectDate((String) super.loadUser(userRequest).getAttributes().get("connected_at"));
+            user.setSnsType(oAuth2UserInfo.getSnsType());
+            user.setUserImg(oAuth2UserInfo.getUserImg());
+//            user.setSnsConnectDate((String) super.loadUser(userRequest).getAttributes().get("connected_at"));
+            user.setSnsConnectDate(snsConnectDate);
             user.setPhone(phone);
             userRepository.save(user);
 

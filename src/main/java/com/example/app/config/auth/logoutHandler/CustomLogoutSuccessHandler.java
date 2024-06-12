@@ -57,7 +57,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             response.sendRedirect(kakaoLogoutWith);
         }else if(snsType!=null && "naver".equals(snsType)){
             String naverLogoutWith = "https://nid.naver.com/nidlogin.logout?returl=https://www.naver.com/";
-            response.sendRedirect(naverLogoutWith);
+            response.sendRedirect("redirect:" + naverLogoutWith);
         } else if(snsType==null) {
             response.sendRedirect("/");
         }
