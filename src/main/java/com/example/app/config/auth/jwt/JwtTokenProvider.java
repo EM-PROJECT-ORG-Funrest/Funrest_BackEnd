@@ -135,8 +135,6 @@ public class JwtTokenProvider implements InitializingBean {
         principal.setUserDto(userDto);
         principal.setAccessToken(oauthAccessToken);
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
-
-
     }
 
     // 토큰의 유효성 검증 및 토큰을 파싱하여 exception을 캐치

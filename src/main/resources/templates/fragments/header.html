@@ -98,7 +98,7 @@
                 <div class="header-right col-md-10">
                     <div class="header-nav">
                         <div class="nav-1">
-                            <a href="javascript:void(0)" onclick="logout()" class="">로그아웃</a>
+                            <a th:href="@{/logout}" class="">로그아웃</a>
                         </div>
                         <div class="nav-2">
                             <a th:href="@{/th/myPage/buyer/buyer}" class="">마이페이지</a>
@@ -116,24 +116,8 @@
             </div>
         </div>
     </header>
-    <script>
-        function logout() {
-            axios.post("/logout")
-            .then(resp => {
-                console.log("로그아웃 성공");
-                window.location.href = "/th/main/main";
-                return true;
-            })
-            .catch(error => {
-                console.log(error);
-                return false;
-            });
-        }
-    </script>
     </body>
-
 </div>
-
 </html>
 
 <!-- beforeLoginHeader -->

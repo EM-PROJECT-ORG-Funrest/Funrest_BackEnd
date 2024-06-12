@@ -21,8 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -30,8 +28,6 @@ public class SecurityConfig {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-//    @Autowired
-//    private CorsFilter corsFilter;
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
     @Autowired
@@ -44,10 +40,17 @@ public class SecurityConfig {
         http.csrf((config) -> { config.disable(); });
 
         http
+            .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests((auth) -> auth
                     .requestMatchers("/", "/th/main/main", "/th/member/signUp/**", "/th/member/login").permitAll()
                     .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
                     .anyRequest().authenticated()
+            )
+            .sessionManagement(
+                    httpSecuritySessionManagementConfigurer ->
+                            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
+                                    SessionCreationPolicy.STATELESS
+                            )
             )
             .formLogin((login) -> login
                     .permitAll()
@@ -57,32 +60,18 @@ public class SecurityConfig {
                     .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/th/main/main"))
                     .failureHandler(new CustomAuthenticationFailureHandler())
             )
+            .oauth2Login((oauth2) -> oauth2
+                    .loginPage("/th/member/login")
+                    .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository,"/th/main/main"))
+            )
             .logout((logout) -> logout
-                    .permitAll()
                     .logoutUrl("/logout")
                     .addLogoutHandler(customLogoutHandler)
                     .logoutSuccessHandler(customLogoutSuccessHandler)
                     .deleteCookies("JSESSIONID", JwtAuthorizationFilter.AUTHORIZATION_HEADER)
                     .invalidateHttpSession(true)
+                    .permitAll()
             );
-
-        //OAUTH2-CLIENT
-        http.oauth2Login((oauth2) -> oauth2
-                .loginPage("/th/member/login")
-                .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository,"/th/main/main"))
-            );
-
-
-        //세션 비활성화
-        http.sessionManagement(
-                httpSecuritySessionManagementConfigurer ->
-                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS
-                        )
-        );
-
-        http.addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-
 
         return http.build();
     }
@@ -102,9 +91,4 @@ public class SecurityConfig {
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
-//    @Bean
-//    public CustomLogoutHandler customLogoutHandler() {
-//        return new CustomLogoutHandler(refreshTokenRepository, customLogoutSuccessHandler, jwtTokenProvider);
-//    }
 }
