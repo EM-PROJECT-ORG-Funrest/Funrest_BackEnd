@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,13 +38,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
-        http.csrf((config) -> { config.disable(); });
+        http.csrf(AbstractHttpConfigurer::disable);
 
         http
             .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/", "/th/main/main", "/th/member/signUp/**", "/th/member/login").permitAll()
+                    .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**", "/upload/**").permitAll()
                     .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
+                    .requestMatchers("/th/myPage/**").hasRole("USER")
                     .anyRequest().authenticated()
             )
             .sessionManagement(

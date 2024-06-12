@@ -28,6 +28,7 @@ public class ProjectDto {
     private List<String> originalFileName; // 원본 파일 이름 // 아래 3가지는 서비스단에서 처리
     private List<String> storedFileName; // 서버 저장용 파일 이름 (같은 이름의 파일이름을 구분하기 위한 용도)
     private int fileAttached; // 파일 첨부 여부 (첨부 1, 미첨부 0), boolean 타입은 작업이 상대적으로 복잡
+    private String mainPageImgPath; // 메인페이지 이미지용
 
     private List<MultipartFile> proSubImg; // 프로젝트 추가 이미지, projectCreate.html -> Controller 파일 담는 용도
     private List<String> subOriginalFileName; // 원본 파일 이름
