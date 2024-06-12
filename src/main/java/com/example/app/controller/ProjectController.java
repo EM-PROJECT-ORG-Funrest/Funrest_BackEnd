@@ -1,12 +1,20 @@
 package com.example.app.controller;
 
+import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.service.ProjectServiceImpl;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +28,15 @@ import java.io.IOException;
 @RequestMapping("/th/myPage/seller")
 public class ProjectController {
 
+
     @Autowired
     private ProjectServiceImpl projectServiceImpl;
 
+    private JwtTokenProvider jwtTokenProvider;
+
     // projectCreate 뷰페이지로 이동 API
     @GetMapping("/projectCreate")
-    public void projectCreate() {
+    public void projectCreate(HttpServletRequest request) {
         log.info("/th/myPage/seller/projectCreate invoke...");
     }
 
@@ -34,6 +45,8 @@ public class ProjectController {
     public String projectSave(@ModelAttribute ProjectDto projectDto) throws IOException {
         log.info("/th/myPage/seller/projectSave invoke.....");
         // System.out.println("ProjectController's ProjectDto : " + projectDto);
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        projectDto.setUserId(userId);
         projectServiceImpl.insertProject(projectDto); // Service 단으로 프로젝트 생성 작업 전달
 
         return "redirect:/th/myPage/seller/seller";
@@ -43,7 +56,5 @@ public class ProjectController {
     public void seller(@ModelAttribute ProjectDto projectDto) {
         log.info("GET /th/myPage/seller/seller .....");
     }
-
-
 
 }

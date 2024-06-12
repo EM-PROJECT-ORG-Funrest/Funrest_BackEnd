@@ -19,6 +19,9 @@ public class MainRestController {
 
     private final MainServiceImpl mainService;
 
+    // 프로젝트 경로 (추후 변경 가능성 있음)
+    String UPLOAD_PATH = "http://localhost:8080/upload/";
+
     @Autowired
     public MainRestController(MainServiceImpl mainService) {
         this.mainService = mainService;
@@ -31,9 +34,15 @@ public class MainRestController {
                                         Model model) {
         // 프로젝트를 페이지별로 검색하여 반환
         Page<ProjectDto> projectDtoPage =  mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
-        //List<Project> findAllByProCategoryOrderByProCode(String proCategory); 이거 사용해서 한번에 다 보내보자~~ 다받아오고
-//        List<ProjectDto> projectDtos = projectDtoPage.stream().toList();
-//        model.addAttribute("ProjectDto", projectDtos);
+
+        // 각 ProjectDto에 이미지 URL을 설정
+        projectDtoPage.forEach(projectDto -> {
+            if (!projectDto.getStoredFileName().isEmpty()) {
+                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+            } else {
+                projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+            }
+        });
 
         return projectDtoPage;
 
@@ -48,9 +57,17 @@ public class MainRestController {
         Page<ProjectDto> projectDtoPage = null;
         // 카테고리 들어오는 값 별로 나누기
         if (proCategory.equals("all")) {
-            // List를 Page로 변환 ProjectRepository에서 Page<projectDto> findAll(); 하니까 List형태랑 겹친다 해서 그냥 List로 받고 변환 해줌
             List<ProjectDto> projectDtoList =  mainService.getAllProject();
+
+            // 이미지 넣어주기
+            for (int i = 0; i < projectDtoList.size() ; i++) {
+                projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtoList.get(i).getStoredFileName().getFirst());
+            }
+
+
+            // List를 Page로 변환 ProjectRepository에서 Page<projectDto> findAll(); 하니까 List형태랑 겹친다 해서 그냥 List로 받고 변환 해줌
             projectDtoPage = mainService.ListToPage(page, size, projectDtoList);
+
             return projectDtoPage;
 
         } else if (proCategory.equals("movie")){
@@ -78,6 +95,16 @@ public class MainRestController {
                                                   @RequestParam(name = "size", defaultValue = "12") int size,
                                                   Model model) {
         Page<ProjectDto> projectDtoPage = null;
+
+        // 각 ProjectDto에 이미지 URL을 설정
+        projectDtoPage.forEach(projectDto -> {
+            if (!projectDto.getStoredFileName().isEmpty()) {
+                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+            } else {
+                projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+            }
+        });
+
 
         if (proName == null && proName.equals("")){
             List<ProjectDto> projectDtoList =  mainService.getAllProject();

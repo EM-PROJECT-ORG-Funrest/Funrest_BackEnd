@@ -41,19 +41,16 @@ public class ProjectDetailController {
         List<String> storedFileName = projectDto.getStoredFileName();
         // ProMainImg 리스트 -> model 에 담기
         model.addAttribute("Project", projectDto);
-        model.addAttribute("image1", UPLOAD_PATH + storedFileName.get(0)); // String 클래스자료형으로 데이터 전송
-        model.addAttribute("image2", UPLOAD_PATH + storedFileName.get(1));
-        model.addAttribute("image3", UPLOAD_PATH + storedFileName.get(2));
+        for (int i = 0; i < storedFileName.size(); i++) {
+            model.addAttribute("image"+(i+1), UPLOAD_PATH + storedFileName.get(i));
+        }
 
         // ProSubImg 를 리스트에 담기 (5개 고정)
         List<String> subStoredFileName = projectDto.getSubStoredFileName();
         // ProSubImg 리스트 -> model 에 담기
-        model.addAttribute("subImage1", UPLOAD_PATH + subStoredFileName.get(0));
-        model.addAttribute("subImage2", UPLOAD_PATH + subStoredFileName.get(1));
-        model.addAttribute("subImage3", UPLOAD_PATH + subStoredFileName.get(2));
-        model.addAttribute("subImage4", UPLOAD_PATH + subStoredFileName.get(3));
-        model.addAttribute("subImage5", UPLOAD_PATH + subStoredFileName.get(4));
-
+        for (int i = 0; i < subStoredFileName.size(); i++) {
+            model.addAttribute("subImage" + (i + 1), UPLOAD_PATH + subStoredFileName.get(i));
+        }
         return "th/project/project.html";
     }
 }

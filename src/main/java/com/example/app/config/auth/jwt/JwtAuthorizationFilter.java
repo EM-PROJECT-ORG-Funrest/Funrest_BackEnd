@@ -3,6 +3,8 @@ package com.example.app.config.auth.jwt;
 import com.example.app.domain.entity.RefreshToken;
 import com.example.app.domain.repository.UserRepository;
 import com.example.app.domain.repository.redis.RefreshTokenRepository;
+import com.nimbusds.jwt.JWTClaimNames;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -12,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtClaimAccessor;
+import org.springframework.security.oauth2.jwt.JwtClaimNames;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
