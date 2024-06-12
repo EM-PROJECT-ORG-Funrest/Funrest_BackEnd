@@ -36,32 +36,8 @@ public class User {
     private String addrRoad;
     @Column(name = "addrDetail")
     private String addrDetail;
-
-    //카카오
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY) //기본키 자동 생성
-//    private Long id;
-//
-//    @Column(name = "kakaoId")
-//    private Long kakaoId;
-//
-//    @Column(name = "email")
-//    private String email;
-//
-//    @Column(name = "nickname")
-//    private String nickname;
-//
-//    @Column(name = "accessToken")
-//    private String accessToken;
-//
-//    //refreshToken은 할지 말지?
-//    @Column(name = "refreshToken")
-//    private String refreshToken;
-
     @Column(name = "sns_type")
     private String snsType;
-    @Column(name = "sns_id")
-    private String snsId;
     @Column(name = "sns_connect_date")
     private String snsConnectDate;
 
@@ -81,7 +57,6 @@ public class User {
                 .addrRoad(userDto.getAddrRoad())
                 .addrDetail(userDto.getAddrDetail())
                 .snsType(userDto.getSnsType())
-                .snsId(userDto.getSnsId())
                 .snsConnectDate(userDto.getSnsConnectDate())
                 .build();
     }

@@ -17,14 +17,14 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import java.io.IOException;
 
 @Slf4j
-public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class Oauth2JwtLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-    public CustomLoginSuccessHandler(JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, String defaultTargetUrl) {
+    public Oauth2JwtLoginSuccessHandler(JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository, String defaultTargetUrl) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.refreshTokenRepository = refreshTokenRepository;
         setDefaultTargetUrl(defaultTargetUrl);
@@ -32,19 +32,17 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("CustomLoginSuccessHandler's onAuthenticationSuccess authentication : " + authentication);
+        log.info("Oauth2JwtLoginSuccessHandler's onAuthenticationSuccess authentication : " + authentication);
 
-        String accessToken = jwtTokenProvider.createToken(authentication);
+        String jwt = jwtTokenProvider.createToken(authentication);
         String refreshToken = jwtTokenProvider.createRefreshToken();
-        System.out.println("JWT TOKEN : " + accessToken);
+        System.out.println("JWT TOKEN : " + jwt);
 
         // 액세스 토큰 저장
-        Cookie cookie = new Cookie(JwtAuthorizationFilter.AUTHORIZATION_HEADER, accessToken);
+        Cookie cookie = new Cookie(JwtAuthorizationFilter.AUTHORIZATION_HEADER, jwt);
         cookie.setMaxAge(86400);
         cookie.setPath("/");
-//        cookie.setHttpOnly(true);
-//        cookie.setSecure(true); // HTTPS 사용 시
-        log.info("Setting cookie with name: " + JwtAuthorizationFilter.AUTHORIZATION_HEADER + " and value: " + accessToken);
+        log.info("Setting cookie with name: " + JwtAuthorizationFilter.AUTHORIZATION_HEADER + " and value: " + jwt);
         response.addCookie(cookie);
         // 응답 헤더 확인
         response.getHeaderNames().forEach(headerName -> {
@@ -54,7 +52,7 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         // 리프레시 토큰 저장
         log.info("loginSuccessHandler refresh 토큰용 userId 확인 : " + authentication.getName());
         log.info("loginSuccessHandler refresh token 저장.. " + refreshToken);
-        refreshTokenRepository.save(new RefreshToken(authentication.getName(), refreshToken, accessToken));
+        refreshTokenRepository.save(new RefreshToken(authentication.getName(), refreshToken, jwt));
 
         super.onAuthenticationSuccess(request, response, authentication);
     }

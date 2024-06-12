@@ -4,6 +4,10 @@ import com.example.app.config.auth.jwt.JwtAuthorizationFilter;
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.config.auth.loginHandler.CustomAuthenticationFailureHandler;
 import com.example.app.config.auth.loginHandler.CustomLoginSuccessHandler;
+import com.example.app.config.auth.loginHandler.Oauth2JwtLoginSuccessHandler;
+import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
+import com.example.app.config.auth.logoutHandler.CustomLogoutSuccessHandler;
+import com.example.app.domain.repository.redis.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -26,41 +29,49 @@ public class SecurityConfig {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
-    private CorsFilter corsFilter;
+    private RefreshTokenRepository refreshTokenRepository;
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    @Autowired
+    private CustomLogoutHandler customLogoutHandler;
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
         http.csrf((config) -> { config.disable(); });
 
         http
+            .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/**", "/th/main/main", "/th/member/signUp", "/th/member/login", "/th/project/project").permitAll()
+                    .requestMatchers("/", "/th/main/main", "/th/member/signUp/**", "/th/member/login").permitAll()
                     .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
-                    //.anyRequest().authenticated()
+                    .anyRequest().authenticated()
+            )
+            .sessionManagement(
+                    httpSecuritySessionManagementConfigurer ->
+                            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
+                                    SessionCreationPolicy.STATELESS
+                            )
             )
             .formLogin((login) -> login
                     .permitAll()
                     .loginPage("/th/member/login")
                     .usernameParameter("userId") //식별자가 userId이므로 username -> userId로 변경
                     //.successHandler(new CustomLoginSuccessHandler(jwtTokenProvider))
-                    .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, "/th/main/main"))
+                    .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/th/main/main"))
                     .failureHandler(new CustomAuthenticationFailureHandler())
             )
-            .logout((logout) -> logout.permitAll());
-
-        //세션 비활성화
-        http.sessionManagement(
-                httpSecuritySessionManagementConfigurer ->
-                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS
-                        )
-        );
-
-//        http.addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider),
-//                BasicAuthenticationFilter.class);
-        JwtAuthorizationFilter customFilter = new JwtAuthorizationFilter(jwtTokenProvider);
-        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
-
+            .oauth2Login((oauth2) -> oauth2
+                    .loginPage("/th/member/login")
+                    .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository,"/th/main/main"))
+            )
+            .logout((logout) -> logout
+                    .logoutUrl("/logout")
+                    .addLogoutHandler(customLogoutHandler)
+                    .logoutSuccessHandler(customLogoutSuccessHandler)
+                    .deleteCookies("JSESSIONID", JwtAuthorizationFilter.AUTHORIZATION_HEADER)
+                    .invalidateHttpSession(true)
+                    .permitAll()
+            );
 
         return http.build();
     }

@@ -80,6 +80,10 @@
 
         </style>
 
+        <!-- AXIOS CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"
+                integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
     <header>
@@ -94,10 +98,10 @@
                 <div class="header-right col-md-10">
                     <div class="header-nav">
                         <div class="nav-1">
-                            <a href="javascript:void(0)" class="">로그아웃</a>
+                            <a th:href="@{/logout}" class="">로그아웃</a>
                         </div>
                         <div class="nav-2">
-                            <a href="javascript:void(0)" class="">마이페이지</a>
+                            <a th:href="@{/th/myPage/buyer/buyer}" class="">마이페이지</a>
                         </div>
                         <div class="nav-3">
                             <a href="javascript:void(0)" class="">
@@ -113,9 +117,7 @@
         </div>
     </header>
     </body>
-
 </div>
-
 </html>
 
 <!-- beforeLoginHeader -->
