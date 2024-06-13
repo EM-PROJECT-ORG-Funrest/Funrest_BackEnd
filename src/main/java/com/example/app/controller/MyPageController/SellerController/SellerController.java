@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SellerController {
 
     //SecurityContextHolder 에서 userId 가져요기
-    String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
     User user = new User();
 
     @GetMapping("/seller")
     public void seller() {
         log.info("GET /th/myPage/seller/seller .....");
-
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         //userId 삽입
         user.setUserId(userId);
         //userId로 project 찾아야함

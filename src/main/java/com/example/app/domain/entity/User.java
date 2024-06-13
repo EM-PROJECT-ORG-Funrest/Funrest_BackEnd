@@ -24,7 +24,7 @@ public class User {
     private String userPw;
     @Column(name = "userName", nullable = false)
     private String userName;
-    @Column(name = "phone", length = 13)
+    @Column(name = "phone", length = 20)
     private String phone;
     @Column(name = "role", nullable = false, length = 10)
     private String role;
