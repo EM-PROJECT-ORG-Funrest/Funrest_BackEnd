@@ -24,14 +24,12 @@ public class BuyerServiceImpl {
     UserRepository userRepository;
 
 
-    public Long CountNotifyByUserId(String userId){
-        Long cntNotify = notifyRepository.CountByUserId(userId);
-        return cntNotify;
+    public Long countNotifyByUserId(User user){
+        return notifyRepository.countByUserId(user);
     }
 
-    public Long CountOrderByUserId(String userId){
-        Long cntOrder = orderRepository.CountByUserId(userId);
-        return cntOrder;
+    public Long countOrderByUserId(User user){
+        return orderRepository.countByUserId(user);
     }
 
     public User findUserByUserId(String userId){

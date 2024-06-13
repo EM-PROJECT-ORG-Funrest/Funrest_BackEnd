@@ -21,20 +21,24 @@ public class BuyerController {
     @Autowired
     BuyerServiceImpl buyerService;
 
-    @GetMapping("/seller")
+    @GetMapping("/buyer")
     public String seller(Model model) {
         //SecurityContextHolder 에서 userId 가져요기
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-
+        User user1 = new User();
+        user1.setUserId(userId);
 
         // 결제 횟수 및 알림 신청 횟수 가져오기
-        Long OrderCnt = buyerService.CountOrderByUserId(userId);
-        Long NotifyCnt = buyerService.CountNotifyByUserId(userId);
+        Long OrderCnt = buyerService.countOrderByUserId(user1);
+        Long NotifyCnt = buyerService.countNotifyByUserId(user1);
 
         // 사용자 이름 넣어주기
         User user = buyerService.findUserByUserId(userId);
+        String userName = user.getUserName();
 
-        model.addAttribute("user", user);
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("userName", userName);
         model.addAttribute("OrderCnt",OrderCnt);
         model.addAttribute("NotifyCnt",NotifyCnt);
         return "th/myPage/buyer/buyer";

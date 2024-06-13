@@ -44,7 +44,6 @@ public class SecurityConfig {
             .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests((auth) -> auth
                     .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**", "/upload/**").permitAll()
-                    .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
                     .requestMatchers("/th/myPage/**").hasRole("USER")
                     .anyRequest().authenticated()
             )
