@@ -4,6 +4,7 @@ import com.example.app.config.auth.jwt.JwtAuthorizationFilter;
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.config.auth.loginHandler.CustomAuthenticationFailureHandler;
 import com.example.app.config.auth.loginHandler.CustomLoginSuccessHandler;
+import com.example.app.config.auth.loginHandler.CustomOauthAuthenticationFailureHandler;
 import com.example.app.config.auth.loginHandler.Oauth2JwtLoginSuccessHandler;
 import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.config.auth.logoutHandler.CustomLogoutSuccessHandler;
@@ -63,6 +64,7 @@ public class SecurityConfig {
             .oauth2Login((oauth2) -> oauth2
                     .loginPage("/th/member/login")
                     .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository,"/th/main/main"))
+                    .failureHandler(new CustomOauthAuthenticationFailureHandler())
             )
             .logout((logout) -> logout
                     .logoutUrl("/logout")

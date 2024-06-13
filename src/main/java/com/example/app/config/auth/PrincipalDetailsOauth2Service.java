@@ -8,6 +8,7 @@ import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -101,6 +102,10 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             // 기존 계정이 존재한다면
             User user = userOptional.get();
             userDto = UserDto.EntityToUserDto(user);
+
+            if(!snsType.equals(userDto.getSnsType())) {
+                throw new BadCredentialsException("이미 회원가입 이력이 존재합니다.");
+            }
         }
 
         log.info("loadUser 조회 결과 UserDto : " + userDto);
