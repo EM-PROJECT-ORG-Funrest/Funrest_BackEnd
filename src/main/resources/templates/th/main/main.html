@@ -141,7 +141,7 @@
               <div th:each="projectDto : ${projectDtos}" class="col p-2">
                 <div class="border bg-light rounded">
                   <a th:href="@{/th/project/project/{proCode}(proCode=${projectDto.proCode})}">
-                    <img th:src="@{/images/main/project/project1.jpg}" class="d-block" alt="">
+                    <img th:src="${projectDto.MainPageImgPath}" class="d-block" alt="">
                   </a>
                 </div>
                 <div class="pro-content">
@@ -185,7 +185,7 @@
              projectElement.innerHTML = `
                  <div class="border bg-light rounded">
                      <a href="/project/project/${project.proCode}">
-                         <img src="/images/main/project/project1.jpg" class="d-block" alt="">
+                         <img src="${project.MainPageImgPath}" class="d-block" alt="">
                      </a>
                  </div>
                  <div class="pro-content">

@@ -47,10 +47,11 @@
                     <div class="carousel-item active">
                         <img th:src="@{${image1}}" alt="Image 1" class="d-block w-100 h-100">
                     </div>
-                    <div class="carousel-item">
+                    <div th:if="${image2 != null}" class="carousel-item">
                         <img th:src="@{${image2}}" alt="Image 2" class="d-block w-100 h-100">
                     </div>
-                    <div class="carousel-item">
+                    <!-- image3가 존재할 때만 표시 -->
+                    <div th:if="${image3 != null}" class="carousel-item">
                         <img th:src="@{${image3}}" alt="Image 3" class="d-block w-100 h-100">
                     </div>
                 </div>

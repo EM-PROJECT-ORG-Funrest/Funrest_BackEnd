@@ -68,7 +68,7 @@ public class ProjectServiceImpl {
                 // 2-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
                 // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
                 // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                String savePath = "C:/springboot_img/" + storedFileName;;
+                String savePath = "C:/springboot_img/" + storedFileName;
                 // 2-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
                 // 2-5. tbl_project_file 에 해당 데이터 저장 처리
