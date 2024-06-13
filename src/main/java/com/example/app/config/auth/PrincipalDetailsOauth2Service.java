@@ -52,14 +52,15 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             log.info("kakaoUserInfo : " + oAuth2UserInfo);
             String username = oAuth2UserInfo.getName();
 
-
-
             Map<String, Object> kakaoAccount = (Map<String, Object>) oAuth2User.getAttribute("kakao_account");
             log.info("kakao account : " + kakaoAccount);
             email = (String) kakaoAccount.get("email");
             log.info("kakao email : " + email);
             phone = (String) kakaoAccount.get("phone_number");
             log.info("kakao phone : " + phone);
+
+            snsConnectDate = (String) super.loadUser(userRequest).getAttributes().get("connected_at");
+
         } else if(snsType!=null && snsType.startsWith("naver")){
             Map<String, Object> resp = (Map<String, Object>) oAuth2User.getAttributes().get("response");
             String id = (String)resp.get("id");
@@ -90,6 +91,7 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             user.setUserName(username);
             user.setRole("ROLE_USER");
             user.setSnsType(oAuth2UserInfo.getSnsType());
+            user.setSnsId(oAuth2UserInfo.getSnsId());
             user.setUserImg(oAuth2UserInfo.getUserImg());
 //            user.setSnsConnectDate((String) super.loadUser(userRequest).getAttributes().get("connected_at"));
             user.setSnsConnectDate(snsConnectDate);
@@ -101,6 +103,11 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             // 기존 계정이 존재한다면
             User user = userOptional.get();
             userDto = UserDto.EntityToUserDto(user);
+
+            if(!snsType.equals(userDto.getSnsType())){
+
+                throw new RuntimeException("로그인 실패: 해당 이메일 계정이 아닙니다.");
+            }
         }
 
         log.info("loadUser 조회 결과 UserDto : " + userDto);

@@ -21,6 +21,7 @@ public class UserDto {
     private String addrDetail;
     // SNS 로그인
     private String snsType;
+    private String snsId;
     private String snsConnectDate;
 
     public static UserDto EntityToUserDto(User user){
@@ -36,6 +37,7 @@ public class UserDto {
                 .addrRoad(user.getAddrRoad())
                 .addrDetail(user.getAddrDetail())
                 .snsType(user.getSnsType())
+                .snsId(user.getSnsId())
                 .snsConnectDate(user.getSnsConnectDate())
                 .build();
     }
