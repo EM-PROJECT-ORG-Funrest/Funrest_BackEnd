@@ -4,6 +4,7 @@ import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.ProjectFile;
 import com.example.app.domain.entity.ProjectSubFile;
+import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.ProjectFileRepository;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.repository.ProjectSubFileRepository;
@@ -107,6 +108,15 @@ public class ProjectServiceImpl {
     @Transactional
     public List<ProjectDto> findAll(){
         List<Project> projectList = projectRepository.findAll();
+        List<ProjectDto> projectDtoList = new ArrayList<>();
+        for (Project project : projectList){
+            projectDtoList.add(ProjectDto.toProjectDto(project));
+        }
+        return projectDtoList;
+    }
+
+    public List<ProjectDto> findByUserId(User user){
+        List<Project> projectList = projectRepository.findByUserId(user);
         List<ProjectDto> projectDtoList = new ArrayList<>();
         for (Project project : projectList){
             projectDtoList.add(ProjectDto.toProjectDto(project));

@@ -97,7 +97,7 @@
         <div class="category">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" data-category="all">전체</a>
+              <a class="nav-link active" href="#" data-category="all">전체</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" data-category="movie">영화</a>
@@ -115,11 +115,6 @@
         </div>
         <form method="GET" action="" class="d-flex justify-content-between align-items-center p-1 mt-2">
           <div class="sort-project ps-2 ms-1">
-            <select name="" id="">
-              <option value="2">최신순</option>
-              <option value="3">모집인원순</option>
-              <option value="4">마감임박순</option>
-            </select>
           </div>
           <div class="search-project px-2 px-md-2 me-1">
             <div class="input-group">
@@ -185,7 +180,7 @@
              projectElement.innerHTML = `
                  <div class="border bg-light rounded">
                      <a href="/project/project/${project.proCode}">
-                         <img src="${project.MainPageImgPath}" class="d-block" alt="">
+                         <img src="${project.mainPageImgPath}" class="d-block" alt="">
                      </a>
                  </div>
                  <div class="pro-content">
@@ -232,6 +227,7 @@
          projectList.innerHTML = ''; // 기존 프로젝트 초기화
          loadProjects(currentCategory);
 
+
          // 활성화된 nav-link 변경
          $('.nav-link').removeClass('active');
          $(this).addClass('active');
@@ -248,5 +244,6 @@
      currentKeyword = keyword;
      page = 1; // 페이지 번호 초기화
      projectList.innerHTML = ''; // 기존 프로젝트 초기화
+     loadProjects(currentCategory, currentKeyword); // 이 줄 추가
  });
 </script>

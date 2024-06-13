@@ -2,6 +2,7 @@ package com.example.app.domain.repository;
 
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.Project;
+import com.example.app.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,6 +31,8 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     //전체 검색
     List<Project> findAll();
 
+    Page<Project> findAllByOrderByProCode(Pageable pageable);
+
     // 키워드별 검색
     Page<Project> findAllByProCategoryOrderByProCode(String proCategory, Pageable pageable);
 
@@ -37,4 +40,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     @Query("SELECT p FROM Project p WHERE p.proName LIKE %:proName%")
     Page<Project> findByProNameContaining(@Param("proName") String proName, Pageable pageable);
 
+    //userId별 검색
+    List<Project> findByUserId(User user);
 }
