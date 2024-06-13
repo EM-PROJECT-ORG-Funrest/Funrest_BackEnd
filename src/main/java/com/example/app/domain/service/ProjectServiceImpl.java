@@ -115,13 +115,4 @@ public class ProjectServiceImpl {
         return projectDtoList;
     }
 
-    public List<ProjectDto> findByUserId(User user){
-        List<Project> projectList = projectRepository.findByUserId(user);
-        List<ProjectDto> projectDtoList = new ArrayList<>();
-        for (Project project : projectList){
-            projectDtoList.add(ProjectDto.toProjectDto(project));
-        }
-        return projectDtoList;
-    }
-
 }

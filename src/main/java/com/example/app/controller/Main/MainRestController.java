@@ -4,6 +4,7 @@ package com.example.app.controller.Main;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.service.main.MainServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/th/main/main")
+@Slf4j
 public class MainRestController {
 
     private final MainServiceImpl mainService;
@@ -104,15 +106,15 @@ public class MainRestController {
 
 
     @GetMapping("/keyword")
-    public Page<ProjectDto> getProjectsByProName(@RequestParam(value = "proName", defaultValue = "") String proName,
+    public Page<ProjectDto> getProjectsByProName(@RequestParam(value = "proName", defaultValue = "1234578888") String proName,
                                                  @RequestParam(name = "page", defaultValue = "0") int page,
                                                  @RequestParam(name = "size", defaultValue = "12") int size,
                                                  Model model) {
         Page<ProjectDto> projectDtoPage = null;
 
-        if (proName.equals("") || proName.isEmpty() || proName.matches("")) {
+        if (proName.equals("1234578888")) {
             projectDtoPage =  mainService.findAllByOrderByProCode(PageRequest.of(page, size));
-            System.out.println("" + projectDtoPage.getContent().getFirst());
+            log.info("1234578888" + projectDtoPage.getContent().getFirst());
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());

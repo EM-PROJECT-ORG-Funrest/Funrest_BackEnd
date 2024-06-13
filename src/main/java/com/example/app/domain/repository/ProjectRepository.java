@@ -42,4 +42,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
 
     //userId별 검색
     List<Project> findByUserId(User user);
+
+    Long countByUserId(User user);
 }
