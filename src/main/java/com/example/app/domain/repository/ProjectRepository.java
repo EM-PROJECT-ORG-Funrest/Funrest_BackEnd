@@ -37,4 +37,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     @Query("SELECT p FROM Project p WHERE p.proName LIKE %:proName%")
     Page<Project> findByProNameContaining(@Param("proName") String proName, Pageable pageable);
 
+    // 알림 신청을 위한 프로젝트 시작일 조회
+    @Query("SELECT p.proStartDate FROM Project p WHERE p.proCode = :proCode")
+    Optional<String> findProStartDateByProCode(@Param("proCode") int proCode);
 }

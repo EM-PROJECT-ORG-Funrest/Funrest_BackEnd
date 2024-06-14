@@ -65,6 +65,10 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProjectSubFile> projectSubFileList = new ArrayList<>();
 
+    public Project(int proCode) {
+        this.proCode = proCode;
+    }
+
 
     // Dto to Entity
     // 파일이 없는 경우 toSaveEntity 메소드 호출
