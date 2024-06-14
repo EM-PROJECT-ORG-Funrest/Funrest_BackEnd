@@ -37,4 +37,14 @@ public class Order {
     @Column(nullable = false)
     private int orderCnt;
     private String refundDetail;
+
+    //추가
+    @Column(nullable = false)
+    private String orderName;
+    @Column(nullable = false)
+    private String orderAddr;
+    @Column(nullable = false)
+    private String orderPhone;
+    @Column(nullable = false)
+    private int postCode;
 }

@@ -58,16 +58,16 @@ public class ThymeleafTestController {
         log.info("/GET /th/myPage/buyer/signOut...");
     }
 
-    // payment view page test
-    @GetMapping("/payment/applyRefund")
-    public void test23(){}
-    @GetMapping("/payment/applyRefund_2")
-    public void test24(){}
-    @GetMapping("/payment/payment")
-    public void test25(){}
-    @GetMapping("/payment/paymentDetail")
-    public void test26(){}
-    @GetMapping("/payment/paymentHistory")
-    public void test27(){}
+//    // payment view page test
+//    @GetMapping("/payment/applyRefund")
+//    public void test23(){}
+//    @GetMapping("/payment/applyRefund_2")
+//    public void test24(){}
+//    @GetMapping("/payment/payment")
+//    public void test25(){}
+//    @GetMapping("/payment/paymentDetail")
+//    public void test26(){}
+//    @GetMapping("/payment/paymentHistory")
+//    public void test27(){}
 
 }

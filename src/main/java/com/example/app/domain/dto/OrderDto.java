@@ -20,4 +20,10 @@ public class OrderDto {
     private String orderState;
     private int orderCnt;
     private String refundDetail;
+    
+    //추가
+    private String orderName;
+    private String orderAddr;
+    private String orderPhone;
+    private String postCode;
 }

@@ -14,6 +14,8 @@
     <!-- JS -->
     <script src="/js/payment/payment.js" ></script>
     <script src="/js/payment/payment2.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
 </head>
 
 <div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
@@ -242,7 +244,7 @@
                         위 주문 내용을 확인 하였으며, 회원 본인은 개인정보 이용 및 제공, 결제에 동의합니다.
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-success pay-btn m-auto my-3">결제 하기</button>
+                    <button type="submit" class="btn btn-success pay-btn m-auto my-3" id="paymentBtn">결제 하기</button>
                 </div>
             </div>
             <!-- <div class="row pay-box m-2 mb-5 mt-5 justify-content-center">
