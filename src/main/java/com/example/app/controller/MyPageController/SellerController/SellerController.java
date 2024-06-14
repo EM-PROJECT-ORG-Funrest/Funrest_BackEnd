@@ -54,6 +54,7 @@ public class SellerController {
         //사진 넣기
         for (int i = 0; i < projectDtoList.size() ; i++) {
             projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtoList.get(i).getStoredFileName().getFirst());
+            System.out.println("projectDtoList.get(i).getProCode()" + projectDtoList.get(i).getProCode());
         }
 
         //목표 금액 가져오기
