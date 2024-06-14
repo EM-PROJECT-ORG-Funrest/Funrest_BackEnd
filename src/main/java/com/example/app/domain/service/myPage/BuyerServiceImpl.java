@@ -24,14 +24,17 @@ public class BuyerServiceImpl {
     UserRepository userRepository;
 
 
+    //사용자별 알림 신청 횟수 찾기
     public Long countNotifyByUserId(User user){
         return notifyRepository.countByUserId(user);
     }
-
+    
+    //사용자별 주문 신청 횟수 찾기
     public Long countOrderByUserId(User user){
         return orderRepository.countByUserId(user);
     }
 
+    //사용자Id 로 사용자 정보 찾기
     public User findUserByUserId(String userId){
         Optional<User> findUserName = userRepository.findByUserId(userId);
 

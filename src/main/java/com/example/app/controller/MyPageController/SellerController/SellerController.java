@@ -35,6 +35,7 @@ public class SellerController {
 
     @GetMapping("/seller")
     public String seller(Model model) {
+
         //SecurityContextHolder 에서 userId 가져요기
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -54,45 +55,15 @@ public class SellerController {
         for (int i = 0; i < projectDtoList.size() ; i++) {
             projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtoList.get(i).getStoredFileName().getFirst());
         }
-        
-        //달성률 구하기
-        for (ProjectDto projectDto : projectDtoList) {
-            // 문자열을 정수로 변환
-            int proGoalAmount = Integer.parseInt(projectDto.getProGoalAmount().replace(",", ""));
-            int proPrice = Integer.parseInt(projectDto.getProPrice().replace(",", ""));
-            int proPaidCnt = projectDto.getProPaidCnt();
 
-            // 달성률 계산
-            int proAchievementRate = (proPrice * proPaidCnt / proGoalAmount) * 100;
+        //목표 금액 가져오기
+        sellerService.proAchievementRate(projectDtoList);
 
-            // 달성률 dto에 넣기
-            projectDto.setProAchievementRate(proAchievementRate);
-        }
-
-        // 신청 날짜 보여주기 포매팅
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        for (ProjectDto projectDto : projectDtoList) {
-            try {
-                Date proDate = projectDto.getProDate();
-                String formattedDate = outputFormat.format(proDate);
-                projectDto.setFormattedProDate(formattedDate);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        //신청 날짜 보여주기 포매팅
+        sellerService.formattedDate(projectDtoList);
 
         // 프로젝트 기간 보여주기 datetime 에 저장
-        for (ProjectDto projectDto : projectDtoList) {
-
-            String proStartDate = projectDto.getProStartDate();
-            String proEndDate = projectDto.getProEndDate();
-
-            String dateTime = proStartDate + " ~ " + proEndDate;
-            projectDto.setProDateTime(dateTime);
-
-        }
+        sellerService.dateTime(projectDtoList);
 
 
         model.addAttribute("userName", userName);
