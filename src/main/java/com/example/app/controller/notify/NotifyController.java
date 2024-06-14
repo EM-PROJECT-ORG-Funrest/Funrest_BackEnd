@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.ParseException;
 import java.util.Map;
 
 @Controller
@@ -34,15 +35,15 @@ public class NotifyController {
         int proCode = Integer.parseInt(request.get("proCode"));
 
         try {
-            boolean isRegister = notifyService.registerNotification(proCode);
-            if(!isRegister) {
-                return new ResponseEntity("Internal Server Error", HttpStatus.BAD_GATEWAY);
-            }
+            notifyService.registerNotification(proCode);
+            notifyService.updateProNotifyCnt(proCode);
             return new ResponseEntity("Apply Notification Successful", HttpStatus.OK);
         } catch (DuplicateKeyException e) {
             return new ResponseEntity("Already Registered Notification", HttpStatus.BAD_REQUEST);
         } catch (NullPointerException e ) {
             return new ResponseEntity("NullPointerException", HttpStatus.NOT_FOUND);
+        } catch (ParseException e) {
+            return new ResponseEntity("Parsing Date Error", HttpStatus.BAD_GATEWAY);
         } catch (Exception e) {
             return new ResponseEntity("Internal Server Error", HttpStatus.BAD_GATEWAY);
         }

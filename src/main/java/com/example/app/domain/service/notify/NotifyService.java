@@ -7,14 +7,16 @@ import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.NotifyRepository;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.DuplicateMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
@@ -24,6 +26,8 @@ import java.util.Optional;
 public class NotifyService {
 
     @Autowired
+    private EntityManager em;
+    @Autowired
     private NotifyRepository notifyRepository;
     @Autowired
     private ProjectRepository projectRepository;
@@ -31,12 +35,11 @@ public class NotifyService {
     private UserRepository userRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean registerNotification(int proCode) throws Exception{
+    public boolean registerNotification(int proCode) throws ParseException {
         log.info("NotifyService's registerNotification() proCode : " + proCode);
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         // UserRepository - userId 조회 - User타입 저장
-        // Optional<User> isExistUser = userRepository.findByUserId(userId);
         User user = userRepository.findByUserId(userId).orElseThrow(() ->
                 new NullPointerException("Invalid User Id"));
         // ProjectRepository - proCode 조회 - Project 타입 저장
@@ -65,5 +68,18 @@ public class NotifyService {
             notifyRepository.save(notify);
             return true;
         }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateProNotifyCnt(int proCode){
+        // 알림 신청 성공 후 Project 테이블 proNotifyCnt 업데이트
+        log.info("NotifyService's updateProNotifyCnt() proCode : " + proCode);
+
+        Project project = em.find(Project.class, proCode);
+        log.info("before proNotifyCnt : " + project.getProNotifyCnt());
+        project.setProNotifyCnt(project.getProNotifyCnt() + 1);
+        log.info("after proNotifyCnt : " + project.getProNotifyCnt());
+
+        return true;
     }
 }

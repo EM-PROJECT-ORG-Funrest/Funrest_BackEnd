@@ -50,6 +50,7 @@ function applyNotification(proCode) {
     axios.post("/th/notify/applyNotification", {proCode})
     .then(resp => {
         console.log(proCode + " 알림 신청 완료");
+
         return true;
     }).catch(error => {
         console.log("알림 신청 에러");
