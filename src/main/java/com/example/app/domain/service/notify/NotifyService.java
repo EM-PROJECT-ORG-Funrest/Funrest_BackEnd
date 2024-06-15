@@ -76,9 +76,7 @@ public class NotifyService {
         log.info("NotifyService's updateProNotifyCnt() proCode : " + proCode);
 
         Project project = em.find(Project.class, proCode);
-        log.info("before proNotifyCnt : " + project.getProNotifyCnt());
         project.setProNotifyCnt(project.getProNotifyCnt() + 1);
-        log.info("after proNotifyCnt : " + project.getProNotifyCnt());
 
         return true;
     }

@@ -1,9 +1,7 @@
 package com.example.app.controller.notify;
 
-import com.example.app.domain.dto.NotifyDto;
 import com.example.app.domain.service.notify.NotifyService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +39,7 @@ public class NotifyController {
         } catch (DuplicateKeyException e) {
             return new ResponseEntity("Already Registered Notification", HttpStatus.BAD_REQUEST);
         } catch (NullPointerException e ) {
-            return new ResponseEntity("NullPointerException", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Can not found userId or proCode", HttpStatus.NOT_FOUND);
         } catch (ParseException e) {
             return new ResponseEntity("Parsing Date Error", HttpStatus.BAD_GATEWAY);
         } catch (Exception e) {
