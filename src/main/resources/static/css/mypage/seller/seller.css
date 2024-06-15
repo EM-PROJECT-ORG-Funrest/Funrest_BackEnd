@@ -39,12 +39,11 @@
     /* line-height: 50px;
     margin: 0; */
 }
-.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a{
-    text-decoration: none;
-    color: #4cc069;
-}
-.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>a>h1{
+
+.seller-mypage>.row>.seller-main>.seller-showCurrentBox>.seller-showCurrentBox-inner>h1{
     line-height: 80px;
+    color: #4cc069;
+
 }
 
 

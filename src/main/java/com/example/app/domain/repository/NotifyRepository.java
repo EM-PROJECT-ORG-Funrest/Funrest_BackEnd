@@ -8,12 +8,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface NotifyRepository extends JpaRepository<Notify, Integer> {
+    Long countByUserId(User user);
 
     // 알림 신청 중복 확인
     @Query("SELECT n FROM Notify n WHERE n.proCode = :project AND n.userId = :user")
     Optional<Notify> findByProCodeAndUserId(@Param("project") Project project, @Param("user") User user);
+
+    // 사용자 Id로 신청한 알림 조회
+    List<Notify> findAllByUserId(User user);
 }

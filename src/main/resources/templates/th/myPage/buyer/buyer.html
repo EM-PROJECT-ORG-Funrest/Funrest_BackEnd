@@ -42,8 +42,8 @@
                 <div class="img-box">
                     <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="기본프로필">
                 </div>
-                <h5 class="text-center">Buyer</h5>
-                <p class="text-center">이름</p>
+                <h5 class="text-center" th:text="${userName}"></h5>
+                <p class="text-center" th:text="${userId}"></p>
                 <!-- <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
                     <p class="ms-3 mb-0">Seller</p>
                     <span class="material-symbols-outlined">
@@ -56,7 +56,7 @@
                     <div class="payment-history m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p class="buyer-top-p">결제 내역</p>
                         <hr class="m-0">
-                        <a href="javascript:void(0)"><h1>3</h1></a>
+                        <a href="javascript:void(0)"><h1 th:text="${OrderCnt}"></h1></a>
                     </div>
                     <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p class="buyer-top-p">알림 신청</p>
@@ -66,149 +66,33 @@
                         <!-- Modal -->
                         <div class="modal fade my-custom-container" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">알림 신청한 프로젝트</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">알림 신청한 프로젝트</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body row p-auto">
+                                        <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
+                                            <div class="card-img-box">
+                                                <a href="javascript:void(0)">
+                                                    <img th:src="@{/images/myPage/seller/img1.jpg}" class="card-img-top" alt="...">
+                                                </a>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title text-start">n명이 기다려요 아니면 달성률 표시</h5>
+                                                <p class="card-text text-start text-truncate">프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목</p>
+                                                <a href="#" class="btn btn-outline-success card-btn">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="material-symbols-outlined">
+                                                            notifications_off
+                                                        </span>&nbsp;
+                                                        알림 취소하기
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="modal-body row p-auto">
-                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
-                                        <div class="card-img-box">
-                                            <a href="javascript:void(0)">
-                                                <img th:src="@{/images/myPage/seller/img1.jpg}" class="card-img-top" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-start">n명이 기다려요 아니면 달성률 표시</h5>
-                                            <p class="card-text text-start text-truncate">프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목</p>
-                                            <a href="#" class="btn btn-outline-success card-btn">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="material-symbols-outlined">
-                                                        notifications_off
-                                                    </span>&nbsp;
-                                                    알림 취소하기
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- =========================나중에 삭제============================= -->
-                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
-                                        <div class="card-img-box">
-                                            <img th:src="@{/images/main/project/project1.jpg}" class="card-img-top" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-start">100명이 기다려요</h5>
-                                            <p class="card-text text-start">프로젝트 제목</p>
-                                            <a href="#" class="btn btn-outline-success modal-btn">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="material-symbols-outlined">
-                                                        notifications
-                                                    </span>&nbsp;
-                                                    알림 신청 완료
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
-                                        <div class="card-img-box">
-                                            <img th:src="@{/images/main/banner/banner1.jpg}" class="card-img-top" alt="...">
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-start">달성률 2,000%</h5>
-                                            <p class="card-text text-start">프로젝트 제목</p>
-                                            <a href="#" class="btn btn-outline-success modal-btn">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="material-symbols-outlined">
-                                                        notifications
-                                                    </span>&nbsp;
-                                                    알림 신청 완료
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
-                                        <div class="card-img-box">
-                                            <a href="javascript:void(0)">
-                                                <img th:src="@{/images/main/banner/banner2.jpg}" class="card-img-top" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-start">100명이 기다려요</h5>
-                                            <p class="card-text text-start text-truncate">프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목</p>
-                                            <a href="#" class="btn btn-outline-success card-btn">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="material-symbols-outlined">
-                                                        notifications_off
-                                                    </span>&nbsp;
-                                                    알림 취소하기
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
-                                        <div class="card-img-box">
-                                            <a href="javascript:void(0)">
-                                                <img th:src="@{/images/main/project/project2.jpg}" class="card-img-top" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-start">7,878명이 기다려요</h5>
-                                            <p class="card-text text-start text-truncate">프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목</p>
-                                            <a href="#" class="btn btn-outline-success card-btn">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="material-symbols-outlined">
-                                                        notifications_off
-                                                    </span>&nbsp;
-                                                    알림 취소하기
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
-                                        <div class="card-img-box">
-                                            <a href="javascript:void(0)">
-                                                <img th:src="@{/images/main/project/project6.jpg}" class="card-img-top" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-start">1,187명이 기다려요</h5>
-                                            <p class="card-text text-start text-truncate">프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목</p>
-                                            <a href="#" class="btn btn-outline-success card-btn">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="material-symbols-outlined">
-                                                        notifications_off
-                                                    </span>&nbsp;
-                                                    알림 취소하기
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="card col-md-6 p-0 m-auto m-lg-1 my-2 overflow-hidden" style="width: 24.1rem;">
-                                        <div class="card-img-box">
-                                            <a href="javascript:void(0)">
-                                                <img th:src="@{/images/myPage/seller/img3.jpg}" class="card-img-top" alt="...">
-                                            </a>
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title text-start">n명이 기다려요</h5>
-                                            <p class="card-text text-start text-truncate">프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목프로젝트제목</p>
-                                            <a href="#" class="btn btn-outline-success card-btn">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="material-symbols-outlined">
-                                                        notifications_off
-                                                    </span>&nbsp;
-                                                    알림 취소하기
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- ========================여기까지 삭제============================-->
-                                </div>
-                                <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                    <button type="button" class="btn btn-success">확인</button>
-                                </div> -->
-                            </div>
                             </div>
                         </div>
                     </div>

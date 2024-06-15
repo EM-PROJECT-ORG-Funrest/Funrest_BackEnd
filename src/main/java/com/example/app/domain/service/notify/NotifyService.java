@@ -51,7 +51,7 @@ public class NotifyService {
         // notifyDate setting 위해 proStartDate 조회
         String strDate = projectRepository.findProStartDateByProCode(proCode).orElseThrow(() ->
                 new NullPointerException("Start date not found for project code: " + proCode));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse(strDate);
 
         NotifyDto notifyDto = new NotifyDto();
