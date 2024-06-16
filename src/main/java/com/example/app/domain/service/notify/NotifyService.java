@@ -35,7 +35,7 @@ public class NotifyService {
     private UserRepository userRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean registerNotification(int proCode) throws ParseException {
+    public boolean createNotification(int proCode) throws ParseException {
         log.info("NotifyService's registerNotification() proCode : " + proCode);
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -77,6 +77,38 @@ public class NotifyService {
 
         Project project = em.find(Project.class, proCode);
         project.setProNotifyCnt(project.getProNotifyCnt() + 1);
+
+        return true;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteNotification(int proCode, String userId) {
+        log.info("deleteNotification proCode : " + proCode + ", userId : " + userId);
+
+        Project project = projectRepository.findByProCode(proCode);
+        if(project == null) {
+            throw new RuntimeException();
+        }
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException());
+        Optional<Notify> notify = notifyRepository.findByProCodeAndUserId(project, user);
+        int notifyCode = notify.get().getNotifyCode();
+
+        Integer isDelete = notifyRepository.deleteByNotifyCode(notifyCode);
+        if(isDelete == 0 || isDelete == null) {
+            return false;
+        }
+
+        updateProNotifyCntForCancel(proCode);
+        return true;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateProNotifyCntForCancel(int proCode) {
+        // 알림 신청 취소시 해당 프로젝트 --proNotifyCnt
+        log.info("NotifyService's updateProNotifyCntForCancel() proCode : " + proCode);
+
+        Project project = em.find(Project.class, proCode);
+        project.setProNotifyCnt(project.getProNotifyCnt() - 1);
 
         return true;
     }

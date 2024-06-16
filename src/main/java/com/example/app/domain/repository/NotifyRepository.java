@@ -15,11 +15,12 @@ import java.util.Optional;
 public interface NotifyRepository extends JpaRepository<Notify, Integer> {
     Long countByUserId(User user);
 
-    // 알림 신청 중복 확인
+    // 신청한 알림 조회
     @Query("SELECT n FROM Notify n WHERE n.proCode = :project AND n.userId = :user")
     Optional<Notify> findByProCodeAndUserId(@Param("project") Project project, @Param("user") User user);
 
     // 사용자 Id로 신청한 알림 조회
-    // tbl_notify에 프로젝트 이름도 넣을까 고민중 -> 메인화면에 띄울때 용이
     List<Notify> findAllByUserId(User user);
+
+    Integer deleteByNotifyCode(int notifyCode);
 }
