@@ -6,9 +6,7 @@ import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.service.main.MainServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +33,6 @@ public class MainRestController {
                                         @RequestParam(name = "size", defaultValue = "12") int size) {
         // 프로젝트를 페이지별로 검색하여 반환
         Page<ProjectDto> projectDtoPage = mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
-
         // 각 ProjectDto에 이미지 URL을 설정
         projectDtoPage.forEach(projectDto -> {
             if (!projectDto.getStoredFileName().isEmpty()) {
@@ -56,14 +53,19 @@ public class MainRestController {
         Page<ProjectDto> projectDtoPage = null;
         // 카테고리 들어오는 값 별로 나누기
         if (proCategory.equals("all")){
-            projectDtoPage =  mainService.findAllByOrderByProCode(PageRequest.of(page, size));
+            Pageable pageable = PageRequest.of(page, size, Sort.by("proCode").descending());
+            // 프로젝트를 페이지별로 검색하여 반환
+            projectDtoPage = mainService.getAllProjectsOrderedByProCode(pageable);
+            System.out.println("all getAllProjectsOrderedByProCode" + projectDtoPage.getContent());
+            // 각 ProjectDto에 이미지 URL을 설정
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
                 } else {
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }
             });
+
             return projectDtoPage;
         }else if (proCategory.equals("movie")){
             projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));

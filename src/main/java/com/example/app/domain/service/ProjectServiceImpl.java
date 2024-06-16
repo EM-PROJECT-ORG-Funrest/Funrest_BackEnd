@@ -84,7 +84,7 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
-                String subSavePath = "C:/springboot_img/" + subStoredFileName;
+                String subSavePath = "C:/springboot _img/" + subStoredFileName;
                 // 3-4. 해당 경로에 파일 저장
                  proSubImgFile.transferTo(new File(subSavePath));
                 // 3-5. tbl_project_subFile 에 해당 데이터 저장 처리
