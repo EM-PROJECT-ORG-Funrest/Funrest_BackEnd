@@ -44,25 +44,26 @@ header_btn.onclick = () => {
 window.scrollTo({ top: 0, behavior: "smooth" });  
 }
 
-
 // 알림 신청 버튼 클릭시
-function applyNotification(proCode) {
-    axios.post("/th/notify/applyNotification", {proCode})
-    .then(resp => {
-        console.log(proCode + " 알림 신청 완료");
-        // proNotifyCnt 조회 async/await 처리 로직 추가하기
-        return true;
-    }).catch(error => {
-        console.log("알림 신청 에러");
+const notifyCnt = document.getElementById("notifyCnt");
+async function applyNotification(proCode) {
+    try {
+        const resp = await axios.post("/th/notify/applyNotification", {proCode});
+        const resp2 = await axios.get("/th/notify/count/" + proCode);
+        if(resp2.data) {
+            notifyCnt.innerText = resp2.data.cnt;
+        }
+    } catch(error) {
+        console.log(error);
         if(error.response.status === 400) {
             window.alert("이미 알림 신청한 프로젝트입니다.");
             return false;
-        } else if (error.response.status === 404 ) {
+        } else if(error.response.status === 404) {
             window.alert("찾을 수 없는 프로젝트 또는 유저입니다. 관리자에게 문의해 주세요.");
             return false;
-        } else if(error.response.status === 502){
+        } else if(error.response.status === 502) {
             window.alert("서버 에러! 관리자에게 문의해 주세요.");
             return false;
         }
-    });
+    };
 }

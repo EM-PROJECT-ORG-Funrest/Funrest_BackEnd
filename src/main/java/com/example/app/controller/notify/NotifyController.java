@@ -10,11 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -46,6 +46,17 @@ public class NotifyController {
         } catch (Exception e) {
             return new ResponseEntity("Internal Server Error", HttpStatus.BAD_GATEWAY);
         }
+    }
+
+    @GetMapping("/count/{proCode}")
+    @ResponseBody
+    public Map<String, Object> notifyCount(@PathVariable("proCode") int proCode) {
+        log.info("notifyCount() execute.." + proCode);
+        int cnt = notifyService.selectProNotifyCnt(proCode);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("cnt", cnt);
+        return response;
     }
 
     // 알림 취소

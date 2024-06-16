@@ -137,7 +137,7 @@
                 <div class="pro-sub-btns d-flex">
                     <div id="pro-sub-notify" class="pro-sub-notify" role="button" th:onclick="applyNotification([[${Project.proCode}]])">
                         <div class="material-symbols-outlined">favorite</div>
-                        <div th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
+                        <div id="notifyCnt" th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
                     </div>
                     <div class="pro-sub-fundding" role="button">
                         <button>펀딩하기</button>

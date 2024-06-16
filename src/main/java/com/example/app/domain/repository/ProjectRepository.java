@@ -48,4 +48,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     List<Project> findByUserId(User user);
 
     Long countByUserId(User user);
+
+    @Query("SELECT p.proNotifyCnt FROM Project p WHERE p.proCode = :proCode")
+    int findProNotifyCntByProCode(@Param("proCode") int proCode);
 }

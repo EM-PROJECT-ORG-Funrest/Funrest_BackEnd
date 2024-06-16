@@ -112,4 +112,9 @@ public class NotifyService {
 
         return true;
     }
+
+    public int selectProNotifyCnt(int proCode){
+        log.info("selectProNotifyCnt() proCode : " + proCode);
+        return projectRepository.findProNotifyCntByProCode(proCode);
+    }
 }

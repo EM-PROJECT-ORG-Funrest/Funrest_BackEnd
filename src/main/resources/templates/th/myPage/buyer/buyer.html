@@ -155,8 +155,7 @@
     async function cancelNotify(proCode) {
         try{
             const resp = await axios.post("/th/notify/cancelNotification", {proCode});
-            console.log(resp);
-
+            const resp2 = await axios.get("/th/myPage/buyer/buyer");
             showNotify();
         } catch(error) {
             console.log(error);
