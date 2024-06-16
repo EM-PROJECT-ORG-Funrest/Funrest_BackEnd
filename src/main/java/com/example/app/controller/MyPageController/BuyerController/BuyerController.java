@@ -1,5 +1,7 @@
 package com.example.app.controller.MyPageController.BuyerController;
 
+import com.example.app.domain.dto.NotifyDto;
+import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
 import com.example.app.domain.service.ProjectServiceImpl;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,10 +27,9 @@ import java.util.Optional;
 @RequestMapping("/th/myPage/buyer")
 public class BuyerController {
 
+    private final String UPLOAD_PATH = "http://localhost:8080/upload/";
     @Autowired
     BuyerServiceImpl buyerService;
-    @Autowired
-    private UserRepository userRepository;
 
     @GetMapping("/buyer")
     public String seller(Model model) {
@@ -52,17 +55,26 @@ public class BuyerController {
     }
 
     @GetMapping("/notify")
-    public void showNotify() {
+    public String showNotify(Model model) {
         log.info("get /th/myPage/buyer/notify showNotify()");
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         try {
-            buyerService.getAllNotifyByUserId(userId);
+            List<NotifyDto> notifyDtos = buyerService.getAllNotifyByUserId(userId);
+            List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
+
+            for(ProjectDto projectDto : projectDtos) {
+                projectDto.setMainPageImgPath(UPLOAD_PATH+projectDto.getStoredFileName().getFirst());
+            }
+
+            log.info("projectDtos result : " + projectDtos);
+
+            model.addAttribute("projectDtos", projectDtos);
+            return "th/myPage/buyer/buyer :: projectCardsFragment";
         } catch(RuntimeException e) {
-            //ResponseEntity("Can not found User", HttpStatus.BAD_REQUEST);
+            //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
+            return null;
         }
-
-
     }
 }

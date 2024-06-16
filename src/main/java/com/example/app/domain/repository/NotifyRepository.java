@@ -20,5 +20,6 @@ public interface NotifyRepository extends JpaRepository<Notify, Integer> {
     Optional<Notify> findByProCodeAndUserId(@Param("project") Project project, @Param("user") User user);
 
     // 사용자 Id로 신청한 알림 조회
+    // tbl_notify에 프로젝트 이름도 넣을까 고민중 -> 메인화면에 띄울때 용이
     List<Notify> findAllByUserId(User user);
 }
