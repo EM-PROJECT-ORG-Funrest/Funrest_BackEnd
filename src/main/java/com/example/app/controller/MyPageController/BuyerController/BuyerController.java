@@ -1,5 +1,7 @@
 package com.example.app.controller.MyPageController.BuyerController;
 
+import com.example.app.domain.dto.NotifyDto;
+import com.example.app.domain.dto.ProjectDto;
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.domain.dto.UserDto;
@@ -13,12 +15,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Optional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +44,7 @@ import java.util.Map;
 @RequestMapping("/th/myPage/buyer")
 public class BuyerController {
 
+    private final String UPLOAD_PATH = "http://localhost:8080/upload/";
     @Autowired
     BuyerServiceImpl buyerService;
 
@@ -252,4 +263,28 @@ public class BuyerController {
         public AUthInfoResponse response;
     }
 
+
+    @GetMapping("/notify")
+    public String showNotify(Model model) {
+        log.info("get /th/myPage/buyer/notify showNotify()");
+
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        try {
+            List<NotifyDto> notifyDtos = buyerService.getAllNotifyByUserId(userId);
+            List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
+
+            for(ProjectDto projectDto : projectDtos) {
+                projectDto.setMainPageImgPath(UPLOAD_PATH+projectDto.getStoredFileName().getFirst());
+            }
+
+            log.info("projectDtos result : " + projectDtos);
+
+            model.addAttribute("projectDtos", projectDtos);
+            return "th/myPage/buyer/buyer :: projectCardsFragment";
+        } catch(RuntimeException e) {
+            //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
+            return null;
+        }
+    }
 }

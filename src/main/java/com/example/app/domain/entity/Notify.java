@@ -1,5 +1,7 @@
 package com.example.app.domain.entity;
 
+import com.example.app.domain.dto.NotifyDto;
+import com.example.app.domain.dto.UserDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -29,4 +31,12 @@ public class Notify {
     private User userId;
     @Column(name = "notifyDate", nullable = false)
     private Date notifyDate;
+
+    public static Notify NotifyDtoToEntity(NotifyDto notifyDto) {
+        return Notify.builder()
+                .notifyDate(notifyDto.getNotifyDate())
+                .proCode(new Project(notifyDto.getProCode()))
+                .userId(new User(notifyDto.getUserId()))
+                .build();
+    }
 }

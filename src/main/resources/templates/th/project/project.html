@@ -122,8 +122,8 @@
                     <div class="pro-category">
                         <a href="javascript:void(0)" th:text="${Project.proCategory}"></a>
                     </div>
-                    <div class="pro-shared material-symbols-outlined"><a href="javascript:void(0)"
-                                                                         class="material-symbols-outlined">share</a>
+                    <div class="pro-shared material-symbols-outlined">
+                        <a href="javascript:void(0)" class="material-symbols-outlined">share</a>
                     </div>
                 </div>
                 <hr>
@@ -135,9 +135,9 @@
                 </div>
                 <hr>
                 <div class="pro-sub-btns d-flex">
-                    <div class="pro-sub-notify" role="button">
+                    <div id="pro-sub-notify" class="pro-sub-notify" role="button" th:onclick="applyNotification([[${Project.proCode}]])">
                         <div class="material-symbols-outlined">favorite</div>
-                        <div class="pro-sub-notify-peoples">1,235</div>
+                        <div id="notifyCnt" th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
                     </div>
                     <div class="pro-sub-fundding" role="button">
                         <button>펀딩하기</button>

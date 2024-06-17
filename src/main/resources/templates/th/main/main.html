@@ -163,11 +163,13 @@
  const scrollAnchor = document.getElementById('scroll-anchor');
  let currentCategory = null; // 현재 선택된 카테고리
  let currentKeyword = null; // 현재 검색된 키워드
+ let isLastPage = 0;
 
  // 프로젝트 데이터를 서버에서 가져오는 함수
  async function loadProjects(category = null, keyword = null) {
      try {
-         page++; // 페이지 번호 증가
+         console.log(isLastPage);
+         //page++; // 페이지 번호 증가
          const url = category
              ? `/th/main/main/category?proCategory=${category}&page=${page}&size=${size}`
              : keyword
@@ -175,6 +177,7 @@
                  : `/th/main/main/projects?page=${page}&size=${size}`;
          const response = await axios.get(url);
          const projects = response.data.content;
+         isLastPage = (projects.length < 12) ? 1 : 0;
          projects.forEach(project => {
              const projectElement = document.createElement('div');
              projectElement.className = 'col p-2';
@@ -201,7 +204,10 @@
      entries.forEach(entry => {
          if (entry.isIntersecting) {
              console.log("true");
-             loadProjects(currentCategory, currentKeyword);
+             if(isLastPage !== 1) {
+               page++;
+               loadProjects(currentCategory, currentKeyword);
+             }
          }
      });
  }
@@ -234,7 +240,7 @@
      });
 
      // 페이지 로드 시 초기 데이터 로드
-     loadProjects();
+     //loadProjects();
  });
 
  // 키워드 검색 버튼 클릭 시
