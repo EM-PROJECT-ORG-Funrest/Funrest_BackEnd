@@ -50,13 +50,15 @@ public class MainRestController {
                                                   @RequestParam(name = "page", defaultValue = "0") int page,
                                                   @RequestParam(name = "size", defaultValue = "12") int size,
                                                   Model model) {
+        log.info("getProjectByCategory : " + proCategory + ", page : " + page + ", size : " + size);
         Page<ProjectDto> projectDtoPage = null;
         // 카테고리 들어오는 값 별로 나누기
         if (proCategory.equals("all")){
-            Pageable pageable = PageRequest.of(page, size, Sort.by("proCode").descending());
+            //Pageable pageable = PageRequest.of(page, size, Sort.by("proCode").descending());
             // 프로젝트를 페이지별로 검색하여 반환
-            projectDtoPage = mainService.getAllProjectsOrderedByProCode(pageable);
-            System.out.println("all getAllProjectsOrderedByProCode" + projectDtoPage.getContent());
+            //projectDtoPage = mainService.getAllProjectsOrderedByProCode(pageable);
+            projectDtoPage = mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
+            System.out.println("all : " + projectDtoPage.getContent());
             // 각 ProjectDto에 이미지 URL을 설정
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
@@ -69,6 +71,7 @@ public class MainRestController {
             return projectDtoPage;
         }else if (proCategory.equals("movie")){
             projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
+            System.out.println("movie : " + projectDtoPage.getContent());
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
