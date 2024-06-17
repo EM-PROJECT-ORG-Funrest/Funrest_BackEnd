@@ -27,5 +27,15 @@ public class UserService {
                        .collect(Collectors.toList());
     }
 
+    // 관리자 회원관리 페이지에서 체크된 유저 삭제
+    public void deleteUsersByIds(List<String> ids) {
+        System.out.println("ids = " + ids);
+        for (String id : ids) {
+            userRepository.deleteById(id);
+        }
+    }
+
+
+
 
 }

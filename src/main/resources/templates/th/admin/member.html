@@ -78,20 +78,19 @@
                         </thead>
                         <tbody>
                         <tr th:each="user: ${users}">
+                            <!-- 추후 thymeleaf 로 번호 증가하는 코드로 변경예정-->
                             <td class="row-number"></td>
-                            <td th:text="${user.userId}">hong12@naver.com</td>
+                            <td th:text="${user.userId}"></td>
                             <td th:text="${user.userName}"></td>
                             <td th:text="${user.phone}"></td>
-                            <td>
-                                <input class="form-check-input" type="checkbox" value="" aria-label="...">
-                            </td>
+                            <td><input class="form-check-input" type="checkbox" name="members" th:value="${user.userId}" aria-label="..."></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="container" style="border: 1px solid transparent">
                     <div class="delete-button text-end">
-                        <button type="button" class="btn btn-secondary ">삭제</button>
+                        <button type="button" class="btn btn-secondary " id="deleteButton">삭제</button>
                     </div>
                 </div>
             </div>
