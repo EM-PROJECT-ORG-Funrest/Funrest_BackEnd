@@ -17,9 +17,9 @@
 .container>.row>.adminPage-left>.side-menu{
     margin-top: 100px;
 }
-.container>.row>.adminPage-left>.side-menu>.btn{
+.side-menu a{
     padding-left: 0;
+    margin-bottom: 10px;
 }
-.container>.row>.adminPage-left>.side-menu>.btn>p{
-    margin-bottom: 5px;
+.container>.row>.adminPage-left>.side-menu>a>p{
 }

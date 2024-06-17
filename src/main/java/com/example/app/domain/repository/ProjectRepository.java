@@ -2,6 +2,7 @@ package com.example.app.domain.repository;
 
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.Project;
+import com.example.app.domain.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,6 @@ import java.util.Optional;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {    // <T:엔터티 클래스 타입. ID: 엔터티 클래스의 ID 타입>
-
 
     Project findByProCode(int proCode);
 

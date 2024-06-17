@@ -61,6 +61,7 @@
         public String getProjects(Model model) {
     
             List<ProjectDto> projectDtos = mainServiceImpl.getAllProjectsOrderedByProCode();
+            System.out.println("projectDtos : " + projectDtos);
             for (int i = 0; i < projectDtos.size() ; i++) {
                  projectDtos.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtos.get(i).getStoredFileName().getFirst());
             }

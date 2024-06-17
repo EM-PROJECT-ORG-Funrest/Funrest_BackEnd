@@ -34,7 +34,6 @@
 <div th:replace="~{/fragments/header.html::adminHeader }"></div>
 <body>
 <div class="container my-custom-container">
-    <!-- Content here -->
     <div class="row">
         <div class="adminPage-left col-md-3">
             <div class="img-box mt-4">
@@ -43,21 +42,20 @@
             <p class="text-center">관리자 계정</p>
             <div class="side-menu">
                 <p>사이트 관리</p>
-                <button class="btn d-flex">
+                <a class="d-flex" th:href="@{/th/admin/dashboard}">
                     <p class="material-symbols-outlined">dashboard</p>
                     <p class="me-auto">&nbsp;&nbsp;&nbsp;대시보드</p>
-                </button>
-                <button class="btn d-flex">
+                </a>
+                <a class="d-flex" th:href="@{/th/admin/member}">
                     <p class="material-symbols-outlined">group</p>
                     <p class="me-auto">&nbsp;&nbsp;&nbsp;회원 관리</p>
-                </button>
-                <button class="btn d-flex">
+                </a>
+                <a class="d-flex" th:href="@{/th/admin/project}">
                     <p class="material-symbols-outlined">home_storage</p>
                     <p class="me-auto">&nbsp;&nbsp;&nbsp;프로젝트 관리</p>
-                </button>
+                </a>
             </div>
         </div>
-
         <div class="adminPage-right col-md-9">
             <div class="admin-visitor">
                 <div class="subject">방문자 현황</div>
