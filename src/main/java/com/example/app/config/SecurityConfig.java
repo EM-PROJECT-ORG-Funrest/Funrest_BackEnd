@@ -47,6 +47,7 @@ public class SecurityConfig {
                     .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
                     .requestMatchers("/th/myPage/**").hasRole("USER")
                     .requestMatchers("/th/payment/**").hasRole("USER")
+//                    .requestMatchers("/th/payment/payment").authenticated()
                     .anyRequest().authenticated()
             )
             .sessionManagement(

@@ -41,7 +41,6 @@ public class Order {
     //추가
     @Column(nullable = false)
     private String orderName;
-    @Column(nullable = false)
     private String orderAddr;
     @Column(nullable = false)
     private String orderPhone;

@@ -15,7 +15,7 @@
     <script src="/js/payment/payment.js" ></script>
     <script src="/js/payment/payment2.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
 </head>
 
 <div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-        <form id="payment-form" onsubmit="paymentValidChk(event)">
+        <form id="payment-form" onsubmit="paymentValidChk(event)" method="post" th:action="@{/th/payment/payment}">
             <div class="row payment-info-box m-2 mb-5">
                 <h4 class="p-4">결제 정보</h4>
                 <div class="col payment-info shadow-sm p-4 bg-body rounded">
