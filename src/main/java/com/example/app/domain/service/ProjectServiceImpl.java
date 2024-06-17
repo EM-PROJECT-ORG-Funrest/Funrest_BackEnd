@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -50,6 +51,7 @@ public class ProjectServiceImpl {
         {
             Project project = Project.toSaveEntity(projectDto);
             System.out.println("project : " + project);
+            project.setProDate(new Date());
             projectRepository.save(project);
         }
         // 'ProMainImg 첨부o' and 'ProSubImg 첨부o' 경우
@@ -84,7 +86,7 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
-                String subSavePath = "C:/springboot _img/" + subStoredFileName;
+                String subSavePath = "C:/springboot_img/" + subStoredFileName;
                 // 3-4. 해당 경로에 파일 저장
                  proSubImgFile.transferTo(new File(subSavePath));
                 // 3-5. tbl_project_subFile 에 해당 데이터 저장 처리

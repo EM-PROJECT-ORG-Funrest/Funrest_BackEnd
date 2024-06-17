@@ -192,6 +192,14 @@ public class BuyerController {
         log.info("signOut INVOKE....");
     }
 
+    @GetMapping("/deleteSign")
+    public String deleteSign(){
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        log.info("deleteSign invoked....");
+        buyerService.deleteByUserId(userId);
+        return "redirect:/th/main/main";
+    }
+
 
     @Data
     private static class TokenResponse{
