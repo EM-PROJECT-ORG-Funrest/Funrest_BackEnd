@@ -32,7 +32,7 @@
         <div class="row">
             <div class="mypage-left col-md-2 px-3">
                 <div class="float-center py-3 mt-3">
-                    <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center px-3 py-1">
+                    <a href="/th/myPage/seller/seller" class="d-flex justify-content-center align-items-center px-3 py-1">
                         <span class="text-end me-1">Seller</span>
                         <span class="material-symbols-outlined">
                             sync
@@ -42,8 +42,8 @@
                 <div class="img-box">
                     <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="기본프로필">
                 </div>
-                <h5 class="text-center">Buyer</h5>
-                <p class="text-center">이름</p>
+                <h5 class="text-center" th:text="${userName}"></h5>
+                <p class="text-center" th:text="${userId}"></p>
                 <!-- <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
                     <p class="ms-3 mb-0">Seller</p>
                     <span class="material-symbols-outlined">
@@ -56,12 +56,12 @@
                     <div class="payment-history m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p class="buyer-top-p">결제 내역</p>
                         <hr class="m-0">
-                        <a href="javascript:void(0)"><h1>3</h1></a>
+                        <a href="javascript:void(0)"><h1 th:text="${OrderCnt}"></h1></a>
                     </div>
                     <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p class="buyer-top-p">알림 신청</p>
                         <hr class="m-0">
-                        <a data-bs-toggle="modal" href="#notifyModal"><h1>3</h1></a>
+                        <a data-bs-toggle="modal" href="#notifyModal"><h1 th:text="${NotifyCnt}"></h1></a>
 
                         <!-- Modal -->
                         <div class="modal fade my-custom-container" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -221,19 +221,19 @@
                     </div>
                 </div>
                 <div class="buyer-bottom row justify-content-center mt-4 p-4">
-                    <button onclick="location.href='#'" class="btn btn-outline-success m-2 text-start d-flex">
+                    <button onclick="location.href='/th/myPage/buyer/editProfile'" class="btn btn-outline-success m-2 text-start d-flex" th:if="${!isSnsUser}">
                         <p class="me-auto">기본정보 변경</p>
                         <p class="material-symbols-outlined">
                             chevron_right
                         </p>
                     </button>
-                    <button onclick="location.href='#'" class="btn btn-outline-success m-2 text-start d-flex">
+                    <button onclick="location.href='/th/myPage/buyer/editPassword'" class="btn btn-outline-success m-2 text-start d-flex" th:if="${!isSnsUser}">
                         <p class="me-auto">비밀번호 변경</p>
                         <p class="material-symbols-outlined">
                             chevron_right
                         </p>
                     </button>
-                    <button onclick="location.href='#'" class="btn btn-outline-success m-2 text-start d-flex">
+                    <button onclick="location.href='/th/myPage/buyer/signOut'" class="btn btn-outline-success m-2 text-start d-flex">
                         <p class="me-auto">회원 탈퇴</p>
                         <p class="material-symbols-outlined">
                             chevron_right

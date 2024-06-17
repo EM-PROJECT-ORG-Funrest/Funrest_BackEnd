@@ -1,4 +1,4 @@
-package com.example.app.controller;
+package com.example.app.controller.ProjectController;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
@@ -32,8 +32,9 @@ public class ProjectDetailController {
     // 프로젝트 상세페이지에 데이터 전송 API
     @GetMapping("/project/{proCode}")
     String project(@PathVariable("proCode") String proCode, Model model) {
-        System.out.println(proCode); // 해당 프로젝트 proCode 확인
+
         Integer projectCode = Integer.parseInt(proCode); // proCode 'int' 형 변환
+
         Project project = projectRepository.findByProCode(projectCode); // 해당 proCode 의 project 엔터티 행 찾기 및 저장
         ProjectDto projectDto = ProjectDto.toProjectDto(project); // Entity -> Dto
 
@@ -51,6 +52,7 @@ public class ProjectDetailController {
         for (int i = 0; i < subStoredFileName.size(); i++) {
             model.addAttribute("subImage" + (i + 1), UPLOAD_PATH + subStoredFileName.get(i));
         }
+
         return "th/project/project.html";
     }
 }

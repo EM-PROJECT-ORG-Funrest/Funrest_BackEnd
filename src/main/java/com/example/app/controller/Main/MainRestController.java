@@ -4,10 +4,9 @@ package com.example.app.controller.Main;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.service.main.MainServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/th/main/main")
+@Slf4j
 public class MainRestController {
 
     private final MainServiceImpl mainService;
@@ -27,14 +27,12 @@ public class MainRestController {
         this.mainService = mainService;
     }
 
-    //무한 스크롤 mapping
+
     @GetMapping("/projects")
     public Page<ProjectDto> getProjects(@RequestParam(name = "page", defaultValue = "0") int page,
-                                        @RequestParam(name = "size", defaultValue = "12") int size,
-                                        Model model) {
+                                        @RequestParam(name = "size", defaultValue = "12") int size) {
         // 프로젝트를 페이지별로 검색하여 반환
-        Page<ProjectDto> projectDtoPage =  mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
-
+        Page<ProjectDto> projectDtoPage = mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
         // 각 ProjectDto에 이미지 URL을 설정
         projectDtoPage.forEach(projectDto -> {
             if (!projectDto.getStoredFileName().isEmpty()) {
@@ -45,9 +43,7 @@ public class MainRestController {
         });
 
         return projectDtoPage;
-
     }
-
 
     @GetMapping("/category")
     public Page<ProjectDto> getProjectsByCategory(@RequestParam(value = "proCategory", defaultValue = "all") String proCategory,
@@ -56,30 +52,52 @@ public class MainRestController {
                                                   Model model) {
         Page<ProjectDto> projectDtoPage = null;
         // 카테고리 들어오는 값 별로 나누기
-        if (proCategory.equals("all")) {
-            List<ProjectDto> projectDtoList =  mainService.getAllProject();
-
-            // 이미지 넣어주기
-            for (int i = 0; i < projectDtoList.size() ; i++) {
-                projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtoList.get(i).getStoredFileName().getFirst());
-            }
-
-
-            // List를 Page로 변환 ProjectRepository에서 Page<projectDto> findAll(); 하니까 List형태랑 겹친다 해서 그냥 List로 받고 변환 해줌
-            projectDtoPage = mainService.ListToPage(page, size, projectDtoList);
+        if (proCategory.equals("all")){
+            Pageable pageable = PageRequest.of(page, size, Sort.by("proCode").descending());
+            // 프로젝트를 페이지별로 검색하여 반환
+            projectDtoPage = mainService.getAllProjectsOrderedByProCode(pageable);
+            System.out.println("all getAllProjectsOrderedByProCode" + projectDtoPage.getContent());
+            // 각 ProjectDto에 이미지 URL을 설정
+            projectDtoPage.forEach(projectDto -> {
+                if (!projectDto.getStoredFileName().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+                } else {
+                    projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+                }
+            });
 
             return projectDtoPage;
-
-        } else if (proCategory.equals("movie")){
+        }else if (proCategory.equals("movie")){
             projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
+            projectDtoPage.forEach(projectDto -> {
+                if (!projectDto.getStoredFileName().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                } else {
+                    projectDto.setMainPageImgPath("");
+                }
+            });
             return projectDtoPage;
 
         }else if (proCategory.equals("musical")){
             projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
+            projectDtoPage.forEach(projectDto -> {
+                if (!projectDto.getStoredFileName().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                } else {
+                    projectDto.setMainPageImgPath("");
+                }
+            });
             return projectDtoPage;
 
         }else if (proCategory.equals("book")){
             projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
+            projectDtoPage.forEach(projectDto -> {
+                if (!projectDto.getStoredFileName().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                } else {
+                    projectDto.setMainPageImgPath("");
+                }
+            });
             return projectDtoPage;
 
         }
@@ -90,29 +108,32 @@ public class MainRestController {
 
 
     @GetMapping("/keyword")
-    public Page<ProjectDto> getProjectsByProName(@RequestParam(value = "proName", defaultValue = "") String proName,
-                                                  @RequestParam(name = "page", defaultValue = "0") int page,
-                                                  @RequestParam(name = "size", defaultValue = "12") int size,
-                                                  Model model) {
+    public Page<ProjectDto> getProjectsByProName(@RequestParam(value = "proName", defaultValue = "1234578888") String proName,
+                                                 @RequestParam(name = "page", defaultValue = "0") int page,
+                                                 @RequestParam(name = "size", defaultValue = "12") int size,
+                                                 Model model) {
         Page<ProjectDto> projectDtoPage = null;
 
-        // 각 ProjectDto에 이미지 URL을 설정
-        projectDtoPage.forEach(projectDto -> {
-            if (!projectDto.getStoredFileName().isEmpty()) {
-                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
-            } else {
-                projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
-            }
-        });
-
-
-        if (proName == null && proName.equals("")){
-            List<ProjectDto> projectDtoList =  mainService.getAllProject();
-            projectDtoPage = mainService.ListToPage(page, size, projectDtoList);
+        if (proName.equals("1234578888")) {
+            projectDtoPage =  mainService.findAllByOrderByProCode(PageRequest.of(page, size));
+            log.info("1234578888" + projectDtoPage.getContent().getFirst());
+            projectDtoPage.forEach(projectDto -> {
+                if (!projectDto.getStoredFileName().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                } else {
+                    projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+                }
+            });
             return projectDtoPage;
         }else{
-            System.out.println(proName);
             projectDtoPage = mainService.getProjectByProName(proName, PageRequest.of(page, size));
+            projectDtoPage.forEach(projectDto -> {
+                if (!projectDto.getStoredFileName().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                } else {
+                    projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+                }
+            });
             return projectDtoPage;
         }
     }
