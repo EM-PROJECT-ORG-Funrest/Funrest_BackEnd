@@ -117,4 +117,10 @@ public class NotifyService {
         log.info("selectProNotifyCnt() proCode : " + proCode);
         return projectRepository.findProNotifyCntByProCode(proCode);
     }
+
+    public int selectNotifyCntByUserId(String userId){
+        log.info("selectNotifyCntByUserId : " + userId);
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException());
+        return notifyRepository.findAllByUserId(user).size();
+    }
 }

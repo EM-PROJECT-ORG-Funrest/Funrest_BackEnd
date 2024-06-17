@@ -48,9 +48,10 @@ public class NotifyController {
         }
     }
 
+    // 프로젝트 상세페이지의 알림 신청 개수 카운트
     @GetMapping("/count/{proCode}")
     @ResponseBody
-    public Map<String, Object> notifyCount(@PathVariable("proCode") int proCode) {
+    public Map<String, Object> notifyCountProDetail(@PathVariable("proCode") int proCode) {
         log.info("notifyCount() execute.." + proCode);
         int cnt = notifyService.selectProNotifyCnt(proCode);
 
@@ -72,5 +73,18 @@ public class NotifyController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // 마이페이지의 알림 신청 개수 카운트
+    @GetMapping("/count/user")
+    @ResponseBody
+    public Map<String, Object> notifyCountMyPage() {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        log.info("notifyCount() execute.." + userId);
+        int cnt = notifyService.selectNotifyCntByUserId(userId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("cnt", cnt);
+        return response;
     }
 }

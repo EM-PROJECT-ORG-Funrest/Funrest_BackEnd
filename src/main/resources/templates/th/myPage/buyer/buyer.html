@@ -65,7 +65,7 @@
                     <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p class="buyer-top-p">알림 신청</p>
                         <hr class="m-0">
-                        <a id="notifyModalLink"><h1 th:text="${NotifyCnt}"></h1></a>
+                        <a id="notifyModalLink"><h1 id="myPageNotifyCnt" th:text="${NotifyCnt}"></h1></a>
                         <!-- Modal -->
                         <div class="modal fade my-custom-container" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -152,10 +152,14 @@
         });
     }
 
+    const myPageNotifyCnt = document.getElementById("myPageNotifyCnt");
     async function cancelNotify(proCode) {
         try{
             const resp = await axios.post("/th/notify/cancelNotification", {proCode});
-            const resp2 = await axios.get("/th/myPage/buyer/buyer");
+            const resp2 = await axios.get("/th/notify/count/user");
+            if(resp2.data) {
+                myPageNotifyCnt.innerText = resp2.data.cnt;
+            }
             showNotify();
         } catch(error) {
             console.log(error);
