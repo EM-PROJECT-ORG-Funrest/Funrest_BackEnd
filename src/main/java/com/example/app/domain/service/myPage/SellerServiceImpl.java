@@ -51,19 +51,20 @@ public class SellerServiceImpl {
 
     public void proAchievementRate(List<ProjectDto> projectDtoList) {
         //달성률 구하기
-        int proAchievementRate = 0;
         for (ProjectDto projectDto : projectDtoList) {
             // 문자열을 정수로 변환
-            double proGoalAmount = Integer.parseInt(projectDto.getProGoalAmount().replace(",", ""));
-            double proPrice = Integer.parseInt(projectDto.getProPrice().replace(",", ""));
+            double proGoalAmount = Double.parseDouble(projectDto.getProGoalAmount().replace(",", ""));
+            double proPrice = Double.parseDouble(projectDto.getProPrice().replace(",", ""));
             double proPaidCnt = projectDto.getProPaidCnt();
 
-            // 달성률 계산
-            proAchievementRate = (int)(proPrice * proPaidCnt / proGoalAmount) * 100;
-            // 달성률 dto에 넣기
+            // 달성률 계산 (소수점까지 계산)
+            double proAchievementRate = (proPrice * proPaidCnt / proGoalAmount) * 100.0;
 
-            // projectDtoList 에 넣어주기
-            projectDto.setProAchievementRate(proAchievementRate);
+            // 계산된 달성률을 반올림하여 정수로 변환
+            int roundedAchievementRate = (int) Math.round(proAchievementRate);
+
+            // projectDto에 달성률 설정
+            projectDto.setProAchievementRate(roundedAchievementRate);
         }
     }
 
