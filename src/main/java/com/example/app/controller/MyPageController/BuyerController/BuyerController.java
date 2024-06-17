@@ -1,10 +1,14 @@
 package com.example.app.controller.MyPageController.BuyerController;
 
+import com.example.app.config.auth.jwt.JwtTokenProvider;
+import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
 import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.myPage.BuyerServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +42,9 @@ public class BuyerController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    CustomLogoutHandler customLogoutHandler;
 
 
     @GetMapping("/buyer")
@@ -193,9 +200,10 @@ public class BuyerController {
     }
 
     @GetMapping("/deleteSign")
-    public String deleteSign(){
+    public String deleteSign(HttpServletRequest request, HttpServletResponse response){
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info("deleteSign invoked....");
+        customLogoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         buyerService.deleteByUserId(userId);
         return "redirect:/th/main/main";
     }
