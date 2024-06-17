@@ -139,7 +139,7 @@
                         <div class="material-symbols-outlined">favorite</div>
                         <div id="notifyCnt" th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
                     </div>
-                    <div class="pro-sub-fundding" role="button">
+                    <div class="pro-sub-fundding" role="button" th:onclick="|location.href='@{/th/payment/payment/{proCode}(proCode=${Project.proCode})}'|">
                         <button>펀딩하기</button>
                     </div>
                 </div>

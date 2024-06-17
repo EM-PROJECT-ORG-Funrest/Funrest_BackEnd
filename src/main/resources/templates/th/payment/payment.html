@@ -29,9 +29,10 @@
                 </div>
                 <div class="row order-main p-2">
                     <div class="col-md-8 row py-3">
-                        <img th:src="@{/images/main/project/project1.jpg}" alt="project_img" class="p-1 ms-2 img-fluid col-md-6">
+<!--                        <img th:src="@{/images/main/project/project1.jpg}" alt="project_img" class="p-1 ms-2 img-fluid col-md-6">-->
+                        <img th:src="@{${mainImg}}" alt="project_img" class="p-1 ms-2 img-fluid col-md-6">
                         <div class="col-md-6 d-flex flex-column justify-content-center">
-                            <p class="ps-1 m-1 text-truncate">상품정보(이름)</p>
+                            <p th:text="${Project.proName}" class="ps-1 m-1 text-truncate">상품정보(이름)</p>
                         </div>
                         
                     </div>
@@ -49,93 +50,16 @@
                     <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                         <span class="d-md-block fw-bold pb-2">주문 금액</span>
                         <div class="h-50 d-flex justify-content-center align-items-center">
-                            <span class="">100,000</span>
+                            <span th:text="${Project.proPrice}" class="">100,000</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="row order-product-box m-2 mb-5">
-            <h4 class="p-4">주문 상품</h4>
-            <div class="col order-product">
-                <table class="table p-5">
-                    <tr>
-                        <th>상품 옵션 정보</th>
-                        <th>수량</th>
-                        <th>주문금액</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="../Main/img/project/project1.jpg" alt="project_img" class="p-3 img-fluid">
-                            상품 정보(이름,코드)
-                        </td>
-                        <td>n개</td>
-                        <td><span>10,000원</span></td>
-                    </tr>
-                </table>
-            </div>
-        </div> -->
         <div class="row cost-box m-2 mb-5">
             <h4 class="p-4">결제 금액</h4>
-            <!-- <div class="cost-box2 shadow-sm p-3 mb-5 bg-body rounded">
-                <div class="col cost">
-                    <div>
-                        <p>총 상품 가격</p>
-                        <p>10,000원</p>
-                    </div>
-                    <div>
-                        <p>쿠폰 금액</p>
-                        <p>10,000원</p>
-                    </div>
-                    <div>
-                        <p>배송비</p>
-                        <p>10,000원</p>
-                    </div>
-                    <hr>
-                    <div>
-                        <p>총 결제 금액</p>
-                        <p>10,000원</p>
-                    </div>
-                </div>
-            </div> -->
             <div class="order-product-box2 shadow-sm p-3 mb-5 bg-body rounded"> 
                 <div class="row order-main p-2">
-                    <!-- <div class="row order-title ">
-                        <p class="col-md-6 text-md-center">
-                            총 상품 가격
-                            <br><br>쿠폰 금액
-                            <br><br>배송비
-                        </p>  
-                        <p class="col-md-6 text-md-center">
-                            10,000원
-                            <br><br>10,000원
-                            <br><br>10,000원
-                        </p> 
-                    </div> -->
-                    <!--  -->
-                    <!-- <div class="row order-title col-md-6">
-                        <div class="col-12 text-center">
-                            <p>총 상품 가격</p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <p>쿠폰 금액</p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <p>배송비</p>
-                        </div>  
-                    </div>
-                    <div class="row order-title col-md-6 mx-1">
-                        <div class="col-12 text-center">
-                            <p>10,000원</p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <p>10,000원</p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <p>10,000원</p>
-                        </div>
-                    </div> -->
-                    <!--  -->
                     <div class="col-6 my-3">
                         <div class="row order-title">
                             <div class="col-12 text-center">
@@ -179,25 +103,25 @@
                 <h4 class="p-4">결제 정보</h4>
                 <div class="col payment-info shadow-sm p-4 bg-body rounded">
                     <div class="form-check m-3">
-                    <input id="payment-credit-card" class="form-check-input" type="radio" name="payment-credit-card" checked>
+                    <input id="payment-credit-card" class="form-check-input" type="radio" name="payment-method" checked>
                     <label class="form-check-label" for="payment-credit-card">
                         신용/체크카드
                     </label>
                     </div>
                     <div class="form-check m-3">
-                        <input id="payment-deposit" class="form-check-input" type="radio" name="payment-deposit">
+                        <input id="payment-deposit" class="form-check-input" type="radio" name="payment-method">
                         <label class="form-check-label" for="payment-deposit">
                         무통장 입금
                         </label>
                     </div>
                     <div class="form-check m-3">
-                        <input id="payment-kakao" class="form-check-input" type="radio" name="payment-kakao">
+                        <input id="payment-kakao" class="form-check-input" type="radio" name="payment-method">
                         <label class="form-check-label" for="payment-kakao">
                         카카오페이
                         </label>
                     </div>
                     <div class="form-check m-3">
-                        <input id="payment-naver" class="form-check-input" type="radio" name="payment-naver">
+                        <input id="payment-naver" class="form-check-input" type="radio" name="payment-method">
                         <label class="form-check-label" for="payment-naver">
                         네이버페이
                         </label>
