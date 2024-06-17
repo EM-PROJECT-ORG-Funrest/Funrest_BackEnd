@@ -65,7 +65,10 @@
                     <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
                         <p class="buyer-top-p">알림 신청</p>
                         <hr class="m-0">
-                        <a id="notifyModalLink"><h1 id="myPageNotifyCnt" th:text="${NotifyCnt}"></h1></a>
+                        <a id="notifyModalLink" th:onclick="showNotify([[${NotifyCnt}]])">
+                            <h1 id="myPageNotifyCnt" th:text="${NotifyCnt}"></h1>
+                        </a>
+
                         <!-- Modal -->
                         <div class="modal fade my-custom-container" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -73,6 +76,9 @@
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">알림 신청한 프로젝트</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div id="notifyModalMsg" class="d-none">
+                                        <div style="height:300px;">프로젝트를 찜해보세요~!</div>
                                     </div>
                                     <div id="projectCards">
                                         <div th:fragment="projectCardsFragment" class="modal-body row p-auto">
@@ -100,6 +106,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="buyer-ad row justify-content-center p-4">
@@ -136,31 +143,37 @@
 <div th:replace="~{/fragments/footer.html::footer}"></div>
 </html>
 <script>
-    document.getElementById("notifyModalLink").onclick = showNotify;
+    const myPageNotifyCnt = document.getElementById("myPageNotifyCnt");
+    const notifyModalMsgEl = document.getElementById("notifyModalMsg");
 
-    function showNotify() {
+    function showNotify(notifyCnt) {
         axios.get("/th/myPage/buyer/notify")
         .then(resp => {
-            //console.log(resp);
+            // 모달에 띄울 데이터들을 조회
             const projectCardsContainer = document.getElementById("projectCards");
-            projectCardsContainer.innerHTML = resp.data; // 서버에서 받은 HTML 조각을 삽입
+            projectCardsContainer.innerHTML = resp.data; // 서버에서 받은 HTML fragment 삽입
 
             $('#notifyModal').modal('show');
+
+
+            if(notifyCnt === 0) {
+                notifyModalMsgEl.classList.remove("d-none");
+            }
         })
         .catch(error => {
             console.log(error);
         });
     }
 
-    const myPageNotifyCnt = document.getElementById("myPageNotifyCnt");
     async function cancelNotify(proCode) {
         try{
-            const resp = await axios.post("/th/notify/cancelNotification", {proCode});
-            const resp2 = await axios.get("/th/notify/count/user");
+            const resp = await axios.post("/th/notify/cancelNotification", {proCode}); //DB에서 빼는 작업
+            const resp2 = await axios.get("/th/notify/count/user"); //마이페이지 좋아요 개수 get
             if(resp2.data) {
-                myPageNotifyCnt.innerText = resp2.data.cnt;
+                myPageNotifyCnt.innerText = resp2.data.cnt; // 개수 reset
             }
-            showNotify();
+            //showNotify();
+            showNotify(resp2.data.cnt); //모달 띄우기
         } catch(error) {
             console.log(error);
         }
