@@ -157,7 +157,7 @@
 
 </html>
 <script>
- let page = 1; // 현재 페이지 번호
+ let page = 0; // 현재 페이지 번호
  const size = 12; // 페이지당 아이템 수
  const projectList = document.getElementById('project-list');
  const scrollAnchor = document.getElementById('scroll-anchor');
@@ -167,6 +167,7 @@
  // 프로젝트 데이터를 서버에서 가져오는 함수
  async function loadProjects(category = null, keyword = null) {
      try {
+         page++; // 페이지 번호 증가
          const url = category
              ? `/th/main/main/category?proCategory=${category}&page=${page}&size=${size}`
              : keyword
@@ -190,7 +191,6 @@
              `;
              projectList.appendChild(projectElement);
          });
-         page++; // 페이지 번호 증가
      } catch (error) {
          console.error('프로젝트 데이터를 불러오는 중 오류가 발생했습니다:', error);
      }
@@ -223,7 +223,7 @@
          event.preventDefault();
          currentCategory = $(this).data('category');
          currentKeyword = null; // 키워드를 초기화
-         page = 1; // 페이지 번호 초기화
+         page = 0; // 페이지 번호 초기화
          projectList.innerHTML = ''; // 기존 프로젝트 초기화
          loadProjects(currentCategory);
 
@@ -242,7 +242,7 @@
      const keyword = document.getElementById('keyword').value;
      currentCategory = null; // 카테고리를 초기화
      currentKeyword = keyword;
-     page = 1; // 페이지 번호 초기화
+     page = 0; // 페이지 번호 초기화
      projectList.innerHTML = ''; // 기존 프로젝트 초기화
      loadProjects(currentCategory, currentKeyword); // 이 줄 추가
  });

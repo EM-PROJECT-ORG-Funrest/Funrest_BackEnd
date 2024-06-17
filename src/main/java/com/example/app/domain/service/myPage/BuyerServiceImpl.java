@@ -9,6 +9,7 @@ import com.example.app.domain.repository.NotifyRepository;
 import com.example.app.domain.repository.OrderRepository;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional
 public class BuyerServiceImpl {
 
     @Autowired
@@ -52,6 +54,11 @@ public class BuyerServiceImpl {
         Optional<User> findUserName = userRepository.findByUserId(userId);
 
         return findUserName.orElse(null);
+    }
+
+    //사용자Id로 사용자 삭제
+    public void deleteByUserId(String userId){
+        userRepository.deleteByUserId(userId);
     }
 
     //사용자Id로 알림 리스트 찾기

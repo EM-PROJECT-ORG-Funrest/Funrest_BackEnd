@@ -66,7 +66,7 @@ public class SellerController {
         // 프로젝트 기간 보여주기 datetime 에 저장
         sellerService.dateTime(projectDtoList);
 
-
+        model.addAttribute("userId",userId);
         model.addAttribute("userName", userName);
         model.addAttribute("projectDtoList", projectDtoList);
         model.addAttribute("countProject", countProject);

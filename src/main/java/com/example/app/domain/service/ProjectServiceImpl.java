@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -50,6 +51,7 @@ public class ProjectServiceImpl {
         {
             Project project = Project.toSaveEntity(projectDto);
             System.out.println("project : " + project);
+            project.setProDate(new Date());
             projectRepository.save(project);
         }
         // 'ProMainImg 첨부o' and 'ProSubImg 첨부o' 경우

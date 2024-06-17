@@ -1,4 +1,3 @@
-document.write('<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>');
 function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -36,13 +35,6 @@ function telValidChk() {
         return true;
     }
 }
-
-// 휴대폰 번호가 인증되었는지 확인하는 함수
-function isTelVerified(telNumber) {
-    // 여기에 휴대폰 번호 인증 여부를 확인하는 로직을 추가
-    return true;
-}
-
 function editProfile(event) {
     event.preventDefault();
 
