@@ -77,8 +77,14 @@
                                         <h5 class="modal-title" id="exampleModalLabel">알림 신청한 프로젝트</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div id="notifyModalMsg" class="d-none">
-                                        <div style="height:300px;">프로젝트를 찜해보세요~!</div>
+                                    <div id="notifyModalMsg" class="d-none ">
+                                        <div style="height:383px; color:gray;" class="d-flex flex-column justify-content-center align-items-center">
+                                            <span class="material-symbols-outlined d-block m-3" style="font-size:3rem;">
+                                                bookmark_heart
+                                            </span>
+                                            <p class="">알림 신청한 프로젝트 목록이 비어있습니다.</p>
+                                            <p class="">관심이 가는 프로젝트를 찜해보세요.</p>
+                                        </div>
                                     </div>
                                     <div id="projectCards">
                                         <div th:fragment="projectCardsFragment" class="modal-body row p-auto">
