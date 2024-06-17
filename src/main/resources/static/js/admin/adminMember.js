@@ -1,17 +1,7 @@
-// 회원관리 테이블의 회원 번호를 자동 증가시키기
-const rows = document.querySelectorAll('#myTable tbody tr');
-let count = 1;
-
-rows.forEach(row => {
-    const rowNumberCell = row.querySelector('.row-number');
-    rowNumberCell.textContent = count;
-    count++;
-});
-
 // 회원관리 테이블에서 체크된 회원 삭제하는 기능
 document.getElementById('deleteButton').addEventListener('click', function() {
     const checkboxes = document.querySelectorAll('input[name="members"]:checked');
-    const ids = Array.from(checkboxes).map(checkbox => checkbox.value);
+    const ids = Array.from(checkboxes).map(checkbox => checkbox.value); // 체크된 회원 id를 배열 ids 에 저장
 
     if (ids.length === 0) {
         alert("삭제할 회원을 선택하세요.");
@@ -33,5 +23,5 @@ document.getElementById('deleteButton').addEventListener('click', function() {
             alert('삭제에 실패했습니다.');
         }
     })
-    .catch(error => console.log('Error:', error));
+    .catch(error => console.log('Error: ', error));
 });

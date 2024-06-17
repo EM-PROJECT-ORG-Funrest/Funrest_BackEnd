@@ -77,12 +77,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user: ${users}">
+                        <tr th:each="user, iterStat: ${users}">
                             <!-- 추후 thymeleaf 로 번호 증가하는 코드로 변경예정-->
-                            <td class="row-number"></td>
-                            <td th:text="${user.userId}"></td>
-                            <td th:text="${user.userName}"></td>
-                            <td th:text="${user.phone}"></td>
+                            <td th:text="${iterStat.index + 1}">번호</td>
+                            <td th:text="${user.userId}">아이디</td>
+                            <td th:text="${user.userName}">이름</td>
+                            <td th:text="${user.phone}">연락처</td>
                             <td><input class="form-check-input" type="checkbox" name="members" th:value="${user.userId}" aria-label="..."></td>
                         </tr>
                         </tbody>

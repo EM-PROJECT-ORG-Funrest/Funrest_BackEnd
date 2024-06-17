@@ -50,9 +50,8 @@ public class ProjectServiceImpl {
         // 'ProMainImg 첨부x' and 'ProSubImg 첨부x' 경우
         if ((projectDto.getProMainImg() == null || projectDto.getProMainImg().isEmpty()
                 || projectDto.getProMainImg().stream().allMatch(MultipartFile::isEmpty))
-            && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
-                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty)))
-        {
+                && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
+                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty))) {
             Project project = Project.toSaveEntity(projectDto);
             System.out.println("project : " + project);
             projectRepository.save(project);
@@ -91,7 +90,7 @@ public class ProjectServiceImpl {
                 // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
                 String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 3-4. 해당 경로에 파일 저장
-                 proSubImgFile.transferTo(new File(subSavePath));
+                proSubImgFile.transferTo(new File(subSavePath));
                 // 3-5. tbl_project_subFile 에 해당 데이터 저장 처리
                 ProjectSubFile projectSubFile = ProjectSubFile.toProjectSubFileEntity(project, subOriginalFileName, subStoredFileName);
                 projectSubFileRepository.save(projectSubFile);
@@ -100,24 +99,41 @@ public class ProjectServiceImpl {
 
     }
 
-    // proCode 를 기준으로 해당 ProjectDto 조회(파일까지 조회)
     // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
     @Transactional
-    public ProjectDto findByProCode(int proCode){
+    public ProjectDto findByProCode(int proCode) {
         Project optionalProject = projectRepository.findByProCode(proCode);
         Project project = optionalProject;
         ProjectDto projectDto = ProjectDto.toProjectDto(project);
-        return  projectDto;
+        return projectDto;
     }
 
     @Transactional
-    public List<ProjectDto> findAll(){
+    public List<ProjectDto> findAll() {
         List<Project> projectList = projectRepository.findAll();
         List<ProjectDto> projectDtoList = new ArrayList<>();
-        for (Project project : projectList){
+        for (Project project : projectList) {
             projectDtoList.add(ProjectDto.toProjectDto(project));
         }
         return projectDtoList;
     }
 
+    // 승인/미승인 프로젝트 검색
+    @Transactional
+    public List<ProjectDto> findByProStatus(Integer proStatus) {
+        List<Project> projectList = projectRepository.findByProStatus(proStatus);
+        List<ProjectDto> projectDtoList = new ArrayList<>();
+        for (Project project : projectList) {
+            projectDtoList.add(ProjectDto.toProjectDto(project));
+        }
+        return projectDtoList;
+    }
+
+    // 프로젝트 삭제
+    public void deleteProjectsByProCodes(List<Integer> proCodes) {
+        System.out.println("proCodes = " + proCodes);
+        for (Integer proCode : proCodes) {
+            projectRepository.deleteById(proCode);
+        }
+    }
 }
