@@ -41,6 +41,7 @@
 }
 .container .mypage-buyer>.buyer-top>div h1{
     line-height: 80px;
+    cursor: pointer;
 }
 /* buyer-top > modal */
 .container .mypage-buyer>.buyer-top>.apply-notify>.modal .modal-body .card-img-box{

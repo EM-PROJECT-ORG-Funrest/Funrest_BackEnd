@@ -11,6 +11,6 @@ public class HomeController {
     @GetMapping("/")
     public String home(){
         log.info("GET /");
-        return "th/main/main";  // main.html 로 리다이렉팅 (주소창에 'http://localhost:8080' 입력 시)
+        return "redirect:th/main/main";  // main.html 로 리다이렉팅 (주소창에 'http://localhost:8080' 입력 시)
     }
 }

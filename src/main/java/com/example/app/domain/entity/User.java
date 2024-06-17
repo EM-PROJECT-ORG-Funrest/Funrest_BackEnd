@@ -22,7 +22,7 @@ public class User {
     private String userId;
     @Column(name = "userPw", length = 60)
     private String userPw;
-    @Column(name = "userName", nullable = false)
+    @Column(name = "userName", nullable = false, columnDefinition = "String default 새싹이")
     private String userName;
     @Column(name = "phone", length = 20)
     private String phone;

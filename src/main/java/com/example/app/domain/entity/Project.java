@@ -66,7 +66,8 @@ public class Project {
     private List<ProjectSubFile> projectSubFileList = new ArrayList<>();
 
     public Project(int proCode) {
-    } //orderService 때문에 추가
+        this.proCode = proCode;
+    }
 
 
     // Dto to Entity

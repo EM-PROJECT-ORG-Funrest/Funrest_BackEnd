@@ -46,17 +46,6 @@ public class ThymeleafTestController {
         log.info("/GET /th/member/singUp...");
     }
 
-    // myPage > buyer view page test
-    @GetMapping("/myPage/buyer/buyer")
-    public void test16(){}
-    @GetMapping("/myPage/buyer/editPassword")
-    public void test17(){}
-    @GetMapping("/myPage/buyer/editProfile")
-    public void test18(){}
-    @GetMapping("/myPage/buyer/signOut")
-    public void test19(){
-        log.info("/GET /th/myPage/buyer/signOut...");
-    }
 
 //    // payment view page test
 //    @GetMapping("/payment/applyRefund")

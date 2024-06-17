@@ -8,6 +8,7 @@ import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -51,6 +52,8 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             oAuth2UserInfo = new KakaoUserInfo(id, attributes);
             log.info("kakaoUserInfo : " + oAuth2UserInfo);
             String username = oAuth2UserInfo.getName();
+
+
 
             Map<String, Object> kakaoAccount = (Map<String, Object>) oAuth2User.getAttribute("kakao_account");
             log.info("kakao account : " + kakaoAccount);
@@ -104,9 +107,8 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             User user = userOptional.get();
             userDto = UserDto.EntityToUserDto(user);
 
-            if(!snsType.equals(userDto.getSnsType())){
-
-                throw new RuntimeException("로그인 실패: 해당 이메일 계정이 아닙니다.");
+            if(!snsType.equals(userDto.getSnsType())) {
+                throw new BadCredentialsException("이미 회원가입 이력이 존재합니다.");
             }
         }
 
