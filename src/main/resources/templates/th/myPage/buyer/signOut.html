@@ -13,6 +13,9 @@
             crossorigin="anonymous"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="/Front/CSS/Common.css">
+
+    <!--  JS  -->
+    <script language="javascript" src="/js/myPage/buyer/signOut.js" defer></script>
 </head>
 
 <div th:replace="~{/fragments/header.html::adminHeader }"></div>
@@ -29,13 +32,12 @@
     <div class="p-2 mb-5 pb-3" style="background-color: #f8f9fa;">
         <div class="fs-2">어떠한 점이 불편하셨나요?</div>
         <div>펀드레스트를 이용하면서 불편했던 점을 말씀해주시면, 펀드레스트의 서비스 개선에 참고하도록 하겠습니다.</div>
-        <select name="language" class="form-select m-3 w-50" required>
+        <select id="reasonSelect" name="language" class="form-select m-3 w-50" required>
             <option value="" selected disabled hidden>탈퇴사유는 무엇인가요?</option>
-            <option value="movie">재가입을 위해</option>
-            <option value="book">고객 서비스의 불만</option>
-            <option value="musical">구매 혹은 판매 시 불편</option>
-            <option value="musical">머머머ㅓ머머머머머머넣지머머ㅓ머머머머</option>
-            <option value="musical">콘텐츠 및 프로젝트의 부족</option>
+            <option value="rejoin">재가입을 위해</option>
+            <option value="service">고객 서비스의 불만</option>
+            <option value="purchase">구매 혹은 판매 시 불편</option>
+            <option value="content">콘텐츠 및 프로젝트의 부족</option>
         </select>
     </div>
 
@@ -79,7 +81,7 @@
         <label class="form-check-label fw-light" for="flexCheckChecked">상기 와디즈 탈퇴 시 유의 사항을 확인하였습니다.</label>
     </div>
     <div>
-        <button type="button" class="btn btn-danger">탈퇴하기</button>
+        <button type="button" class="btn btn-danger" id="signOutButton" onclick = "location.href = '/th/myPage/buyer/buyer'" >탈퇴하기</button>
     </div>
 </div>
 </body>

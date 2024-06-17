@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @Slf4j
 @AllArgsConstructor
@@ -146,7 +149,7 @@ public class BuyerController {
     }
 
     @PostMapping("/editPasswordSave")
-    public  ResponseEntity<?> editPassword(@RequestParam("password1") String password1,
+    public  ResponseEntity<Map<String, String>> editPassword(@RequestParam("password1") String password1,
                                                   @RequestParam("password2") String password2,
                                                   @RequestParam("password3") String password3){
         log.info("editPasswordSave INVOKE....");
@@ -155,15 +158,21 @@ public class BuyerController {
         User user = buyerService.findUserByUserId(userId);
         String userPw = user.getUserPw();
         System.out.println(userPw);
+
+        Map<String, String> response = new HashMap<>();
+
         boolean passwordMatched = passwordEncoder.matches(password1, userPw);
-        // 기존 비밀번호와 비교하여 일치하는지 확인
-        if (!passwordEncoder.matches(password1, userPw)) {
-            return ResponseEntity.badRequest().body("현재 비밀번호가 일치하지 않습니다.");
+        if (!passwordMatched) {
+            response.put("status", "error");
+            response.put("message", "기존 비밀번호가 일치하지 않습니다.");
+            return ResponseEntity.badRequest().body(response);
         }
 
         // 새 비밀번호와 확인 비밀번호 일치 여부 확인
         if (!password2.equals(password3)) {
-            return ResponseEntity.badRequest().body("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+            response.put("status", "error");
+            response.put("message", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+            return ResponseEntity.badRequest().body(response);
         }
 
         // 비밀번호 변경 로직
@@ -171,10 +180,17 @@ public class BuyerController {
         user.setUserPw(encodedNewPassword);
         userRepository.save(user);
 
-        // 비밀번호 변경 성공 시 리다이렉트를 표시하는 응답
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location", "/th/myPage/buyer/buyer")
-                .build();}
+        // 비밀번호 변경 성공 시 응답
+        response.put("status", "success");
+        response.put("message", "비밀번호가 성공적으로 변경되었습니다.");
+        response.put("redirectUrl", "/th/myPage/buyer/buyer"); // 리다이렉트할 URL 추가
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/signOut")
+    public void signOut(){
+        log.info("signOut INVOKE....");
+    }
 
 
     @Data
