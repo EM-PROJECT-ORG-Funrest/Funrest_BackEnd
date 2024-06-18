@@ -2,6 +2,7 @@ package com.example.app.controller.admin;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.dto.UserDto;
+import com.example.app.domain.entity.ProjectFile;
 import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.member.UserService;
 import lombok.AllArgsConstructor;
@@ -30,23 +31,21 @@ public class AdminController {
     ProjectServiceImpl projectServiceImpl;
 
     @GetMapping("/dashboard")
-    public void dashboard() {
+    public void adminDashboard() {
         log.info("GET /th/admin/dashboard");
     }
 
     @GetMapping("/member")
-    public String adminMember(Model model) {
+    public void adminMember(Model model) {
         log.info("GET /th/admin/member");
         // 1. 전체 회원 정보 조회
         List<UserDto> userDtos = userService.getAllUsers();
         // 2. 모델 속성에 정보 저장
         model.addAttribute("users", userDtos);
-        // 3. 회원 관리 페이지로 전달
-        return "th/admin/member.html";
     }
 
     @GetMapping("/project")
-    public String project(Model model) {
+    public void adminProject(Model model) {
         log.info("GET /th/admin/project");
         // 1. 미승인 프로젝트 정보 조회
         List<ProjectDto> projectDtoBeforeList = projectServiceImpl.findByProStatus(0);
@@ -55,15 +54,18 @@ public class AdminController {
         // 3. 모델 속성에 정보 저장
         model.addAttribute("projectBeforeList", projectDtoBeforeList);
         model.addAttribute("projectAfterList", projectDtoAfterList);
-        // 3. 프로젝트 관리 페이지로 전달
-        return "th/admin/project.html";
     }
 
-    @GetMapping("/project/manage")
-    public void manage() {
-        log.info("GET /th/admin/project/manage");
+    @GetMapping("/editProject")
+    public void adminEditProject(@RequestParam("proCode") String proCode, Model model) {
+        log.info("GET /th/admin/editProject/{}", proCode);
+        Integer projectCode = Integer.parseInt(proCode);
+        // 1. 수정할 프로젝트 정보 조회
+        ProjectDto projectDto = projectServiceImpl.findByProCode(projectCode);
+        System.out.println("projectDto = " + projectDto);
+        // 2. 모델 속성에 정보 저장
+        model.addAttribute("project", projectDto);
     }
-
 
 
 }

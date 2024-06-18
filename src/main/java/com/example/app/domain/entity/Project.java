@@ -37,7 +37,7 @@ public class Project {
     @Column(name = "proGoalAmount", nullable = false)
     private String proGoalAmount;
     @Column(name = "proDate")
-    private Date proDate; // project's permission date
+    private Date proDate; // 프로젝트 승인일자
     @Column(name = "proStartDate", nullable = false)
     private String proStartDate;
     @Column(name = "proEndDate", nullable = false)

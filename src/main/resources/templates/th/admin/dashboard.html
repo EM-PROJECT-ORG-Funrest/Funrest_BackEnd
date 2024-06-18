@@ -61,11 +61,12 @@
                 <div class="subject">방문자 현황</div>
                 <hr>
                 <div class="visitor-chart">
-                    <canvas id="myChart"></canvas>
+                    <!-- 방문자 현황 차트 -->
+                    <canvas id="myChart" height="300"></canvas>
                 </div>
             </div>
             <div class="admin-date">
-                <div class="subject2">일자별 요약</div>
+                <div class="subject2">주문현황 요약</div>
                 <hr>
                 <div class="daily-chart">
                     <table class="table table-striped table-hover table-bordered">
@@ -74,7 +75,6 @@
                             <th scope="col">일자</th>
                             <th scope="col">주문 수</th>
                             <th scope="col">매출액</th>
-                            <th scope="col">가입자 수</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,55 +82,81 @@
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>13</td>
-                            <td>48,000</td>
-                            <td>21</td>
                         </tr>
                         <tr>
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
                         </tr>
                         <tr>
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
                         </tr>
                         <tr>
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
                         </tr>
                         <tr>
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
                         </tr>
                         <tr>
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
                         </tr>
                         <tr>
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
                         </tr>
                         <tr>
                             <th scope="row">2024/05/01</th>
                             <td>12</td>
                             <td>50,000</td>
-                            <td>23</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2024/05/01</th>
+                            <td>12</td>
+                            <td>50,000</td>
                         </tr>
                         </tbody>
                     </table>
@@ -141,28 +167,38 @@
 </div>
 
 
-<script> // 해당 부분은 추후 js파일로 따로 관리할 예정
-              const ctx = document.getElementById('myChart');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('myChart').getContext('2d');
 
-              new Chart(ctx, {
-              type: 'line',   // 차트의 종류
-              data: {         // 차트의 데이터
-                  labels: ['05/03', '05/04', '05/05', '05/06', '05/07', '05/08'],     // x축 목차(Array)
-                  datasets: [{                    // 실제 차트에 표시할 데이터들(Array), dataset 객체들을 담고 있음
-                  label: '# of Votes',            // dataset의 이름(String)
-                  data: [12, 19, 3, 5, 2, 3],     // dataset의 값(Array)
-                  borderColor: 'rgba(255, 99, 132, 1)',   // dataset의 선 색(rgba값을 String으로 표현)
-                  borderWidth: 1                  // dataset의 선 두께(Number)
-                  }]
-              },
-              options: {      // 차트의 설정
-                  scales: {   // x축에 관한 설정
-                  y: {        // y축에 대한 설정
-                      beginAtZero: true   // 시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
-                  }
-                  }
-              }
-              });
+    fetch('/api/visitData')
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(item => item.visitDate);
+            const values = data.map(item => item.visitNum);
+
+            new Chart(ctx, {
+                type: 'line',               // 차트의 종류
+                data: {                     // 차트의 데이터
+                    labels: labels,
+                    datasets: [{            // 실제 차트에 표시할 데이터들(Array), dataset 객체들을 담고 있음
+                        label: 'Number of Visits',          // dataset의 이름(String)
+                        data: values,                       // dataset의 값(Array)
+                        borderColor: 'rgba(75, 192, 192, 1)',       // dataset의 선 색(rgba값을 String으로 표현)
+                        borderWidth: 1      // dataset의 선 두께(Number)
+                    }]
+                },
+                options: {                              // 차트의 설정
+                    maintainAspectRatio: false,         // 크기 고정
+                    scales: {                           // x축과 y축에 대한 설정
+                        y: {
+                            beginAtZero: true           // 시작을 0부터 하게끔 설정
+                        }
+                    }
+                }
+            });
+        });
+    });
 </script>
 
 </body>

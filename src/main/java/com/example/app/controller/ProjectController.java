@@ -34,7 +34,6 @@ public class ProjectController {
 
     private JwtTokenProvider jwtTokenProvider;
 
-    // projectCreate 뷰페이지로 이동 API
     @GetMapping("/projectCreate")
     public void projectCreate(HttpServletRequest request) {
         log.info("GET /th/myPage/seller/projectCreate invoke...");

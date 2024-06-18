@@ -46,7 +46,7 @@ public class SecurityConfig {
                     .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**", "/upload/**").permitAll()
                     .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
                     .requestMatchers("/th/myPage/**").hasRole("USER")
-                    .requestMatchers("th/admin/**").hasRole("USER")
+                    .requestMatchers("/th/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )
             .sessionManagement(
