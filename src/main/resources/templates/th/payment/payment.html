@@ -39,7 +39,7 @@
                     <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                         <span class="d-md-block fw-bold pb-2">수량</span>
                         <div class="h-50 d-flex justify-content-center align-items-center">
-                            <select class="count-select" aria-label="Default select example">
+                            <select class="count-select" aria-label="Default select example" name="orderCnt">
                                 <option selected>수량 선택</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <form id="payment-form" onsubmit="paymentValidChk(event)" method="post" th:action="@{/th/payment/payment}">
+        <form id="payment-form" onsubmit="paymentValidChk(event)" method="post">
             <div class="row payment-info-box m-2 mb-5">
                 <h4 class="p-4">결제 정보</h4>
                 <div class="col payment-info shadow-sm p-4 bg-body rounded">
@@ -134,25 +134,25 @@
                     <div class="buyer-info-input">
                         <div class="row m-2 name justify-content-center">
                             <h6 class="col-sm-2">성함</h6>
-                            <input id="payment-name" class="form-control col-sm-3" type="text" placeholder="성함을 입력해 주세요.">
+                            <input id="payment-name" name="orderName" class="form-control col-sm-3" type="text" placeholder="성함을 입력해 주세요.">
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="row m-2 phone justify-content-center">
                             <h6 class="col-sm-2">연락처</h6>
-                            <input id="payment-phone" class="form-control col-sm-3" type="text" placeholder="연락처를 입력해 주세요.">
+                            <input id="payment-phone" name="orderPhone" class="form-control col-sm-3" type="text" placeholder="연락처를 입력해 주세요.">
                             <div class="invalid-feedback"></div>
                         </div>                                          
                         <div class="row m-2 addr justify-content-center">
                             <h6 class="col-sm-2">배송지 주소</h6>
                             <div class="input-group col-sm-3 p-0">
-                                <input id="payment-post-code" class="post-code form-control my-1" type="text" placeholder="우편번호" aria-describedby="payment-post-code-btn" disabled>
+                                <input id="payment-post-code" class="post-code form-control my-1" type="text" placeholder="우편번호" aria-describedby="payment-post-code-btn" name="postCode" readonly>
                                 <div class="invalid-feedback d-none"></div>
                                 <button class="btn btn-outline-success my-1" type="button" id="payment-post-code-btn" onclick="execDaumPostcode()">주소 검색</button>
                                 <div class="w-100"></div>
-                                <input id="payment-road-addr" class="road-addr form-control my-1" type="text" placeholder="도로명주소" disabled>
+                                <input id="payment-road-addr" class="road-addr form-control my-1" type="text" placeholder="도로명주소" name="orderAddr" readonly>
                                 <div class="invalid-feedback"></div>
                                 <div class="w-100"></div>
-                                <input id="payment-addr-detail" class="form-control my-1" type="text" placeholder="상세 주소 입력">
+                                <input id="payment-addr-detail" class="form-control my-1" type="text" placeholder="상세 주소 입력" name="orderDetailAddr">
                             </div>
                         </div>
                         <div class="row m-2 delivery-ask justify-content-center">

@@ -81,7 +81,9 @@ function paymentValidChk(event) {
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("paymentBtn").addEventListener("click", function(event) {
         event.preventDefault(); // 기본 동작 방지
-        goToPay();
+        if(paymentValidChk(event)) {
+             goToPay();
+        }
     });
 });
 
@@ -126,7 +128,13 @@ function goToPay(){
      },function(resp){
         if(resp.success){
             alert("결제 성공했습니다.");
+
             console.log(resp);
+
+
+//          var form = document.getElementById("payment-form");
+//          form.action = "/th/payment/paymentSave";
+//          form.submit();
         }else{
             alert("결제 실패하였습니다.");
             console.log(resp)

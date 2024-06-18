@@ -26,6 +26,7 @@ public class OrderDto {
     //추가
     private String orderName;
     private String orderAddr;
+    private String orderDetailAddr;
     private String orderPhone;
     private int postCode;
 

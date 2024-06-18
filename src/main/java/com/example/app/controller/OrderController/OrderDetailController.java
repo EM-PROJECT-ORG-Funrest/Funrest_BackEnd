@@ -37,26 +37,25 @@ public class OrderDetailController {
         model.addAttribute("Project", projectDto);
         model.addAttribute("mainImg", UPLOAD_PATH + storedFileName.get(0));
 
-        return "th/payment/payment.html";
+        return "th/payment/payment";
     }
 
     // 주문 처리(POST)
-    @PostMapping("/payment")
-    public String savePaymentInfo(@ModelAttribute OrderDto orderDto) {
+    @PostMapping("/paymentSave")
+    public String savePaymentInfo(OrderDto orderDto) {
         log.info("POST /th/payment/payment...." + orderDto);
 
         // 주문 정보 저장
         orderService.savePayment(orderDto);
 
         // 주문 성공 후 결제 상세 페이지로 리다이렉트
+
         return "redirect:/th/payment/paymentDetail";
     }
 
     // 결제 상세 페이지(GET)
     @GetMapping("/paymentDetail")
-    public String showPaymentDetail() {
+    public void  showPaymentDetail() {
         log.info("GET /th/payment/paymentDetail...");
-        return "th/payment/paymentDetail";
     }
-
 }
