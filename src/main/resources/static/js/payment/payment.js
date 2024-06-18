@@ -98,7 +98,7 @@ function goToPay(){
     var amount = "100"*document.querySelector(".count-select").value;
     var buyerTel = document.getElementById("payment-phone").value;
     var buyerName = document.getElementById("payment-name").value;
-    var buyerAddr = document.getElementById("payment-road-addr").value + document.getElementById("payment-addr-detail").value;
+    var buyerAddr = document.getElementById("payment-road-addr").value + " " + document.getElementById("payment-addr-detail").value;
     var buyerPostcode = document.getElementById("payment-post-code").value;
 
     IMP.request_pay({
