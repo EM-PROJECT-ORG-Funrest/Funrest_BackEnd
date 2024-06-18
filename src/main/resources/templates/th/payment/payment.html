@@ -153,6 +153,8 @@
                                 <div class="invalid-feedback"></div>
                                 <div class="w-100"></div>
                                 <input id="payment-addr-detail" class="form-control my-1" type="text" placeholder="상세 주소 입력" name="orderDetailAddr">
+                                <input type="hidden" name="proCode" th:value="${Project.proCode}">
+                                <input type="hidden" name="userId" th:value="${userId}">
                             </div>
                         </div>
                         <div class="row m-2 delivery-ask justify-content-center">

@@ -130,11 +130,11 @@ function goToPay(){
             alert("결제 성공했습니다.");
 
             console.log(resp);
+            // 여기에서 값
 
-
-//          var form = document.getElementById("payment-form");
-//          form.action = "/th/payment/paymentSave";
-//          form.submit();
+          var form = document.getElementById("payment-form");
+          form.action = "/th/payment/paymentSave";
+          form.submit();
         }else{
             alert("결제 실패하였습니다.");
             console.log(resp)

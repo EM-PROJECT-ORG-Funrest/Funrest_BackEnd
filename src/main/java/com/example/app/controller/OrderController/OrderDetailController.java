@@ -7,6 +7,7 @@ import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.service.order.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,10 @@ public class OrderDetailController {
         Project project = projectRepository.findByProCode(projectCode); // 해당 proCode 의 project 엔터티 행 찾기 및 저장
         ProjectDto projectDto = ProjectDto.toProjectDto(project); // Entity -> Dto
 
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         // ProMainImg 를 리스트에 담기 (3개 고정)
         List<String> storedFileName = projectDto.getStoredFileName();
+        model.addAttribute("userId", userId);
         model.addAttribute("Project", projectDto);
         model.addAttribute("mainImg", UPLOAD_PATH + storedFileName.get(0));
 
@@ -44,6 +47,9 @@ public class OrderDetailController {
     @PostMapping("/paymentSave")
     public String savePaymentInfo(OrderDto orderDto) {
         log.info("POST /th/payment/payment...." + orderDto);
+
+        // 여기까지되는데 orderDto안에 안들어 값 DB에 저장될값
+        //USERiD
 
         // 주문 정보 저장
         orderService.savePayment(orderDto);
