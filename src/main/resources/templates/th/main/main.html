@@ -97,19 +97,19 @@
         <div class="category d-lg-flex justify-content-between">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link active" href="#" data-category="all">전체</a>
+              <a class="nav-link active" href="javascript:void(0)" data-category="all">전체</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-category="movie">영화</a>
+              <a class="nav-link" href="javascript:void(0)" data-category="movie">영화</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-category="musical">연극</a>
+              <a class="nav-link" href="javascript:void(0)" data-category="musical">연극</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-category="book">도서/전자책</a>
+              <a class="nav-link" href="javascript:void(0)" data-category="book">도서/전자책</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-category="coming-soon">오픈예정</a>
+              <a class="nav-link" href="javascript:void(0)" data-category="coming-soon">오픈예정</a>
             </li>
           </ul>
           <div class="search-project px-2 px-md-2 me-1 mt-2">
@@ -185,12 +185,12 @@
 
   const observer = new IntersectionObserver(observerCallback, observerOptions);
   observer.observe(scrollAnchor);
+
   // 프로젝트 데이터를 서버에서 가져오는 함수
   async function loadProjects(category = null, keyword = null) {
       try {
           observer.unobserve(scrollAnchor);
 
-          console.log("page : " + page);
           //page++; // 페이지 번호 증가
           const url = category
               ? `/th/main/main/category?proCategory=${category}&page=${page}&size=${size}`
@@ -205,9 +205,7 @@
 
           const response = await axios.get(url);
           const projects = response.data.content;
-          console.log("resp : " + projects.length);
           isLastPage = (projects.length < 12) ? 1 : 0;
-          console.log("isLastPage : " + isLastPage);
           projects.forEach(project => {
               const projectElement = document.createElement('div');
               projectElement.className = 'col p-2';
