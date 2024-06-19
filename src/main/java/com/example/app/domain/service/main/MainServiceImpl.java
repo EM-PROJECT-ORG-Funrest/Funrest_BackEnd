@@ -39,10 +39,21 @@ public class MainServiceImpl {
 
     // 카테고리 검색
     public Page<ProjectDto> getAllProjectByProCategory(String proCategory, Pageable pageable) {
-        Page<Project> projectPage = projectRepository.findAllByProCategoryAndProStatusOrderByProCode(proCategory, pageable, 1);
+        Page<Project> projectPage = projectRepository.findAllByProCategoryAndProStatusOrderByProCodeDesc(proCategory, pageable, 1);
 
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findAllByProCategoryAndProStatusOrderByProCode(proCategory, pageable.previousOrFirst(), 1);
+            Page<Project> projectPage2 = projectRepository.findAllByProCategoryAndProStatusOrderByProCodeDesc(proCategory, pageable.previousOrFirst(), 1);
+            return projectPage2.map(ProjectDto::toProjectDto);
+        }
+        return projectPage.map(ProjectDto::toProjectDto);
+    }
+
+    // 카테고리 검색 - 오픈예정
+    public Page<ProjectDto> getAllProjectByComingSoon(Pageable pageable){
+        Page<Project> projectPage = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable, 0);
+
+        if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
+            Page<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable.previousOrFirst(), 0);
             return projectPage2.map(ProjectDto::toProjectDto);
         }
         return projectPage.map(ProjectDto::toProjectDto);
@@ -62,16 +73,15 @@ public class MainServiceImpl {
 
     // 키워드 검색할 때 아무 값도 안 넘겨준 경우
     public Page<ProjectDto> findAllByOrderByProCode(Pageable pageable) {
-        Page<Project> projectPage = projectRepository.findAllByProStatusOrderByProCode(pageable, 1);
+        Page<Project> projectPage = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable, 1);
 
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCode(pageable.previousOrFirst(), 1);
+            Page<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable.previousOrFirst(), 1);
             return projectPage2.map(ProjectDto::toProjectDto);
         }
 
         return projectPage.map(ProjectDto::toProjectDto);
     }
-
 
 
 //    public Page<ProjectDto> findByProNameAndCategory(String proName, String proCategory, String sortingMethod, Pageable pageable) {

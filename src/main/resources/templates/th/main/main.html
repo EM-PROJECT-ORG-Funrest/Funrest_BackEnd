@@ -149,121 +149,126 @@
       </div>
     </div>
   </div>
+
   </body>
-</div>
-
-</html>
 <script>
- let page = 0; // 현재 페이지 번호
- const size = 12; // 페이지당 아이템 수
- const projectList = document.getElementById('project-list');
- const scrollAnchor = document.getElementById('scroll-anchor');
- //const sortMethodSelect = document.getElementById('sorting-method');
- let currentCategory = null; // 현재 선택된 카테고리
- let currentKeyword = null; // 현재 검색된 키워드
- //let currentSortingMethod = sortMethodSelect.value; // 현재 선택된 정렬 방법
- let isLastPage = 0; // 조회되는 프로젝트 데이터가 12 미만일시 1로 set
+  let page = 0; // 현재 페이지 번호
+  const size = 12; // 페이지당 아이템 수
+  const projectList = document.getElementById('project-list');
+  const scrollAnchor = document.getElementById('scroll-anchor');
+  //const sortMethodSelect = document.getElementById('sorting-method');
+  let currentCategory = null; // 현재 선택된 카테고리
+  let currentKeyword = null; // 현재 검색된 키워드
+  //let currentSortingMethod = sortMethodSelect.value; // 현재 선택된 정렬 방법
+  let isLastPage = 0; // 조회되는 프로젝트 데이터가 12 미만일시 1로 set
 
- // 프로젝트 데이터를 서버에서 가져오는 함수
- async function loadProjects(category = null, keyword = null) {
-     try {
-         console.log(isLastPage);
-         //page++; // 페이지 번호 증가
-         const url = category
-             ? `/th/main/main/category?proCategory=${category}&page=${page}&size=${size}`
-             : keyword
-                 ? `/th/main/main/keyword?proName=${keyword}&page=${page}&size=${size}`
-                 : `/th/main/main/projects?page=${page}&size=${size}`;
+   // Intersection Observer 콜백 함수
+  const observerCallback = (entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              console.log("true");
+              if(isLastPage !== 1) {
+                page++;
+                loadProjects(currentCategory, currentKeyword);
+              }
+          }
+      });
+  }
 
-         //const url = `/th/main/main/projectList?proCategory=${currentCategory}&proName=${currentKeyword}&sortingMethod=${currentSortingMethod}&page=${page}&size=${size}`;
-         //console.log("request url : " + url);
+  // Intersection Observer 설정
+  const observerOptions = {
+      root: null, // 뷰포트
+      rootMargin: '0px',
+      threshold: 1.0 // 요소가 100% 뷰포트에 들어왔을 때 콜백 호출
+  }
 
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  observer.observe(scrollAnchor);
+  // 프로젝트 데이터를 서버에서 가져오는 함수
+  async function loadProjects(category = null, keyword = null) {
+      try {
+          observer.unobserve(scrollAnchor);
 
+          console.log("page : " + page);
+          //page++; // 페이지 번호 증가
+          const url = category
+              ? `/th/main/main/category?proCategory=${category}&page=${page}&size=${size}`
+              : keyword
+                  ? `/th/main/main/keyword?proName=${keyword}&page=${page}&size=${size}`
+                  : `/th/main/main/projects?page=${page}&size=${size}`;
 
-         const response = await axios.get(url);
-         const projects = response.data.content;
-         isLastPage = (projects.length < 12) ? 1 : 0;
-         projects.forEach(project => {
-             const projectElement = document.createElement('div');
-             projectElement.className = 'col p-2';
-             projectElement.innerHTML = `
-                 <div class="border bg-light rounded">
-                     <a href="/project/project/${project.proCode}">
-                         <img src="${project.mainPageImgPath}" class="d-block" alt="">
-                     </a>
-                 </div>
-                 <div class="pro-content">
-                     <h5 class="pro-paid my-2 fw-bolder">${project.proPaidCnt} 명 참여</h5>
-                     <p>${project.proName}</p>
-                 </div>
-             `;
-             projectList.appendChild(projectElement);
-         });
-     } catch (error) {
-         console.error('프로젝트 데이터를 불러오는 중 오류가 발생했습니다:', error);
-     }
- }
-
- // Intersection Observer 콜백 함수
- const observerCallback = (entries) => {
-     entries.forEach(entry => {
-         if (entry.isIntersecting) {
-             console.log("true");
-             if(isLastPage !== 1) {
-               page++;
-               loadProjects(currentCategory, currentKeyword);
-             }
-         }
-     });
- }
-
- // Intersection Observer 설정
- const observerOptions = {
-     root: null, // 뷰포트
-     rootMargin: '0px',
-     threshold: 1.0 // 요소가 100% 뷰포트에 들어왔을 때 콜백 호출
- }
-
- const observer = new IntersectionObserver(observerCallback, observerOptions);
- observer.observe(scrollAnchor);
-
- // 이벤트 위임을 사용하여 동적으로 생성된 요소에 이벤트 핸들러 추가
- $(document).ready(function() {
-     // 내비게이션 항목 클릭 시 해당 카테고리 프로젝트 로드
-     $('body').on('click', '.nav-link', function(event) {
-         event.preventDefault();
-         currentCategory = $(this).data('category');
-         currentKeyword = null; // 키워드를 초기화
-
-         //currentSortingMethod = 1;
+          //const url = `/th/main/main/projectList?proCategory=${currentCategory}&proName=${currentKeyword}&sortingMethod=${currentSortingMethod}&page=${page}&size=${size}`;
+          //console.log("request url : " + url);
 
 
-         page = 0; // 페이지 번호 초기화
-         projectList.innerHTML = ''; // 기존 프로젝트 초기화
-         loadProjects(currentCategory);
+
+          const response = await axios.get(url);
+          const projects = response.data.content;
+          console.log("resp : " + projects.length);
+          isLastPage = (projects.length < 12) ? 1 : 0;
+          console.log("isLastPage : " + isLastPage);
+          projects.forEach(project => {
+              const projectElement = document.createElement('div');
+              projectElement.className = 'col p-2';
+              projectElement.innerHTML = `
+                  <div class="border bg-light rounded">
+                      <a href="/th/project/project/${project.proCode}">
+                          <img src="${project.mainPageImgPath}" class="d-block" alt="">
+                      </a>
+                  </div>
+                  <div class="pro-content">
+                      <h5 class="pro-paid my-2 fw-bolder">${project.proPaidCnt} 명 참여</h5>
+                      <p>${project.proName}</p>
+                  </div>
+              `;
+              projectList.appendChild(projectElement);
+          });
+
+        observer.observe(scrollAnchor);
+      } catch (error) {
+          console.error('프로젝트 데이터를 불러오는 중 오류가 발생했습니다:', error);
+      }
+  }
 
 
-         // 활성화된 nav-link 변경
-         $('.nav-link').removeClass('active');
-         $(this).addClass('active');
-     });
+  // 이벤트 위임을 사용하여 동적으로 생성된 요소에 이벤트 핸들러 추가
+  $(document).ready(function() {
+      // 내비게이션 항목 클릭 시 해당 카테고리 프로젝트 로드
+      $('body').on('click', '.nav-link', function(event) {
+          event.preventDefault();
+          currentCategory = $(this).data('category');
+          currentKeyword = null; // 키워드를 초기화
 
-     // 페이지 로드 시 초기 데이터 로드
-     //loadProjects();
- });
+          //currentSortingMethod = 1;
 
- // 키워드 검색 버튼 클릭 시
- document.getElementById('search-button').addEventListener('click', function() {
-     const keyword = document.getElementById('keyword').value;
-     currentCategory = null; // 카테고리를 초기화
-     currentKeyword = keyword;
-     page = 0; // 페이지 번호 초기화
-     projectList.innerHTML = ''; // 기존 프로젝트 초기화
-     loadProjects(currentCategory, currentKeyword); // 이 줄 추가
- });
 
- //sortMethodSelect.addEventListener('change', function() {
- //   currentSortingMethod = sortMethodSelect.value;
- //   loadProjects(currentCategory, currentKeyword);
- //});
+          page = 0; // 페이지 번호 초기화
+          projectList.innerHTML = ''; // 기존 프로젝트 초기화
+          loadProjects(currentCategory);
+
+
+          // 활성화된 nav-link 변경
+          $('.nav-link').removeClass('active');
+          $(this).addClass('active');
+      });
+
+      // 페이지 로드 시 초기 데이터 로드
+      //loadProjects();
+  });
+
+  // 키워드 검색 버튼 클릭 시
+  document.getElementById('search-button').addEventListener('click', function() {
+      const keyword = document.getElementById('keyword').value;
+      currentCategory = null; // 카테고리를 초기화
+      currentKeyword = keyword;
+      page = 0; // 페이지 번호 초기화
+      projectList.innerHTML = ''; // 기존 프로젝트 초기화
+      loadProjects(currentCategory, currentKeyword); // 이 줄 추가
+  });
+
+  //sortMethodSelect.addEventListener('change', function() {
+  //   currentSortingMethod = sortMethodSelect.value;
+  //   loadProjects(currentCategory, currentKeyword);
+  //});
 </script>
+</html>
