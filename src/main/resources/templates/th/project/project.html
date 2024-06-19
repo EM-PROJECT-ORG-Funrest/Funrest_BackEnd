@@ -139,8 +139,11 @@
                         <div class="material-symbols-outlined">favorite</div>
                         <div id="notifyCnt" th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
                     </div>
-                    <div class="pro-sub-fundding" role="button">
+                    <div th:if="${Project.proStatus == 1}" class="pro-sub-fundding" role="button">
                         <button>펀딩하기</button>
+                    </div>
+                    <div th:unless="${Project.proStatus == 1}" class="pro-sub-fundding" role="button" aria-disabled="true">
+                        <button style="background-color:gray;" disabled>펀딩하기</button>
                     </div>
                 </div>
                 <hr>
