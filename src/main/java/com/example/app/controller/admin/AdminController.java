@@ -9,7 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,29 +34,58 @@ public class AdminController {
     ProjectServiceImpl projectServiceImpl;
 
     @GetMapping("/dashboard")
-    public void adminDashboard() {
+    public void adminDashboard(Model model) {
         log.info("GET /th/admin/dashboard");
+        // 관리자 계정 전달
+        String adminId = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("adminId",adminId);
     }
 
     @GetMapping("/member")
-    public void adminMember(Model model) {
+    public void adminMember(@RequestParam(name = "page", defaultValue = "0") int page,
+                            @RequestParam(name = "size", defaultValue = "1") int size,
+                            Model model) {
         log.info("GET /th/admin/member");
-        // 1. 전체 회원 정보 조회
-        List<UserDto> userDtos = userService.getAllUsers();
-        // 2. 모델 속성에 정보 저장
-        model.addAttribute("users", userDtos);
+        // 1. 전체 회원 정보 조회 (페이징 처리)
+        Page<UserDto> userDtoPage = userService.getAllUsers(PageRequest.of(page, size));
+        // 2. 회원 관리 게시판 페이지 버튼
+        int startPage = Math.max(1, userDtoPage.getPageable().getPageNumber() -4);
+        int endPage = Math.min(userDtoPage.getPageable().getPageNumber() + 4, userDtoPage.getTotalPages());
+        // 3. 모델 속성에 정보 저장
+        model.addAttribute("userDtoPages", userDtoPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        // 4. 관리자 계정 전달
+        String adminId = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("adminId",adminId);
     }
 
     @GetMapping("/project")
-    public void adminProject(Model model) {
+    public void adminProject(@RequestParam(name = "unapprovedPage", defaultValue = "0") int unapprovedPage,
+                             @RequestParam(name = "approvedPage", defaultValue = "0") int approvedPage,
+                             @RequestParam(name = "size", defaultValue = "2") int size,
+                             Model model) {
         log.info("GET /th/admin/project");
-        // 1. 미승인 프로젝트 정보 조회
-        List<ProjectDto> projectDtoBeforeList = projectServiceImpl.findByProStatus(0);
-        // 2. 승인된 프로젝트 정보 조회
-        List<ProjectDto> projectDtoAfterList = projectServiceImpl.findByProStatus(1);
+        // 1. 미승인 프로젝트 정보 조회 (페이징 처리)
+        Page<ProjectDto> projectDtoPageBeforeList = projectServiceImpl.findByProStatus(0, PageRequest.of(unapprovedPage, size));
+        // 2. 승인된 프로젝트 정보 조회 (페이징 처리)
+        Page<ProjectDto> projectDtoPageAfterList = projectServiceImpl.findByProStatus(1, PageRequest.of(approvedPage, size));
+        // 3. 미승인 프로젝트 게시판 페이지 버튼
+        int startPage = Math.max(1, projectDtoPageBeforeList.getPageable().getPageNumber() -4);
+        int endPage = Math.min(projectDtoPageBeforeList.getPageable().getPageNumber() + 4, projectDtoPageBeforeList.getTotalPages());
+        // 4. 승인 프로젝트 게시판 페이지 버튼
+        int permitStartPage = Math.max(1, projectDtoPageAfterList.getPageable().getPageNumber() -4);
+        int permitEndPage = Math.min(projectDtoPageAfterList.getPageable().getPageNumber() + 4, projectDtoPageAfterList.getTotalPages());
         // 3. 모델 속성에 정보 저장
-        model.addAttribute("projectBeforeList", projectDtoBeforeList);
-        model.addAttribute("projectAfterList", projectDtoAfterList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("projectBeforeList", projectDtoPageBeforeList);
+        model.addAttribute("permitStartPage", permitStartPage);
+        model.addAttribute("permitEndPage", permitEndPage);
+        model.addAttribute("projectAfterList", projectDtoPageAfterList);
+        // 4. 관리자 계정 전달
+        String adminId = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("adminId",adminId);
     }
 
     @GetMapping("/editProject")

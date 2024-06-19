@@ -31,7 +31,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     List<Project> findAll();
 
     // 승인/미승인 프로젝트 검색
-    List<Project> findByProStatus(Integer proStatus);
+    Page<Project> findByProStatus(Integer proStatus, Pageable pageable);
 
     // 키워드별 검색
     Page<Project> findAllByProCategoryOrderByProCode(String proCategory, Pageable pageable);

@@ -6,6 +6,8 @@ import com.example.app.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +22,10 @@ public class UserService {
     private UserRepository userRepository;
 
     // 모든 유저 정보 조회
-    public List<UserDto> getAllUsers() {
-        List<User> userList = userRepository.findAll();
-        return userList.stream()
-                       .map(user -> UserDto.EntityToUserDto(user))
-                       .collect(Collectors.toList());
+    public Page<UserDto> getAllUsers(Pageable pageable) {
+        Page<User> userPage = userRepository.findAll(pageable);
+        Page<UserDto> userDtoPage = userPage.map(UserDto::EntityToUserDto);
+        return userDtoPage;
     }
 
     // 관리자 회원관리 페이지에서 체크된 유저 삭제

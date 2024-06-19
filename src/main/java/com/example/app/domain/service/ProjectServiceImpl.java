@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -122,13 +124,10 @@ public class ProjectServiceImpl {
 
     // 승인/미승인 프로젝트 검색
     @Transactional
-    public List<ProjectDto> findByProStatus(Integer proStatus) {
-        List<Project> projectList = projectRepository.findByProStatus(proStatus);
-        List<ProjectDto> projectDtoList = new ArrayList<>();
-        for (Project project : projectList) {
-            projectDtoList.add(ProjectDto.toProjectDto(project));
-        }
-        return projectDtoList;
+    public Page<ProjectDto> findByProStatus(Integer proStatus, Pageable pageable) {
+        Page<Project> projectPage = projectRepository.findByProStatus(proStatus, pageable);
+        Page<ProjectDto> projectDtoPage = projectPage.map(ProjectDto::toProjectDto);
+        return projectDtoPage;
     }
 
     // 프로젝트 삭제

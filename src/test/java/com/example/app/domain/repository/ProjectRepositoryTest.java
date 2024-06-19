@@ -43,11 +43,6 @@ class ProjectRepositoryTest {
         userRepository.save(user);
     }
 
-    @Test
-    public void t3() {
-        List<Project> projectList = projectRepository.findByProStatus(0);
-    }
-
 
 //    @Test
 //    public void insert(){

@@ -44,7 +44,7 @@
             <div class="img-box mt-4">
                 <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="관리자프로필">
             </div>
-            <p class="text-center">관리자 계정</p>
+            <p class="text-center" th:text="${adminId}">관리자 계정</p>
             <div class="side-menu">
                 <p>사이트 관리</p>
                 <a class="d-flex" th:href="@{/th/admin/dashboard}">
@@ -78,7 +78,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="projectBefore, iterStat: ${projectBeforeList}">
-                            <td th:text="${iterStat.index + 1}">번호</td>  <!--번호는 1번부터-->
+                            <td th:text="${projectBefore.proCode}">번호</td>  <!--번호는 1번부터-->
                             <td th:text="${projectBefore.sellerName}">판매자</td>
                             <td th:text="${projectBefore.proCategory}">카테고리</td>
                             <td>
@@ -86,11 +86,40 @@
                                     <span th:text="${projectBefore.proName}">프로젝트명</span>
                                 </a>
                             </td>
-                            <td><input class="form-check-input" type="checkbox" name="projectsBefore" th:value="${projectBefore.proCode}" aria-label="..."></td>
+                            <td><input class="form-check-input" type="checkbox" name="projectsBefore"
+                                       th:value="${projectBefore.proCode}" aria-label="..."></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"
+                            th:classappend="${startPage == projectBeforeList.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{'/th/admin/project?unapprovedPage=' + (${projectBeforeList.pageable.pageNumber} - 1) + '&approvedPage=' + ${projectAfterList.pageable.pageNumber}}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${num == projectBeforeList.pageable.pageNumber + 1} ? 'active'"
+                            th:each="num : ${#numbers.sequence(startPage, endPage)}">
+                            <a class="page-link"
+                               th:href="@{'/th/admin/project?unapprovedPage=' + (${num - 1}) + '&approvedPage=' + ${projectAfterList.pageable.pageNumber}}"
+                               th:text="${num}">
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${endPage == projectBeforeList.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{'/th/admin/project?unapprovedPage=' + (${projectBeforeList.pageable.pageNumber} + 1) + '&approvedPage=' + ${projectAfterList.pageable.pageNumber}}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
                 <div class="container">
                     <div class="btns text-end">
                         <button type="button" class="btn btn-secondary " id="deleteBtn">삭제</button>
@@ -116,7 +145,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="projectAfter, iterStat: ${projectAfterList}">
-                            <td th:text="${iterStat.index + 1}">번호</td>  <!--번호는 1번부터-->
+                            <td th:text="${projectAfter.proCode}">번호</td>  <!--번호는 1번부터-->
                             <td th:text="${projectAfter.sellerName}">판매자</td>
                             <td th:text="${projectAfter.proCategory}">카테고리</td>
                             <td>
@@ -125,11 +154,39 @@
                                 </a>
                             </td>
                             <td th:text="${projectAfter.proDate}">승인일자</td>
-                            <td><input class="form-check-input" type="checkbox" name="projectsAfter" th:value="${projectAfter.proCode}" aria-label="..."></td>
+                            <td><input class="form-check-input" type="checkbox" name="projectsAfter"
+                                       th:value="${projectAfter.proCode}" aria-label="..."></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"
+                            th:classappend="${permitStartPage == projectAfterList.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{'/th/admin/project?approvedPage=' + (${projectAfterList.pageable.pageNumber} - 1) + '&unapprovedPage=' + ${projectBeforeList.pageable.pageNumber}}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${num == projectAfterList.pageable.pageNumber + 1} ? 'active'"
+                            th:each="num : ${#numbers.sequence(permitStartPage, permitEndPage)}">
+                            <a class="page-link"
+                               th:href="@{'/th/admin/project?approvedPage=' + (${num - 1}) + '&unapprovedPage=' + ${projectBeforeList.pageable.pageNumber}}"
+                               th:text="${num}"></a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${permitEndPage == projectAfterList.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{'/th/admin/project?approvedPage=' + (${projectAfterList.pageable.pageNumber} + 1) + '&unapprovedPage=' + ${projectBeforeList.pageable.pageNumber}}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
                 <div class="container">
                     <div class="btns text-end">
                         <button type="button" class="btn btn-secondary " id="PermitDeleteBtn">삭제</button>

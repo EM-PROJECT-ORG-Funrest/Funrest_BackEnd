@@ -44,7 +44,7 @@
             <div class="img-box mt-4">
                 <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="관리자프로필">
             </div>
-            <p class="text-center">관리자 계정</p>
+            <p class="text-center" th:text="${adminId}">관리자 계정</p>
             <div class="side-menu">
                 <p>사이트 관리</p>
                 <a class="d-flex" th:href="@{/th/admin/dashboard}">
@@ -77,17 +77,44 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user, iterStat: ${users}">
+                        <tr th:each="userDtoPage, iterStat: ${userDtoPages}">
                             <!-- 추후 thymeleaf 로 번호 증가하는 코드로 변경예정-->
                             <td th:text="${iterStat.index + 1}">번호</td>
-                            <td th:text="${user.userId}">아이디</td>
-                            <td th:text="${user.userName}">이름</td>
-                            <td th:text="${user.phone}">연락처</td>
-                            <td><input class="form-check-input" type="checkbox" name="members" th:value="${user.userId}" aria-label="..."></td>
+                            <td th:text="${userDtoPage.userId}">아이디</td>
+                            <td th:text="${userDtoPage.userName}">이름</td>
+                            <td th:text="${userDtoPage.phone}">연락처</td>
+                            <td><input class="form-check-input" type="checkbox" name="members" th:value="${userDtoPage.userId}" aria-label="..."></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"
+                            th:classappend="${startPage == userDtoPages.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/th/admin/member(page=${userDtoPages.pageable.pageNumber - 1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${num == userDtoPages.pageable.pageNumber + 1} ? 'active'"
+                            th:each="num : ${#numbers.sequence(startPage, endPage)}">
+                            <a class="page-link"
+                               th:href="@{/th/admin/member(page=${num - 1})}" th:text="${num}">
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${endPage == userDtoPages.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/th/admin/member(page=${userDtoPages.pageable.pageNumber + 1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
                 <div class="container" style="border: 1px solid transparent">
                     <div class="delete-button text-end">
                         <button type="button" class="btn btn-secondary " id="deleteButton">삭제</button>

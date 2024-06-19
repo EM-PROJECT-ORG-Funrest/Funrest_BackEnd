@@ -39,7 +39,7 @@
             <div class="img-box mt-4">
                 <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="관리자프로필">
             </div>
-            <p class="text-center">관리자 계정</p>
+            <p class="text-center" th:text="${adminId}">관리자 계정</p>
             <div class="side-menu">
                 <p>사이트 관리</p>
                 <a class="d-flex" th:href="@{/th/admin/dashboard}">
