@@ -4,6 +4,7 @@ import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.repository.ProjectRepository;
 
+import com.example.app.domain.service.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,9 @@ public class ProjectDetailController {
     @Autowired
     ProjectRepository projectRepository;
 
+    @Autowired
+    ProjectServiceImpl projectService;
+
     // 프로젝트 상세페이지에 데이터 전송 API
     @GetMapping("/project/{proCode}")
     String project(@PathVariable("proCode") String proCode, Model model) {
@@ -42,6 +46,13 @@ public class ProjectDetailController {
 
         // ProMainImg 를 리스트에 담기 (3개 고정)
         List<String> storedFileName = projectDto.getStoredFileName();
+        
+        // projectDto 에 달성률 넣기
+        projectService.proAchievementRate(projectDto);
+
+        // projectDto 에 달성금액 넣기
+        projectService.proAchievementAmount(projectDto);
+        
         // ProMainImg 리스트 -> model 에 담기
         model.addAttribute("Project", projectDto);
         for (int i = 0; i < storedFileName.size(); i++) {

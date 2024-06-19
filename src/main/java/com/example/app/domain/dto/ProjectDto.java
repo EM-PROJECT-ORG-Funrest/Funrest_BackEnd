@@ -50,6 +50,7 @@ public class ProjectDto {
 
     private int proAchievementRate; // 프로젝트 달성률 구하기
     private String formattedProDate;
+    private String proAchievementAmount; //프로젝트 달성금액 구하기
 
     // Entity to Dto
     public static ProjectDto toProjectDto(Project project) {

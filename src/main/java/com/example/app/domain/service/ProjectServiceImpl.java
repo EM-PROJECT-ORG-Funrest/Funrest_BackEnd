@@ -17,9 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -97,6 +99,42 @@ public class ProjectServiceImpl {
         }
 
     }
+
+    //달성률 구하기
+    public void proAchievementRate(ProjectDto projectDto) {
+        //달성률 구하기
+        // 문자열을 정수로 변환
+        double proGoalAmount = Double.parseDouble(projectDto.getProGoalAmount().replace(",", ""));
+        double proPrice = Double.parseDouble(projectDto.getProPrice().replace(",", ""));
+        double proPaidCnt = projectDto.getProPaidCnt();
+
+        // 달성률 계산 (소수점까지 계산)
+        double proAchievementRate = (proPrice * proPaidCnt / proGoalAmount) * 100.0;
+
+        // 계산된 달성률을 반올림하여 정수로 변환
+        int roundedAchievementRate = (int) Math.round(proAchievementRate);
+
+        // projectDto에 달성률 설정
+        projectDto.setProAchievementRate(roundedAchievementRate);
+    }
+
+    // 달성 금액 구하기
+    public void proAchievementAmount(ProjectDto projectDto){
+        int proPrice = Integer.parseInt(projectDto.getProPrice().replace(",", ""));
+        int proPaidCnt = projectDto.getProPaidCnt();
+
+        int proAchievementAmount = proPrice * proPaidCnt;
+
+        // 숫자 포맷팅을 위한 NumberFormat 인스턴스 생성
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
+        String formattedProAchievementAmount = format.format(proAchievementAmount);
+
+        projectDto.setProAchievementAmount(formattedProAchievementAmount);
+
+
+    }
+
+
 
     // proCode 를 기준으로 해당 ProjectDto 조회(파일까지 조회)
     // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
