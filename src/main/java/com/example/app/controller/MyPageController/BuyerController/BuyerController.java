@@ -188,12 +188,6 @@ public class BuyerController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        // 새 비밀번호와 확인 비밀번호 일치 여부 확인
-        if (!password2.equals(password3)) {
-            response.put("status", "error");
-            response.put("message", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-            return ResponseEntity.badRequest().body(response);
-        }
 
         // 비밀번호 변경 로직
         String encodedNewPassword = passwordEncoder.encode(password2);
