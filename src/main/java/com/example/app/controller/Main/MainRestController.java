@@ -27,7 +27,6 @@ public class MainRestController {
         this.mainService = mainService;
     }
 
-
     @GetMapping("/projects")
     public Page<ProjectDto> getProjects(@RequestParam(name = "page", defaultValue = "0") int page,
                                         @RequestParam(name = "size", defaultValue = "12") int size) {
@@ -54,11 +53,8 @@ public class MainRestController {
         Page<ProjectDto> projectDtoPage = null;
         // 카테고리 들어오는 값 별로 나누기
         if (proCategory.equals("all")){
-            //Pageable pageable = PageRequest.of(page, size, Sort.by("proCode").descending());
             // 프로젝트를 페이지별로 검색하여 반환
-            //projectDtoPage = mainService.getAllProjectsOrderedByProCode(pageable);
             projectDtoPage = mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
-            System.out.println("all : " + projectDtoPage.getContent());
             // 각 ProjectDto에 이미지 URL을 설정
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
@@ -67,11 +63,10 @@ public class MainRestController {
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }
             });
-
             return projectDtoPage;
-        }else if (proCategory.equals("movie")){
-            projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
-            System.out.println("movie : " + projectDtoPage.getContent());
+
+        } else if (proCategory.equals("coming-soon")){
+            projectDtoPage = mainService.getAllProjectByComingSoon(PageRequest.of(page, size));
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
@@ -81,18 +76,7 @@ public class MainRestController {
             });
             return projectDtoPage;
 
-        }else if (proCategory.equals("musical")){
-            projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
-            projectDtoPage.forEach(projectDto -> {
-                if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
-                } else {
-                    projectDto.setMainPageImgPath("");
-                }
-            });
-            return projectDtoPage;
-
-        }else if (proCategory.equals("book")){
+        } else if (proCategory.equals("movie") || proCategory.equals("musical") || proCategory.equals("book")){
             projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
@@ -111,15 +95,14 @@ public class MainRestController {
 
 
     @GetMapping("/keyword")
-    public Page<ProjectDto> getProjectsByProName(@RequestParam(value = "proName", defaultValue = "1234578888") String proName,
+    public Page<ProjectDto> getProjectsByProName(@RequestParam(value = "proName", defaultValue = "") String proName,
                                                  @RequestParam(name = "page", defaultValue = "0") int page,
                                                  @RequestParam(name = "size", defaultValue = "12") int size,
                                                  Model model) {
         Page<ProjectDto> projectDtoPage = null;
 
-        if (proName.equals("1234578888")) {
+        if (proName.equals("")) {
             projectDtoPage =  mainService.findAllByOrderByProCode(PageRequest.of(page, size));
-            log.info("1234578888" + projectDtoPage.getContent().getFirst());
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
@@ -140,4 +123,28 @@ public class MainRestController {
             return projectDtoPage;
         }
     }
+
+//    @GetMapping("/projectList")
+//    public Page<ProjectDto> getProjects(@RequestParam(value = "proCategory", defaultValue = "all") String proCategory,
+//                                        @RequestParam(value = "proName", defaultValue = "1234578888") String proName,
+//                                        @RequestParam(value = "sortingMethod", defaultValue = "1") String sortingMethod,
+//                                        @RequestParam(name = "page", defaultValue = "0") int page,
+//                                        @RequestParam(name = "size", defaultValue = "12") int size,
+//                                        Model model) {
+//        log.info("getProjects() execute..");
+//
+//        // 프로젝트를 페이지별로 검색하여 반환
+//        Page<ProjectDto> projectDtoPage = mainService.findByProNameAndCategory(proName, proCategory, sortingMethod, PageRequest.of(page, size));
+//        // 각 ProjectDto에 이미지 URL을 설정
+//        projectDtoPage.forEach(projectDto -> {
+//            if (!projectDto.getStoredFileName().isEmpty()) {
+//                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+//            } else {
+//                projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+//            }
+//        });
+//
+//        return projectDtoPage;
+//    }
+
 }
