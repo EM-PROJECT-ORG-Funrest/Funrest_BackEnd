@@ -21,6 +21,7 @@ public class MainServiceImpl {
     @Autowired
     private ProjectRepository projectRepository;
 
+    //페이지 처음 로드시
     public List<ProjectDto> getAllProjectsOrderedByProCode() {
         List<Project> projects = projectRepository.findAllByOrderByProCodeDesc();
         List<ProjectDto> projectDtos = projects.stream()
@@ -30,25 +31,13 @@ public class MainServiceImpl {
         return projectDtos;
     }
 
-
+    // 첫 페이지 로드시 인피니티 스크롤 + 카테고리 항목 중 "전체" 클릭시
     public Page<ProjectDto> getAllProjectsOrderedByProCode(Pageable pageable) {
         Page<Project> projects = projectRepository.findAllByOrderByProCodeDesc(pageable);
         return projects.map(ProjectDto::toProjectDto);
     }
 
-
-
-    public Page<ProjectDto> findAllByOrderByProCode(Pageable pageable) {
-        Page<Project> projectPage = projectRepository.findAllByOrderByProCode(pageable);
-
-        if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findAllByOrderByProCode(pageable.previousOrFirst());
-            return projectPage2.map(ProjectDto::toProjectDto);
-        }
-
-        return projectPage.map(ProjectDto::toProjectDto);
-    }
-
+    // 카테고리 검색
     public Page<ProjectDto> getAllProjectByProCategory(String proCategory, Pageable pageable) {
         Page<Project> projectPage = projectRepository.findAllByProCategoryOrderByProCode(proCategory, pageable);
 
@@ -59,20 +48,7 @@ public class MainServiceImpl {
         return projectPage.map(ProjectDto::toProjectDto);
     }
 
-    public Page<ProjectDto> ListToPage(int page, int size, List<ProjectDto> projectDtoList){
-        PageRequest pageRequest = PageRequest.of(page, size);
-        int start = (int) pageRequest.getOffset();
-        int end = Math.min((start + pageRequest.getPageSize()), projectDtoList.size());
-
-        // 페이지가 유효한 범위를 벗어나는 경우 빈 페이지를 반환
-        if (start > projectDtoList.size()) {
-            return new PageImpl<>(List.of(), pageRequest, projectDtoList.size());
-        }
-
-        List<ProjectDto> subList = projectDtoList.subList(start, end);
-        return new PageImpl<>(subList, pageRequest, projectDtoList.size());
-    }
-
+    // 키워드 검색
     public Page<ProjectDto> getProjectByProName(String proName, Pageable pageable){
         Page<Project> projectPage = projectRepository.findByProNameContaining(proName, pageable);
 
@@ -84,8 +60,59 @@ public class MainServiceImpl {
         return projectPage.map(ProjectDto::toProjectDto);
     }
 
+    // 키워드 검색할 때 아무 값도 안 넘겨준 경우
+    public Page<ProjectDto> findAllByOrderByProCode(Pageable pageable) {
+        Page<Project> projectPage = projectRepository.findAllByOrderByProCode(pageable);
+
+        if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
+            Page<Project> projectPage2 = projectRepository.findAllByOrderByProCode(pageable.previousOrFirst());
+            return projectPage2.map(ProjectDto::toProjectDto);
+        }
+
+        return projectPage.map(ProjectDto::toProjectDto);
+    }
 
 
 
+//    public Page<ProjectDto> findByProNameAndCategory(String proName, String proCategory, String sortingMethod, Pageable pageable) {
+//
+//        // sortingMethod == 1
+//            // proName - N && proCategory - N
+//            Page<Project> projectPage = projectRepository.find
+//
+//            // proName - N
+//
+//            // proCategory - N
+//
+//            // NN
+//
+//        // sortingMethod == 2
+//
+//
+//
+//        // sortingMethod == 3
+//
+//
+//        if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
+//            Page<Project> projectPage2 = projectRepository.findByProNameContaining(proName, pageable.previousOrFirst());
+//            return projectPage2.map(ProjectDto::toProjectDto);
+//        }
+//
+//        return projectPage.map(ProjectDto::toProjectDto);
+//    }
 
+
+//    public Page<ProjectDto> ListToPage(int page, int size, List<ProjectDto> projectDtoList){
+//        PageRequest pageRequest = PageRequest.of(page, size);
+//        int start = (int) pageRequest.getOffset();
+//        int end = Math.min((start + pageRequest.getPageSize()), projectDtoList.size());
+//
+//        // 페이지가 유효한 범위를 벗어나는 경우 빈 페이지를 반환
+//        if (start > projectDtoList.size()) {
+//            return new PageImpl<>(List.of(), pageRequest, projectDtoList.size());
+//        }
+//
+//        List<ProjectDto> subList = projectDtoList.subList(start, end);
+//        return new PageImpl<>(subList, pageRequest, projectDtoList.size());
+//    }
 }

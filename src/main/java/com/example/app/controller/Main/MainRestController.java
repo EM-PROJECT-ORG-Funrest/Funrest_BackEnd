@@ -27,7 +27,6 @@ public class MainRestController {
         this.mainService = mainService;
     }
 
-
     @GetMapping("/projects")
     public Page<ProjectDto> getProjects(@RequestParam(name = "page", defaultValue = "0") int page,
                                         @RequestParam(name = "size", defaultValue = "12") int size) {
@@ -69,9 +68,10 @@ public class MainRestController {
             });
 
             return projectDtoPage;
-        }else if (proCategory.equals("movie")){
+        }
+        //밑에꺼 다 ||로 합쳐도 되나요?!?@?!?!?!?!?!?!?!?!?!??!!?!??!?!!?!?!?!?!?!?!?!?!?!?!?!!?!?!?!?!?!?!!?!?!?
+        else if (proCategory.equals("movie")){
             projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
-            System.out.println("movie : " + projectDtoPage.getContent());
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
@@ -140,4 +140,28 @@ public class MainRestController {
             return projectDtoPage;
         }
     }
+
+//    @GetMapping("/projectList")
+//    public Page<ProjectDto> getProjects(@RequestParam(value = "proCategory", defaultValue = "all") String proCategory,
+//                                        @RequestParam(value = "proName", defaultValue = "1234578888") String proName,
+//                                        @RequestParam(value = "sortingMethod", defaultValue = "1") String sortingMethod,
+//                                        @RequestParam(name = "page", defaultValue = "0") int page,
+//                                        @RequestParam(name = "size", defaultValue = "12") int size,
+//                                        Model model) {
+//        log.info("getProjects() execute..");
+//
+//        // 프로젝트를 페이지별로 검색하여 반환
+//        Page<ProjectDto> projectDtoPage = mainService.findByProNameAndCategory(proName, proCategory, sortingMethod, PageRequest.of(page, size));
+//        // 각 ProjectDto에 이미지 URL을 설정
+//        projectDtoPage.forEach(projectDto -> {
+//            if (!projectDto.getStoredFileName().isEmpty()) {
+//                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+//            } else {
+//                projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+//            }
+//        });
+//
+//        return projectDtoPage;
+//    }
+
 }

@@ -94,7 +94,7 @@
     </div>
     <div class="main container my-custom-container">
       <div class="main-header row">
-        <div class="category">
+        <div class="category d-lg-flex justify-content-between">
           <ul class="nav">
             <li class="nav-item">
               <a class="nav-link active" href="#" data-category="all">전체</a>
@@ -112,22 +112,19 @@
               <a class="nav-link" href="#" data-category="coming-soon">오픈예정</a>
             </li>
           </ul>
-        </div>
-        <form method="GET" action="" class="d-flex justify-content-between align-items-center p-1 mt-2">
-          <div class="sort-project ps-2 ms-1">
-          </div>
-          <div class="search-project px-2 px-md-2 me-1">
+          <div class="search-project px-2 px-md-2 me-1 mt-2">
             <div class="input-group">
               <input type="text" class="form-control rounded" id="keyword" placeholder="키워드를 입력해 주세요"
                      aria-label="Search" aria-describedby="search-addon"/>
               <button type="button" class="btn btn-outline-primary btn-sm" id="search-button">
-                                <span class="material-symbols-outlined">
-                                    search
-                                  </span>
+                <span class="material-symbols-outlined">
+                    search
+                  </span>
               </button>
             </div>
           </div>
-        </form>
+        </div>
+
       </div>
       <div class="section">
         <div class="project-list h-100">
@@ -161,9 +158,11 @@
  const size = 12; // 페이지당 아이템 수
  const projectList = document.getElementById('project-list');
  const scrollAnchor = document.getElementById('scroll-anchor');
+ //const sortMethodSelect = document.getElementById('sorting-method');
  let currentCategory = null; // 현재 선택된 카테고리
  let currentKeyword = null; // 현재 검색된 키워드
- let isLastPage = 0;
+ //let currentSortingMethod = sortMethodSelect.value; // 현재 선택된 정렬 방법
+ let isLastPage = 0; // 조회되는 프로젝트 데이터가 12 미만일시 1로 set
 
  // 프로젝트 데이터를 서버에서 가져오는 함수
  async function loadProjects(category = null, keyword = null) {
@@ -175,6 +174,12 @@
              : keyword
                  ? `/th/main/main/keyword?proName=${keyword}&page=${page}&size=${size}`
                  : `/th/main/main/projects?page=${page}&size=${size}`;
+
+         //const url = `/th/main/main/projectList?proCategory=${currentCategory}&proName=${currentKeyword}&sortingMethod=${currentSortingMethod}&page=${page}&size=${size}`;
+         //console.log("request url : " + url);
+
+
+
          const response = await axios.get(url);
          const projects = response.data.content;
          isLastPage = (projects.length < 12) ? 1 : 0;
@@ -229,6 +234,10 @@
          event.preventDefault();
          currentCategory = $(this).data('category');
          currentKeyword = null; // 키워드를 초기화
+
+         //currentSortingMethod = 1;
+
+
          page = 0; // 페이지 번호 초기화
          projectList.innerHTML = ''; // 기존 프로젝트 초기화
          loadProjects(currentCategory);
@@ -246,10 +255,15 @@
  // 키워드 검색 버튼 클릭 시
  document.getElementById('search-button').addEventListener('click', function() {
      const keyword = document.getElementById('keyword').value;
-     currentCategory = null; // 카테고리를 초기화
+     //currentCategory = null; // 카테고리를 초기화
      currentKeyword = keyword;
      page = 0; // 페이지 번호 초기화
      projectList.innerHTML = ''; // 기존 프로젝트 초기화
      loadProjects(currentCategory, currentKeyword); // 이 줄 추가
  });
+
+ //sortMethodSelect.addEventListener('change', function() {
+ //   currentSortingMethod = sortMethodSelect.value;
+ //   loadProjects(currentCategory, currentKeyword);
+ //});
 </script>
