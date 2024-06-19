@@ -51,13 +51,14 @@ public class ProjectServiceImpl {
         {
             Project project = Project.toSaveEntity(projectDto);
             System.out.println("project : " + project);
-            project.setProDate(new Date());
+            project.setProDate(new Date()); // proDate에 현재날짜 넣어주기
             projectRepository.save(project);
         }
         // 'ProMainImg 첨부o' and 'ProSubImg 첨부o' 경우
         else {
             // 1. 부모 테이블 tbl_project 에 해당 데이터 먼저 저장 처리
             Project projectEntity = Project.toSaveFileEntity(projectDto); // 전달된 dto -> entity 변환
+            projectEntity.setProDate(new Date()); // proDate에 현재날짜 넣어주기
             System.out.println("projectEntity : " + projectEntity);
             Integer savedProCode = projectRepository.save(projectEntity).getProCode(); // entity db에 저장 후 proCode 가져옴
             Project project = projectRepository.findByProCode(savedProCode); // 가져온 proCode 로 해당하는 부모 엔터티 객체의 데이터를 가져옴
