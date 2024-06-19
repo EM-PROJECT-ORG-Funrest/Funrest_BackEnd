@@ -45,9 +45,7 @@ public class SecurityConfig {
             .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests((auth) -> auth
                     .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**").permitAll()
-                    .requestMatchers("/th/myPage/**", "/th/notify/applyNotification", "/th/admin/**").hasRole("USER")
-//                    .requestMatchers("/th/myPage/**").hasRole("USER")
-//                    .requestMatchers("/th/admin/**").hasRole("USER")
+                    .requestMatchers("/th/myPage/**", "/th/notify/**", "/th/admin/**").hasRole("USER")
                     .anyRequest().authenticated()
             )
             .sessionManagement(
