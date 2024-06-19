@@ -255,7 +255,7 @@
  // 키워드 검색 버튼 클릭 시
  document.getElementById('search-button').addEventListener('click', function() {
      const keyword = document.getElementById('keyword').value;
-     //currentCategory = null; // 카테고리를 초기화
+     currentCategory = null; // 카테고리를 초기화
      currentKeyword = keyword;
      page = 0; // 페이지 번호 초기화
      projectList.innerHTML = ''; // 기존 프로젝트 초기화

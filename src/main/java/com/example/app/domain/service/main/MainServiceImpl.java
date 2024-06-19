@@ -23,7 +23,7 @@ public class MainServiceImpl {
 
     //페이지 처음 로드시
     public List<ProjectDto> getAllProjectsOrderedByProCode() {
-        List<Project> projects = projectRepository.findAllByOrderByProCodeDesc();
+        List<Project> projects = projectRepository.findAllByProStatusOrderByProCodeDesc(1);
         List<ProjectDto> projectDtos = projects.stream()
                 .map(ProjectDto::toProjectDto)
                 .collect(Collectors.toList());
@@ -33,16 +33,16 @@ public class MainServiceImpl {
 
     // 첫 페이지 로드시 인피니티 스크롤 + 카테고리 항목 중 "전체" 클릭시
     public Page<ProjectDto> getAllProjectsOrderedByProCode(Pageable pageable) {
-        Page<Project> projects = projectRepository.findAllByOrderByProCodeDesc(pageable);
+        Page<Project> projects = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable,1);
         return projects.map(ProjectDto::toProjectDto);
     }
 
     // 카테고리 검색
     public Page<ProjectDto> getAllProjectByProCategory(String proCategory, Pageable pageable) {
-        Page<Project> projectPage = projectRepository.findAllByProCategoryOrderByProCode(proCategory, pageable);
+        Page<Project> projectPage = projectRepository.findAllByProCategoryAndProStatusOrderByProCode(proCategory, pageable, 1);
 
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findAllByProCategoryOrderByProCode(proCategory, pageable.previousOrFirst());
+            Page<Project> projectPage2 = projectRepository.findAllByProCategoryAndProStatusOrderByProCode(proCategory, pageable.previousOrFirst(), 1);
             return projectPage2.map(ProjectDto::toProjectDto);
         }
         return projectPage.map(ProjectDto::toProjectDto);
@@ -50,11 +50,11 @@ public class MainServiceImpl {
 
     // 키워드 검색
     public Page<ProjectDto> getProjectByProName(String proName, Pageable pageable){
-        Page<Project> projectPage = projectRepository.findByProNameContaining(proName, pageable);
+        Page<Project> projectPage = projectRepository.findByProNameContainingAndProStatus(proName, pageable, 1);
 
         // 첫번째 페이지에서 12개 이상이 안되면 페이지에 도출 자체가 안되서  이코드 추가
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findByProNameContaining(proName, pageable.previousOrFirst());
+            Page<Project> projectPage2 = projectRepository.findByProNameContainingAndProStatus(proName, pageable.previousOrFirst(), 1);
             return projectPage2.map(ProjectDto::toProjectDto);
         }
         return projectPage.map(ProjectDto::toProjectDto);
@@ -62,10 +62,10 @@ public class MainServiceImpl {
 
     // 키워드 검색할 때 아무 값도 안 넘겨준 경우
     public Page<ProjectDto> findAllByOrderByProCode(Pageable pageable) {
-        Page<Project> projectPage = projectRepository.findAllByOrderByProCode(pageable);
+        Page<Project> projectPage = projectRepository.findAllByProStatusOrderByProCode(pageable, 1);
 
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findAllByOrderByProCode(pageable.previousOrFirst());
+            Page<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCode(pageable.previousOrFirst(), 1);
             return projectPage2.map(ProjectDto::toProjectDto);
         }
 
