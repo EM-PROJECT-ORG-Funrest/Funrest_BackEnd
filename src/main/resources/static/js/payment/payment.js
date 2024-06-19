@@ -77,6 +77,8 @@ function paymentValidChk(event) {
 }
 
 
+//https://hstory0208.tistory.com/entry/Spring-%EC%95%84%EC%9E%84%ED%8F%AC%ED%8A%B8import%EB%A1%9C-%EA%B2%B0%EC%A0%9C-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%9C%EB%B2%84-%EC%BD%94%EB%93%9C-%ED%8F%AC%ED%95%A8
+//https://velog.io/@dev_h_o/Spring-%ED%8F%AC%ED%8A%B8%EC%9B%90%EC%95%84%EC%9E%84%ED%8F%AC%ED%8A%B8%EA%B2%B0%EC%A0%9Capi-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-ajax
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("paymentBtn").addEventListener("click", function(event) {
@@ -94,27 +96,14 @@ function goToPay(){
     var payMethod = document.querySelector(".form-check-input").value;
     var merchantUid = document.getElementById("payment-name").value + new Date().getTime();
     var productName = "상품정보(이름)";
-//   var amount = document.querySelector(".count-select").value;
-    var amount = "100"*document.querySelector(".count-select").value;
+    var orderCnt = document.querySelector(".count-select").value;
+    var amount = 100 * parseInt(document.querySelector(".count-select").value);
     var buyerTel = document.getElementById("payment-phone").value;
     var buyerName = document.getElementById("payment-name").value;
-    var buyerAddr = document.getElementById("payment-road-addr").value + " " + document.getElementById("payment-addr-detail").value;
+    var buyerAddr = document.getElementById("payment-road-addr").value+" "+document.getElementById("payment-addr-detail").value
     var buyerPostcode = document.getElementById("payment-post-code").value;
 
     IMP.request_pay({
-
-//            pg: "html5_inicis.INIpayTest",
-//            pay_method: $(".form-check-input").val(),
-//            merchant_uid: $("#payment-name").val()+ new Date().getTime(),
-//            name: "상품정보(이름)",
-//            amount: $(".count-select").val(),
-//            buyer_tel: $("#payment-phone").val(),
-//            buyer_name : $("#payment-name").val(),
-//            buyer_addr : $("#payment-road-addr").val()+$("#payment-addr-detail").val(),
-//            buyer_postcode : $("#payment-post-code").val()
-            //나중에 리다이렉션 주소 필요하면 추가하기 redirect_url : "";
-
-
         pg: "html5_inicis.INIpayTest",
         pay_method: payMethod,
         merchant_uid: merchantUid,
@@ -125,20 +114,64 @@ function goToPay(){
         buyer_addr: buyerAddr,
         buyer_postcode: buyerPostcode
 
-     },function(resp){
+},function(resp){
         if(resp.success){
-            alert("결제 성공했습니다.");
+           var msg='결제 성공했습니다'
 
-            console.log(resp);
-            // 여기에서 값
+           console.log(resp);
+           // form 전 여기에서 값 넣기
 
-          var form = document.getElementById("payment-form");
-          form.action = "/th/payment/paymentSave";
-          form.submit();
-        }else{
-            alert("결제 실패하였습니다.");
-            console.log(resp)
-        }
-     });
+           var result={
+               "orderMethod" : resp.pay_method+" "+resp.card_name,
+               "orderDate" : new Date().toISOString().slice(0,10),
+               "totalAmount" : amount + 3000,
+               "impUid" : resp.imp_uid,
+               "merchantUid" : merchantUid,
+               "buyerName": buyerName,
+               "buyerAddr": buyerAddr,
+               "buyerTel": buyerTel,
+               "buyerPostcode": buyerPostcode,
+               "orderCnt" : orderCnt
+           }
+           console.log(result);
+
+           $.ajax({
+                url: '/th/payment/complete',
+                method: 'POST',
+//                dataType : 'json',
+                contentType : 'application/json',
+                data: JSON.stringify(result),
+                success: function (resp) {
+                    console.log("success..."+resp);
+                },
+                error: function (err) {
+                    // 가맹점 서버 결제 API 실패시 로직
+                    alert("결제 처리 중 문제가 발생하였습니다.");
+                    console.log(err); // 에러 출력
+                }
+            });
+          }else{
+            var msg ='결제 실패하였습니다.';
+            msg += '\n에러내용 : ' + resp.error_msg;
+          }
+          alert(msg);
+      });
 }
 
+
+function updateTotalPrice() {
+
+    var price = parseInt(document.getElementById('productPrice').textContent.replace(/,/g, ''));
+    var countSelect = document.getElementById('countSelect');
+    var selectedCount = parseInt(countSelect.value);
+    var totalPriceElement = document.getElementById('totalPrice');
+    if (!isNaN(selectedCount)) {
+         var totalPrice = price * selectedCount;
+    totalPriceElement.textContent = totalPrice.toLocaleString() + "원";
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var countSelect = document.getElementById('countSelect');
+    countSelect.addEventListener('change', updateTotalPrice);
+});

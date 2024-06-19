@@ -15,6 +15,8 @@
     <script src="/js/payment/payment.js" ></script>
     <script src="/js/payment/payment2.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -48,7 +50,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
-                        <span class="d-md-block fw-bold pb-2">주문 금액</span>
+                        <span class="d-md-block fw-bold pb-2">상품 금액</span>
                         <div class="h-50 d-flex justify-content-center align-items-center">
                             <span th:text="${Project.proPrice}" class="">100,000</span>
                         </div>
@@ -66,9 +68,6 @@
                                 <p>총 상품 가격</p>
                             </div>
                             <div class="col-12 text-center">
-                                <p>쿠폰 금액</p>
-                            </div>
-                            <div class="col-12 text-center">
                                 <p>배송비</p>
                             </div>
                         </div>
@@ -76,13 +75,10 @@
                     <div class="col-6 my-3">
                         <div class="row order-title">
                             <div class="col-12 text-center">
-                                <p>10,000원</p>
+                                <p id="totalPrice">10,000원</p>
                             </div>
                             <div class="col-12 text-center">
-                                <p>10,000원</p>
-                            </div>
-                            <div class="col-12 text-center">
-                                <p>10,000원</p>
+                                <p>3,000원</p>
                             </div>
                         </div>
                     </div>
@@ -92,7 +88,7 @@
                             <p>총 결제 금액</p>
                         </div>  
                         <div class="col-6 text-center pt-3">
-                            <p>10,000원</p>
+                            <p id="totalPayment">10,000원</p>
                         </div>                  
                     </div>
                 </div>

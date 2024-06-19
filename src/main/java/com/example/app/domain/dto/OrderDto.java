@@ -4,6 +4,7 @@ import com.example.app.domain.entity.Order;
 import com.example.app.domain.entity.Project;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -13,26 +14,29 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class OrderDto {
-    private int orderCode;
+//    private String orderCode; //imp_uid
     private int proCode;
     private String userId;
     private int deliveryPay;
     private String orderMethod;
-    private Date orderDate;
+    private LocalDate orderDate;
     private String orderState;
     private int orderCnt;
     private String refundDetail;
-    
+
     //추가
-    private String orderName;
-    private String orderAddr;
-    private String orderDetailAddr;
-    private String orderPhone;
-    private int postCode;
+    private String buyerName;
+    private String buyerAddr;
+//    private String buyerDetailAddr;
+    private String buyerTel;
+    private int buyerPostcode;
+    private String impUid;
+    private String merchantUid;
+    private int totalAmount;
 
     public static OrderDto EntityToOrderDto(Order order){
         OrderDto orderDto = new OrderDto();
-        orderDto.setOrderCode(order.getOrderCode());
+//        orderDto.setOrderCode(order.getOrderCode());
         orderDto.setProCode(order.getProCode().getProCode());
         orderDto.setUserId(order.getUserId().getUserId());
         orderDto.setDeliveryPay(order.getDeliveryPay());
@@ -41,10 +45,14 @@ public class OrderDto {
         orderDto.setOrderState(order.getOrderState());
         orderDto.setOrderCnt(order.getOrderCnt());
         orderDto.setRefundDetail(order.getRefundDetail());
-        orderDto.setOrderName(order.getOrderName());
-        orderDto.setOrderAddr(order.getOrderAddr());
-        orderDto.setOrderPhone(order.getOrderPhone());
-        orderDto.setPostCode(order.getPostCode());
+        orderDto.setBuyerName(order.getBuyerName());
+        orderDto.setBuyerAddr(order.getBuyerAddr());
+//        orderDto.setBuyerDetailAddr(order.getBuyerDetailAddr());
+        orderDto.setBuyerTel(order.getBuyerTel());
+        orderDto.setBuyerPostcode(order.getBuyerPostcode());
+        orderDto.setImpUid(order.getImpUid());
+        orderDto.setMerchantUid(order.getMerchantUid());
+        orderDto.setTotalAmount(order.getTotalAmount());
 
         return orderDto;
     }
