@@ -29,6 +29,8 @@
     </style>
     <!-- chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <!-- adminDashboard.js -->
+    <script src="/js/admin/adminDashboard.js" defer></script>
 </head>
 
 <div th:replace="~{/fragments/header.html::adminHeader }"></div>
@@ -61,10 +63,10 @@
                 <div class="subject">방문자 현황</div>
                 <hr>
                 <div class="visitor-chart">
-                    <!-- 방문자 현황 차트 -->
                     <canvas id="myChart" height="300"></canvas>
                 </div>
             </div>
+            <!-- order 테이블 완료 시 DB 데이터 받아오기 -->
             <div class="admin-date">
                 <div class="subject2">주문현황 요약</div>
                 <hr>
@@ -165,42 +167,6 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('myChart').getContext('2d');
-
-    fetch('/api/visitData')
-        .then(response => response.json())
-        .then(data => {
-            const labels = data.map(item => item.visitDate);
-            const values = data.map(item => item.visitNum);
-
-            new Chart(ctx, {
-                type: 'line',               // 차트의 종류
-                data: {                     // 차트의 데이터
-                    labels: labels,
-                    datasets: [{            // 실제 차트에 표시할 데이터들(Array), dataset 객체들을 담고 있음
-                        label: 'Number of Visits',          // dataset의 이름(String)
-                        data: values,                       // dataset의 값(Array)
-                        borderColor: 'rgba(75, 192, 192, 1)',       // dataset의 선 색(rgba값을 String으로 표현)
-                        borderWidth: 1      // dataset의 선 두께(Number)
-                    }]
-                },
-                options: {                              // 차트의 설정
-                    maintainAspectRatio: false,         // 크기 고정
-                    scales: {                           // x축과 y축에 대한 설정
-                        y: {
-                            beginAtZero: true           // 시작을 0부터 하게끔 설정
-                        }
-                    }
-                }
-            });
-        });
-    });
-</script>
-
 </body>
 <div th:replace="~{/fragments/footer.html::footer}"></div>
 
