@@ -1,20 +1,23 @@
-package com.example.app.controller;
+package com.example.app.controller.ProjectController;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.repository.ProjectRepository;
 
+import com.example.app.domain.service.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -29,16 +32,27 @@ public class ProjectDetailController {
     @Autowired
     ProjectRepository projectRepository;
 
+    @Autowired
+    ProjectServiceImpl projectService;
+
     // 프로젝트 상세페이지에 데이터 전송 API
     @GetMapping("/project/{proCode}")
     String project(@PathVariable("proCode") String proCode, Model model) {
-        System.out.println(proCode); // 해당 프로젝트 proCode 확인
+
         Integer projectCode = Integer.parseInt(proCode); // proCode 'int' 형 변환
+
         Project project = projectRepository.findByProCode(projectCode); // 해당 proCode 의 project 엔터티 행 찾기 및 저장
         ProjectDto projectDto = ProjectDto.toProjectDto(project); // Entity -> Dto
 
         // ProMainImg 를 리스트에 담기 (3개 고정)
         List<String> storedFileName = projectDto.getStoredFileName();
+        
+        // projectDto 에 달성률 넣기
+        projectService.proAchievementRate(projectDto);
+
+        // projectDto 에 달성금액 넣기
+        projectService.proAchievementAmount(projectDto);
+        
         // ProMainImg 리스트 -> model 에 담기
         model.addAttribute("Project", projectDto);
         for (int i = 0; i < storedFileName.size(); i++) {
@@ -51,6 +65,7 @@ public class ProjectDetailController {
         for (int i = 0; i < subStoredFileName.size(); i++) {
             model.addAttribute("subImage" + (i + 1), UPLOAD_PATH + subStoredFileName.get(i));
         }
+
         return "th/project/project.html";
     }
 }

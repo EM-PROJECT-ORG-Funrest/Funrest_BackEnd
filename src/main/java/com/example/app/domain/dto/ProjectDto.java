@@ -46,7 +46,11 @@ public class ProjectDto {
     private String proScript; // 프로젝트 상세설명
     private String sellerName; // 판매자 이름
     private String sellerDetail; // 프로젝트 판매자 소개글
-    private String datetime; //
+    private String proDateTime; // 프로젝트 기간 설정
+
+    private int proAchievementRate; // 프로젝트 달성률 구하기
+    private String formattedProDate;
+    private String proAchievementAmount; //프로젝트 달성금액 구하기
 
     // Entity to Dto
     public static ProjectDto toProjectDto(Project project) {

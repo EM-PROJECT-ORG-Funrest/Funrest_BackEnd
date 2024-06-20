@@ -32,7 +32,7 @@
         <div class="row">
             <div class="mypage-left col-md-2 px-3">
                 <div class="float-center py-3 mt-3">
-                    <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center px-3 py-1">
+                    <a th:href="@{/th/myPage/buyer/buyer}" class="d-flex justify-content-center align-items-center px-3 py-1">
                         <span class="text-end me-1">Buyer</span>
                         <span class="material-symbols-outlined">
                             sync
@@ -42,8 +42,8 @@
                 <div class="img-box">
                     <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="기본프로필">
                 </div>
-                <h5 class="text-center">Seller</h5>
-                <p class="text-center" name="">hong1</p>
+                <h5 class="text-center" th:text="${userName}"></h5>
+                <p class="text-center" th:text="${userId}"></p>
                 <!-- <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
                     <p class="ms-3 mb-0">Buyer</p>
                     <span class="material-symbols-outlined">
@@ -56,7 +56,7 @@
                     <div class="seller-showCurrentBox-inner m-2 mt-3 col-md-3 text-center border rounded bg-white">
                         <p class="mt-3">현재 진행 중인 프로젝트</p>
                         <hr class="m-0">
-                        <a href="javascript:void(0)"><h1>3</h1></a>
+                        <h1 th:text="${countProject}"></h1>
                     </div>
                 </div> 
                 <div class="seller-adzone row p-4">
@@ -66,11 +66,7 @@
                         </a>
                     </div>
                 </div> 
-                <!-- <div class="seller-adzone row m-auto my-4 mb-5">
-                    <a href="javascript:void(0)">
-                        <img src="./imgs/ad01.jpg" alt="" class="img-fluid">
-                    </a>
-                </div> -->
+
                 <div class="seller-project-list">
                     <h3 class="mt-md-5 p-md-3 mb-2"> 
                         <span class="material-symbols-outlined">
@@ -78,109 +74,37 @@
                         </span> 
                         나의 프로젝트 목록
                     </h3>
-                    <div class="seller-project row m-1 p-2 border rounded mb-2 bg-white">
+                    <div th:each="project : ${projectDtoList}" class="seller-project row m-1 p-2 border rounded mb-2 bg-white">
                         <form action="/th/myPage/seller/projectUpdatecallBack" method="get">
                             <div class="seller-project-title d-flex justify-content-between border-bottom p-3">
-                                <span class="">신청일 : 2024.05.15</span>
-                                <input type="hidden" value="1" name="proCode">
-                                <button href="javascript:void(0)">
+                                <span th:text="'신청일 : ' + ${project.formattedProDate}"></span>
+                                <input type="hidden" th:value="${project.proCode}" name="proCode">
+                                <a th:href="@{/th/project/project/{proCode}(proCode=${project.proCode})}">
                                     <span class="material-symbols-outlined">
                                         arrow_forward
                                     </span>
-                                </button>
+                                </a>
                             </div>
                         </form>
                         <div class="p-3 row m-auto">
                             <div class="seller-project-img col-md-5">
-                                <a href="javascript:void(0)">
-                                    <img th:src="@{/images/myPage/seller/img1.jpg}" alt="" class="img-fluid rounded">
+                                <a th:href="@{/th/project/project/{proCode}(proCode=${project.proCode})}">
+                                    <img th:src="${project.mainPageImgPath}" alt="" class="img-fluid rounded">
                                 </a>
                             </div>
                             <div class="seller-project-info col-md-7 my-auto">
-                                <p class="text-truncate fw-bolder m-0 my-2">프로젝트이름</p>
-                                <p>펀딩 기간 : 2024.07.03 ~ 2024.09.03</p>
-                                <p>금액 : 1500원</p>
-                                <p>참여인원 : 1k</p>
-                                <p>목표금액 : 1,500,000원</p>
-                                <p>달성률 : 999%</p>
+                                <p class="text-truncate fw-bolder m-0 my-2" th:text="${project.proName}"></p>
+                                <p th:text="'펀딩 기간 : ' + ${project.proDateTime}"></p>
+                                <p th:text="'금액 : ' + ${project.proPrice} + '원'"></p>
+                                <p th:text="'참여인원 : ' + ${project.proPaidCnt}"></p>
+                                <p th:text="'목표금액 : ' + ${project.proGoalAmount} + '원'"></p>
+                                <p th:text="'달성률 : ' + ${project.proAchievementRate} + '%'"></p>
                             </div>
                         </div>
                     </div>
                 </div>
                     
             </div>
-            <!-- <div class="seller-main col-md-9 align-self-center">
-                <div class="seller-showCurrentBox row p-4 justify-content-center">
-                    <div class="seller-showCurrentBox-inner m-2 mt-3 col-md-3 text-center border">
-                        <p>현재 진행 중인 프로젝트</p>
-                        <hr class="m-0">
-                        <a href="javascript:void(0)"><h1>3</h1></a>
-                    </div>
-                </div>  
-
-                <div class="seller-adzone m-auto my-4">
-                    <a href="javascript:void(0)">
-                        <img src="./imgs/ad01.jpg" alt="" class="img-fluid">
-                    </a>
-                </div>
-
-                <div class="seller-currentproject-block mt-5">
-                    <div class="seller-currentproject-maintitle text-center">나의 프로젝트</div>
-                    <div class="seller-currentproject col-md-6 m-auto">
-                        <div class="seller-currentproject-img">
-                            <img src="./imgs/img1.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="seller-currentproject-btn d-flex">
-                            <div class="seller-currentproject-title w-50 align-self-center">프로젝트명</div>
-                            <div class="seller-currentproject-payment">결제(예약) : 0</div>
-                        </div>    
-                        <div class="seller-currentproject-projectmanage">
-                            <button class="seller-currentproject-projectmanage-btn">
-                                <div class="seller-currentproject-projectmanage-btn-flex">
-                                    <div class="seller-currentproject-projectmanage-text">프로젝트 관리하기</div>
-                                    <div class="seller-currentproject-projectmanage-logo">▶</div>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-    
-                    <div class="seller-currentproject col-md-6 m-auto">
-                        <div class="seller-currentproject-img">
-                            <img src="./imgs/img2.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="seller-currentproject-btn d-flex">
-                            <div class="seller-currentproject-title w-50 align-self-center">프로젝트명</div>
-                            <div class="seller-currentproject-payment">결제(예약) : 0</div>
-                        </div>    
-                        <div class="seller-currentproject-projectmanage">
-                            <button class="seller-currentproject-projectmanage-btn">
-                                <div class="seller-currentproject-projectmanage-btn-flex">
-                                    <div class="seller-currentproject-projectmanage-text">프로젝트 관리하기</div>
-                                    <div class="seller-currentproject-projectmanage-logo">▶</div>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-    
-                    <div class="seller-currentproject col-md-6 m-auto">
-                        <div class="seller-currentproject-img">
-                            <img src="./imgs/img3.jpg" alt="" class="img-fluid">
-                        </div>
-                        <div class="seller-currentproject-btn d-flex">
-                            <div class="seller-currentproject-title w-50 align-self-center">프로젝트명</div>
-                            <div class="seller-currentproject-notify">알람 신청 : 0</div>
-                        </div>    
-                        <div class="seller-currentproject-projectmanage">
-                            <button class="seller-currentproject-projectmanage-btn">
-                                <div class="seller-currentproject-projectmanage-btn-flex">
-                                    <div class="seller-currentproject-projectmanage-text">프로젝트 관리하기</div>
-                                    <div class="seller-currentproject-projectmanage-logo">▶</div>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
 
         </div>
     </div>

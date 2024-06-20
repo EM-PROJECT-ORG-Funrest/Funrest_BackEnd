@@ -1,22 +1,15 @@
-package com.example.app.controller;
+package com.example.app.controller.MyPageController.SellerController;
 
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.service.ProjectServiceImpl;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -51,9 +44,5 @@ public class ProjectController {
         return "redirect:/th/myPage/seller/seller";
     }
 
-    @GetMapping("/seller")
-    public void seller(@ModelAttribute ProjectDto projectDto) {
-        log.info("GET /th/myPage/seller/seller .....");
-    }
 
 }
