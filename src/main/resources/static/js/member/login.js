@@ -17,6 +17,8 @@ function submit_check() {
     } else {
         alert("제출");
         submit();
+
     }
 
 }
+

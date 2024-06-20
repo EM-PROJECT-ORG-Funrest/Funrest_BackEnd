@@ -15,7 +15,8 @@ public class KakaoUserInfo implements OAuth2UserInfo{
 
     @Override
     public String getUserId() {
-        return this.id;
+//        return this.id;
+        return (String)attributes.get("email");
     }
 
     @Override
@@ -31,6 +32,11 @@ public class KakaoUserInfo implements OAuth2UserInfo{
     @Override
     public String getSnsType() {
         return "kakao";
+    }
+
+    @Override
+    public String getSnsId(){
+        return this.id;
     }
 
     @Override

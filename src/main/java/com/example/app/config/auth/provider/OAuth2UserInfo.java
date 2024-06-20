@@ -8,6 +8,9 @@ public interface OAuth2UserInfo {
     //    String getEmail();
     String getPhone();
     String getSnsType();
+
+    String getSnsId();
+
     String getUserImg();
     String getSnsConnectDate();
     Map<String,Object> getAttributes();
