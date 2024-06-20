@@ -37,7 +37,8 @@ public class ProjectDto {
 
     private String proPrice; // 프로젝트 가격
     private String proGoalAmount; // 프로젝트 목표 금액
-    private Date proDate; // 프로젝트 승인 일자 (관리자 페이지 구현 초기 전엔 프로젝트 생성 일자로 통일)
+    private Date proDate; // 프로젝트 신청 일자
+    private Date proPermitDate; // 프로젝트 승인 일자
     private String proStartDate; // 프로젝트 기간 (시작일자)
     private String proEndDate; // 프로젝트 기간 (종료일자)
     private int proStatus; // 프로젝트 승인 (승인:1 / 미승인:0)
@@ -62,6 +63,7 @@ public class ProjectDto {
         projectDto.setProPrice(project.getProPrice());
         projectDto.setProGoalAmount(project.getProGoalAmount());
         projectDto.setProDate(project.getProDate());
+        projectDto.setProPermitDate(project.getProPermitDate());
         projectDto.setProStartDate(project.getProStartDate());
         projectDto.setProEndDate(project.getProEndDate());
         projectDto.setProStatus(project.getProStatus());

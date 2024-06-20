@@ -24,6 +24,7 @@ public class DataLoader implements ApplicationRunner {
             admin.setUserId("admin");
             admin.setUserPw(passwordEncoder.encode("1234"));
             admin.setRole("ROLE_ADMIN");
+            admin.setUserName("대장쌔싹이");
             userRepository.save(admin);
         }
     }
