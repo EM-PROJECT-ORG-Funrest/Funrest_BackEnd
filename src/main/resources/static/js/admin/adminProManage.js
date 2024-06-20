@@ -22,6 +22,7 @@ function setThumbnail(event) {
 
     reader.readAsDataURL(imageInput.files[0]);
 }
+
 /* 이미지 파일 유효성 검사 함수 */
 function imageValidation(obj) {
     const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
@@ -107,6 +108,7 @@ function validation(obj) {
         return true;
     }
 }
+
 /* 첨부파일 삭제 */
 function deleteFile(num) {
     document.querySelector("#file" + num).remove();
@@ -165,7 +167,6 @@ function validatePrice(event) {
 // 프로젝트 가격 입력 필드에 이벤트 리스너 추가
 document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('keypress', validatePrice);
 
-
 // 프로젝트 가격에 쉼표 삽입하는 함수
 function addCommasToPrice(price) {
     // 숫자를 문자열로 변환 후, 쉼표 삽입
@@ -189,7 +190,6 @@ function formatPriceInput() {
 
 // 프로젝트 가격 입력 필드에 이벤트 리스너 추가
 document.querySelector('input[placeholder="프로젝트 가격을 설정해주세요."]').addEventListener('input', formatPriceInput);
-
 
 // 프로젝트 상세설명 입력 필드 길이 제한 함수
 function limitDescriptionLength(event) {

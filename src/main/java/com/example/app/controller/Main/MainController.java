@@ -35,6 +35,7 @@
     
     import com.example.app.config.WebConfig;
     import com.example.app.domain.dto.ProjectDto;
+    import com.example.app.domain.service.VisitService;
     import com.example.app.domain.service.main.MainServiceImpl;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Controller;
@@ -56,16 +57,22 @@
     
         @Autowired
         private WebConfig webConfig;
+
+        @Autowired
+        private VisitService visitService;
     
         @GetMapping("/main")
         public String getProjects(Model model) {
-    
+
             List<ProjectDto> projectDtos = mainServiceImpl.getAllProjectsOrderedByProCode();
+            System.out.println("projectDtos : " + projectDtos);
             for (int i = 0; i < projectDtos.size() ; i++) {
                  projectDtos.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtos.get(i).getStoredFileName().getFirst());
             }
             model.addAttribute("projectDtos", projectDtos.subList(0, Math.min(12, projectDtos.size()))); // 초기 12개 데이터만 전달
-    
+
+            // 일 방문자 수 증가
+            visitService.recordVisit();
     
             return "th/main/main"; // Thymeleaf template name
         }

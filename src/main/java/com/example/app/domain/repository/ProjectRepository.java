@@ -30,6 +30,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     // 키워드 검색 - 넘겨준 값 X
     Page<Project> findAllByProStatusOrderByProCode(Pageable pageable, int proStatus);
 
+    // 승인/미승인 프로젝트 검색
+    Page<Project> findByProStatus(Integer proStatus, Pageable pageable);
+
     // 키워드별 검색
     @Query("SELECT p FROM Project p WHERE p.proName LIKE %:proName% AND p.proStatus = :proStatus")
     Page<Project> findByProNameContainingAndProStatus(@Param("proName") String proName, Pageable pageable, int proStatus);
