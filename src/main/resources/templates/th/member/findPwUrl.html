@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <!-- BS5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/member/findPwUrl.css">
+
+    <!-- JS -->
+    <script src="../../../js/member/findPwUrl.js"></script>
+</head>
+
+<div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
+<body>
+<form name="passwordForm" id="passwordForm" onsubmit="editPassword(event)" method="post" action="/th/member/findSetPw">
+    <div class="container p-5 edit-password-container">
+        <h3 class="text-center">비밀번호 재설정</h3>
+        <div class="change-pw row m-auto mt-3">
+            <p class="m-2 p-0">새 비밀번호</p>
+            <input class="form-control" type="password" id="password2" name="userPw" placeholder="새 비밀번호 입력" aria-label="default input example">
+            <div class="invalid-feedback m-0"></div>
+        </div>
+        <div class="validate-pw row m-auto mt-3">
+            <p class="m-2 p-0">새 비밀번호 확인</p>
+            <input class="form-control" type="password" id="password3" name="password3" placeholder="새 비밀번호 확인" aria-label="default input example">
+            <div class="invalid-feedback m-0"></div>
+        </div>
+        <div class="validate-pw row m-auto mt-5">
+            <button type="submit" class="btn btn-success mb-3">저장하기</button>
+        </div>
+    </div>
+</form>
+</body>
+<div th:replace="~{/fragments/footer.html::footer}"></div>
+
+</html>

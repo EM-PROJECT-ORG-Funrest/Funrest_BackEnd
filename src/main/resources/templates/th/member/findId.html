@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="/css/member/findId.css">
     <!-- JS -->
     <script src="/js/member/findId.js"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <div class="findid container my-custom-container">
@@ -34,8 +36,8 @@
                     소유하고 계신 계정을 입력해 보세요. <br>
                     가입여부를 확인해드립니다.
                 </p>
-                <form name="findid" id="findid" onsubmit="findIdValidChk(event)" action="" class="d-grid gap-2 mx-auto mt-2">
-                    <input type="text" id="findid-email" class="form-control mt-3 " placeholder="이메일 계정">
+                <form name="findId" id="findId" onsubmit="findIdValidChk(event)" method="post" action="/th/member/findIdCheck" class="d-grid gap-2 mx-auto mt-2">
+                    <input type="text" id="findid-email" class="form-control mt-3 "  name="userId" placeholder="이메일 계정">
                     <div class="invalid-feedback m-0 mx-1" id="validationMessageEmail">올바른 이메일 형식이 아닙니다.</div>
                     <button type="submit" class="btn btn-success mt-2">아이디 찾기</button>
                 </form>
