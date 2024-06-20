@@ -63,7 +63,7 @@
                         <a href="javascript:void(0)"><h1 th:text="${OrderCnt}"></h1></a>
                     </div>
                     <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
-                        <p class="buyer-top-p">알림 신청</p>
+                        <p class="buyer-top-p">뭐라고하지</p>
                         <hr class="m-0">
                         <a id="notifyModalLink" th:onclick="showNotify([[${NotifyCnt}]])">
                             <h1 id="myPageNotifyCnt" th:text="${NotifyCnt}"></h1>
@@ -74,15 +74,15 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title"  id="exampleModalLabel">알림 신청한 프로젝트</h5>
+                                        <h5 class="modal-title"  id="exampleModalLabel">프로젝트 목록</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div id="notifyModalMsg" class="d-none ">
                                         <div style="height:383px; color:gray;" class="d-flex flex-column justify-content-center align-items-center">
                                             <span class="material-symbols-outlined d-block m-3" style="font-size:3rem;">
-                                                bookmark_heart
+                                                sentiment_sad
                                             </span>
-                                            <p class="">알림 신청한 프로젝트 목록이 비어있습니다.</p>
+                                            <p class="">프로젝트 목록이 비어있습니다.</p>
                                             <p class="">관심이 가는 프로젝트를 찜해보세요.</p>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                                             <span class="material-symbols-outlined">
                                                                 notifications_off
                                                             </span>&nbsp;
-                                                            알림 취소하기
+                                                            취소하기
                                                         </div>
                                                     </a>
                                                 </div>
@@ -155,6 +155,7 @@
     function showNotify(notifyCnt) {
         axios.get("/th/myPage/buyer/notify")
         .then(resp => {
+            console.log(resp);
             // 모달에 띄울 데이터들을 조회
             const projectCardsContainer = document.getElementById("projectCards");
             projectCardsContainer.innerHTML = resp.data; // 서버에서 받은 HTML fragment 삽입

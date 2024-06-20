@@ -52,6 +52,8 @@ public class ProjectDto {
     private String formattedProDate;
     private String proAchievementAmount; //프로젝트 달성금액 구하기
 
+    private long proRemainingDay; // 프로젝트 시작일까지 남은 날짜
+
     // Entity to Dto
     public static ProjectDto toProjectDto(Project project) {
         ProjectDto projectDto = new ProjectDto();

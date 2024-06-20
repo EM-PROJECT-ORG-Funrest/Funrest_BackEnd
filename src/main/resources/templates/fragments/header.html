@@ -48,7 +48,8 @@
 <!-- afterLoginHeader -->
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="afterLoginHeader">
 
     <head>
@@ -84,6 +85,42 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"
                 integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw=="
                 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+            const offCanvasMsgEl = document.getElementById("offCanvasMsg");
+
+            function loadData() {
+                axios.get("/th/myPage/buyer/notify/header")
+                .then(response => {
+                    console.log(response);
+                    const projectList = document.getElementById('offcanvas-body');
+                    projectList.innerHTML = '';
+                    response.data.forEach(project => {
+                        const div = document.createElement('div');
+                        div.className = 'border p-3 my-2 rounded';
+                        div.innerHTML = `
+                            <h4 class="mb-2 d-flex align-items-center">
+                                <span class="material-symbols-outlined ms-1" style="color:#4cc069;">
+                                    notifications
+                                </span>&nbsp;&nbsp;
+                                <span style="color:#4cc069;">D-${project.proRemainingDay}</span>
+                            </h4>
+                            <p class="m-2 text-truncate">${project.proName}</p>
+                            <p class="m-2">${project.proNotifyCnt}명 대기중</p>
+                        `;
+                        projectList.appendChild(div);
+                    });
+
+
+                    //if(notifyCnt === 0) {
+                    //   offCanvasMsgEl.classList.remove("d-none");
+                    //}
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            }
+        </script>
     </head>
     <body>
     <header>
@@ -104,9 +141,29 @@
                             <a th:href="@{/th/myPage/buyer/buyer}" class="">마이페이지</a>
                         </div>
                         <div class="nav-3">
-                            <a href="javascript:void(0)" class="">
+                            <a href="javascript:void(0)" data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasRight" data-bs-target="#offcanvasRight" onclick="loadData()">
                                 <span class="material-symbols-outlined">notifications</span>
                             </a>
+                            <!-- Offcanvas-->
+                            <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+                                 style="box-shadow: -10px 0 15px -3px rgba(0, 0, 0, 0.1), -4px 0 6px -2px rgba(0, 0, 0, 0.05);">
+                                <div class="offcanvas-header pb-1 m-1 mt-2">
+                                    <h5 id="offcanvasRightLabel" class="m-0" sec:authentication="name"></h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body" id="offcanvas-body">
+<!--                                        <div class="border rounded p-3 my-2">-->
+<!--                                            <h4 class="mb-3 d-flex align-items-center">-->
+<!--                                            <span class="material-symbols-outlined" style="color:#4cc069;">-->
+<!--                                                notifications-->
+<!--                                            </span>&nbsp;-->
+<!--                                                <span style="color:#4cc069;">D-10</span>-->
+<!--                                            </h4>-->
+<!--                                            <p class="m-2 text-truncate">프로젝트 제목</p>-->
+<!--                                            <p class="m-2">n명 대기중</p>-->
+<!--                                        </div>-->
+                                </div>
+                            </div>
                         </div>
                         <div class="nav-4">
                             <a th:href="@{/th/myPage/seller/projectCreate}" class="btn">프로젝트 만들기</a>

@@ -10,6 +10,7 @@ import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
 import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.myPage.BuyerServiceImpl;
+import com.example.app.domain.service.notify.NotifyService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -49,13 +50,12 @@ public class BuyerController {
     private final String UPLOAD_PATH = "http://localhost:8080/upload/";
     @Autowired
     BuyerServiceImpl buyerService;
-
+    @Autowired
+    NotifyService notifyService;
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
@@ -279,6 +279,25 @@ public class BuyerController {
 
             model.addAttribute("projectDtos", projectDtos);
             return "th/myPage/buyer/buyer :: projectCardsFragment";
+        } catch(RuntimeException e) {
+            //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
+            return null;
+        }
+    }
+
+    @GetMapping("/notify/header")
+    @ResponseBody
+    public List<ProjectDto> showNotifyHeader() {
+        log.info("get /th/myPage/buyer/notify/header showNotifyHeader()");
+
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        try {
+            List<NotifyDto> notifyDtos = buyerService.getAllNotifyByUserId(userId);
+            List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
+            List<ProjectDto> verifiedProjectDtos = notifyService.deleteNotifyPassedDateFromToday(projectDtos);
+
+            return projectDtos;
         } catch(RuntimeException e) {
             //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
             return null;
