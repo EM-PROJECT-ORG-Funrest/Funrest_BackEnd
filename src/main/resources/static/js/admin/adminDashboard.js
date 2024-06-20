@@ -14,7 +14,7 @@ fetch('/api/visitData')
             data: {                     // 차트의 데이터
                 labels: labels,
                 datasets: [{            // 실제 차트에 표시할 데이터들(Array), dataset 객체들을 담고 있음
-                    label: '일자별 방문자 수',          // dataset의 이름(String)
+                    label: '일자별 방문자 수',              // dataset의 이름(String)
                     data: values,                       // dataset의 값(Array)
                     borderColor: 'rgba(75, 192, 192, 1)',       // dataset의 선 색(rgba값을 String으로 표현)
                     borderWidth: 1      // dataset의 선 두께(Number)
