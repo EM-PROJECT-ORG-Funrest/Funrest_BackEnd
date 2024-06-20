@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/project/project.css">
+    <!--  axios  -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- js -->
     <script src="/js/project/project.js" defer></script>
     <!-- google-font -->
@@ -30,7 +33,12 @@
     </style>
 </head>
 
-<div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
+<th:block sec:authorize="isAnonymous()">
+    <div th:replace="~{/fragments/header.html::beforeLoginHeader}"></div>
+</th:block>
+<th:block sec:authorize="isAuthenticated()">
+    <div th:replace="~{/fragments/header.html::afterLoginHeader}"></div>
+</th:block>
 <body>
 <div class="container my-custom-container">
     <div class="pro-header d-flex">
@@ -142,10 +150,10 @@
                         <div id="notifyCnt" th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
                     </div>
                     <div th:if="${Project.proStatus == 1}" class="pro-sub-fundding" role="button">
-                        <button>펀딩하기</button>
+                        <button class="p-2">펀딩하기</button>
                     </div>
                     <div th:unless="${Project.proStatus == 1}" class="pro-sub-fundding" role="button" aria-disabled="true">
-                        <button style="background-color:gray;" disabled>펀딩하기</button>
+                        <button class="p-2" style="background-color:gray;" disabled>펀딩하기</button>
                     </div>
                 </div>
                 <hr>
