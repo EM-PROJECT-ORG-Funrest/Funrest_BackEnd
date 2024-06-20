@@ -14,7 +14,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/admin/adminMember.css">
-    <link rel="stylesheet" href="/css/admin/adminPageLeft.css">
     <!-- adminMember.js -->
     <script src="/js/admin/adminMember.js" defer></script>
     <!-- GOOGLE ICON -->
@@ -37,25 +36,7 @@
 <div class="container my-custom-container">
     <div class="row">
         <div class="adminPage-left col-md-3">
-            <div class="img-box mt-4">
-                <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="관리자프로필">
-            </div>
-            <p class="text-center" th:text="${adminId}">관리자 계정</p>
-            <div class="side-menu">
-                <p>사이트 관리</p>
-                <a class="d-flex" th:href="@{/th/admin/dashboard}">
-                    <p class="material-symbols-outlined">dashboard</p>
-                    <p class="me-auto">&nbsp;&nbsp;&nbsp;대시보드</p>
-                </a>
-                <a class="d-flex" th:href="@{/th/admin/member}">
-                    <p class="material-symbols-outlined">group</p>
-                    <p class="me-auto">&nbsp;&nbsp;&nbsp;회원 관리</p>
-                </a>
-                <a class="d-flex" th:href="@{/th/admin/project}">
-                    <p class="material-symbols-outlined">home_storage</p>
-                    <p class="me-auto">&nbsp;&nbsp;&nbsp;프로젝트 관리</p>
-                </a>
-            </div>
+            <div th:replace="~{/fragments/adminPageLeft.html::adminPageLeft}"></div>
         </div>
         <div class="adminPage-right col-md-9">
             <div class="admin-member">
@@ -74,8 +55,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="userDtoPage, iterStat: ${userDtoPages}">
-                            <!-- 추후 thymeleaf 로 번호 증가하는 코드로 변경예정-->
-                            <td th:text="${iterStat.index + 1}">번호</td>
+                            <td th:text="${(currentPage * pageSize) + iterStat.index + 1}">번호</td>
                             <td th:text="${userDtoPage.userId}">아이디</td>
                             <td th:text="${userDtoPage.userName}">이름</td>
                             <td th:text="${userDtoPage.phone}">연락처</td>

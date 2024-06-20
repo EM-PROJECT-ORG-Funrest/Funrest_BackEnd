@@ -45,3 +45,8 @@ table td, table th {
     /* border: 1px solid saddlebrown; */
     padding: 20px 20px 20px 20px;
 }
+
+/* .adminPage-left */
+.adminPage-left{
+    background-color: rgb(246, 248, 244);
+}

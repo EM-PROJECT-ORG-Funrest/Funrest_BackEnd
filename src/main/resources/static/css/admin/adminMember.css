@@ -31,3 +31,8 @@ table td, table th {
 .container>.row>.adminPage-right>.admin-member>.container>.delete-button{
     margin-bottom: 20px;
 }
+
+/* .adminPage-left */
+.adminPage-left{
+    background-color: rgb(246, 248, 244);
+}

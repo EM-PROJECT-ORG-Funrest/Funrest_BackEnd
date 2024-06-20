@@ -17,19 +17,15 @@ table td, table th {
     margin: 30px 10px 30px 10px;
     background-color: white;
     border-radius: 1%;
-    /* border: 1px solid green; */
 }
 .container>.row>.adminPage-right>.admin-project>.subject{
-    /* border: 1px solid violet; */
     padding-top: 20px;
     padding-left: 20px;
 }
 .container>.row>.adminPage-right>.admin-project>.apply-project-chart{
-    /* border: 1px solid saddlebrown; */
     padding: 20px 20px 10px 20px;
 }
 .container>.row>.adminPage-right>.admin-project>.registered-project-chart{
-    /* border: 1px solid saddlebrown; */
     padding: 20px 20px 10px 20px;
 }
 .container>.row>.adminPage-right>.admin-project>.container{
@@ -40,6 +36,10 @@ table td, table th {
 }
 .container>.row>.adminPage-right>.admin-project>.container>.btns>button{
     margin-left: 5px;
-    /* border: 1px solid red; */
+}
+
+/* .adminPage-left */
+.adminPage-left{
+    background-color: rgb(246, 248, 244);
 }
 
