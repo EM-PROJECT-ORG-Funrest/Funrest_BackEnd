@@ -28,7 +28,6 @@ public class Order {
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_ORDER_USER",
             foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
     private User userId;
-    @Column(nullable = false, columnDefinition = "integer default 3000")
     private int deliveryPay;
     @Column(nullable = false)
     private String orderMethod;

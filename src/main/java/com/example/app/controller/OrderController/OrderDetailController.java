@@ -7,9 +7,11 @@ import com.example.app.domain.entity.Order;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.service.order.OrderService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +19,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+import retrofit2.http.GET;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +49,11 @@ public class OrderDetailController {
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         // ProMainImg 를 리스트에 담기 (3개 고정)
+        if (projectDto.getProCategory().equals("book")){
+            model.addAttribute("deliveryPay","3000" );
+        }else{
+            model.addAttribute("deliveryPay","0" );
+        }
         List<String> storedFileName = projectDto.getStoredFileName();
         model.addAttribute("userId", userId);
         model.addAttribute("Project", projectDto);
@@ -69,31 +80,27 @@ public class OrderDetailController {
 
     // 주문 처리(POST)
     @PostMapping("/complete")
-    @ResponseBody
-    public String paymentComplete(@RequestBody OrderDto orderDto) {
+
+    public @ResponseBody void paymentComplete(@RequestBody OrderDto orderDto){
         log.info("POST /th/payment/complete...." + orderDto);
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         orderDto.setUserId(userId);
         orderDto.setOrderState("결제완료");
-        orderDto.setDeliveryPay(3000);
 
         System.out.println("orderDto..!!!!!"+orderDto);
 
         orderService.savePayment(orderDto);
-
-//        return "결제가 완료되었습니다.";
-        return "redirect:/th/main/main";
     }
 
+     //결제 상세 페이지(GET)
+    @GetMapping("/paymentHistory")
+    public void  showPaymentHistory() {
+        log.info("GET /th/payment/paymentHistory...");
+    }
 }
 
 
-    // 결제 상세 페이지(GET)
-//    @GetMapping("/paymentDetail")
-//    public void  showPaymentDetail() {
-//        log.info("GET /th/payment/paymentDetail...");
-//    }
 
 
 
