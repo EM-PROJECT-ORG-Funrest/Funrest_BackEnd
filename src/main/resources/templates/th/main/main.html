@@ -97,7 +97,7 @@
         <div class="category d-lg-flex justify-content-between">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link active" href="#" data-category="all">전체</a>
+              <a class="nav-link" href="#" data-category="all">전체</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" data-category="movie">영화</a>
@@ -199,10 +199,9 @@
                   : `/th/main/main/projects?page=${page}&size=${size}`;
 
           //const url = `/th/main/main/projectList?proCategory=${currentCategory}&proName=${currentKeyword}&sortingMethod=${currentSortingMethod}&page=${page}&size=${size}`;
-          //console.log("request url : " + url);
 
 
-
+          console.log("request url : " + url);
           const response = await axios.get(url);
           const projects = response.data.content;
           console.log("resp : " + projects.length);
@@ -246,7 +245,6 @@
           page = 0; // 페이지 번호 초기화
           projectList.innerHTML = ''; // 기존 프로젝트 초기화
           loadProjects(currentCategory);
-
 
           // 활성화된 nav-link 변경
           $('.nav-link').removeClass('active');

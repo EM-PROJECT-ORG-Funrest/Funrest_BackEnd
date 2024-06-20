@@ -29,18 +29,6 @@ public class ThymeleafTestController {
     }
 
     // member view page test
-    @GetMapping("/member/findId")
-    public void test12(){
-        log.info("/GET /th/member/findId...");
-    }
-    @GetMapping("/member/findPw")
-    public void test13(){
-        log.info("/GET /th/member/findPw...");
-    }
-    @GetMapping("/member/login")
-    public void test14(){
-        log.info("/GET /th/member/login...");
-    }
     @GetMapping("/member/signUp")
     public void test15(){
         log.info("/GET /th/member/singUp...");
