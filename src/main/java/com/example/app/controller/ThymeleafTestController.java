@@ -10,24 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/th")
 public class ThymeleafTestController {
 
-    // admin view page test
-    @GetMapping("/admin/adminDashboard")
-    public void test8(){
-        log.info("/GET /th/admin/adminDashboard...");
-    }
-    @GetMapping("/admin/adminMember")
-    public void test9(){
-        log.info("/GET /th/admin/adminMember...");
-    }
-    @GetMapping("/admin/adminPro")
-    public void test10(){
-        log.info("/GET /th/admin/adminPro...");
-    }
-    @GetMapping("/admin/adminProManage")
-    public void test11(){
-        log.info("/GET /th/admin/adminProManage...");
-    }
-
     // member view page test
     @GetMapping("/member/signUp")
     public void test15(){

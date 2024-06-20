@@ -13,9 +13,9 @@
             crossorigin="anonymous"></script>
     <!-- css -->
     <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/myPage/seller/projectCreate.css">
-    <!-- projectCreate.js -->
-    <script src="/js/myPage/Seller/projectCreate.js" defer></script>
+    <link rel="stylesheet" href="/css/admin/adminEditProject.css">
+    <!-- adminEditProject.js -->
+    <script src="/js/admin/adminEditProject.js" defer></script>
     <!-- DateRangePicker CDN -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -26,12 +26,14 @@
 <div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
 <body>
 <div class="container my-custom-container">
-    <h3 class="text-center">프로젝트 생성하기</h3>
+    <h3 class="text-center">프로젝트 수정하기</h3>
     <hr>
-    <form action="/th/myPage/seller/projectSave" method="POST" enctype="multipart/form-data" name="proCreateForm">
+    <form action="/api/editProject" method="POST" enctype="multipart/form-data" name="proUpdateForm">
         <div class="row g-3">
             <div class="project-manage-left col-md-4">
                 <div class="project-image-files">
+                    <input type="hidden" th:value="${project.proCode}" name="proCode">
+                    <input type="hidden" th:value="${project.userId}" name="userId">
                     <p class="text-center">프로젝트 썸네일 이미지</p>
                     <input type="file" class="project-image-mainfile" id="image" accept="image/*" multiple
                            onchange="setThumbnail(event);" name="proMainImg"/>
@@ -51,11 +53,11 @@
                     <p class="text-center">기본 정보</p>
 
                     <label class="form-label m-3">판매자 이름</label>
-                    <input type="text" class=" form-control m-3" placeholder="판매자 이름을 입력하세요." name="sellerName"/>
+                    <input type="text" class=" form-control m-3" placeholder="판매자 이름을 입력하세요." th:value="${project.sellerName}" name="sellerName"/>
 
                     <label class="form-label m-3 pro-label-text">판매자 소개글</label>
                     <textarea class="form-control-a m-3 pro-input-text" placeholder="판매자 소개글을 입력하세요."
-                              name="sellerDetail"></textarea>
+                              th:text="${project.sellerDetail}" name="sellerDetail"></textarea>
 
                     <label class="form-label m-3">프로젝트 카테고리 설정</label>
                     <select name="proCategory" class="form-select m-3">
@@ -66,29 +68,31 @@
                     </select>
 
                     <label class="form-label m-3">프로젝트 이름</label>
-                    <input type="text" class=" form-control m-3" placeholder="프로젝트 이름을 입력하세요." name="proName">
+                    <input type="text" class=" form-control m-3" placeholder="프로젝트 이름을 입력하세요." th:value="${project.proName}" name="proName">
 
                     <label class="form-label m-3">프로젝트 가격</label>
-                    <input type="text" class=" form-control m-3" placeholder="프로젝트 가격을 설정해주세요." name="proPrice">
+                    <input type="text" class=" form-control m-3" placeholder="프로젝트 가격을 설정해주세요." th:value="${project.proPrice}" name="proPrice">
 
                     <label class="form-label m-3">프로젝트 목표 금액</label>
-                    <input type="text" class=" form-control m-3" placeholder="프로젝트 목표금액을 설정해주세요." name="proGoalAmount">
+                    <input type="text" class=" form-control m-3" placeholder="프로젝트 목표금액을 설정해주세요." th:value="${project.proGoalAmount}" name="proGoalAmount">
 
                     <label class="form-label m-3">프로젝트 기간</label>
-                    <input type="text" class=" form-control m-3" name="datetimes" placeholder="프로젝트 기간을 설정해주세요."/>
+                    <input type="text" class=" form-control m-3" value="" name="datetimes" placeholder="프로젝트 기간을 설정해주세요."/>
 
                     <input type="hidden" name="proStartDate" value="">
                     <input type="hidden" name="proEndDate" value="">
 
                     <label class="form-label m-3 pro-label-text">프로젝트 상세설명</label>
                     <textarea class="form-control-a m-3 pro-input-text" placeholder="프로젝트 상세설명을 입력하세요."
-                              name="proScript"></textarea>
+                              th:text="${project.proScript}" name="proScript"></textarea>
                 </div>
             </div>
 
             <div class="container mt-5 mb-4">
                 <div class="btns text-end">
-                    <button type="submit" class="btn btn-primary btn-sm" id="applyProject">신청</button>
+                    <!--<button type="button" class="btn btn-secondary btn-sm">삭제</button>-->
+                    <!--<button type="button" class="btn btn-secondary btn-sm">저장</button>-->
+                    <button type="submit" class="btn btn-primary btn-sm" id="applyProject">저장</button>
                 </div>
             </div>
         </div>
