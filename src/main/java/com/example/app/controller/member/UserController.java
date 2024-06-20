@@ -106,6 +106,7 @@ public class UserController {
         String userPwEncode = passwordEncoder.encode(userPw);
 
         // 비밀번호 재설정
+        //  ddd
         userService.findById(userId, userPwEncode);
 
         session.removeAttribute("userId");
