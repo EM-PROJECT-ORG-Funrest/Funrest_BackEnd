@@ -56,7 +56,7 @@ public class ProjectServiceImpl {
         // 'ProMainImg 첨부x' and 'ProSubImg 첨부x' 경우
         if ((projectDto.getProMainImg() == null || projectDto.getProMainImg().isEmpty()
                 || projectDto.getProMainImg().stream().allMatch(MultipartFile::isEmpty))
-            && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
+                && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
                 || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty)))
         {
             Project project = Project.toSaveEntity(projectDto);
@@ -82,7 +82,7 @@ public class ProjectServiceImpl {
                 // 2-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
                 // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
                 // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                String savePath = "C:/springboot_img/" + storedFileName;
+                String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
                 // 2-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
                 // 2-5. tbl_project_file 에 해당 데이터 저장 처리
@@ -97,7 +97,7 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
-                String subSavePath = "C:/springboot_img/" + subStoredFileName;
+                String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 3-4. 해당 경로에 파일 저장
                 proSubImgFile.transferTo(new File(subSavePath));
                 // 3-5. tbl_project_subFile 에 해당 데이터 저장 처리
@@ -142,9 +142,6 @@ public class ProjectServiceImpl {
 
     }
 
-
-
-    // proCode 를 기준으로 해당 ProjectDto 조회(파일까지 조회)
     // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
     @Transactional
     public ProjectDto findByProCode(int proCode){
@@ -190,7 +187,7 @@ public class ProjectServiceImpl {
                 // 프로젝트 승인 상태 변경 (미승인,0 -> 승인,1)
                 project.setProStatus(1);
                 // 현재 날짜 및 시간을 프로젝트 승인 날짜로 설정
-                project.setProDate(new Date());
+                project.setProPermitDate(new Date());
                 projectRepository.save(project);
             });
         }
@@ -205,6 +202,8 @@ public class ProjectServiceImpl {
             optionalProject.ifPresent(project -> {
                 // 프로젝트 승인 상태 변경 (승인,1 -> 미승인,0)
                 project.setProStatus(0);
+                // 승인 날짜 null 값 지정
+                project.setProPermitDate(null);
                 projectRepository.save(project);
             });
         }

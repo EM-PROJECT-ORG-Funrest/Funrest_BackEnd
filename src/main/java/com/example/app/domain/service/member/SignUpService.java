@@ -56,6 +56,7 @@ public class SignUpService {
         }
         userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
         userDto.setRole("ROLE_USER");
+        userDto.setUserName("새싹이");
         User user = User.UserDtoToEntity(userDto);
         userRepository.save(user);
         return true;
