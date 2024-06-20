@@ -63,7 +63,7 @@
                         <a href="javascript:void(0)"><h1 th:text="${OrderCnt}"></h1></a>
                     </div>
                     <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
-                        <p class="buyer-top-p">뭐라고하지</p>
+                        <p class="buyer-top-p">좋아요</p>
                         <hr class="m-0">
                         <a id="notifyModalLink" th:onclick="showNotify([[${NotifyCnt}]])">
                             <h1 id="myPageNotifyCnt" th:text="${NotifyCnt}"></h1>
@@ -74,7 +74,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title"  id="exampleModalLabel">프로젝트 목록</h5>
+                                        <h5 class="modal-title"  id="exampleModalLabel">내가 좋아하는 프로젝트 목록</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div id="notifyModalMsg" class="d-none ">
@@ -100,7 +100,7 @@
                                                     <a id="cancelNotifyBtn" th:onclick="cancelNotify([[${project.proCode}]])" href="javascript:void(0)" class="btn btn-outline-success card-btn">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <span class="material-symbols-outlined">
-                                                                notifications_off
+                                                                heart_minus
                                                             </span>&nbsp;
                                                             취소하기
                                                         </div>
