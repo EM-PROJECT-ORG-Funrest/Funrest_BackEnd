@@ -1,5 +1,6 @@
 package com.example.app.domain.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,7 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+@Slf4j
 @Service
 public class ProjectImgFileServiceImpl {
     public void uploadFile(MultipartFile file, String savePath) throws IOException {
@@ -18,6 +19,7 @@ public class ProjectImgFileServiceImpl {
         bi = resizeImage(bi, 636, 477);
         // 저장 경로 위치에 이미지 저장
         ImageIO.write(bi, "jpg", new File(savePath));
+        ImageIO.write(bi, "png", new File(savePath));
     }
     // 이미지 라사이징 해주는 메서드
     private BufferedImage resizeImage(BufferedImage originalImage,int targetWidth,int targetHeight) {
