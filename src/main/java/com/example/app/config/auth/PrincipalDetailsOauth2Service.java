@@ -94,7 +94,6 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             user.setUserName(username);
             user.setRole("ROLE_USER");
             user.setSnsType(oAuth2UserInfo.getSnsType());
-            user.setSnsId(oAuth2UserInfo.getSnsId());
             user.setUserImg(oAuth2UserInfo.getUserImg());
 //            user.setSnsConnectDate((String) super.loadUser(userRequest).getAttributes().get("connected_at"));
             user.setSnsConnectDate(snsConnectDate);

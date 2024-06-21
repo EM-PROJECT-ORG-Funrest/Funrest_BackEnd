@@ -79,15 +79,15 @@
             <div class="pro-story-caution">도서산간에 해당되는 구매자님은 배송 가능 여부를 반드시 판매자에게 문의 후 참여해 주세요</div>
             <!-- pro-story-content -->
             <div class="pro-story-content">
-                <img th:src="@{${subImage1}}" alt="subImage 1">
+                <img th:if="${subImage1 != null && !subImage1.isEmpty()}" th:src="@{${subImage1}}" alt="subImage 1">
             </div>
             <!-- pro-story-hidden-content -->
             <div class="pro-story-hidden-content" id="pro-story-hidden-content">
                 <!-- DB 이미지로 변경 -->
-                <img th:src="@{${subImage2}}" alt="subImage 2">
-                <img th:src="@{${subImage3}}" alt="subImage 3">
-                <img th:src="@{${subImage4}}" alt="subImage 4">
-                <img th:src="@{${subImage5}}" alt="subImage 5">
+                <img th:if="${subImage2 != null && !subImage2.isEmpty()}" th:src="@{${subImage2}}" alt="subImage 2">
+                <img th:if="${subImage3 != null && !subImage3.isEmpty()}" th:src="@{${subImage3}}" alt="subImage 3">
+                <img th:if="${subImage4 != null && !subImage4.isEmpty()}" th:src="@{${subImage4}}" alt="subImage 4">
+                <img th:if="${subImage5 != null && !subImage5.isEmpty()}" th:src="@{${subImage5}}" alt="subImage 5">
             </div>
             <!-- pro-story-hidden-button -->
             <div class="pro-story-hidden-button">

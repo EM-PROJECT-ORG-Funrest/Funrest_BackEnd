@@ -20,7 +20,8 @@ public class ProjectSubFile {
     private String subStoredFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "proCode")
+    @JoinColumn(name = "proCode", foreignKey = @ForeignKey(name = "FK_ProjectSubFile_Project",
+            foreignKeyDefinition = "FOREIGN KEY(proCode) REFERENCES tbl_project(proCode) ON DELETE CASCADE ON UPDATE CASCADE"))
     private Project project; // 부모 엔터티 파일 자체를 칼럼으로 지정하는 것을 주의!
 
     public static ProjectSubFile toProjectSubFileEntity(Project project, String originalFileName, String storedFileName) {

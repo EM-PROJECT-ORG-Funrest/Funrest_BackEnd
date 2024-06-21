@@ -24,7 +24,7 @@
         <div class="container my-custom-container" id="AdminHeader">
             <div class="row">
                 <div class="header-left col-md-2">
-                    <a href="javascript:void(0)">
+                    <a th:href="@{/th/main/main}">
                         <img th:src="@{/images/main/logo/logo.png}" alt="" class="header-logo">
                     </a>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="header-right col-md-10">
                     <div class="header-nav">
                         <div class="nav-1">
-                            <a href="javascript:void(0)" class="">로그아웃</a>
+                            <a th:href="@{/logout}" class="">로그아웃</a>
                         </div>
                     </div>
                 </div>
@@ -218,7 +218,7 @@
                             <a th:href="@{/th/member/signUp}" class="">회원가입</a>
                         </div>
                         <div class="nav-4">
-                            <a href="javascript:void(0)" class="btn">프로젝트 만들기</a>
+                            <a th:href="@{/th/member/login}" class="btn">프로젝트 만들기</a>
                         </div>
                     </div>
                 </div>
