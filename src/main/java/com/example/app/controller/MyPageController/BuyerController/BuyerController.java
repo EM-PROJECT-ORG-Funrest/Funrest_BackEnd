@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
@@ -40,22 +42,27 @@ import java.util.Map;
 
 @Controller
 @Slf4j
-@AllArgsConstructor
 @RequestMapping("/th/myPage/buyer")
 public class BuyerController {
 
     private final String UPLOAD_PATH = "http://localhost:8080/upload/";
-    @Autowired
-    BuyerServiceImpl buyerService;
+
+    @Value("${portOne.rest-api}")
+    private String portOne_API;
+    @Value("${portOne.secret}")
+    private String portOne_SECRET;
 
     @Autowired
-    UserRepository userRepository;
+    private BuyerServiceImpl buyerService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    CustomLogoutHandler customLogoutHandler;
+    private CustomLogoutHandler customLogoutHandler;
 
 
     @GetMapping("/buyer")
@@ -97,8 +104,8 @@ public class BuyerController {
 
         //PARAMS
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("imp_key","6513804315618534");
-        params.add("imp_secret","xfaYKNmEt5hZavmrOdunmqUBUo7iXti27EzyvmdOF9epRxhNtghrn8d9L6pBXP6Ectvj5XeDfLYHICLS");
+        params.add("imp_key",portOne_API);
+        params.add("imp_secret",portOne_SECRET);
 
         //ENTITY
         HttpEntity< MultiValueMap<String, String>> entity = new HttpEntity<>(params,headers);
