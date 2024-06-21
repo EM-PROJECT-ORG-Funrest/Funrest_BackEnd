@@ -3,12 +3,9 @@ package com.example.app.controller.MyPageController.BuyerController;
 import com.example.app.config.auth.logoutHandler.CustomLogoutSuccessHandler;
 import com.example.app.domain.dto.NotifyDto;
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.config.auth.jwt.JwtTokenProvider;
-import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
-import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.myPage.BuyerServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,12 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
