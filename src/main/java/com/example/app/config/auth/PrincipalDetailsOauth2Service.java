@@ -61,6 +61,9 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             log.info("kakao email : " + email);
             phone = (String) kakaoAccount.get("phone_number");
             log.info("kakao phone : " + phone);
+
+            snsConnectDate = (String) super.loadUser(userRequest).getAttributes().get("connected_at");
+
         } else if(snsType!=null && snsType.startsWith("naver")){
             Map<String, Object> resp = (Map<String, Object>) oAuth2User.getAttributes().get("response");
             String id = (String)resp.get("id");
@@ -91,6 +94,7 @@ public class PrincipalDetailsOauth2Service extends DefaultOAuth2UserService {
             user.setUserName(username);
             user.setRole("ROLE_USER");
             user.setSnsType(oAuth2UserInfo.getSnsType());
+            /*user.setSnsId(oAuth2UserInfo.getSnsId());*/
             user.setUserImg(oAuth2UserInfo.getUserImg());
 //            user.setSnsConnectDate((String) super.loadUser(userRequest).getAttributes().get("connected_at"));
             user.setSnsConnectDate(snsConnectDate);

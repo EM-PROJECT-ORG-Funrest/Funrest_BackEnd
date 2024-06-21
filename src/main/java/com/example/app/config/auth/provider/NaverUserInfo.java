@@ -50,6 +50,11 @@ public class NaverUserInfo implements OAuth2UserInfo{
     }
 
     @Override
+    public String getSnsId() {
+        return this.id;
+    }
+
+    @Override
     public String getUserImg() {
         return (String)attributes.get("profile_image");
     }
