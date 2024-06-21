@@ -37,7 +37,9 @@ public class Project {
     @Column(name = "proGoalAmount", nullable = false)
     private String proGoalAmount;
     @Column(name = "proDate")
-    private Date proDate; // project's permission date
+    private Date proDate; // 프로젝트 신청일자
+    @Column(name = "proPermitDate")
+    private Date proPermitDate; // 프로젝트 승인일자
     @Column(name = "proStartDate", nullable = false)
     private String proStartDate;
     @Column(name = "proEndDate", nullable = false)
@@ -81,6 +83,7 @@ public class Project {
         project.setProPrice(projectDto.getProPrice());
         project.setProGoalAmount(projectDto.getProGoalAmount());
         project.setProDate(projectDto.getProDate());
+        project.setProPermitDate(projectDto.getProPermitDate());
         //projectDto에서 바로 넣으면 여기 두개에는 NUll값 들어감 그래서 밑에 overloading 해놓음
         project.setProStartDate(projectDto.getProStartDate());
         project.setProEndDate(projectDto.getProEndDate());

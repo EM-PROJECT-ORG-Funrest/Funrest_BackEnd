@@ -71,15 +71,15 @@
             <div class="pro-story-caution">도서산간에 해당되는 구매자님은 배송 가능 여부를 반드시 판매자에게 문의 후 참여해 주세요</div>
             <!-- pro-story-content -->
             <div class="pro-story-content">
-                <img th:src="@{${subImage1}}" alt="subImage 1">
+                <img th:if="${subImage1 != null && !subImage1.isEmpty()}" th:src="@{${subImage1}}" alt="subImage 1">
             </div>
             <!-- pro-story-hidden-content -->
             <div class="pro-story-hidden-content" id="pro-story-hidden-content">
                 <!-- DB 이미지로 변경 -->
-                <img th:src="@{${subImage2}}" alt="subImage 2">
-                <img th:src="@{${subImage3}}" alt="subImage 3">
-                <img th:src="@{${subImage4}}" alt="subImage 4">
-                <img th:src="@{${subImage5}}" alt="subImage 5">
+                <img th:if="${subImage2 != null && !subImage2.isEmpty()}" th:src="@{${subImage2}}" alt="subImage 2">
+                <img th:if="${subImage3 != null && !subImage3.isEmpty()}" th:src="@{${subImage3}}" alt="subImage 3">
+                <img th:if="${subImage4 != null && !subImage4.isEmpty()}" th:src="@{${subImage4}}" alt="subImage 4">
+                <img th:if="${subImage5 != null && !subImage5.isEmpty()}" th:src="@{${subImage5}}" alt="subImage 5">
             </div>
             <!-- pro-story-hidden-button -->
             <div class="pro-story-hidden-button">
@@ -130,17 +130,27 @@
                 <div class="pro-sub-text">
                     <div th:text="${Project.proName}" class="pro-sub-text-title"></div>
                     <div th:text="${Project.proScript}" class="pro-sub-text-content"></div>
-                    <div class="pro-sub-text-funding-peoples">26명참여</div>
-                    <div class="pro-sub-text-funding-amount">1,000,000원 달성</div>
+                    <div class="pro-sub-text-funding-peoples" th:text="${Project.proPaidCnt + '명 참여'}"></div>
+                    <div class="pro-sub-text-funding-amount"
+                         th:text="${Project.proAchievementAmount + ' 원 달성 ' + ' (' + Project.proAchievementRate + '%)'}"></div>
+                    <br/>
+                    <div style="color:green; font-size:23px;" class="pro-sub-text-funding-amount"
+                         th:text="${Project.proPrice + ' 원'}"></div>
                 </div>
                 <hr>
                 <div class="pro-sub-btns d-flex">
-                    <div id="pro-sub-notify" class="pro-sub-notify" role="button" th:onclick="applyNotification([[${Project.proCode}]])">
+                    <div id="pro-sub-notify" class="pro-sub-notify" role="button"
+                         th:onclick="applyNotification([[${Project.proCode}]])">
                         <div class="material-symbols-outlined">favorite</div>
                         <div id="notifyCnt" th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
                     </div>
-                    <div class="pro-sub-fundding" role="button" th:onclick="|location.href='@{/th/payment/payment/{proCode}(proCode=${Project.proCode})}'|">
+                    <div th:if="${Project.proStatus == 1}" class="pro-sub-fundding" role="button"
+                         th:onclick="|location.href='@{/th/payment/payment/{proCode}(proCode=${Project.proCode})}'|">
                         <button>펀딩하기</button>
+                    </div>
+                    <div th:unless="${Project.proStatus == 1}" class="pro-sub-fundding" role="button"
+                         aria-disabled="true">
+                        <button style="background-color:gray;" disabled>펀딩하기</button>
                     </div>
                 </div>
                 <hr>

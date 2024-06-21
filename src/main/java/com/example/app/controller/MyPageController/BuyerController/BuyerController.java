@@ -1,5 +1,6 @@
 package com.example.app.controller.MyPageController.BuyerController;
 
+import com.example.app.config.auth.logoutHandler.CustomLogoutSuccessHandler;
 import com.example.app.domain.dto.NotifyDto;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.config.auth.jwt.JwtTokenProvider;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -62,7 +64,7 @@ public class BuyerController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private CustomLogoutHandler customLogoutHandler;
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
 
     @GetMapping("/buyer")
@@ -193,12 +195,6 @@ public class BuyerController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        // 새 비밀번호와 확인 비밀번호 일치 여부 확인
-        if (!password2.equals(password3)) {
-            response.put("status", "error");
-            response.put("message", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-            return ResponseEntity.badRequest().body(response);
-        }
 
         // 비밀번호 변경 로직
         String encodedNewPassword = passwordEncoder.encode(password2);
@@ -218,12 +214,13 @@ public class BuyerController {
     }
 
     @GetMapping("/deleteSign")
-    public String deleteSign(HttpServletRequest request, HttpServletResponse response){
+    public void deleteSign(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info("deleteSign invoked....");
-        customLogoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        // 회원 정보 삭제
         buyerService.deleteByUserId(userId);
-        return "redirect:/th/main/main";
+        //user refreshKey 삭제
+        customLogoutSuccessHandler.onLogoutSuccess(request, response, SecurityContextHolder.getContext().getAuthentication());
     }
 
 

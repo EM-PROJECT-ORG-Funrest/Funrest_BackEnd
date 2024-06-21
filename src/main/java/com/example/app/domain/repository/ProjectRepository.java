@@ -17,38 +17,39 @@ import java.util.Optional;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {    // <T:엔터티 클래스 타입. ID: 엔터티 클래스의 ID 타입>
 
-
     Project findByProCode(int proCode);
 
-    List<Project> findAllByOrderByProCodeDesc();
+    List<Project> findAllByProStatusOrderByProCodeDesc(int proStatus);
 
     // 무한 스크롤
-    Page<Project> findAllByOrderByProCodeDesc(Pageable pageable);
+    Page<Project> findAllByProStatusOrderByProCodeDesc(Pageable pageable, int proStatus);
 
-    // 키워드 검색
-    Page<Project> findByProNameLike(String proName,Pageable pageable);
+    // 카테고리 검색
+    Page<Project> findAllByProCategoryAndProStatusOrderByProCodeDesc(String proCategory, Pageable pageable, int proStatus);
 
-    //전체 검색
-    List<Project> findAll();
+    // 키워드 검색 - 넘겨준 값 X
+    Page<Project> findAllByProStatusOrderByProCode(Pageable pageable, int proStatus);
 
-    Page<Project> findAllByOrderByProCode(Pageable pageable);
-
-    // 키워드별 검색
-    Page<Project> findAllByProCategoryOrderByProCode(String proCategory, Pageable pageable);
+    // 승인/미승인 프로젝트 검색
+    Page<Project> findByProStatus(Integer proStatus, Pageable pageable);
 
     // 키워드별 검색
-    @Query("SELECT p FROM Project p WHERE p.proName LIKE %:proName%")
-    Page<Project> findByProNameContaining(@Param("proName") String proName, Pageable pageable);
+    @Query("SELECT p FROM Project p WHERE p.proName LIKE %:proName% AND p.proStatus = :proStatus")
+    Page<Project> findByProNameContainingAndProStatus(@Param("proName") String proName, Pageable pageable, int proStatus);
 
-    // 알림 신청을 위한 프로젝트 시작일 조회
+
+
+
+    // Notify --------------------------------
     @Query("SELECT p.proStartDate FROM Project p WHERE p.proCode = :proCode")
     Optional<String> findProStartDateByProCode(@Param("proCode") int proCode);
 
-    //userId별 검색
+    @Query("SELECT p.proNotifyCnt FROM Project p WHERE p.proCode = :proCode")
+    int findProNotifyCntByProCode(@Param("proCode") int proCode);
+
+    // MyPage --------------------------------
     List<Project> findByUserId(User user);
 
     Long countByUserId(User user);
 
-    @Query("SELECT p.proNotifyCnt FROM Project p WHERE p.proCode = :proCode")
-    int findProNotifyCntByProCode(@Param("proCode") int proCode);
 }

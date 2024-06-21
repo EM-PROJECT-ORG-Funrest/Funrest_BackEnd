@@ -57,7 +57,7 @@ public class SellerController {
             System.out.println("projectDtoList.get(i).getProCode()" + projectDtoList.get(i).getProCode());
         }
 
-        //목표 금액 가져오기
+        //달성률 가져오기
         sellerService.proAchievementRate(projectDtoList);
 
         //신청 날짜 보여주기 포매팅

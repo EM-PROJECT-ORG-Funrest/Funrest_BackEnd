@@ -44,8 +44,11 @@ public class SecurityConfig {
         http
             .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**").permitAll()
-                    .requestMatchers("/th/myPage/**", "/th/notify/applyNotification", "/th/admin/**").hasRole("USER")
+                    .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**", "/th/member/findPw", "/th/member/findId", "th/member/findIdCheck", "/th/member/findPwCheck", "/th/member/findPwUrl/**", "/th/member/findPwUrl", "/th/member/findSetPw").permitAll()
+                    .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
+                    .requestMatchers("/th/myPage/**").hasRole("USER")
+                    .requestMatchers("/th/notify/**").hasRole("USER")
+                    .requestMatchers("/th/admin/**").hasRole("ADMIN")
                     .requestMatchers("/th/payment/**").hasRole("USER")
                     .anyRequest().authenticated()
             )
@@ -83,7 +86,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // 정적자원에 대한 보안 설정 무시
-        return (web) -> web.ignoring().requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/upload/**");
+        return (web) -> web.ignoring().requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/upload/**");
     }
 
     @Bean

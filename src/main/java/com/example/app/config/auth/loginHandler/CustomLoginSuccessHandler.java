@@ -56,6 +56,17 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         log.info("loginSuccessHandler refresh token 저장.. " + refreshToken);
         refreshTokenRepository.save(new RefreshToken(authentication.getName(), refreshToken, accessToken));
 
-        super.onAuthenticationSuccess(request, response, authentication);
+        // admin 계정이면 admin dashboard 로 리다이렉트
+        if (isAdmin(authentication)) {
+            getRedirectStrategy().sendRedirect(request, response, "/th/admin/dashboard");
+        } else {
+            super.onAuthenticationSuccess(request, response, authentication);
+        }
+
+    }
+
+    private boolean isAdmin(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
     }
 }

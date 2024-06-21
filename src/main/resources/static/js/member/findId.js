@@ -1,4 +1,4 @@
-function findIdValidChk(event) {
+async function findIdValidChk(event) {
     event.preventDefault();
 
     const email = document.getElementById("findid-email");
@@ -6,11 +6,25 @@ function findIdValidChk(event) {
 
     if(email.value === "") {
         email.classList.add("is-invalid");
+        console.log("Email is empty");
         return false;
-    } 
-        
-    if(pattern.test(email.value) === false){
-        email.classList.add("is-invalid");
-        return false;    
+    } else if(pattern.test(email.value) === false){
+         email.classList.add("is-invalid");
+        console.log("Email pattern is invalid");
+        return false;
+    } else {
+          email.classList.remove("is-invalid");
+          try {
+               const response = await axios.post('/th/member/findIdCheck', null, {
+                    params: { userId: email.value }
+               });
+               alert(response.data.message);
+          } catch (error) {
+                if (error.response) {
+                   alert(error.response.data.message);
+               } else {
+                   console.error('Error:', error);
+               }
+          }
     }
 }

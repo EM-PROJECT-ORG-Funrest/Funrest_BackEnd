@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Getter
@@ -22,7 +23,7 @@ public class User {
     private String userId;
     @Column(name = "userPw", length = 60)
     private String userPw;
-    @Column(name = "userName", nullable = false)
+    @Column(name = "userName", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT '새싹이'")
     private String userName;
     @Column(name = "phone", length = 20)
     private String phone;
@@ -38,8 +39,6 @@ public class User {
     private String addrDetail;
     @Column(name = "sns_type")
     private String snsType;
-    @Column(name = "sns_Id")
-    private String snsId;
     @Column(name = "sns_connect_date")
     private String snsConnectDate;
 
@@ -59,12 +58,9 @@ public class User {
                 .addrRoad(userDto.getAddrRoad())
                 .addrDetail(userDto.getAddrDetail())
                 .snsType(userDto.getSnsType())
-                .snsId(userDto.getSnsId())
                 .snsConnectDate(userDto.getSnsConnectDate())
                 .build();
     }
-
-
 }
 
 

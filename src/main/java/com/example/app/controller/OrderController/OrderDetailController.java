@@ -90,6 +90,12 @@ public class OrderDetailController {
         List<Order> paymentHistory = orderService.getPaymentHistory();
         System.out.println("paymentHistory : "+paymentHistory);
 
+        for (Order order : paymentHistory) {
+            System.out.println("proCode = " + order.getProCode());
+
+        }
+
+
         model.addAttribute("paymentHistory",paymentHistory);
 
         return "th/payment/paymentHistory";
