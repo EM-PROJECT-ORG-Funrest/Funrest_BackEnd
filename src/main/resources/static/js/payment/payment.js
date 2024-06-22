@@ -39,6 +39,7 @@ function paymentValidChk(event) {
     const name = document.getElementById("payment-name");
     const phone = document.getElementById("payment-phone");
     const postCode = document.getElementById("payment-post-code");
+    const addrDetail = document.getElementById('payment-addr-detail');
     const chkBox = document.getElementById("pay-chkbox");
     // 이름 필드 유효성 검사
     if(name.value === ""){
@@ -62,12 +63,18 @@ function paymentValidChk(event) {
         postCode.classList.remove("is-invalid");
     }
     // 상세 주소 필드 유효성 검사
-
+    if(addrDetail.value === "") {
+        addrDetail.classList.add("is-invalid");
+        return false;
+    } else {
+        addrDetail.classList.remove("is-invalid");
+    }
+    // 체크박스 유효성 검사
     if(!chkBox.checked){
         window.alert("결제 동의 항목에 체크해 주세요.");
         return false;
     }
-
+    // 결제 폼 유효성 검사 성공 메시지
     console.log("성공");
     return true;
 }
@@ -143,7 +150,7 @@ function goToPay(){
                "orderCnt" : orderCnt,
                "orderDate" : new Date().toISOString().slice(0,10),
                "orderMethod" : resp.pay_method+" "+resp.card_name,
-               "proCode" : proCode
+               "proCode" : proCode,
                "totalAmount" : amount,
            }
            console.log(result);
