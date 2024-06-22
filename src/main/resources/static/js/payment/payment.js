@@ -79,9 +79,7 @@ function paymentValidChk(event) {
     return true;
 }
 
-
-
-// 총 결제 금액 나타내는 함수
+// 총 결제 금액 표시 함수
 function updateTotalPrice(){
     var productPrice = document.getElementById("productPrice").innerText.replace(/,/g,'');
     var countSelect = document.getElementById("countSelect").value;
@@ -95,7 +93,7 @@ function updateTotalPrice(){
 //https://hstory0208.tistory.com/entry/Spring-%EC%95%84%EC%9E%84%ED%8F%AC%ED%8A%B8import%EB%A1%9C-%EA%B2%B0%EC%A0%9C-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%9C%EB%B2%84-%EC%BD%94%EB%93%9C-%ED%8F%AC%ED%95%A8
 //https://velog.io/@dev_h_o/Spring-%ED%8F%AC%ED%8A%B8%EC%9B%90%EC%95%84%EC%9E%84%ED%8F%AC%ED%8A%B8%EA%B2%B0%EC%A0%9Capi-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-ajax
 
-//결제하기 버튼 누르면 portOne api 작동
+// 결제하기 버튼 누르면 portOne api 작동
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("paymentBtn").addEventListener("click", function(event) {
         event.preventDefault(); // 기본 동작 방지
@@ -105,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function goToPay(){
+function goToPay() {
 
     IMP.init("imp83318333");
 
@@ -120,9 +118,10 @@ function goToPay(){
     var buyerName = document.getElementById("payment-name").value;
     var buyerAddr = document.getElementById("payment-road-addr").value+" "+document.getElementById("payment-addr-detail").value
     var buyerPostcode = document.getElementById("payment-post-code").value;
-    var proCode = document.getElementById("proCode").value;
+    var proCode = parseInt(document.getElementById("proCode").value, 10); // proCode를 정수형으로 변환
 
-    IMP.request_pay({
+    IMP.request_pay (
+    {
         pg: "html5_inicis.INIpayTest",
         pay_method: payMethod,
         merchant_uid: merchantUid,
@@ -132,15 +131,14 @@ function goToPay(){
         buyer_name: buyerName,
         buyer_addr: buyerAddr,
         buyer_postcode: buyerPostcode
+    },
+    function(resp) {
+        if(resp.success) {
+            var msg='결제 성공했습니다'
+            console.log(resp);
+            // form 전 여기에서 값 넣기
 
-},function(resp){
-        if(resp.success){
-           var msg='결제 성공했습니다'
-
-           console.log(resp);
-           // form 전 여기에서 값 넣기
-
-           var result={
+            var result={
                "buyerAddr": buyerAddr,
                "buyerName": buyerName,
                "buyerPostcode": buyerPostcode,
@@ -150,20 +148,17 @@ function goToPay(){
                "orderCnt" : orderCnt,
                "orderDate" : new Date().toISOString().slice(0,10),
                "orderMethod" : resp.pay_method+" "+resp.card_name,
-               "proCode" : proCode,
+               "proCode" : proCode, // 정수형으로 변환된 proCode 사용
                "totalAmount" : amount,
-           }
-           console.log(result);
+            }
+            console.log(result);
 
-           $.ajax({
+            $.ajax({
                 url: '/th/payment/complete',
                 method: 'POST',
                 contentType : "application/json",
-                data: JSON.stringify({
-                    result
-                }),
+                data: JSON.stringify(result), // result 객체를 JSON 문자열로 변환하여 전송
                 success: function (resp) {
-//                    console.log("success..."+resp);
                     alert("결제 내역 페이지로 넘어갑니다.");
                     window.location.href = '/th/payment/paymentHistory';
                 },
@@ -173,12 +168,13 @@ function goToPay(){
                     console.log("errorDetail : " ,JSON.stringify(err,null,2)); // 에러 출력
                 }
             });
-          }else{
+        } else {
             var msg ='결제 실패하였습니다.';
             msg += '\n에러내용 : ' + resp.error_msg;
-          }
-          alert(msg);
-      });
+        }
+        alert(msg);
+    }
+    );
 }
 
 

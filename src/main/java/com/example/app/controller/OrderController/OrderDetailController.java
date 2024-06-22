@@ -65,20 +65,15 @@ public class OrderDetailController {
         return "th/payment/payment";
     }
 
-
-    // 주문 처리(POST)
+    // 주문 처리 API
     @PostMapping("/complete")
     public void paymentComplete(@RequestBody OrderDto orderDto) throws Exception {
-
-        // orderDto 에 proCode 가 들어오지 않음
-        log.info("POST /th/payment/complete...." + orderDto);
-        System.out.println("orderDto.getProCode() : " + orderDto.getProCode());
+        log.info("POST /th/payment/complete....");
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         orderDto.setUserId(userId);
         orderDto.setOrderState("결제완료");
-
-        System.out.println("orderDto..!!!!!"+orderDto);
+        System.out.println("orderDto = " + orderDto);
 
         orderService.savePayment(orderDto);
     }

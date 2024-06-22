@@ -14,7 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class OrderDto {
-//    private String orderCode; //imp_uid
     private int proCode;
     private String userId;
     private int deliveryPay;
@@ -23,11 +22,9 @@ public class OrderDto {
     private String orderState;
     private int orderCnt;
     private String refundDetail;
-
-    //추가
     private String buyerName;
     private String buyerAddr;
-//    private String buyerDetailAddr;
+    //private String buyerDetailAddr;
     private String buyerTel;
     private int buyerPostcode;
     private String impUid;
@@ -36,7 +33,6 @@ public class OrderDto {
 
     public static OrderDto EntityToOrderDto(Order order){
         OrderDto orderDto = new OrderDto();
-//        orderDto.setOrderCode(order.getOrderCode());
         orderDto.setProCode(order.getProCode().getProCode());
         orderDto.setUserId(order.getUserId().getUserId());
         orderDto.setDeliveryPay(order.getDeliveryPay());
@@ -47,13 +43,12 @@ public class OrderDto {
         orderDto.setRefundDetail(order.getRefundDetail());
         orderDto.setBuyerName(order.getBuyerName());
         orderDto.setBuyerAddr(order.getBuyerAddr());
-//        orderDto.setBuyerDetailAddr(order.getBuyerDetailAddr());
+        //orderDto.setBuyerDetailAddr(order.getBuyerDetailAddr());
         orderDto.setBuyerTel(order.getBuyerTel());
         orderDto.setBuyerPostcode(order.getBuyerPostcode());
         orderDto.setImpUid(order.getImpUid());
         orderDto.setMerchantUid(order.getMerchantUid());
         orderDto.setTotalAmount(order.getTotalAmount());
-
         return orderDto;
     }
 }

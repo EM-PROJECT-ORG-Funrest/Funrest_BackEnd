@@ -9,6 +9,7 @@ import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.repository.UserRepository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -73,7 +74,7 @@ public class OrderService {
     }
 
 
-    @GetMapping(value ="getBuyerInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "getBuyerInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody PortOneAuthInfoResponse getBuyerInfo(@PathVariable("imp_uid") String imp_uid) throws Exception {
         getToken();
         log.info("GET /getBuyerInfo..." + imp_uid);
@@ -89,7 +90,7 @@ public class OrderService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         //ENTITY
-        HttpEntity< MultiValueMap<String, String>> entity = new HttpEntity<>(params,headers);
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
         //REQUEST
         RestTemplate rt = new RestTemplate();
@@ -101,11 +102,9 @@ public class OrderService {
         return response.getBody();
     }
 
-
-
+    // 결제 처리
     @Transactional
     public void savePayment(OrderDto orderDto) {
-
         Project project = projectRepository.findByProCode(orderDto.getProCode());
         System.out.println("project = " + project);
         Optional<User> optionalUser = userRepository.findByUserId(orderDto.getUserId());
@@ -113,37 +112,15 @@ public class OrderService {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-
-
-            //이거 넣으면 json 데이터와 parseing 에러남
+            // 예상 총 금액: 상품 금액 * 결제 수량 + 배송비
             int productPrice = Integer.parseInt(project.getProPrice());
             int orderCnt = orderDto.getOrderCnt();
             int deliveryPay = orderDto.getDeliveryPay();
             int expectedTotalAmount = productPrice * orderCnt + deliveryPay;
-
-            if(orderDto.getTotalAmount() != expectedTotalAmount){
+            if (orderDto.getTotalAmount() != expectedTotalAmount) {
                 throw new RuntimeException("결제 금액이 일치하지 않습니다.");
             }
-
-            Order order = Order.builder()
-                    .proCode(project) //Project 엔티티에 추가됨
-                    .userId(user)
-                    .deliveryPay(orderDto.getDeliveryPay())
-                    .orderMethod(orderDto.getOrderMethod())
-                    .orderDate(orderDto.getOrderDate())
-                    .orderState(orderDto.getOrderState())
-                    .orderCnt(orderDto.getOrderCnt())
-                    .refundDetail(orderDto.getRefundDetail())
-                    .buyerName(orderDto.getBuyerName())
-                    .buyerAddr(orderDto.getBuyerAddr())
-//                    .buyerDetailAddr(orderDto.getBuyerDetailAddr())
-                    .buyerTel(orderDto.getBuyerTel())
-                    .buyerPostcode(orderDto.getBuyerPostcode())
-                    .impUid(orderDto.getImpUid())
-                    .merchantUid(orderDto.getMerchantUid())
-                    .totalAmount(orderDto.getTotalAmount())
-                    .build();
-
+            Order order = Order.toEntity(orderDto);
             orderRepository.save(order);
         } else {
             throw new RuntimeException("USER not found");
@@ -157,45 +134,42 @@ public class OrderService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization","Bearer "+ portOneTokenResponse.getResponse().getAccess_token());
+        headers.set("Authorization", "Bearer " + portOneTokenResponse.getResponse().getAccess_token());
 
-        MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
-        params.add("imp_uid",impUid);
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("imp_uid", impUid);
 
-        HttpEntity<MultiValueMap<String,String>> entity = new HttpEntity<>(params,headers);
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
         RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> response = rt.exchange(url,HttpMethod.POST,entity,String.class);
+        ResponseEntity<String> response = rt.exchange(url, HttpMethod.POST, entity, String.class);
 
-        if(response.getStatusCode() == HttpStatus.OK){
-            log.info("imp_uid : " +impUid + " cancelled successfully..." );
-
+        if (response.getStatusCode() == HttpStatus.OK) {
+            log.info("imp_uid : " + impUid + " cancelled successfully...");
             Optional<Order> optionalOrder = orderRepository.findByImpUid(impUid);
 
-            if(optionalOrder.isPresent()){
+            if (optionalOrder.isPresent()) {
                 //여기에 결제 취소 버튼 눌렀을 때 밑에 코드들이 실행되도록 추가 작성
                 Order order = optionalOrder.get();
                 order.setOrderState("결제 취소");
                 order.setRefundDetail("환불 완료");
                 orderRepository.save(order);
-                log.info("Order with imp_uid : "+impUid+" update to '결제 취소' with '환불 완료'");
-            }else{
-                log.error("imp_uid : "+impUid+" not found in DB");
+                log.info("Order with imp_uid : " + impUid + " update to '결제 취소' with '환불 완료'");
+            } else {
+                log.error("imp_uid : " + impUid + " not found in DB");
                 throw new RuntimeException("Order not found for cancel....");
             }
 
-        }else{
+        } else {
             log.error("Failed to cancel imp_uid : " + impUid + " StatusCode : " + response.getStatusCode());
             throw new RuntimeException("Order cancel failed....");
         }
     }
 
     //결제 내역 조회 메서드
-    public List<Order> getPaymentHistory(){
+    public List<Order> getPaymentHistory() {
         log.info("payment history from Order table...");
-
         List<Order> paymentHistory = orderRepository.findAll();
-
         return paymentHistory;
     }
 
@@ -216,7 +190,7 @@ public class OrderService {
     }
 
     @Data
-    private static class AUthInfoResponse{
+    private static class AUthInfoResponse {
         public int birth;
         public String birthday;
         public boolean certified;
@@ -237,7 +211,7 @@ public class OrderService {
 
     @Component
     @Data
-    private static class PortOneAuthInfoResponse{
+    private static class PortOneAuthInfoResponse {
         public int code;
         public Object message;
         public AUthInfoResponse response;
