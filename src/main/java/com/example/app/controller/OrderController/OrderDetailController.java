@@ -1,27 +1,21 @@
 package com.example.app.controller.OrderController;
 
-import com.example.app.controller.MyPageController.BuyerController.BuyerController;
 import com.example.app.domain.dto.OrderDto;
+import com.example.app.domain.dto.OrderHistoryDto;
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.domain.entity.Order;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.repository.ProjectRepository;
+import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.order.OrderService;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Controller
 @Slf4j
@@ -29,20 +23,23 @@ import java.util.concurrent.CompletableFuture;
 public class OrderDetailController {
 
     // 프로젝트 경로 (추후 변경 가능성 있음)
-    private final String UPLOAD_PATH = "http://localhost:8080/upload/";
+    String UPLOAD_PATH = "http://localhost:8080/upload/";
 
     @Autowired
     private OrderService orderService;
 
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
+
+    @Autowired
+    private ProjectServiceImpl projectService;
 
 //    @Value("${portOne.rest-api}")
 //    private String portOne_API;
 //    @Value("${portOne.secret}")
 //    private String portOne_SECRET;
 
-
+    // 주문 페이지 랜더링 API
     @GetMapping("/payment/{proCode}")
     String payment(@PathVariable("proCode") String proCode, Model model) throws Exception {
         log.info("payment() proCode : " + proCode); // 해당 프로젝트 proCode 확인
@@ -52,10 +49,10 @@ public class OrderDetailController {
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         // ProMainImg 를 리스트에 담기 (3개 고정)
-        if (projectDto.getProCategory().equals("book")){
-            model.addAttribute("deliveryPay","3000" );
-        }else{
-            model.addAttribute("deliveryPay","0" );
+        if (projectDto.getProCategory().equals("book")) {
+            model.addAttribute("deliveryPay", "3000");
+        } else {
+            model.addAttribute("deliveryPay", "0");
         }
         List<String> storedFileName = projectDto.getStoredFileName();
         model.addAttribute("userId", userId);
@@ -78,21 +75,27 @@ public class OrderDetailController {
         orderService.savePayment(orderDto);
     }
 
-     //결제 상세 페이지(GET)
+    //결제 상세 뷰 랜더링 API
     @GetMapping("/paymentHistory")
     public String showPaymentHistory(Model model) {
         log.info("GET /th/payment/paymentHistory...");
 
-        List<Order> paymentHistory = orderService.getPaymentHistory();
-        System.out.println("paymentHistory : "+paymentHistory);
+        List<OrderDto> orderDtoList = orderService.getPaymentHistory();
+        List<String> proNameList = new ArrayList<>();
+        List<String> imgPathList = new ArrayList<>();
+        for (OrderDto orderDto : orderDtoList) {
+            ProjectDto projectDto = projectService.findByProCode(orderDto.getProCode());
+            System.out.println("projectDto = " + projectDto);
 
-        for (Order order : paymentHistory) {
-            System.out.println("proCode = " + order.getProCode());
-
+            String proName = projectDto.getProName();
+            proNameList.add(proName);
+            // proNameList.add(projectDto.getProName()); // 상단의 코드와 해당 코드 중 무엇이 좋은 코드인지
+            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
+            imgPathList.add(imgPath);
         }
-
-
-        model.addAttribute("paymentHistory",paymentHistory);
+        OrderHistoryDto orderHistoryDto = new OrderHistoryDto(orderDtoList, proNameList, imgPathList);
+        System.out.println("orderHistoryDto = " + orderHistoryDto);
+        model.addAttribute("orderHistoryDto", orderHistoryDto);
 
         return "th/payment/paymentHistory";
     }

@@ -25,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -127,6 +128,7 @@ public class OrderService {
         }
     }
 
+    // 환불 처리
     public void CancleOrder(String impUid) throws Exception {
         getToken();
 
@@ -167,10 +169,13 @@ public class OrderService {
     }
 
     //결제 내역 조회 메서드
-    public List<Order> getPaymentHistory() {
+    public List<OrderDto> getPaymentHistory() {
         log.info("payment history from Order table...");
-        List<Order> paymentHistory = orderRepository.findAll();
-        return paymentHistory;
+        List<Order> orderList = orderRepository.findAll();
+        List<OrderDto> orderDtoList = orderList.stream()
+                .map(OrderDto::EntityToOrderDto)
+                .collect(Collectors.toList());
+        return orderDtoList;
     }
 
 
