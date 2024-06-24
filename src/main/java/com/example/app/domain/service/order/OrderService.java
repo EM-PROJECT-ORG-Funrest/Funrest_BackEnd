@@ -153,8 +153,8 @@ public class OrderService {
             if (optionalOrder.isPresent()) {
                 //여기에 결제 취소 버튼 눌렀을 때 밑에 코드들이 실행되도록 추가 작성
                 Order order = optionalOrder.get();
-                order.setOrderState("결제 취소");
-                order.setRefundDetail("환불 완료");
+                order.setOrderState("환불 완료");
+                order.setRefundDetail("..");
                 orderRepository.save(order);
                 log.info("Order with imp_uid : " + impUid + " update to '결제 취소' with '환불 완료'");
             } else {
