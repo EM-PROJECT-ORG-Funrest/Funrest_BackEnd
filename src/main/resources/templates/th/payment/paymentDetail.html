@@ -19,7 +19,7 @@
 <div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
 <body>
 <div class="container container-d my-custom-container">
-    <div class="row orderdetail-product-box m-2 mb-4">
+    <div class="row orderdetail-product-box m-2 mb-5">
         <h4 class="p-4 mt-4">상세 주문 내역</h4>
         <div class="orderdetail-product-box2 shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row orderdetail-header border-bottom p-2 my-2">
@@ -27,28 +27,32 @@
             </div>
             <div class="row orderdetail-main p-2">
                 <div class="col-md-8 row py-3">
-                    <img src="" alt="project_img" class="p-1 ms-2 img-fluid col-md-6">
+                    <div class="col-md-6">
+                        <a th:href="@{/th/project/project/{proCode}(proCode=${order.proCode})}">
+                            <img th:src="@{${imgPath}}" id="project_img" alt="project_img" class="p-1 ms-2 img-fluid">
+                        </a>
+                    </div>
                     <div class="col-md-6 d-flex flex-column justify-content-center">
-                        <p class="ps-1 m-1 text-truncate">상품정보(이름)</p>
+                        <p th:text="${project.proName}" class="ps-1 m-1 text-truncate">상품정보(이름)</p>
                     </div>
 
                 </div>
                 <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                     <span class="d-md-block fw-bold pb-2">수량</span>
                     <div class="h-50 d-flex justify-content-center align-items-center">
-                        <span>n개</span>
+                        <span th:text="${order.orderCnt + '개'}">주문수량</span>
                     </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                     <span class="d-md-block fw-bold pb-2">주문 금액</span>
                     <div class="h-50 d-flex justify-content-center align-items-center">
-                        <span class="">100,000</span>
+                        <span th:text="${order.totalAmount + '원'}" class="">주문금액</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row costdetail-box m-2 mb-4">
+    <div class="row costdetail-box m-2 mb-5">
         <h4 class="p-4">결제 금액</h4>
         <div class="orderdetail-product-box2 shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row orderdetail-main2 p-2">
@@ -58,9 +62,6 @@
                             <p>총 상품 가격</p>
                         </div>
                         <div class="col-12 text-center">
-                            <p>쿠폰 금액</p>
-                        </div>
-                        <div class="col-12 text-center">
                             <p>배송비</p>
                         </div>
                     </div>
@@ -68,13 +69,10 @@
                 <div class="col-6 my-3">
                     <div class="row orderdetail-title">
                         <div class="col-12 text-center">
-                            <p>10,000원</p>
+                            <p th:text="${order.totalAmount + '원'}">총 상품 가격</p>
                         </div>
                         <div class="col-12 text-center">
-                            <p>10,000원</p>
-                        </div>
-                        <div class="col-12 text-center">
-                            <p>10,000원</p>
+                            <p th:text="${order.deliveryPay + '원'}">배송비</p>
                         </div>
                     </div>
                 </div>
@@ -84,20 +82,20 @@
                         <p>총 결제 금액</p>
                     </div>
                     <div class="col-6 text-center pt-3">
-                        <p>10,000원</p>
+                        <p th:text="${(order.totalAmount + order.deliveryPay) + '원'}">총 결제 금액</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row cost-box m-2 mb-4">
+    <div class="row cost-box m-2 mb-5">
         <h4 class="p-4">주문자 및 배송 정보</h4>
         <div class="order-product-box3 shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row order-main3 p-2">
                 <div class="col-6 my-3">
                     <div class="row order-title">
                         <div class="col-12 text-center pb-2">
-                            <p>이름</p>
+                            <p>주문자 이름</p>
                         </div>
                         <div class="col-12 text-center pb-2">
                             <p>휴대폰 번호</p>
@@ -105,24 +103,18 @@
                         <div class="col-12 text-center pb-2">
                             <p>배송지 주소</p>
                         </div>
-                        <div class="col-12 text-center pb-2">
-                            <p>배송시 요청사항</p>
-                        </div>
                     </div>
                 </div>
                 <div class="col-6 my-3">
                     <div class="row order-title">
                         <div class="col-12 text-center pb-2">
-                            <p>김규호</p>
+                            <p th:text="${order.buyerName}">김규호</p>
                         </div>
                         <div class="col-12 text-center pb-2">
-                            <p>010-1234-5678</p>
+                            <p th:text="${order.buyerTel}">010-1234-5678</p>
                         </div>
                         <div class="col-12 text-center pb-2">
-                            <p>대구 북구 칠곡</p>
-                        </div>
-                        <div class="col-12 text-center pb-2">
-                            <p>아기가 깨지않게 조심 ^^</p>
+                            <p th:text="${order.buyerAddr}" >대구 북구 칠곡</p>
                         </div>
                     </div>
                 </div>
@@ -132,11 +124,8 @@
         <div class=" col-md-12 order-info-btns text-center">
             <button class="mx-5">주문 목록으로</button>
             <button class="mx-5">홈으로</button>
-            <button class="mx-5">반품하기</button>
         </div>
     </div>
-
-
     <div class="delivery-state">
         <div class="delivery-state-contents">
             <div class="material-symbols-outlined payments">payments</div>

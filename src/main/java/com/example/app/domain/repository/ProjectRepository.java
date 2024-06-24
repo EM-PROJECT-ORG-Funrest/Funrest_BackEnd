@@ -27,8 +27,8 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     // 카테고리 검색
     Page<Project> findAllByProCategoryAndProStatusOrderByProCodeDesc(String proCategory, Pageable pageable, int proStatus);
 
-    // 키워드 검색 - 넘겨준 값 X
-    Page<Project> findAllByProStatusOrderByProCode(Pageable pageable, int proStatus);
+    // 카테고리 검색 - 오픈 예정
+    List<Project> findAllByProStatusOrderByProCode(int proStatus);
 
     // 승인/미승인 프로젝트 검색
     Page<Project> findByProStatus(Integer proStatus, Pageable pageable);

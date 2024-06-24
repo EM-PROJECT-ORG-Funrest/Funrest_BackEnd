@@ -178,6 +178,18 @@ public class OrderService {
         return orderDtoList;
     }
 
+    // 특정 결제 내역 조회
+    public OrderDto findById(String impUid) {
+        Optional<Order> optionalOrder = orderRepository.findById(impUid);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            OrderDto orderDto = OrderDto.EntityToOrderDto(order);
+            return orderDto;
+        } else {
+            throw new RuntimeException("해당 결제 정보가 없습니다.");
+        }
+    }
+
 
     @Data
     private static class TokenResponse {

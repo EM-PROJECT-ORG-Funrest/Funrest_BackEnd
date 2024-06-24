@@ -2,6 +2,7 @@ package com.example.app.domain.dto;
 
 import com.example.app.domain.entity.Order;
 import com.example.app.domain.entity.Project;
+import com.example.app.domain.entity.User;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class OrderDto {
+    private String impUid;
     private int proCode;
     private String userId;
     private int deliveryPay;
@@ -27,12 +29,13 @@ public class OrderDto {
     //private String buyerDetailAddr;
     private String buyerTel;
     private int buyerPostcode;
-    private String impUid;
-    private String merchantUid;
     private int totalAmount;
+    private String merchantUid;
 
+    // Entity to Dto
     public static OrderDto EntityToOrderDto(Order order){
         OrderDto orderDto = new OrderDto();
+        orderDto.setImpUid(order.getImpUid());
         orderDto.setProCode(order.getProCode().getProCode());
         orderDto.setUserId(order.getUserId().getUserId());
         orderDto.setDeliveryPay(order.getDeliveryPay());
@@ -46,7 +49,6 @@ public class OrderDto {
         //orderDto.setBuyerDetailAddr(order.getBuyerDetailAddr());
         orderDto.setBuyerTel(order.getBuyerTel());
         orderDto.setBuyerPostcode(order.getBuyerPostcode());
-        orderDto.setImpUid(order.getImpUid());
         orderDto.setMerchantUid(order.getMerchantUid());
         orderDto.setTotalAmount(order.getTotalAmount());
         return orderDto;
