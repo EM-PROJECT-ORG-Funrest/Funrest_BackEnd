@@ -1,14 +1,18 @@
-package com.example.app.domain.dto;
+package com.example.app.domain.dto.Message;
 
-import com.example.app.domain.entity.MessageRoom;
+import com.example.app.domain.entity.Message.MessageRoom;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MessageResponseDto {
     private Long id;
@@ -41,6 +45,9 @@ public class MessageResponseDto {
 
     public MessageResponseDto(String roomId) {
         this.roomId = roomId;
+    }
+
+    public MessageResponseDto(String s, int value) {
     }
 
     public void setLatestMessageContent(String message) {

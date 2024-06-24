@@ -78,11 +78,15 @@ dependencies {
 	// REDIS
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
-	//embedded-redis
-	implementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+//	//embedded-redis
+//	implementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
 
 	//portOne
 	implementation 'com.github.iamport:iamport-rest-client-java:0.1.6'
+
+	//WebSocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 
 tasks.named('test') {

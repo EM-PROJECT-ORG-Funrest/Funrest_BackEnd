@@ -1,5 +1,6 @@
-package com.example.app.domain.entity;
+package com.example.app.domain.entity.Message;
 
+import com.example.app.domain.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

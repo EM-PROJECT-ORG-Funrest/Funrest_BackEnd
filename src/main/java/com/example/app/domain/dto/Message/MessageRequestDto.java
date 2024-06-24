@@ -1,4 +1,4 @@
-package com.example.app.domain.dto;
+package com.example.app.domain.dto.Message;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

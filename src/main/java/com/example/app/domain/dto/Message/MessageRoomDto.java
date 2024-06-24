@@ -1,4 +1,4 @@
-package com.example.app.domain.dto;
+package com.example.app.domain.dto.Message;
 
 import com.example.app.domain.entity.User;
 import com.fasterxml.jackson.annotation.JsonInclude;

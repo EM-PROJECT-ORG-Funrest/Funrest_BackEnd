@@ -1,11 +1,10 @@
-package com.example.app.domain.entity;
+package com.example.app.domain.entity.Message;
 
+import com.example.app.domain.entity.Timestamped;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +31,10 @@ public class Message extends Timestamped {
     private String message;
 
     @Column(name = "sentTime")
-    private String sentTime;
+    private LocalDateTime sentTime;
+
+    @Column(name ="createdAt")
+    private LocalDateTime createdAt;
 
     // 1.
     @ManyToOne

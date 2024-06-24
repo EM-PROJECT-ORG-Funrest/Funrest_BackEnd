@@ -1,6 +1,6 @@
-package com.example.app.domain.dto;
+package com.example.app.domain.dto.Message;
 
-import com.example.app.domain.entity.Message;
+import com.example.app.domain.entity.Message.Message;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
