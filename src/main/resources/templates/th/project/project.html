@@ -149,10 +149,10 @@
                         <div class="material-symbols-outlined">favorite</div>
                         <div id="notifyCnt" th:text="${Project.proNotifyCnt}" class="pro-sub-notify-peoples"></div>
                     </div>
-                    <div th:if="${Project.proStatus == 1}" class="pro-sub-fundding" role="button" th:onclick="|location.href='@{/th/payment/payment/{proCode}(proCode=${Project.proCode})}'|">
+                    <div th:if="${Project.proRemainingDay <= 0}" class="pro-sub-fundding" role="button" th:onclick="|location.href='@{/th/payment/payment/{proCode}(proCode=${Project.proCode})}'|">
                         <button>펀딩하기</button>
                     </div>
-                    <div th:unless="${Project.proStatus == 1}" class="pro-sub-fundding" role="button" aria-disabled="true">
+                    <div th:unless="${Project.proRemainingDay <= 0}" class="pro-sub-fundding" role="button" aria-disabled="true">
                         <button style="background-color:lightgray;" disabled>펀딩하기</button>
                     </div>
                 </div>

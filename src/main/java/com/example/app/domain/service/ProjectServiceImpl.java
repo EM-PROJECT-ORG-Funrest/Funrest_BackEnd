@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -279,10 +281,17 @@ public class ProjectServiceImpl {
                 projectSubFileRepository.save(projectSubFile);
             }
         }
-
-
     }
 
+    // proStartDate에 따른 버튼 구현을 위한 디데이 구하기
+    public void getProRemainingDay(ProjectDto projectDto) {
+        System.out.println("getRemainingDay() execute..");
 
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now();
+        LocalDate target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
+        long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
+        projectDto.setProRemainingDay(remainingDays);
+    }
 
 }
