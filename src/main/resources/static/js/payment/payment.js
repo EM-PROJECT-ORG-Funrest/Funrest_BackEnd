@@ -158,6 +158,7 @@ function goToPay() {
                 method: 'POST',
                 contentType : "application/json",
                 data: JSON.stringify(result), // result 객체를 JSON 문자열로 변환하여 전송
+
                 success: function (resp) {
                     alert("결제 내역 페이지로 넘어갑니다.");
                     window.location.href = '/th/payment/paymentHistory';

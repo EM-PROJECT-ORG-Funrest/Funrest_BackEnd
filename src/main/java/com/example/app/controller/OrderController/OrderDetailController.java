@@ -3,9 +3,8 @@ package com.example.app.controller.OrderController;
 import com.example.app.domain.dto.OrderDto;
 import com.example.app.domain.dto.OrderHistoryDto;
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.domain.entity.Order;
+import com.example.app.domain.dto.RefundDto;
 import com.example.app.domain.entity.Project;
-import com.example.app.domain.repository.OrderRepository;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.service.order.OrderService;
 import com.example.app.domain.service.project.ProjectServiceImpl;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -73,9 +71,34 @@ public class OrderDetailController {
         orderService.savePayment(orderDto);
     }
 
-    @GetMapping("/applyRefund")
-    public void applyRefundOrder(){
+    // 반품 신청페이지 랜더링 API
+    @GetMapping("/applyRefund/{orderCode}")
+    public void applyRefundOrder(@PathVariable("orderCode") String orderCode, Model model){
         log.info("GET /th/payment/applyRefund...");
+        // 해당 orderCode 주문 정보 조회
+        OrderDto orderDto = orderService.findById(orderCode);
+        System.out.println("orderDto = " + orderDto);
+        System.out.println("orderDto.getOrderState() = " + orderDto.getOrderState());
+        model.addAttribute("order", orderDto);
+        // 해당 주문의 proCode 조회
+        Integer proCode = orderDto.getProCode();
+        ProjectDto projectDto = projectService.findByProCode(proCode);
+        System.out.println("projectDto = " + projectDto);
+        model.addAttribute("project", projectDto);
+        // 해당 상품의 이미지 경로 조회
+        String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
+        model.addAttribute("imgPath", imgPath);
+    }
+
+    // 반품 신청 API
+    @PostMapping("/refund")
+    public String refund(@RequestBody RefundDto refundDto) throws Exception {
+        log.info("POST /th/payment/refund...");
+        System.out.println("refundDto = " + refundDto);
+        String impUid = refundDto.getImp_uid();
+        orderService.CancleOrder(impUid, refundDto);
+
+        return "redirect:/th/payment/paymentHistory";
     }
 
     //결제 내역페이지 랜더링 API

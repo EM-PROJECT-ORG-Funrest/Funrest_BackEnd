@@ -38,6 +38,7 @@ public class Order {
     @Column(nullable = false)
     private int orderCnt;
     private String refundDetail;
+    private int refundCnt;
     @Column(nullable = false)
     private String buyerName;
     private String buyerAddr;
@@ -62,6 +63,7 @@ public class Order {
                 .orderState(orderDto.getOrderState())
                 .orderCnt(orderDto.getOrderCnt())
                 .refundDetail(orderDto.getRefundDetail())
+                .refundCnt(orderDto.getRefundCnt())
                 .buyerName(orderDto.getBuyerName())
                 .buyerAddr(orderDto.getBuyerAddr())
                 //.buyerDetailAddr(orderDto.getBuyerDetailAddr())

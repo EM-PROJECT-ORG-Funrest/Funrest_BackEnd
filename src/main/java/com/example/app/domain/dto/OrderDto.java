@@ -24,6 +24,7 @@ public class OrderDto {
     private String orderState;
     private int orderCnt;
     private String refundDetail;
+    private int refundCnt;
     private String buyerName;
     private String buyerAddr;
     //private String buyerDetailAddr;
@@ -44,6 +45,7 @@ public class OrderDto {
         orderDto.setOrderState(order.getOrderState());
         orderDto.setOrderCnt(order.getOrderCnt());
         orderDto.setRefundDetail(order.getRefundDetail());
+        orderDto.setRefundCnt(order.getRefundCnt());
         orderDto.setBuyerName(order.getBuyerName());
         orderDto.setBuyerAddr(order.getBuyerAddr());
         //orderDto.setBuyerDetailAddr(order.getBuyerDetailAddr());

@@ -1,6 +1,7 @@
 package com.example.app.domain.service.order;
 
 import com.example.app.domain.dto.OrderDto;
+import com.example.app.domain.dto.RefundDto;
 import com.example.app.domain.entity.Order;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.User;
@@ -129,7 +130,7 @@ public class OrderService {
     }
 
     // 환불 처리
-    public void CancleOrder(String impUid) throws Exception {
+    public void CancleOrder(String impUid, RefundDto refundDto) throws Exception {
         getToken();
 
         String url = "https://api.iamport.kr/payments/cancel";
@@ -154,14 +155,13 @@ public class OrderService {
                 //여기에 결제 취소 버튼 눌렀을 때 밑에 코드들이 실행되도록 추가 작성
                 Order order = optionalOrder.get();
                 order.setOrderState("환불 완료");
-                order.setRefundDetail("..");
+                order.setRefundDetail(refundDto.getReason());
                 orderRepository.save(order);
                 log.info("Order with imp_uid : " + impUid + " update to '결제 취소' with '환불 완료'");
             } else {
                 log.error("imp_uid : " + impUid + " not found in DB");
                 throw new RuntimeException("Order not found for cancel....");
             }
-
         } else {
             log.error("Failed to cancel imp_uid : " + impUid + " StatusCode : " + response.getStatusCode());
             throw new RuntimeException("Order cancel failed....");
