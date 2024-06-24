@@ -30,12 +30,12 @@
             </div>
             <div class="editProfile-addr row mt-4 justify-content-center p-4">
                 <div class="input-group p-0 w-auto justify-content-center">
-                    <input id="edit-post-code" name="addrCode" class="post-code form-control m-1" type="text" placeholder="우편번호" aria-describedby="button-addon1" readonly>
+                    <input id="edit-post-code" name="addrCode" class="post-code form-control m-1" type="text" placeholder="우편번호" aria-describedby="button-addon1" th:value="${userDto.addrCode}"  readonly>
                     <button class="btn btn-outline-success m-1" onclick="execDaumPostcode()" type="button" id="button-addon1">주소 검색</button>
                     <div class="w-100"></div>
-                    <input id="edit-road-addr" class="road-addr form-control m-1" type="text" placeholder="도로명주소" name="addrRoad" readonly >
+                    <input id="edit-road-addr" class="road-addr form-control m-1" type="text" placeholder="도로명주소" name="addrRoad" th:value="${userDto.addrRoad}" readonly >
                     <div class="w-100"></div>
-                    <input id="addr-detail" class="form-control m-1" type="text" placeholder="상세 주소 입력" name="addrDetail">
+                    <input id="addr-detail" class="form-control m-1" type="text" placeholder="상세 주소 입력" name="addrDetail" th:value="${userDto.addrDetail}">
                 </div>
             </div>
             <div class="editProfile-tel row m-3 justify-content-center">
@@ -61,7 +61,7 @@
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-    IMP.init("imp52106370");
+    IMP.init("imp83318333");
 
     const auth_btn = document.querySelector('.auth_btn');
     auth_btn.addEventListener('click', function(){

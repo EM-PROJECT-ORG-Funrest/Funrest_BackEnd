@@ -19,6 +19,7 @@ public class ProjectImgFileServiceImpl {
         // 저장 경로 위치에 이미지 저장
         ImageIO.write(bi, "jpg", new File(savePath));
         ImageIO.write(bi, "png", new File(savePath));
+        ImageIO.write(bi, "gif", new File(savePath));
     }
     // 이미지 라사이징 해주는 메서드
     private BufferedImage resizeImage(BufferedImage originalImage,int targetWidth,int targetHeight) {
