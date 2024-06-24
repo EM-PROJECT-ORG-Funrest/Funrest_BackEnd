@@ -12,8 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
     // private String savePath = "file:///C:/springboot_img/"; // 실제 파일 저장 경로
     // 맥인 경우
     // private String savePath = "file:/Users/hongjaeseong/springboot_img/";
-    private String savePath = "file:///C:/springboot_img/"; // ProMainImg 실제 파일 저장 경로
-    private String savePath2 = "file:///C:/springboot_subImg/"; // ProSubImg 실제 파일 저장 경로
+    private String savePath = "file:/Users/hongjaeseong/springboot_img/"; // ProMainImg 실제 파일 저장 경로
+    private String savePath2 = "file:/Users/hongjaeseong/springboot_subImg/"; // ProSubImg 실제 파일 저장 경로
 
     // view 에서 접근한 경로를 spring 이 실제 파일 저장 경로에서 찾아준다
     @Override
