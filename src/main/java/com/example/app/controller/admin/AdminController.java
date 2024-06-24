@@ -2,8 +2,8 @@ package com.example.app.controller.admin;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.dto.UserDto;
-import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.member.UserService;
+import com.example.app.domain.service.project.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ProjectServiceImpl projectServiceImpl;
+    private ProjectServiceImpl projectServiceImpl;
 
     @GetMapping("/dashboard")
     public void adminDashboard(Model model) {

@@ -4,7 +4,8 @@ import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.repository.ProjectRepository;
 
-import com.example.app.domain.service.ProjectServiceImpl;
+
+import com.example.app.domain.service.project.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +27,10 @@ public class ProjectDetailController {
     String UPLOAD_PATH = "http://localhost:8080/upload/";
 
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
     @Autowired
-    ProjectServiceImpl projectService;
+    private ProjectServiceImpl projectService;
 
     // 프로젝트 상세페이지에 데이터 전송 API
     @GetMapping("/project/{proCode}")
