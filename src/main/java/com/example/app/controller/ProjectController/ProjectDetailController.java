@@ -49,6 +49,9 @@ public class ProjectDetailController {
 
         // projectDto 에 달성금액 넣기
         projectService.proAchievementAmount(projectDto);
+
+        // projectDto 에 proStartDate까지 남은 일자 넣기
+        projectService.getProRemainingDay(projectDto);
         
         // ProMainImg 리스트 -> model 에 담기
         model.addAttribute("Project", projectDto);

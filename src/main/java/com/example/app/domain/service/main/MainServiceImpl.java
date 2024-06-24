@@ -3,6 +3,7 @@ package com.example.app.domain.service.main;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.repository.ProjectRepository;
+import com.example.app.domain.service.notify.NotifyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -49,14 +55,59 @@ public class MainServiceImpl {
     }
 
     // 카테고리 검색 - 오픈예정
-    public Page<ProjectDto> getAllProjectByComingSoon(Pageable pageable){
-        Page<Project> projectPage = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable, 0);
+    public Page<ProjectDto> getAllProjectByComingSoon(Pageable pageable, int page, int size){
+        List<Project> projectPage = projectRepository.findAllByProStatusOrderByProCode(1);
 
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable.previousOrFirst(), 0);
-            return projectPage2.map(ProjectDto::toProjectDto);
+            List<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCode(1);
+            return entityListToPage(projectPage2, page, size);
         }
-        return projectPage.map(ProjectDto::toProjectDto);
+
+        int projectListSize = projectPage.size();
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now();
+        LocalDate target = null;
+
+        List<ProjectDto> projectDtos = projectPage.stream()
+                .map(ProjectDto::toProjectDto)
+                .collect(Collectors.toList()); // Stream을 List로 변환하여 ListIterator 사용 가능
+
+        ListIterator<ProjectDto> iterator = projectDtos.listIterator();
+        while (iterator.hasNext()) {
+            ProjectDto projectDto = iterator.next();
+            target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
+            long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
+            projectDto.setProRemainingDay(remainingDays);
+            if (remainingDays <= 0) {
+                iterator.remove();
+                projectListSize--;
+            }
+        }
+
+        if (projectListSize == 0) {
+            List<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCode(1);
+            return entityListToPage(projectPage2, page, size);
+        }
+
+        return dtoListToPage(projectDtos, page, size);
+    }
+
+    // List<Project> -> Page<ProjectDto>
+    public Page<ProjectDto> entityListToPage(List<Project> projectList, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), projectList.size());
+        Page<Project> projectListToPage = new PageImpl<>(projectList.subList(start, end), pageRequest, projectList.size());
+        return projectListToPage.map(ProjectDto::toProjectDto);
+    }
+
+    // List<ProjectDto> -> Page<ProjectDto>
+    public Page<ProjectDto> dtoListToPage(List<ProjectDto> projectList, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), projectList.size());
+        Page<ProjectDto> projectListToPage = new PageImpl<>(projectList.subList(start, end), pageRequest, projectList.size());
+        return projectListToPage;
     }
 
     // 키워드 검색
