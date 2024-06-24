@@ -53,6 +53,10 @@ public class ProjectDto {
     private String formattedProDate;
     private String proAchievementAmount; //프로젝트 달성금액 구하기
 
+    public ProjectDto(int proCode) {
+        this.proCode = proCode;
+    }
+
     // Entity to Dto
     public static ProjectDto toProjectDto(Project project) {
         ProjectDto projectDto = new ProjectDto();

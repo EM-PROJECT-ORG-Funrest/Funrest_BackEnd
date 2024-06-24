@@ -54,7 +54,7 @@
                         <div class="col-md-6">
                             <div th:each="imgPath, imgIdx : ${orderHistoryDto.imgPathList}">
                                 <div th:if="${dtoIdx.index == imgIdx.index}">
-                                    <a th:href="@{/th/project/project/{proCode}(proCode=${orderDto.proCode})}">
+                                    <a th:href="@{/th/payment/paymentDetail/{orderCode}(orderCode=${orderDto.impUid})}">
                                         <img th:src="@{${imgPath}}" id="project_img" alt="project_img"
                                              class="p-1 ms-2 img-fluid">
                                     </a>
