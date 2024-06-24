@@ -78,8 +78,7 @@ public class MainServiceImpl {
             target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
             long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
             projectDto.setProRemainingDay(remainingDays);
-            log.info("remainingDays : " + remainingDays);
-            if (remainingDays < 0) {
+            if (remainingDays <= 0) {
                 iterator.remove();
                 projectListSize--;
             }
@@ -90,12 +89,7 @@ public class MainServiceImpl {
             return entityListToPage(projectPage2, page, size);
         }
 
-        List<ProjectDto> projectPageResult = new ArrayList<>();
-        while(iterator.hasNext()) {
-            projectPageResult.add(iterator.next());
-        }
-
-        return dtoListToPage(projectPageResult, page, size);
+        return dtoListToPage(projectDtos, page, size);
     }
 
     // List<Project> -> Page<ProjectDto>
