@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en"
-
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +22,6 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<div th:replace="~{/fragments/header.html::beforeLoginHeader }"></div>
 <body>
 <div class="signup container my-custom-container">
     <div class="external-signup row">
@@ -34,13 +32,13 @@
         </div>
         <div class="external-login">
             <div class="external-login-kakao m-auto my-3">
-                <button type="button" class="btn mb-3">
+                <button type="button" class="btn mb-3" onclick="location.href='/oauth2/authorization/kakao'">
                     <img th:src="@{/images/member/icon_kakao.png}" alt="">
                     카카오로 시작하기
                 </button>
             </div>
             <div class="external-login-naver m-auto my-3">
-                <button type="button" class="btn mb-5">
+                <button type="button" class="btn mb-5" onclick="location.href='/oauth2/authorization/naver'">
                     <img th:src="@{/images/member/icon_naver.png}" alt="">
                     네이버로 시작하기
                 </button>

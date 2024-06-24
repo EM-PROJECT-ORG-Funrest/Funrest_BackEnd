@@ -50,6 +50,11 @@ async function applyNotification(proCode) {
     try {
         const resp = await axios.post("/th/notify/applyNotification", {proCode});
         const resp2 = await axios.get("/th/notify/count/" + proCode);
+        if(resp2.data.cnt === undefined) {
+            window.alert("로그인이 필요한 기능입니다. 펀레스트 계정이 없다면 회원가입을 진행해주세요!");
+            return;
+        }
+
         if(resp2.data) {
             notifyCnt.innerText = resp2.data.cnt;
         }

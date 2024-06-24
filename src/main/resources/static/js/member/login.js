@@ -15,10 +15,7 @@ function submit_check() {
         pw.focus();
         return false;
     } else {
-        alert("제출");
         submit();
-
     }
-
 }
 
