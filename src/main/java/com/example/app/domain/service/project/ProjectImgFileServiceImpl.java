@@ -1,4 +1,4 @@
-package com.example.app.domain.service;
+package com.example.app.domain.service.project;
 
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;

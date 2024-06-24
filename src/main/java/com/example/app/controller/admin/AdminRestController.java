@@ -2,9 +2,9 @@ package com.example.app.controller.admin;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.dto.VisitDto;
-import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.VisitService;
 import com.example.app.domain.service.member.UserService;
+import com.example.app.domain.service.project.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +25,13 @@ import java.util.Map;
 public class AdminRestController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ProjectServiceImpl projectServiceImpl;
+    private ProjectServiceImpl projectServiceImpl;
 
     @Autowired
-    VisitService visitService;
+    private VisitService visitService;
 
     // 회원 삭제 API
     @PostMapping("/deleteMembers")

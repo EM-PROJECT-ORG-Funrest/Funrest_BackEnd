@@ -8,7 +8,6 @@ import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
-import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.myPage.BuyerServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
