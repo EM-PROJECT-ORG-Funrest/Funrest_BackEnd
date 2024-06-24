@@ -1,7 +1,9 @@
 package com.example.app.domain.entity;
 
+import com.example.app.domain.dto.OrderDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.aspectj.weaver.ast.Or;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
@@ -16,10 +18,8 @@ import java.util.Date;
 @Table(name = "tbl_order")
 public class Order {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false,name = "orderCode")
+    @Column(nullable = false, name = "orderCode")
     private String impUid;
-//    private String orderCode;
     @ManyToOne
     @JoinColumn(name = "proCode", foreignKey = @ForeignKey(name = "FK_ORDER_PROJECT",
             foreignKeyDefinition = "FOREIGN KEY(proCode) REFERENCES tbl_project(proCode) ON DELETE CASCADE ON UPDATE CASCADE"))
@@ -28,7 +28,6 @@ public class Order {
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "FK_ORDER_USER",
             foreignKeyDefinition = "FOREIGN KEY(userId) REFERENCES tbl_user(userId) ON DELETE CASCADE ON UPDATE CASCADE"))
     private User userId;
-    @Column(nullable = false, columnDefinition = "integer default 3000")
     private int deliveryPay;
     @Column(nullable = false)
     private String orderMethod;
@@ -39,19 +38,38 @@ public class Order {
     @Column(nullable = false)
     private int orderCnt;
     private String refundDetail;
-
-    //추가
     @Column(nullable = false)
     private String buyerName;
     private String buyerAddr;
-//    private String buyerDetailAddr;
+    //private String buyerDetailAddr;
     @Column(nullable = false)
     private String buyerTel;
     @Column(nullable = false)
     private int buyerPostcode;
     @Column(nullable = false)
     private int totalAmount;
-
     @Column(nullable = false)
     private String merchantUid;
+
+    // Dto to Entity
+    public static Order toEntity(OrderDto orderDto) {
+        return Order.builder()
+                .proCode(new Project(orderDto.getProCode()))
+                .userId(new User(orderDto.getUserId()))
+                .deliveryPay(orderDto.getDeliveryPay())
+                .orderMethod(orderDto.getOrderMethod())
+                .orderDate(orderDto.getOrderDate())
+                .orderState(orderDto.getOrderState())
+                .orderCnt(orderDto.getOrderCnt())
+                .refundDetail(orderDto.getRefundDetail())
+                .buyerName(orderDto.getBuyerName())
+                .buyerAddr(orderDto.getBuyerAddr())
+                //.buyerDetailAddr(orderDto.getBuyerDetailAddr())
+                .buyerTel(orderDto.getBuyerTel())
+                .buyerPostcode(orderDto.getBuyerPostcode())
+                .impUid(orderDto.getImpUid())
+                .merchantUid(orderDto.getMerchantUid())
+                .totalAmount(orderDto.getTotalAmount())
+                .build();
+    }
 }

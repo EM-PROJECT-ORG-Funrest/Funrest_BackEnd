@@ -1,23 +1,17 @@
 package com.example.app.controller.MyPageController.SellerController;
 
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.User;
-import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.myPage.SellerServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller

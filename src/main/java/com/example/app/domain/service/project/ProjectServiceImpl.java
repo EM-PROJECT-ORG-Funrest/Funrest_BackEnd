@@ -1,10 +1,9 @@
-package com.example.app.domain.service;
+package com.example.app.domain.service.project;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.ProjectFile;
 import com.example.app.domain.entity.ProjectSubFile;
-import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.ProjectFileRepository;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.repository.ProjectSubFileRepository;

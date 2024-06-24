@@ -2,23 +2,18 @@ package com.example.app.controller.admin;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.dto.UserDto;
-import com.example.app.domain.entity.ProjectFile;
-import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.member.UserService;
+import com.example.app.domain.service.project.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -28,10 +23,10 @@ import java.util.Map;
 public class AdminController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    ProjectServiceImpl projectServiceImpl;
+    private ProjectServiceImpl projectServiceImpl;
 
     @GetMapping("/dashboard")
     public void adminDashboard(Model model) {
@@ -43,7 +38,7 @@ public class AdminController {
 
     @GetMapping("/member")
     public void adminMember(@RequestParam(name = "page", defaultValue = "0") int page,
-                            @RequestParam(name = "size", defaultValue = "1") int size,
+                            @RequestParam(name = "size", defaultValue = "2") int size,
                             Model model) {
         log.info("GET /th/admin/member");
         // 1. 전체 회원 정보 조회 (페이징 처리)
@@ -68,7 +63,7 @@ public class AdminController {
     @GetMapping("/project")
     public void adminProject(@RequestParam(name = "unapprovedPage", defaultValue = "0") int unapprovedPage,
                              @RequestParam(name = "approvedPage", defaultValue = "0") int approvedPage,
-                             @RequestParam(name = "size", defaultValue = "2") int size,
+                             @RequestParam(name = "size", defaultValue = "10") int size,
                              Model model) {
         log.info("GET /th/admin/project");
         // 1. 미승인 프로젝트 정보 조회 (페이징 처리)
