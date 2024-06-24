@@ -75,6 +75,11 @@ public class OrderDetailController {
         orderService.savePayment(orderDto);
     }
 
+    @GetMapping("/applyRefund")
+    public void applyRefundOrder(){
+        log.info("GET /th/payment/applyRefund...");
+    }
+
     //결제 상세 뷰 랜더링 API
     @GetMapping("/paymentHistory")
     public String showPaymentHistory(Model model) {
@@ -100,6 +105,11 @@ public class OrderDetailController {
         return "th/payment/paymentHistory";
     }
 
+
+    @GetMapping("/paymentDetail")
+    public void test26(){
+        log.info("GET /th/payment/paymentDetail...");
+    }
 
 }
 

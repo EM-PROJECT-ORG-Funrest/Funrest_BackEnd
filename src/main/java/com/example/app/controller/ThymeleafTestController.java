@@ -18,9 +18,8 @@ public class ThymeleafTestController {
 
 
 //    // payment view page test
-    @GetMapping("/payment/applyRefund")
-    public void test23(){}
-    @GetMapping("/payment/paymentDetail")
-    public void test26(){}
+//    @GetMapping("/payment/applyRefund")
+//    public void test23(){}
+
 
 }
