@@ -27,7 +27,6 @@ public class OrderDto {
     private int refundCnt;
     private String buyerName;
     private String buyerAddr;
-    //private String buyerDetailAddr;
     private String buyerTel;
     private int buyerPostcode;
     private int totalAmount;
@@ -48,7 +47,6 @@ public class OrderDto {
         orderDto.setRefundCnt(order.getRefundCnt());
         orderDto.setBuyerName(order.getBuyerName());
         orderDto.setBuyerAddr(order.getBuyerAddr());
-        //orderDto.setBuyerDetailAddr(order.getBuyerDetailAddr());
         orderDto.setBuyerTel(order.getBuyerTel());
         orderDto.setBuyerPostcode(order.getBuyerPostcode());
         orderDto.setMerchantUid(order.getMerchantUid());

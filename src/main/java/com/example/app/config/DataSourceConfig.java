@@ -17,9 +17,9 @@ public class DataSourceConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://3.39.29.162:3306/funrestdb");
-        dataSource.setUsername("dbconn");
-        dataSource.setPassword("ghQkdaos12!");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/funrestdb");
+        dataSource.setUsername("root");
+        dataSource.setPassword("1234");
 
         return dataSource;
     }

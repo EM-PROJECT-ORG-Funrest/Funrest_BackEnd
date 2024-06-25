@@ -1,4 +1,4 @@
-package com.example.app.controller.OrderController;
+package com.example.app.controller.order;
 
 import com.example.app.domain.dto.OrderDto;
 import com.example.app.domain.dto.RefundDto;

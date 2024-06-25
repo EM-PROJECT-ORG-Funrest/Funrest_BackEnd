@@ -180,14 +180,6 @@ public class OrderService {
         }
     }
 
-    // userId 별 주문내역 조회
-    public List<OrderDto> findByUserId(User userId) {
-        List<Order> orderList = orderRepository.findByUserId(userId);
-        return orderList.stream()
-                .map(OrderDto::EntityToOrderDto)
-                .collect(Collectors.toList());
-    }
-
     // userId 별 주문상태(결제완료,환불완료) 별 주문 조회
     public List<OrderDto> findByUserIdAndOrderState(User userId, String orderState) {
         List<Order> orderList = orderRepository.findByUserIdAndOrderState(userId, orderState);

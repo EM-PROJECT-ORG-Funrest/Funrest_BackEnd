@@ -1,4 +1,4 @@
-package com.example.app.controller.MyPageController.SellerController;
+package com.example.app.controller.myPage.seller;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.User;

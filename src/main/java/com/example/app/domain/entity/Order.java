@@ -42,7 +42,6 @@ public class Order {
     @Column(nullable = false)
     private String buyerName;
     private String buyerAddr;
-    //private String buyerDetailAddr;
     @Column(nullable = false)
     private String buyerTel;
     @Column(nullable = false)
@@ -66,7 +65,6 @@ public class Order {
                 .refundCnt(orderDto.getRefundCnt())
                 .buyerName(orderDto.getBuyerName())
                 .buyerAddr(orderDto.getBuyerAddr())
-                //.buyerDetailAddr(orderDto.getBuyerDetailAddr())
                 .buyerTel(orderDto.getBuyerTel())
                 .buyerPostcode(orderDto.getBuyerPostcode())
                 .impUid(orderDto.getImpUid())

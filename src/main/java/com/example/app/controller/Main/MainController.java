@@ -35,7 +35,7 @@
     
     import com.example.app.config.WebConfig;
     import com.example.app.domain.dto.ProjectDto;
-    import com.example.app.domain.service.VisitService;
+    import com.example.app.domain.service.visit.VisitService;
     import com.example.app.domain.service.main.MainServiceImpl;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Controller;

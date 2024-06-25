@@ -1,4 +1,4 @@
-package com.example.app.controller.ProjectController;
+package com.example.app.controller.project;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
