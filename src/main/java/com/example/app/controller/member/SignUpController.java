@@ -17,7 +17,6 @@ public class SignUpController {
     @Autowired
     private SignUpService signUpService;
 
-
     @GetMapping("/mail/req/{id}")
     public ResponseEntity req(@PathVariable("id") String id, HttpSession session) {
         log.info("GET /signUp/mail/req.. id : " + id);

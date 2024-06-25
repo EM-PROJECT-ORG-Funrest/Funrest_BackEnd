@@ -1,4 +1,4 @@
-package com.example.app.controller.MyPageController.SellerController;
+package com.example.app.controller.myPage.seller;
 
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.domain.dto.ProjectDto;
@@ -20,7 +20,6 @@ import java.io.IOException;
 @NoArgsConstructor
 @RequestMapping("/th/myPage/seller")
 public class ProjectController {
-
 
     @Autowired
     private ProjectServiceImpl projectServiceImpl;

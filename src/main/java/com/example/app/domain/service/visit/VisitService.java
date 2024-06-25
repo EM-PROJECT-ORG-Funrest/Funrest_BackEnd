@@ -1,4 +1,4 @@
-package com.example.app.domain.service;
+package com.example.app.domain.service.visit;
 
 import com.example.app.domain.dto.VisitDto;
 import com.example.app.domain.entity.Visit;
@@ -21,6 +21,7 @@ public class VisitService {
     @Autowired
     VisitRepository visitRepository;
 
+    // 당일 방문자 기록
     @Transactional
     public void recordVisit() {
         LocalDate today = LocalDate.now();
@@ -37,6 +38,7 @@ public class VisitService {
         }
     }
 
+    // 방문 데이터 검색
     public List<VisitDto> getVisitData() {
         return visitRepository.findAll().stream()
                 .map(visit -> new VisitDto(visit.getVisitDate(), visit.getVisitNum()))

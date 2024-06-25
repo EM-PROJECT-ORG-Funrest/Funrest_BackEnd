@@ -2,7 +2,7 @@ package com.example.app.controller.admin;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.dto.VisitDto;
-import com.example.app.domain.service.VisitService;
+import com.example.app.domain.service.visit.VisitService;
 import com.example.app.domain.service.member.UserService;
 import com.example.app.domain.service.project.ProjectServiceImpl;
 import lombok.AllArgsConstructor;

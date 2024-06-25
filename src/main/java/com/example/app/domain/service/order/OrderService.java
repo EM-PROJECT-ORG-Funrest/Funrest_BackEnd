@@ -1,6 +1,7 @@
 package com.example.app.domain.service.order;
 
 import com.example.app.domain.dto.OrderDto;
+import com.example.app.domain.dto.RefundDto;
 import com.example.app.domain.entity.Order;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.User;
@@ -70,10 +71,8 @@ public class OrderService {
 
         //RESPONSE
         System.out.println("response.getBody() + token" + response.getBody());
-
         this.portOneTokenResponse = response.getBody();
     }
-
 
     @GetMapping(value = "getBuyerInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody PortOneAuthInfoResponse getBuyerInfo(@PathVariable("imp_uid") String imp_uid) throws Exception {
@@ -129,17 +128,20 @@ public class OrderService {
     }
 
     // 환불 처리
-    public void CancleOrder(String impUid) throws Exception {
+    public void cancelOrder(RefundDto refundDto) throws Exception {
+        String imp_uid = refundDto.getImp_uid();
+        String reason = refundDto.getReason();
         getToken();
 
         String url = "https://api.iamport.kr/payments/cancel";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + portOneTokenResponse.getResponse().getAccess_token());
+        headers.add("Authorization", "Bearer " + portOneTokenResponse.getResponse().getAccess_token());
+        headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("imp_uid", impUid);
+        params.add("imp_uid", imp_uid);
+        params.add("reason", reason);
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
@@ -147,35 +149,23 @@ public class OrderService {
         ResponseEntity<String> response = rt.exchange(url, HttpMethod.POST, entity, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            log.info("imp_uid : " + impUid + " cancelled successfully...");
-            Optional<Order> optionalOrder = orderRepository.findByImpUid(impUid);
+            log.info("imp_uid : " + imp_uid + " cancelled successfully...");
+            Optional<Order> optionalOrder = orderRepository.findByImpUid(imp_uid);
 
             if (optionalOrder.isPresent()) {
-                //여기에 결제 취소 버튼 눌렀을 때 밑에 코드들이 실행되도록 추가 작성
                 Order order = optionalOrder.get();
-                order.setOrderState("결제 취소");
-                order.setRefundDetail("환불 완료");
+                order.setOrderState("환불완료");
+                order.setRefundDetail(reason);
                 orderRepository.save(order);
-                log.info("Order with imp_uid : " + impUid + " update to '결제 취소' with '환불 완료'");
+                log.info("Order with imp_uid : " + imp_uid + " update to '결제 취소' with '환불 완료'");
             } else {
-                log.error("imp_uid : " + impUid + " not found in DB");
+                log.error("imp_uid : " + imp_uid + " not found in DB");
                 throw new RuntimeException("Order not found for cancel....");
             }
-
         } else {
-            log.error("Failed to cancel imp_uid : " + impUid + " StatusCode : " + response.getStatusCode());
+            log.error("Failed to cancel imp_uid : " + imp_uid + " StatusCode : " + response.getStatusCode());
             throw new RuntimeException("Order cancel failed....");
         }
-    }
-
-    //결제 내역 조회 메서드
-    public List<OrderDto> getPaymentHistory() {
-        log.info("payment history from Order table...");
-        List<Order> orderList = orderRepository.findAll();
-        List<OrderDto> orderDtoList = orderList.stream()
-                .map(OrderDto::EntityToOrderDto)
-                .collect(Collectors.toList());
-        return orderDtoList;
     }
 
     // 특정 결제 내역 조회
@@ -190,6 +180,13 @@ public class OrderService {
         }
     }
 
+    // userId 별 주문상태(결제완료,환불완료) 별 주문 조회
+    public List<OrderDto> findByUserIdAndOrderState(User userId, String orderState) {
+        List<Order> orderList = orderRepository.findByUserIdAndOrderState(userId, orderState);
+        return orderList.stream()
+                .map(OrderDto::EntityToOrderDto)
+                .collect(Collectors.toList());
+    }
 
     @Data
     private static class TokenResponse {

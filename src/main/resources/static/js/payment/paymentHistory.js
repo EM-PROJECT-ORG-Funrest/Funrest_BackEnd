@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
     const searchInput = document.getElementById('searchInput');
@@ -12,4 +13,4 @@ document.addEventListener('DOMContentLoaded', function() {
             // 예: 서버로 검색어를 보내고 결과를 받아오는 등의 동작
         }
     });
-});
+});*/

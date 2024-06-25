@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function goToPay() {
 
-    IMP.init("imp83318333");
+    IMP.init("imp33328838");
 
     var payMethod = document.querySelector(".form-check-input").value;
     var merchantUid = document.getElementById("payment-name").value + new Date().getTime();
@@ -119,6 +119,8 @@ function goToPay() {
     var buyerAddr = document.getElementById("payment-road-addr").value+" "+document.getElementById("payment-addr-detail").value
     var buyerPostcode = document.getElementById("payment-post-code").value;
     var proCode = parseInt(document.getElementById("proCode").value, 10); // proCode를 정수형으로 변환
+    var userId = document.getElementById("userId").value;
+    var orderState = '결제완료';
 
     IMP.request_pay (
     {
@@ -150,17 +152,20 @@ function goToPay() {
                "orderMethod" : resp.pay_method+" "+resp.card_name,
                "proCode" : proCode, // 정수형으로 변환된 proCode 사용
                "totalAmount" : amount,
+               "userId" : userId
             }
             console.log(result);
 
             $.ajax({
-                url: '/th/payment/complete',
+                url: '/api/complete',
                 method: 'POST',
                 contentType : "application/json",
                 data: JSON.stringify(result), // result 객체를 JSON 문자열로 변환하여 전송
+
                 success: function (resp) {
+                    var redirectUrl = '/th/payment/paymentHistory/' + userId + '?orderState=' + encodeURIComponent(orderState);
                     alert("결제 내역 페이지로 넘어갑니다.");
-                    window.location.href = '/th/payment/paymentHistory';
+                    window.location.href = redirectUrl;
                 },
                 error: function (err) {
                     // 가맹점 서버 결제 API 실패시 로직

@@ -4,10 +4,7 @@ import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.ProjectFile;
 import com.example.app.domain.entity.ProjectSubFile;
-import com.example.app.domain.repository.ProjectFileRepository;
-import com.example.app.domain.repository.ProjectRepository;
-import com.example.app.domain.repository.ProjectSubFileRepository;
-import com.example.app.domain.repository.UserRepository;
+import com.example.app.domain.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -48,6 +45,9 @@ public class ProjectServiceImpl {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     // 프로젝트 생성(만들기)
     public void insertProject(ProjectDto projectDto) throws IOException {
         System.out.println("ProjectServiceImpl's projectDto : " + projectDto);
@@ -58,8 +58,7 @@ public class ProjectServiceImpl {
         if ((projectDto.getProMainImg() == null || projectDto.getProMainImg().isEmpty()
                 || projectDto.getProMainImg().stream().allMatch(MultipartFile::isEmpty))
                 && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
-                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty)))
-        {
+                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty))) {
             Project project = Project.toSaveEntity(projectDto);
             System.out.println("project : " + project);
             project.setProDate(new Date()); // proDate에 현재날짜 넣어주기
@@ -81,8 +80,9 @@ public class ProjectServiceImpl {
                 // 2-2. 서버 저장용 이름 생성 (내사진.jpg => 1812911871_내사진.jpg)
                 String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
                 // 2-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
-                // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                // - 윈도우 경우
+                // String savePath = "C:/springboot_img/" + storedFileName;
+                // - 맥 경우
                 String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
                 // 2-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
@@ -98,6 +98,9 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
+                // - 윈도우 경우
+                // String subSavePath = "C:/springboot_subImg/" + subStoredFileName;
+                // - 맥 경우
                 String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 3-4. 해당 경로에 파일 저장
                 proSubImgFile.transferTo(new File(subSavePath));
@@ -109,49 +112,17 @@ public class ProjectServiceImpl {
 
     }
 
-    //달성률 구하기
-    public void proAchievementRate(ProjectDto projectDto) {
-        //달성률 구하기
-        // 문자열을 정수로 변환
-        double proGoalAmount = Double.parseDouble(projectDto.getProGoalAmount().replace(",", ""));
-        double proPrice = Double.parseDouble(projectDto.getProPrice().replace(",", ""));
-        double proPaidCnt = projectDto.getProPaidCnt();
-
-        // 달성률 계산 (소수점까지 계산)
-        double proAchievementRate = (proPrice * proPaidCnt / proGoalAmount) * 100.0;
-
-        // 계산된 달성률을 반올림하여 정수로 변환
-        int roundedAchievementRate = (int) Math.round(proAchievementRate);
-
-        // projectDto에 달성률 설정
-        projectDto.setProAchievementRate(roundedAchievementRate);
-    }
-
-    // 달성 금액 구하기
-    public void proAchievementAmount(ProjectDto projectDto){
-        int proPrice = Integer.parseInt(projectDto.getProPrice().replace(",", ""));
-        int proPaidCnt = projectDto.getProPaidCnt();
-
-        int proAchievementAmount = proPrice * proPaidCnt;
-
-        // 숫자 포맷팅을 위한 NumberFormat 인스턴스 생성
-        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
-        String formattedProAchievementAmount = format.format(proAchievementAmount);
-
-        projectDto.setProAchievementAmount(formattedProAchievementAmount);
-
-
-    }
-
+    // 특정 proCode 로 프로젝트 조회
     // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
     @Transactional
-    public ProjectDto findByProCode(int proCode){
+    public ProjectDto findByProCode(int proCode) {
         Project optionalProject = projectRepository.findByProCode(proCode);
         Project project = optionalProject;
         ProjectDto projectDto = ProjectDto.toProjectDto(project);
-        return  projectDto;
+        return projectDto;
     }
 
+    // 모든 프로젝트 조회
     @Transactional
     public List<ProjectDto> findAll() {
         List<Project> projectList = projectRepository.findAll();
@@ -162,7 +133,7 @@ public class ProjectServiceImpl {
         return projectDtoList;
     }
 
-    // 승인/미승인 프로젝트 검색
+    // 승인/미승인 프로젝트 조회
     @Transactional
     public Page<ProjectDto> findByProStatus(Integer proStatus, Pageable pageable) {
         Page<Project> projectPage = projectRepository.findByProStatus(proStatus, pageable);
@@ -255,8 +226,9 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성 (내사진.jpg => 1812911871_내사진.jpg)
                 String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
                 // 3-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
-                // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                // - 윈도우 경우
+                // String savePath = "C:/springboot_img/" + storedFileName;
+                // - 맥 경우
                 String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
                 // 3-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
@@ -272,6 +244,9 @@ public class ProjectServiceImpl {
                 // 4-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 4-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
+                // - 윈도우 경우
+                // String subSavePath = "C:/springboot_subImg/" + subStoredFileName;
+                // - 맥 경우
                 String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 4-4. 해당 경로에 파일 저장
                 proSubImgFile.transferTo(new File(subSavePath));
@@ -282,15 +257,53 @@ public class ProjectServiceImpl {
         }
     }
 
+    // 프로젝트 참여인원 가져오기
+    public void proPaidCnt(ProjectDto projectDto) {
+        int proCode = projectDto.getProCode();
+        Optional<Project> optionalProject = projectRepository.findById(proCode);
+        Project project = new Project();
+        if (optionalProject.isPresent()) {
+            project = optionalProject.get();
+        }
+        Long proPaidCnt = orderRepository.countByProCode(project);
+        projectDto.setProPaidCnt(Math.toIntExact(proPaidCnt));
+    }
+
+    // 달성 금액 구하기
+    public void proAchievementAmount(ProjectDto projectDto) {
+        int proPaidCnt = projectDto.getProPaidCnt();
+        int proPrice = Integer.parseInt(projectDto.getProPrice().replace(",", ""));
+        int proAchievementAmount = proPrice * proPaidCnt;
+        // 숫자 포맷팅을 위한 NumberFormat 인스턴스 생성
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
+        String formattedProAchievementAmount = format.format(proAchievementAmount);
+        projectDto.setProAchievementAmount(formattedProAchievementAmount);
+    }
+
+    //달성률 구하기
+    public void proAchievementRate(ProjectDto projectDto) {
+        // 문자열을 정수로 변환
+        double proGoalAmount = Double.parseDouble(projectDto.getProGoalAmount().replace(",", ""));
+        double proPrice = Double.parseDouble(projectDto.getProPrice().replace(",", ""));
+        double proPaidCnt = projectDto.getProPaidCnt();
+        // 달성률 계산 (소수점까지 계산)
+        double proAchievementRate = (proPrice * proPaidCnt / proGoalAmount) * 100.0;
+        // 계산된 달성률을 반올림하여 정수로 변환
+        int roundedAchievementRate = (int) Math.round(proAchievementRate);
+        // projectDto에 달성률 설정
+        projectDto.setProAchievementRate(roundedAchievementRate);
+    }
+
     // proStartDate에 따른 버튼 구현을 위한 디데이 구하기
     public void getProRemainingDay(ProjectDto projectDto) {
-        System.out.println("getRemainingDay() execute..");
-
         DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate today = LocalDate.now();
         LocalDate target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
         long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
         projectDto.setProRemainingDay(remainingDays);
     }
+
+
+
 
 }
