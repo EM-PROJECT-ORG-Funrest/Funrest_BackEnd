@@ -130,18 +130,21 @@ public class OrderService {
     }
 
     // 환불 처리
-    public void cancelOrder(String imp_uid, String reason) throws Exception {
+    public void cancelOrder(RefundDto refundDto) throws Exception {
+        String imp_uid = refundDto.getImp_uid();
+        String reason = refundDto.getReason();
         getToken();
 
         String url = "https://api.iamport.kr/payments/cancel";
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        //headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + portOneTokenResponse.getResponse().getAccess_token());
+        headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("imp_uid", imp_uid);
-        params.add("reason", reason);
+        params.add("merchant_uid", reason);
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
@@ -188,6 +191,13 @@ public class OrderService {
         } else {
             throw new RuntimeException("해당 결제 정보가 없습니다.");
         }
+    }
+
+    public List<OrderDto> findByUserId(User userId) {
+        List<Order> orderList = orderRepository.findByUserId(userId);
+        return orderList.stream()
+                .map(OrderDto::EntityToOrderDto)
+                .collect(Collectors.toList());
     }
 
 

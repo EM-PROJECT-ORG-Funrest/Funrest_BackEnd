@@ -5,6 +5,7 @@ import com.example.app.domain.dto.OrderHistoryDto;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.dto.RefundDto;
 import com.example.app.domain.entity.Project;
+import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.service.order.OrderService;
 import com.example.app.domain.service.project.ProjectServiceImpl;
@@ -58,25 +59,12 @@ public class OrderDetailController {
         return "th/payment/payment";
     }
 
-    // 주문 처리 API
-    @PostMapping("/complete")
-    public void paymentComplete(@RequestBody OrderDto orderDto) throws Exception {
-        log.info("POST /th/payment/complete....");
-
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        orderDto.setUserId(userId);
-        orderDto.setOrderState("결제완료");
-        System.out.println("orderDto = " + orderDto);
-
-        orderService.savePayment(orderDto);
-    }
-
     // 반품 신청페이지 랜더링 API
-    @GetMapping("/applyRefund/{orderCode}")
-    public String applyRefundOrder(@PathVariable("orderCode") String orderCode, Model model){
+    @GetMapping("/applyRefund/{impUid}")
+    public String applyRefundOrder(@PathVariable("impUid") String impUid, Model model){
         log.info("GET /th/payment/applyRefund...");
         // 해당 orderCode 주문 정보 조회
-        OrderDto orderDto = orderService.findById(orderCode);
+        OrderDto orderDto = orderService.findById(impUid);
         System.out.println("orderDto = " + orderDto);
         System.out.println("orderDto.getOrderState() = " + orderDto.getOrderState());
         model.addAttribute("order", orderDto);
@@ -93,11 +81,10 @@ public class OrderDetailController {
     }
 
     //결제 내역페이지 랜더링 API
-    @GetMapping("/paymentHistory")
-    public String showPaymentHistory(Model model) {
+    @GetMapping("/paymentHistory/{userId}")
+    public String showPaymentHistory(@PathVariable("userId") User userId, Model model) {
         log.info("GET /th/payment/paymentHistory...");
-
-        List<OrderDto> orderDtoList = orderService.getPaymentHistory();
+        List<OrderDto> orderDtoList = orderService.findByUserId(userId);
         List<String> proNameList = new ArrayList<>();
         List<String> imgPathList = new ArrayList<>();
         for (OrderDto orderDto : orderDtoList) {

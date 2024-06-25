@@ -129,10 +129,11 @@
 
             </div>
         </div>
-        <div class=" col-md-12 order-info-btns text-center">
-            <button class="mx-5" th:onclick="'window.location.href=\'' + @{/th/payment/paymentHistory} + '\''">주문 목록으로</button>
-            <button class="mx-5" th:onclick="'window.location.href=\'' + @{/th/main/main} + '\''">홈으로</button>
-            <button class="mx-5" th:onclick="'window.location.href=\''+@{/th/payment/applyRefund/{orderCode}(orderCode=${orderCode})}+'\''">환불 신청</button>
+        <div class="col-md-12 order-info-btns text-center">
+            <button th:onclick="'window.location.href=\'' + @{/th/payment/paymentHistory/{userId}(userId=${order.userId})} + '\''">주문 목록으로</button>
+            <button th:onclick="'window.location.href=\'' + @{/th/main/main} + '\''">홈으로</button>
+            <button class="" th:if="${order.orderState != '환불 완료'}" th:onclick="'window.location.href=\'' + @{/th/payment/applyRefund/{impUid}(impUid=${order.impUid})} + '\''">환불 신청</button>
+
         </div>
     </div>
     <div class="delivery-state">
