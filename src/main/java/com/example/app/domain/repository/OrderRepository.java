@@ -9,9 +9,11 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, String> {
 
-    Long countByUserId(User user);
+    Long countByUserIdAndOrderState(User userId, String orderState);
 
     Optional<Order> findByImpUid(String impUid);
 
     List<Order> findByUserId(User userId);
+
+    List<Order> findByUserIdAndOrderState(User userId, String orderState);
 }

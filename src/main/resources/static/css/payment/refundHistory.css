@@ -1,0 +1,29 @@
+/* minimum width 설정 */
+.my-custom-container{
+    min-width: 500px;
+}
+
+.payment-history-container{
+    /* margin-top: 4rem; 페이지 상단 여백 추가 */
+    /* margin-bottom: 5rem; 페이지 하단 여백 추가 */
+    /* padding-bottom: 2.5rem; */
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+}
+
+/* order-product */
+#project_img{
+    border-radius: 10px;
+}
+#cnt-title{
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.548);
+    font-size: small;
+    color: darkgray;
+}
+
+/* payment-history-guide */
+.container>.payment-history-guide{
+    background-color: rgb(246, 248, 244);
+}

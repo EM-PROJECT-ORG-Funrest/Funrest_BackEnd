@@ -80,11 +80,13 @@ public class OrderDetailController {
         return "th/payment/applyRefund.html";
     }
 
-    //결제 내역페이지 랜더링 API
+    // 결제 내역페이지 랜더링 API
     @GetMapping("/paymentHistory/{userId}")
-    public String showPaymentHistory(@PathVariable("userId") User userId, Model model) {
+    public String showPaymentHistory(@PathVariable("userId") User userId,
+                                     @RequestParam("orderState") String orderState,
+                                     Model model) {
         log.info("GET /th/payment/paymentHistory...");
-        List<OrderDto> orderDtoList = orderService.findByUserId(userId);
+        List<OrderDto> orderDtoList = orderService.findByUserIdAndOrderState(userId, orderState);
         List<String> proNameList = new ArrayList<>();
         List<String> imgPathList = new ArrayList<>();
         for (OrderDto orderDto : orderDtoList) {
@@ -102,6 +104,32 @@ public class OrderDetailController {
         model.addAttribute("orderHistoryDto", orderHistoryDto);
 
         return "th/payment/paymentHistory";
+    }
+
+    // 환불 내역페이지 랜더링 API
+    @GetMapping("/refundHistory/{userId}")
+    public String refundHistory(@PathVariable("userId") User userId,
+                                @RequestParam("orderState") String orderState,
+                                Model model) {
+        log.info("GET /th/payment/refundHistory...");
+        List<OrderDto> orderDtoList = orderService.findByUserIdAndOrderState(userId, orderState);
+        List<String> proNameList = new ArrayList<>();
+        List<String> imgPathList = new ArrayList<>();
+        for (OrderDto orderDto : orderDtoList) {
+            ProjectDto projectDto = projectService.findByProCode(orderDto.getProCode());
+            System.out.println("projectDto = " + projectDto);
+
+            String proName = projectDto.getProName();
+            proNameList.add(proName);
+            // proNameList.add(projectDto.getProName()); // 상단의 코드와 해당 코드 중 무엇이 좋은 코드인지
+            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
+            imgPathList.add(imgPath);
+        }
+        OrderHistoryDto orderHistoryDto = new OrderHistoryDto(orderDtoList, proNameList, imgPathList);
+        System.out.println("orderHistoryDto = " + orderHistoryDto);
+        model.addAttribute("orderHistoryDto", orderHistoryDto);
+
+        return "th/payment/refundHistory";
     }
 
     // 결제 상세페이지 랜더링 API

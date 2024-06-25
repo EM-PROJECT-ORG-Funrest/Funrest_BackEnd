@@ -154,7 +154,7 @@ public class OrderService {
 
             if (optionalOrder.isPresent()) {
                 Order order = optionalOrder.get();
-                order.setOrderState("환불 완료");
+                order.setOrderState("환불완료");
                 order.setRefundDetail(reason);
                 orderRepository.save(order);
                 log.info("Order with imp_uid : " + imp_uid + " update to '결제 취소' with '환불 완료'");
@@ -166,16 +166,6 @@ public class OrderService {
             log.error("Failed to cancel imp_uid : " + imp_uid + " StatusCode : " + response.getStatusCode());
             throw new RuntimeException("Order cancel failed....");
         }
-    }
-
-    //결제 내역 조회 메서드
-    public List<OrderDto> getPaymentHistory() {
-        log.info("payment history from Order table...");
-        List<Order> orderList = orderRepository.findAll();
-        List<OrderDto> orderDtoList = orderList.stream()
-                .map(OrderDto::EntityToOrderDto)
-                .collect(Collectors.toList());
-        return orderDtoList;
     }
 
     // 특정 결제 내역 조회
@@ -190,6 +180,7 @@ public class OrderService {
         }
     }
 
+    // userId 별 주문내역 조회
     public List<OrderDto> findByUserId(User userId) {
         List<Order> orderList = orderRepository.findByUserId(userId);
         return orderList.stream()
@@ -197,6 +188,13 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    // userId 별 주문상태(결제완료,환불완료) 별 주문 조회
+    public List<OrderDto> findByUserIdAndOrderState(User userId, String orderState) {
+        List<Order> orderList = orderRepository.findByUserIdAndOrderState(userId, orderState);
+        return orderList.stream()
+                .map(OrderDto::EntityToOrderDto)
+                .collect(Collectors.toList());
+    }
 
     @Data
     private static class TokenResponse {

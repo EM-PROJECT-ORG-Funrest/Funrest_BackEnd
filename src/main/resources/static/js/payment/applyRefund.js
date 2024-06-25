@@ -21,6 +21,7 @@ function cancelPay() {
     var imp_uid = document.getElementById("imp_uid").value;
     var reason = document.getElementById("reason").value;
     var userId = document.getElementById("userId").value;
+    var orderState = '환불완료';
 
     console.log("imp_uid:", imp_uid);
     console.log("reason:", reason);
@@ -34,11 +35,12 @@ function cancelPay() {
             "reason": reason
         }),
     }).done(function(result) {
+        var redirectUrl = '/th/payment/refundHistory/' + userId + '?orderState=' + encodeURIComponent(orderState);
         console.log("result", result);
-        alert("환불 성공");
-        window.location.href = '/th/payment/paymentHistory/' + userId;
+        alert("환불 성공했습니다");
+        window.location.href = redirectUrl;
     }).fail(function(error) {
         console.log("error", error);
-        alert("환불 실패");
+        alert("환불 실패했습니다");
     });
 }

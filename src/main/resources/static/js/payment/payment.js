@@ -120,6 +120,7 @@ function goToPay() {
     var buyerPostcode = document.getElementById("payment-post-code").value;
     var proCode = parseInt(document.getElementById("proCode").value, 10); // proCode를 정수형으로 변환
     var userId = document.getElementById("userId").value;
+    var orderState = '결제완료';
 
     IMP.request_pay (
     {
@@ -162,9 +163,9 @@ function goToPay() {
                 data: JSON.stringify(result), // result 객체를 JSON 문자열로 변환하여 전송
 
                 success: function (resp) {
-                    var redirectUrl = '/th/payment/paymentHistory/' + userId;
+                    var redirectUrl = '/th/payment/paymentHistory/' + userId + '?orderState=' + encodeURIComponent(orderState);
                     alert("결제 내역 페이지로 넘어갑니다.");
-                    window.location.href = redirectUrl; // userId 변수를 사용하여 URL을 구성하여 페이지 이동
+                    window.location.href = redirectUrl;
                 },
                 error: function (err) {
                     // 가맹점 서버 결제 API 실패시 로직

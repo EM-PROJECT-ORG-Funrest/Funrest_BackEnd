@@ -44,24 +44,24 @@ public class BuyerServiceImpl {
 
 
     //사용자별 알림 신청 횟수 찾기
-    public Long countNotifyByUserId(User user){
+    public Long countNotifyByUserId(User user) {
         return notifyRepository.countByUserId(user);
     }
-    
-    //사용자별 주문 신청 횟수 찾기
-    public Long countOrderByUserId(User user){
-        return orderRepository.countByUserId(user);
+
+    //사용자별 결제/환불 내역 횟수 찾기
+    public Long countByUserIdAndOrderState(User userId, String orderState) {
+        return orderRepository.countByUserIdAndOrderState(userId, orderState);
     }
 
     //사용자Id 로 사용자 정보 찾기
-    public User findUserByUserId(String userId){
+    public User findUserByUserId(String userId) {
         Optional<User> findUserName = userRepository.findByUserId(userId);
 
         return findUserName.orElse(null);
     }
 
     //사용자Id로 사용자 삭제
-    public void deleteByUserId(String userId){
+    public void deleteByUserId(String userId) {
         userRepository.deleteByUserId(userId);
     }
 
@@ -90,7 +90,7 @@ public class BuyerServiceImpl {
 
         for (NotifyDto notifyDto : notifyDtos) {
             ProjectDto projectDto = ProjectDto.toProjectDto(projectRepository.findByProCode(notifyDto.getProCode()));
-            if(projectDto == null) {
+            if (projectDto == null) {
                 // proCode로 조회되는 프로젝트가 없을 때 throw error
                 throw new RuntimeException();
             }
