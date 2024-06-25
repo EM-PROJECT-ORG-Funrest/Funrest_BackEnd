@@ -22,13 +22,12 @@
 
 <div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
 <body>
-<form method="post" id="applyRefundForm">
+<form  onsubmit="return false">
     <div class="container container-r my-custom-container">
         <div class="row refund-product m-2 mb-5">
             <h4 class="mt-5 mb-1 p-5">반품신청</h4>
             <div class="refund-product-box shadow-sm p-3 mb-5 bg-body rounded">
                 <div class="row refund-header border-bottom p-2 my-2">
-                    <input type="hidden" th:value="${order.impUid}" name="impUid">
                     <p class="col-md-6 text-md-first m-0" th:text="${order.impUid}">주문번호 Y320423454</p>
                 </div>
                 <div class="row refund-main p-2 mb-4">
@@ -42,15 +41,9 @@
                     </div>
                     <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                         <span class="d-md-block fw-bold pb-2">수량</span>
-                        <span class="mb-0" th:text="${order.orderCnt}">결제수단</span>
-                        <!--<div class="h-50 d-flex justify-content-center align-items-center">
-                            <select name="refundCnt" class="count-select" aria-label="Default select example">
-                                <option value="" selected>수량 선택</option>
-                                <th:block th:each="i : ${#numbers.sequence(1, order.orderCnt)}">
-                                    <option th:value="${i}" th:text="${i}"></option>
-                                </th:block>
-                            </select>
-                        </div>-->
+                        <div class="h-50 d-flex justify-content-center align-items-center">
+                            <span th:text="${order.orderCnt}+'개'">수량</span>
+                        </div>
                     </div>
                     <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                         <span class="d-md-block fw-bold pb-2">결제수단 / 금액</span>
@@ -65,18 +58,19 @@
                         <span class="d-md-block fw-bold pb-2">총 환불금액</span>
                         <div class="h-50 d-flex justify-content-center align-items-center">
                             <span class="" id="amount" th:text="${order.totalAmount}+'원'">100,000</span>
-                            <input type="hidden" name="orderState" th:value="${order.orderState}">
-                            <input type="hidden" id="impUid" th:value="${order.impUid}">                        </div>
+                            <input type="hidden" id="imp_uid" th:value="${order.impUid}" name="imp_uid">
+                            <input type="hidden" id="userId" th:value="${order.userId}">
+                        </div>
                     </div>
                 </div>
                 <div class="row refund-main2 d-flex py-3 px-2 border-top">
                     <span class="col-md-9 mt-2 fw-bold text-md-end">반품 사유</span>
                     <div class="col-md-3 mt-2 d-flex flex-column justify-content-between">
-                        <select name="refundDetail" id="reason" class="refund-reason" aria-label="Default select example">
+                        <select name="reason" id="reason" class="refund-reason" aria-label="Default select example">
                             <option value="" selected>사유 선택</option>
-                            <option value="simple" name="simple">단순 변심</option>
-                            <option value="break" name="break">상품 파손</option>
-                            <option value="delivery" name="delivery">배송 문제</option>
+                            <option value="simple">단순 변심</option>
+                            <option value="broken">상품 파손</option>
+                            <option value="delivery">배송 문제</option>
                         </select>
                     </div>
                 </div>
@@ -108,7 +102,7 @@
         </div>
     </div>
     <div class="container container-b my-custom-container my-5">
-        <button type="submit" class="btn-apply d-block mx-auto" onclick="cancelPay()">교환 및 환불 신청하기</button>
+        <button id="refundBtn" class="btn-apply d-block mx-auto">교환 및 환불 신청하기</button>
     </div>
 </form>
 </body>

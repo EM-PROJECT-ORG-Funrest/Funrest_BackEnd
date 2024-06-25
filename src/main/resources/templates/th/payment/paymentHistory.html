@@ -43,7 +43,7 @@
                             <span class="font-weight-bold">주문일자:</span>
                             <span th:text="${orderDto.orderDate}" class="ml-1">2023-06-22</span>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-md-end">
                             <span class="font-weight-bold">주문번호:</span>
                             <span th:text="${orderDto.impUid}" class="ml-1">주문번호(impUid)</span>
                         </div>
@@ -55,14 +55,13 @@
                             <div th:each="imgPath, imgIdx : ${orderHistoryDto.imgPathList}">
                                 <div th:if="${dtoIdx.index == imgIdx.index}">
                                     <a th:href="@{/th/payment/paymentDetail/{orderCode}(orderCode=${orderDto.impUid})}">
-                                        <img th:src="@{${imgPath}}" id="project_img" alt="project_img"
-                                             class="p-1 ms-2 img-fluid">
+                                        <img th:src="@{${imgPath}}" id="project_img" alt="project_img" class="p-1 ms-2 img-fluid">
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="align-self-center">
+                        <div class="col-md-6 align-self-center">
+                            <div class="">
                                 <div th:each="proName, proIdx : ${orderHistoryDto.proNameList}">
                                     <div th:if="${dtoIdx.index == proIdx.index}">
                                         <p class="ps-1 my-1 text-truncate" th:text="${proName}">상품명</p>

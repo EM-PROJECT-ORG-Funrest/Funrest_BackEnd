@@ -10,6 +10,8 @@ import com.example.app.domain.repository.OrderRepository;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,20 +25,22 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 @Transactional
 public class BuyerServiceImpl {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    NotifyRepository notifyRepository;
+    private NotifyRepository notifyRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
 
     //사용자별 알림 신청 횟수 찾기

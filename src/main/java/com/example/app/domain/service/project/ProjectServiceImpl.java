@@ -81,8 +81,9 @@ public class ProjectServiceImpl {
                 // 2-2. 서버 저장용 이름 생성 (내사진.jpg => 1812911871_내사진.jpg)
                 String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
                 // 2-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
-                // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                // - 윈도우 경우
+                // String savePath = "C:/springboot_img/" + storedFileName;
+                // - 맥 경우
                 String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
                 // 2-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
@@ -98,6 +99,9 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
+                // - 윈도우 경우
+                // String subSavePath = "C:/springboot_subImg/" + subStoredFileName;
+                // - 맥 경우
                 String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 3-4. 해당 경로에 파일 저장
                 proSubImgFile.transferTo(new File(subSavePath));
@@ -143,6 +147,7 @@ public class ProjectServiceImpl {
 
     }
 
+    // 특정 proCode 로 프로젝트 조회
     // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
     @Transactional
     public ProjectDto findByProCode(int proCode){
@@ -152,6 +157,7 @@ public class ProjectServiceImpl {
         return  projectDto;
     }
 
+    // 모든 프로젝트 조회
     @Transactional
     public List<ProjectDto> findAll() {
         List<Project> projectList = projectRepository.findAll();
@@ -162,7 +168,7 @@ public class ProjectServiceImpl {
         return projectDtoList;
     }
 
-    // 승인/미승인 프로젝트 검색
+    // 승인/미승인 프로젝트 조회
     @Transactional
     public Page<ProjectDto> findByProStatus(Integer proStatus, Pageable pageable) {
         Page<Project> projectPage = projectRepository.findByProStatus(proStatus, pageable);
@@ -255,8 +261,9 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성 (내사진.jpg => 1812911871_내사진.jpg)
                 String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
                 // 3-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
-                // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
+                // - 윈도우 경우
+                // String savePath = "C:/springboot_img/" + storedFileName;
+                // - 맥 경우
                 String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
                 // 3-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
@@ -272,6 +279,9 @@ public class ProjectServiceImpl {
                 // 4-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 4-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
+                // - 윈도우 경우
+                // String subSavePath = "C:/springboot_subImg/" + subStoredFileName;
+                // - 맥 경우
                 String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 4-4. 해당 경로에 파일 저장
                 proSubImgFile.transferTo(new File(subSavePath));
