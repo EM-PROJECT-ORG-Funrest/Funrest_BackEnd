@@ -50,7 +50,7 @@ public class SecurityConfig {
                     .requestMatchers("/th/notify/**").hasRole("USER")
                     .requestMatchers("/th/admin/**").hasRole("ADMIN")
                     .requestMatchers("/th/payment/**").hasRole("USER")
-                    .requestMatchers("/api/rooms").hasRole("USER")
+                    .requestMatchers("/api/room").hasRole("USER")
                     .requestMatchers("/message").hasRole("USER")
                     .requestMatchers("/th/api/**").hasRole("USER")
                     .anyRequest().authenticated()

@@ -47,7 +47,7 @@ public class MessageResponseDto {
         this.roomId = roomId;
     }
 
-    public MessageResponseDto(String s, int value) {
+    public MessageResponseDto(String alert, int value) {
     }
 
     public void setLatestMessageContent(String message) {

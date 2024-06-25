@@ -1,26 +1,26 @@
 package com.example.app.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.logging.Logger;
+
 @Controller
 @Slf4j
-@RequestMapping("/th")
+@RequestMapping("/th/api")
 public class ThymeleafTestController {
-
-    // member view page test
-    @GetMapping("/member/signUp")
-    public void test15(){
-        log.info("/GET /th/member/singUp...");
+    @GetMapping("/message")
+    public String test1(){
+        log.info("GET /th/api/message.....");
+        return "th/api/message";
     }
 
-
-//    // payment view page test
-    @GetMapping("/payment/applyRefund")
-    public void test23(){}
-    @GetMapping("/payment/paymentDetail")
-    public void test26(){}
-
+    @GetMapping("/test")
+    public String test2(){
+        log.info("GET /th/api/test.....");
+        return "th/api/test";
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/th/api")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
 public class messageRoomController {
@@ -24,18 +24,20 @@ public class messageRoomController {
     private final UserRepository userRepository;
     // 쪽지방 생성
     @PostMapping("/room")
-    public  MessageResponseDto createRoom(@RequestBody MessageRequestDto messageRequestDto) {
+    public  MessageResponseDto createRoom(  @RequestParam("receiver") String receiver,
+                                            @RequestParam("postId") Long postId) {
         String userID = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userRepository.findByUserId(userID).orElseThrow(()  -> new RuntimeException());
+        MessageRequestDto messageRequestDto = new MessageRequestDto();
+        messageRequestDto.setPostId(postId);
+        messageRequestDto.setReceiver(receiver);
+        log.info("user : " + user);
+        log.info("MessageResponseDto" + messageRequestDto);
+
         return messageRoomService.createRoom(messageRequestDto, user);
     }
 
-    @GetMapping("/test")
-    public void a (){
-        log.info("test invoked....");
-
-    }
 
     // 사용자 관련 쪽지방 전체 조회
     @GetMapping("/rooms")
@@ -44,9 +46,6 @@ public class messageRoomController {
 
         User user = userRepository.findByUserId(userID).orElseThrow(()  -> new RuntimeException());
         List<MessageResponseDto> MessageResponseDto =  messageRoomService.findAllRoomByUser(user);
-
-        log.info("user : " + user);
-        log.info("MessageResponseDto" + MessageResponseDto);
 
         return MessageResponseDto;
     }
