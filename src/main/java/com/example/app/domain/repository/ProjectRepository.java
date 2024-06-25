@@ -30,7 +30,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     // 카테고리 검색 - 오픈 예정
     List<Project> findAllByProStatusOrderByProCode(int proStatus);
 
-    // 승인/미승인 프로젝트 검색
+    // 승인 / 미승인 프로젝트 검색
     Page<Project> findByProStatus(Integer proStatus, Pageable pageable);
 
     // 키워드별 검색
