@@ -130,7 +130,7 @@ public class OrderService {
     }
 
     // 환불 처리
-    public void CancleOrder(String impUid, RefundDto refundDto) throws Exception {
+    public void cancelOrder(String imp_uid, String reason) throws Exception {
         getToken();
 
         String url = "https://api.iamport.kr/payments/cancel";
@@ -140,7 +140,8 @@ public class OrderService {
         headers.set("Authorization", "Bearer " + portOneTokenResponse.getResponse().getAccess_token());
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("imp_uid", impUid);
+        params.add("imp_uid", imp_uid);
+        params.add("reason", reason);
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
@@ -148,22 +149,21 @@ public class OrderService {
         ResponseEntity<String> response = rt.exchange(url, HttpMethod.POST, entity, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            log.info("imp_uid : " + impUid + " cancelled successfully...");
-            Optional<Order> optionalOrder = orderRepository.findByImpUid(impUid);
+            log.info("imp_uid : " + imp_uid + " cancelled successfully...");
+            Optional<Order> optionalOrder = orderRepository.findByImpUid(imp_uid);
 
             if (optionalOrder.isPresent()) {
-                //여기에 결제 취소 버튼 눌렀을 때 밑에 코드들이 실행되도록 추가 작성
                 Order order = optionalOrder.get();
                 order.setOrderState("환불 완료");
-                order.setRefundDetail(refundDto.getReason());
+                order.setRefundDetail(reason);
                 orderRepository.save(order);
-                log.info("Order with imp_uid : " + impUid + " update to '결제 취소' with '환불 완료'");
+                log.info("Order with imp_uid : " + imp_uid + " update to '결제 취소' with '환불 완료'");
             } else {
-                log.error("imp_uid : " + impUid + " not found in DB");
+                log.error("imp_uid : " + imp_uid + " not found in DB");
                 throw new RuntimeException("Order not found for cancel....");
             }
         } else {
-            log.error("Failed to cancel imp_uid : " + impUid + " StatusCode : " + response.getStatusCode());
+            log.error("Failed to cancel imp_uid : " + imp_uid + " StatusCode : " + response.getStatusCode());
             throw new RuntimeException("Order cancel failed....");
         }
     }

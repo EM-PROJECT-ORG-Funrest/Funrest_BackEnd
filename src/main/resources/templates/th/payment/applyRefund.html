@@ -22,13 +22,12 @@
 
 <div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
 <body>
-<form method="post" id="applyRefundForm">
+<form method="">
     <div class="container container-r my-custom-container">
         <div class="row refund-product m-2 mb-5">
             <h4 class="mt-5 mb-1 p-5">반품신청</h4>
             <div class="refund-product-box shadow-sm p-3 mb-5 bg-body rounded">
                 <div class="row refund-header border-bottom p-2 my-2">
-                    <input type="hidden" th:value="${order.impUid}" name="impUid">
                     <p class="col-md-6 text-md-first m-0" th:text="${order.impUid}">주문번호 Y320423454</p>
                 </div>
                 <div class="row refund-main p-2 mb-4">
@@ -65,17 +64,17 @@
                         <span class="d-md-block fw-bold pb-2">총 환불금액</span>
                         <div class="h-50 d-flex justify-content-center align-items-center">
                             <span class="" id="amount" th:text="${order.totalAmount}+'원'">100,000</span>
-                            <input type="hidden" name="orderState" th:value="${order.orderState}">
-                            <input type="hidden" id="impUid" th:value="${order.impUid}">                        </div>
+                            <input type="hidden" id="imp_uid" th:value="${order.impUid}" name="imp_uid">
+                        </div>
                     </div>
                 </div>
                 <div class="row refund-main2 d-flex py-3 px-2 border-top">
                     <span class="col-md-9 mt-2 fw-bold text-md-end">반품 사유</span>
                     <div class="col-md-3 mt-2 d-flex flex-column justify-content-between">
-                        <select name="refundDetail" id="reason" class="refund-reason" aria-label="Default select example">
+                        <select name="reason" id="reason" class="refund-reason" aria-label="Default select example">
                             <option value="" selected>사유 선택</option>
                             <option value="simple" name="simple">단순 변심</option>
-                            <option value="break" name="break">상품 파손</option>
+                            <option value="broken" name="broken">상품 파손</option>
                             <option value="delivery" name="delivery">배송 문제</option>
                         </select>
                     </div>

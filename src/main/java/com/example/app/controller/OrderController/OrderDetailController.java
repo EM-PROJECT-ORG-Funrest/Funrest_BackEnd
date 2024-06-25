@@ -73,7 +73,7 @@ public class OrderDetailController {
 
     // 반품 신청페이지 랜더링 API
     @GetMapping("/applyRefund/{orderCode}")
-    public void applyRefundOrder(@PathVariable("orderCode") String orderCode, Model model){
+    public String applyRefundOrder(@PathVariable("orderCode") String orderCode, Model model){
         log.info("GET /th/payment/applyRefund...");
         // 해당 orderCode 주문 정보 조회
         OrderDto orderDto = orderService.findById(orderCode);
@@ -88,17 +88,8 @@ public class OrderDetailController {
         // 해당 상품의 이미지 경로 조회
         String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
         model.addAttribute("imgPath", imgPath);
-    }
 
-    // 반품 신청 API
-    @PostMapping("/refund")
-    public String refund(@RequestBody RefundDto refundDto) throws Exception {
-        log.info("POST /th/payment/refund...");
-        System.out.println("refundDto = " + refundDto);
-        String impUid = refundDto.getImp_uid();
-        orderService.CancleOrder(impUid, refundDto);
-
-        return "redirect:/th/payment/paymentHistory";
+        return "th/payment/applyRefund.html";
     }
 
     //결제 내역페이지 랜더링 API

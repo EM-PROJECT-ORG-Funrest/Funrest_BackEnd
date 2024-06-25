@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     function validateForm() {
         // 환불 사유 필드 확인
-        var refundDetail = document.querySelector('select[name="refundDetail"]').value;
-        if (refundDetail === '') {
+        var reason = document.querySelector('select[name="reason"]').value;
+        if (reason === '') {
             alert("환불 사유를 선택해 주세요.");
             return false;
         }
@@ -22,30 +22,25 @@ document.addEventListener('DOMContentLoaded', function () {
 // 결제 취소 요청
 function cancelPay() {
 
-    var impUid = document.getElementById("impUid").value;
-    var amount = document.getElementById("amount").textContent;
+    var imp_uid = document.getElementById("imp_uid").value;
     var reason = document.getElementById("reason").value;
-    console.log("impUid", impUid);
-    console.log("amount", amount);
-    console.log("reason", reason);
+    console.log("imp_uid:", imp_uid);
+    console.log("reason:", reason);
 
     $.ajax({
-        "url": "/th/payment/refund", // 예: http://www.myservice.com/payments/cancel
-        "type": "POST",
-        "contentType": "application/json",
-        "data": JSON.stringify({
-            "imp_uid": impUid, // 예: ORD20180131-0000011
-            "amount": amount, // 환불금액
-            "reason": reason // 환불사유
-      }),
-      "dataType": "json"
-    }).done(function(result) { // 환불 성공시 로직
+        url: "/api/refund",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "imp_uid": imp_uid,
+            "reason": reason
+        }),
+    }).done(function(result) {
         console.log("result", result);
-       giolert("환불 성공");
+        alert("환불 성공");
         window.location.href = '/th/payment/paymentHistory';
-    }).fail(function(error) { // 환불 실패시 로직
+    }).fail(function(error) {
         console.log("error", error);
         alert("환불 실패");
-
     });
 }
