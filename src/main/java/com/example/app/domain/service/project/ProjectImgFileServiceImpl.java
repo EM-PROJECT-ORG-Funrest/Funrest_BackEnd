@@ -1,5 +1,6 @@
 package com.example.app.domain.service.project;
 
+import lombok.extern.slf4j.Slf4j;
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,7 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+@Slf4j
 @Service
 public class ProjectImgFileServiceImpl {
     public void uploadFile(MultipartFile file, String savePath) throws IOException {

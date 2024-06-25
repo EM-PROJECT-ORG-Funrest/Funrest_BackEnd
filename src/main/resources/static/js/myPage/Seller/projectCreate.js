@@ -1,6 +1,7 @@
 function imageValidation(obj) {
     const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
     const maxSize = 10 * 1024 * 1024; // 10MB
+    console.log("obj.size : " + obj.size);
     if (obj.size > maxSize) { // 10MB 이상인 경우
         alert("이미지 용량은 10MB를 초과할 수 없습니다.");
         return false;
