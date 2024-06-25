@@ -8,14 +8,16 @@ import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
-import com.example.app.domain.service.ProjectServiceImpl;
 import com.example.app.domain.service.myPage.BuyerServiceImpl;
+import com.example.app.domain.service.notify.NotifyService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
@@ -42,22 +44,30 @@ import java.util.Map;
 
 @Controller
 @Slf4j
-@AllArgsConstructor
 @RequestMapping("/th/myPage/buyer")
 public class BuyerController {
 
     private final String UPLOAD_PATH = "http://localhost:8080/upload/";
-    @Autowired
-    BuyerServiceImpl buyerService;
+
+    @Value("${portOne.rest-api}")
+    private String portOne_API;
+    @Value("${portOne.secret}")
+    private String portOne_SECRET;
 
     @Autowired
-    UserRepository userRepository;
+    private BuyerServiceImpl buyerService;
+
+    @Autowired
+    private NotifyService notifyService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
 
     @GetMapping("/buyer")
@@ -99,8 +109,8 @@ public class BuyerController {
 
         //PARAMS
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("imp_key","6513804315618534");
-        params.add("imp_secret","xfaYKNmEt5hZavmrOdunmqUBUo7iXti27EzyvmdOF9epRxhNtghrn8d9L6pBXP6Ectvj5XeDfLYHICLS");
+        params.add("imp_key",portOne_API);
+        params.add("imp_secret",portOne_SECRET);
 
         //ENTITY
         HttpEntity< MultiValueMap<String, String>> entity = new HttpEntity<>(params,headers);
@@ -279,6 +289,25 @@ public class BuyerController {
 
             model.addAttribute("projectDtos", projectDtos);
             return "th/myPage/buyer/buyer :: projectCardsFragment";
+        } catch(RuntimeException e) {
+            //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
+            return null;
+        }
+    }
+
+    @GetMapping("/notify/header")
+    @ResponseBody
+    public List<ProjectDto> showNotifyHeader() {
+        log.info("get /th/myPage/buyer/notify/header showNotifyHeader()");
+
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        try {
+            List<NotifyDto> notifyDtos = buyerService.getAllNotifyByUserId(userId);
+            List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
+            List<ProjectDto> verifiedProjectDtos = notifyService.deleteNotifyPassedDateFromToday(projectDtos);
+
+            return projectDtos;
         } catch(RuntimeException e) {
             //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
             return null;

@@ -3,7 +3,9 @@ package com.example.app.controller.Main;
 
 
 import com.example.app.domain.dto.ProjectDto;
+import com.example.app.domain.entity.Project;
 import com.example.app.domain.service.main.MainServiceImpl;
+import com.example.app.domain.service.notify.NotifyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -18,6 +20,8 @@ import java.util.List;
 public class MainRestController {
 
     private final MainServiceImpl mainService;
+    @Autowired
+    private NotifyService notifyService;
 
     // 프로젝트 경로 (추후 변경 가능성 있음)
     String UPLOAD_PATH = "http://localhost:8080/upload/";
@@ -66,7 +70,8 @@ public class MainRestController {
             return projectDtoPage;
 
         } else if (proCategory.equals("coming-soon")){
-            projectDtoPage = mainService.getAllProjectByComingSoon(PageRequest.of(page, size));
+            projectDtoPage = mainService.getAllProjectByComingSoon(PageRequest.of(page, size), page, size);
+
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());

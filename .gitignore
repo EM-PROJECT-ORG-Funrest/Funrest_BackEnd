@@ -38,6 +38,9 @@ out/
 
 ### DataSourceConfig ###
 #/src/main/java/com/example/app/config/DataSourceConfig.java
-
+### WebConfig ###
+#/src/main/java/com/example/app/config/WebConfig.java
+### ProjectServiceImpl ###
+#/src/main/java/com/example/app/domain/service/ProjectServiceImpl.java
 ### SECRET KEY INFO ###
 #application-SECRET-KEY.properties

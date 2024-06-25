@@ -32,57 +32,58 @@
 
 <div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
 <body>
-    <div class="container my-custom-container p-3 mt-3">
-        <div class="row">
-            <div class="mypage-left col-md-2 px-3">
-                <div class="float-center py-3 mt-3">
-                    <a th:href="@{/th/myPage/seller/seller}" class="d-flex justify-content-center align-items-center px-3 py-1">
-                        <span class="text-end me-1">Seller</span>
-                        <span class="material-symbols-outlined">
+<div class="container my-custom-container p-3 mt-3">
+    <div class="row">
+        <div class="mypage-left col-md-2 px-3">
+            <div class="float-center py-3 mt-3">
+                <a th:href="@{/th/myPage/seller/seller}"
+                   class="d-flex justify-content-center align-items-center px-3 py-1">
+                    <span class="text-end me-1">Seller</span>
+                    <span class="material-symbols-outlined">
                             sync
                         </span>
-                    </a>
-                </div>
-                <div class="img-box">
-                    <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="기본프로필">
-                </div>
-                <h5 class="text-center" th:text="${userName}"></h5>
-                <p class="text-center" th:text="${userId}"></p>
-                <!-- <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
-                    <p class="ms-3 mb-0">Seller</p>
-                    <span class="material-symbols-outlined">
-                        chevron_right
-                        </span>
-                </button> -->
+                </a>
             </div>
-            <div class="mypage-buyer col-md-10 align-self-center text-center p-4">
-                <div class="buyer-top row p-4">
-                    <div class="payment-history m-2 mt-3 col-lg-3 border rounded bg-white">
-                        <p class="buyer-top-p">결제 내역</p>
-                        <hr class="m-0">
-                        <a href="javascript:void(0)"><h1 th:text="${OrderCnt}"></h1></a>
-                    </div>
-                    <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
-                        <p class="buyer-top-p">알림 신청</p>
-                        <hr class="m-0">
-                        <a id="notifyModalLink" th:onclick="showNotify([[${NotifyCnt}]])">
-                            <h1 id="myPageNotifyCnt" th:text="${NotifyCnt}"></h1>
-                        </a>
+            <div class="img-box">
+                <img th:src="@{/images/myPage/basicProfile.png}" class="d-block img-thumbnail" alt="기본프로필">
+            </div>
+            <h5 class="text-center" th:text="${userName}"></h5>
+            <p class="text-center" th:text="${userId}"></p>
+            <!-- <button type="button" class="btn btn-success w-100 p-2 my-3 d-flex justify-content-between">
+                <p class="ms-3 mb-0">Seller</p>
+                <span class="material-symbols-outlined">
+                    chevron_right
+                    </span>
+            </button> -->
+        </div>
+        <div class="mypage-buyer col-md-10 align-self-center text-center p-4">
+            <div class="buyer-top row p-4">
+                <div class="payment-history m-2 mt-3 col-lg-3 border rounded bg-white">
+                    <p class="buyer-top-p">결제 내역</p>
+                    <hr class="m-0">
+                    <a th:href="@{/th/payment/paymentHistory}"><h1 th:text="${OrderCnt}"></h1></a>
+                </div>
+                <div class="apply-notify m-2 mt-3 col-lg-3 border rounded bg-white">
+                    <p class="buyer-top-p">좋아요</p>
+                    <hr class="m-0">
+                    <a id="notifyModalLink" th:onclick="showNotify([[${NotifyCnt}]])">
+                        <h1 id="myPageNotifyCnt" th:text="${NotifyCnt}"></h1>
+                    </a>
 
                         <!-- Modal -->
                         <div class="modal fade my-custom-container" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title"  id="exampleModalLabel">알림 신청한 프로젝트</h5>
+                                        <h5 class="modal-title"  id="exampleModalLabel">내가 좋아하는 프로젝트 목록</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div id="notifyModalMsg" class="d-none ">
                                         <div style="height:383px; color:gray;" class="d-flex flex-column justify-content-center align-items-center">
                                             <span class="material-symbols-outlined d-block m-3" style="font-size:3rem;">
-                                                bookmark_heart
+                                                sentiment_sad
                                             </span>
-                                            <p class="">알림 신청한 프로젝트 목록이 비어있습니다.</p>
+                                            <p class="">프로젝트 목록이 비어있습니다.</p>
                                             <p class="">관심이 가는 프로젝트를 찜해보세요.</p>
                                         </div>
                                     </div>
@@ -100,9 +101,9 @@
                                                     <a id="cancelNotifyBtn" th:onclick="cancelNotify([[${project.proCode}]])" href="javascript:void(0)" class="btn btn-outline-success card-btn">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <span class="material-symbols-outlined">
-                                                                notifications_off
+                                                                heart_minus
                                                             </span>&nbsp;
-                                                            알림 취소하기
+                                                            취소하기
                                                         </div>
                                                     </a>
                                                 </div>
@@ -113,38 +114,41 @@
                             </div>
                         </div>
 
-                    </div>
                 </div>
-                <div class="buyer-ad row justify-content-center p-4">
-                    <div class="ad align-self-center">
-                        <a href="javascript:void(0)">
-                            <img th:src="@{/images/myPage/seller/ad01.jpg}" alt="광고zone" class="img-fluid">
-                        </a>
-                    </div>
+            </div>
+            <div class="buyer-ad row justify-content-center p-4">
+                <div class="ad align-self-center">
+                    <a href="javascript:void(0)">
+                        <img th:src="@{/images/myPage/seller/ad01.jpg}" alt="광고zone" class="img-fluid">
+                    </a>
                 </div>
-                <div class="buyer-bottom row justify-content-center mt-4 p-4">
-                    <button onclick="location.href='/th/myPage/buyer/editProfile'" class="btn btn-outline-success m-2 text-start d-flex" th:if="${!isSnsUser}">
-                        <p class="me-auto">기본정보 변경</p>
-                        <p class="material-symbols-outlined">
-                            chevron_right
-                        </p>
-                    </button>
-                    <button onclick="location.href='/th/myPage/buyer/editPassword'" class="btn btn-outline-success m-2 text-start d-flex" th:if="${!isSnsUser}">
-                        <p class="me-auto">비밀번호 변경</p>
-                        <p class="material-symbols-outlined">
-                            chevron_right
-                        </p>
-                    </button>
-                    <button onclick="location.href='/th/myPage/buyer/signOut'" class="btn btn-outline-success m-2 text-start d-flex">
-                        <p class="me-auto">회원 탈퇴</p>
-                        <p class="material-symbols-outlined">
-                            chevron_right
-                        </p>
-                    </button>
-                </div>
+            </div>
+            <div class="buyer-bottom row justify-content-center mt-4 p-4">
+                <button onclick="location.href='/th/myPage/buyer/editProfile'"
+                        class="btn btn-outline-success m-2 text-start d-flex" th:if="${!isSnsUser}">
+                    <p class="me-auto">기본정보 변경</p>
+                    <p class="material-symbols-outlined">
+                        chevron_right
+                    </p>
+                </button>
+                <button onclick="location.href='/th/myPage/buyer/editPassword'"
+                        class="btn btn-outline-success m-2 text-start d-flex" th:if="${!isSnsUser}">
+                    <p class="me-auto">비밀번호 변경</p>
+                    <p class="material-symbols-outlined">
+                        chevron_right
+                    </p>
+                </button>
+                <button onclick="location.href='/th/myPage/buyer/signOut'"
+                        class="btn btn-outline-success m-2 text-start d-flex">
+                    <p class="me-auto">회원 탈퇴</p>
+                    <p class="material-symbols-outlined">
+                        chevron_right
+                    </p>
+                </button>
             </div>
         </div>
     </div>
+</div>
 </body>
 <div th:replace="~{/fragments/footer.html::footer}"></div>
 </html>

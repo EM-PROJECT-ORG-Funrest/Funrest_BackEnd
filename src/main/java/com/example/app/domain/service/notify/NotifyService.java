@@ -1,6 +1,7 @@
 package com.example.app.domain.service.notify;
 
 import com.example.app.domain.dto.NotifyDto;
+import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Notify;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.User;
@@ -11,6 +12,7 @@ import jakarta.persistence.EntityManager;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -122,5 +129,27 @@ public class NotifyService {
         log.info("selectNotifyCntByUserId : " + userId);
         User user = userRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException());
         return notifyRepository.findAllByUserId(user).size();
+    }
+
+    // 로그인 후 헤더 - 프로젝트 리스트 가져올 때 이미 지난 날짜 제외
+    public List<ProjectDto> deleteNotifyPassedDateFromToday(List<ProjectDto> projectDtos) {
+        log.info("deleteNotifyPassedDateFromToday() execute..");
+
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now();
+        LocalDate target = null;
+
+        Iterator<ProjectDto> iterator = projectDtos.iterator();
+        while (iterator.hasNext()) {
+            ProjectDto projectDto = iterator.next();
+            target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
+            long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
+            projectDto.setProRemainingDay(remainingDays);
+            if (remainingDays < 0) {
+                iterator.remove();
+            }
+        }
+
+        return projectDtos;
     }
 }

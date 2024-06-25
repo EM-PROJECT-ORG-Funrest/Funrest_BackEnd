@@ -2,7 +2,7 @@ package com.example.app.controller.MyPageController.SellerController;
 
 import com.example.app.config.auth.jwt.JwtTokenProvider;
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.domain.service.ProjectServiceImpl;
+import com.example.app.domain.service.project.ProjectServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

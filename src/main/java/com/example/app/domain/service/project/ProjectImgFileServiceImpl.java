@@ -1,4 +1,4 @@
-package com.example.app.domain.service;
+package com.example.app.domain.service.project;
 
 import lombok.extern.slf4j.Slf4j;
 import org.imgscalr.Scalr;

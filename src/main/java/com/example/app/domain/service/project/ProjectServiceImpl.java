@@ -1,10 +1,9 @@
-package com.example.app.domain.service;
+package com.example.app.domain.service.project;
 
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.ProjectFile;
 import com.example.app.domain.entity.ProjectSubFile;
-import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.ProjectFileRepository;
 import com.example.app.domain.repository.ProjectRepository;
 import com.example.app.domain.repository.ProjectSubFileRepository;
@@ -21,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +83,7 @@ public class ProjectServiceImpl {
                 // 2-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
                 // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
                 // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                String savePath = "C:/springboot_img/" + storedFileName;
+                String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
                 // 2-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
                 // 2-5. tbl_project_file 에 해당 데이터 저장 처리
@@ -97,7 +98,7 @@ public class ProjectServiceImpl {
                 // 3-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 3-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
-                String subSavePath = "C:/springboot_subImg/" + subStoredFileName;
+                String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 3-4. 해당 경로에 파일 저장
                 proSubImgFile.transferTo(new File(subSavePath));
                 // 3-5. tbl_project_subFile 에 해당 데이터 저장 처리
@@ -256,7 +257,7 @@ public class ProjectServiceImpl {
                 // 3-3. 저장 경로 설정 (헤당 경로에 미리 폴더 생성하기)
                 // 윈도우 경우: String savePath = "C:/springboot_img/" + storedFileName; => 결과: C:/springboot_img/17178178127_내사진.jpg
                 // 맥 경우: String savePath = "/Users/사용자이름/springboot_img/" + storedFilename; => 결과: C:/springboot_img/17178178127_내사진.jpg
-                String savePath = "C:/springboot_img/" + storedFileName;
+                String savePath = "/Users/hongjaeseong/springboot_img/" + storedFileName;
                 // 3-4. 이미지 파일 리사이징 및 저장 경로에 저장 메소드 호출
                 projectImgFileService.uploadFile(proMainImgFile, savePath);
                 // 3-5. tbl_project_file 에 해당 데이터 수정 처리
@@ -271,7 +272,7 @@ public class ProjectServiceImpl {
                 // 4-2. 서버 저장용 이름 생성
                 String subStoredFileName = System.currentTimeMillis() + "_" + subOriginalFileName;
                 // 4-3. 저장 경로 설정 (해당 경로에 미디 폴더 생성하기)
-                String subSavePath = "C:/springboot_subImg/" + subStoredFileName;
+                String subSavePath = "/Users/hongjaeseong/springboot_subImg/" + subStoredFileName;
                 // 4-4. 해당 경로에 파일 저장
                 proSubImgFile.transferTo(new File(subSavePath));
                 // 4-5. tbl_project_subFile 에 해당 데이터 저장 처리
@@ -279,10 +280,17 @@ public class ProjectServiceImpl {
                 projectSubFileRepository.save(projectSubFile);
             }
         }
-
-
     }
 
+    // proStartDate에 따른 버튼 구현을 위한 디데이 구하기
+    public void getProRemainingDay(ProjectDto projectDto) {
+        System.out.println("getRemainingDay() execute..");
 
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now();
+        LocalDate target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
+        long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
+        projectDto.setProRemainingDay(remainingDays);
+    }
 
 }
