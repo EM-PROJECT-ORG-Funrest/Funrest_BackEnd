@@ -24,43 +24,40 @@ public class SellerController {
     private static final String UPLOAD_PATH = "http://localhost:8080/upload/";
 
     @Autowired
-    SellerServiceImpl sellerService;
+    SellerServiceImpl sellerServiceImpl;
 
 
     @GetMapping("/seller")
     public String seller(Model model) {
+        log.info("GET /th/myPage/seller/seller .....");
 
-        //SecurityContextHolder 에서 userId 가져요기
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-
         User user = new User();
         user.setUserId(userId);
-        log.info("GET /th/myPage/seller/seller .....");
-        //user 별 project 찾기
-        List<ProjectDto> projectDtoList = sellerService.findProjectByUserId(user);
-        //user 별 생성 프로젝트 갯수 찾기
-        Long countProject= sellerService.countProjectByUserId(user);
 
+        // user 별 project 찾기
+        List<ProjectDto> projectDtoList = sellerServiceImpl.findProjectByUserId(user);
+        // user 별 생성 프로젝트 갯수 찾기
+        Long countProject = sellerServiceImpl.countProjectByUserId(user);
         // 사용자 이름 넣어주기
-        User user1 = sellerService.findUserByUserId(userId);
+        User user1 = sellerServiceImpl.findUserByUserId(userId);
         String userName = user1.getUserName();
-
         //사진 넣기
-        for (int i = 0; i < projectDtoList.size() ; i++) {
-            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtoList.get(i).getStoredFileName().getFirst());
+        for (int i = 0; i < projectDtoList.size(); i++) {
+            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH + projectDtoList.get(i).getStoredFileName().getFirst());
             System.out.println("projectDtoList.get(i).getProCode()" + projectDtoList.get(i).getProCode());
         }
 
-        //달성률 가져오기
-        sellerService.proAchievementRate(projectDtoList);
-
-        //신청 날짜 보여주기 포매팅
-        sellerService.formattedDate(projectDtoList);
-
+        // 신청 날짜 보여주기 포매팅
+        sellerServiceImpl.formattedDate(projectDtoList);
         // 프로젝트 기간 보여주기 datetime 에 저장
-        sellerService.dateTime(projectDtoList);
+        sellerServiceImpl.dateTime(projectDtoList);
+        // 프로젝트 참여인원 가져오기
+        sellerServiceImpl.proPaidCnt(projectDtoList);
+        // 달성률 가져오기
+        sellerServiceImpl.proAchievementRate(projectDtoList);
 
-        model.addAttribute("userId",userId);
+        model.addAttribute("userId", userId);
         model.addAttribute("userName", userName);
         model.addAttribute("projectDtoList", projectDtoList);
         model.addAttribute("countProject", countProject);

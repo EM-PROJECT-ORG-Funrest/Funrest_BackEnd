@@ -23,6 +23,21 @@
     color: darkgray;
 }
 
+/* order-info-btns */
+#order-info-btns>button{
+    border: 0;
+    background-color: #4cc069;
+    color: white;
+    padding: 0.7rem 1.3rem 0.7rem 1.3rem;
+    border-radius: 5px;
+    display: inline;
+    margin-right: 2rem;
+    margin-bottom: 50px;
+}
+$order-info-btns>button:hover{
+    background-color: #44ad5f;
+}
+
 /* payment-history-guide */
 .container>.payment-history-guide{
     background-color: rgb(246, 248, 244);

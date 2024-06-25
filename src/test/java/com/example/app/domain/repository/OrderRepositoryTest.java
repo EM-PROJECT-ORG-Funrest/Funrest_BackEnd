@@ -1,6 +1,7 @@
 package com.example.app.domain.repository;
 
 import com.example.app.domain.entity.Order;
+import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ class OrderRepositoryTest {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Test
     public void findById() {
@@ -42,6 +46,17 @@ class OrderRepositoryTest {
         orderList.forEach(entity -> {
             System.out.println("entity = " + entity);
         });
+    }
+
+    @Test
+    public void countByProCode() {
+        Optional<Project> optionalProject = projectRepository.findById(7);
+        Project project = new Project();
+        if (optionalProject.isPresent()) {
+            project = optionalProject.get();
+        }
+        Long proPaidCnt = orderRepository.countByProCode(project);
+        System.out.println("proPaidCnt = " + proPaidCnt);
     }
 
 }

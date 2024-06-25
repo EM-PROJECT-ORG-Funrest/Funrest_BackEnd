@@ -43,29 +43,26 @@ public class ProjectDetailController {
 
         // ProMainImg 를 리스트에 담기 (3개 고정)
         List<String> storedFileName = projectDto.getStoredFileName();
-        
-        // projectDto 에 달성률 넣기
-        projectService.proAchievementRate(projectDto);
 
-        // projectDto 에 달성금액 넣기
+        // 프로젝트 참여인원 가져오기
+        projectService.proPaidCnt(projectDto);
+        // 프로젝트 달성 금액 가져오기
         projectService.proAchievementAmount(projectDto);
-
+        // 프로젝트 달성률 가져오기
+        projectService.proAchievementRate(projectDto);
         // projectDto 에 proStartDate까지 남은 일자 넣기
         projectService.getProRemainingDay(projectDto);
-        
-        // ProMainImg 리스트 -> model 에 담기
         model.addAttribute("Project", projectDto);
+
         for (int i = 0; i < storedFileName.size(); i++) {
             model.addAttribute("image"+(i+1), UPLOAD_PATH + storedFileName.get(i));
         }
-
         // ProSubImg 를 리스트에 담기 (5개 고정)
         List<String> subStoredFileName = projectDto.getSubStoredFileName();
         // ProSubImg 리스트 -> model 에 담기
         for (int i = 0; i < subStoredFileName.size(); i++) {
             model.addAttribute("subImage" + (i + 1), UPLOAD_PATH + subStoredFileName.get(i));
         }
-
         return "th/project/project.html";
     }
 }

@@ -95,6 +95,10 @@
                 </div>
             </div>
         </div>
+        <div id="order-info-btns" class="col-md-12 order-info-btns text-center">
+            <button th:onclick="'window.location.href=\'' + @{/th/myPage/buyer/buyer} + '\''">마이페이지로</button>
+            <button th:onclick="'window.location.href=\'' + @{/th/main/main} + '\''">홈으로</button>
+        </div>
     </div>
     <div class="payment-history-guide row py-4 px-2">
         <h5 class="guide-title col-md-2 ps-3 pb-3 border-end">주문절차 안내</h5>

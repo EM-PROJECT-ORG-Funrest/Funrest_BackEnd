@@ -35,6 +35,7 @@
     
     import com.example.app.config.WebConfig;
     import com.example.app.domain.dto.ProjectDto;
+    import com.example.app.domain.service.myPage.SellerServiceImpl;
     import com.example.app.domain.service.visit.VisitService;
     import com.example.app.domain.service.main.MainServiceImpl;
     import org.springframework.beans.factory.annotation.Autowired;
@@ -60,17 +61,19 @@
 
         @Autowired
         private VisitService visitService;
+
+        @Autowired
+        private SellerServiceImpl sellerServiceImpl;
     
         @GetMapping("/main")
         public String getProjects(Model model) {
-
-            List<ProjectDto> projectDtos = mainServiceImpl.getAllProjectsOrderedByProCode();
-            System.out.println("projectDtos : " + projectDtos);
-            for (int i = 0; i < projectDtos.size() ; i++) {
-                 projectDtos.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtos.get(i).getStoredFileName().getFirst());
+            List<ProjectDto> projectDtoList = mainServiceImpl.getAllProjectsOrderedByProCode();
+            // 프로젝트 참여 인원 가져오기
+            sellerServiceImpl.proPaidCnt(projectDtoList);
+            for (int i = 0; i < projectDtoList.size() ; i++) {
+                projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH+projectDtoList.get(i).getStoredFileName().getFirst());
             }
-            model.addAttribute("projectDtos", projectDtos.subList(0, Math.min(12, projectDtos.size()))); // 초기 12개 데이터만 전달
-
+            model.addAttribute("projectDtos", projectDtoList.subList(0, Math.min(12, projectDtoList.size()))); // 초기 12개 데이터만 전달
             // 일 방문자 수 증가
             visitService.recordVisit();
     

@@ -4,10 +4,7 @@ import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.entity.Project;
 import com.example.app.domain.entity.ProjectFile;
 import com.example.app.domain.entity.ProjectSubFile;
-import com.example.app.domain.repository.ProjectFileRepository;
-import com.example.app.domain.repository.ProjectRepository;
-import com.example.app.domain.repository.ProjectSubFileRepository;
-import com.example.app.domain.repository.UserRepository;
+import com.example.app.domain.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -48,6 +45,9 @@ public class ProjectServiceImpl {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     // 프로젝트 생성(만들기)
     public void insertProject(ProjectDto projectDto) throws IOException {
         System.out.println("ProjectServiceImpl's projectDto : " + projectDto);
@@ -58,8 +58,7 @@ public class ProjectServiceImpl {
         if ((projectDto.getProMainImg() == null || projectDto.getProMainImg().isEmpty()
                 || projectDto.getProMainImg().stream().allMatch(MultipartFile::isEmpty))
                 && (projectDto.getProSubImg() == null || projectDto.getProSubImg().isEmpty()
-                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty)))
-        {
+                || projectDto.getProSubImg().stream().allMatch(MultipartFile::isEmpty))) {
             Project project = Project.toSaveEntity(projectDto);
             System.out.println("project : " + project);
             project.setProDate(new Date()); // proDate에 현재날짜 넣어주기
@@ -113,48 +112,14 @@ public class ProjectServiceImpl {
 
     }
 
-    //달성률 구하기
-    public void proAchievementRate(ProjectDto projectDto) {
-        //달성률 구하기
-        // 문자열을 정수로 변환
-        double proGoalAmount = Double.parseDouble(projectDto.getProGoalAmount().replace(",", ""));
-        double proPrice = Double.parseDouble(projectDto.getProPrice().replace(",", ""));
-        double proPaidCnt = projectDto.getProPaidCnt();
-
-        // 달성률 계산 (소수점까지 계산)
-        double proAchievementRate = (proPrice * proPaidCnt / proGoalAmount) * 100.0;
-
-        // 계산된 달성률을 반올림하여 정수로 변환
-        int roundedAchievementRate = (int) Math.round(proAchievementRate);
-
-        // projectDto에 달성률 설정
-        projectDto.setProAchievementRate(roundedAchievementRate);
-    }
-
-    // 달성 금액 구하기
-    public void proAchievementAmount(ProjectDto projectDto){
-        int proPrice = Integer.parseInt(projectDto.getProPrice().replace(",", ""));
-        int proPaidCnt = projectDto.getProPaidCnt();
-
-        int proAchievementAmount = proPrice * proPaidCnt;
-
-        // 숫자 포맷팅을 위한 NumberFormat 인스턴스 생성
-        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
-        String formattedProAchievementAmount = format.format(proAchievementAmount);
-
-        projectDto.setProAchievementAmount(formattedProAchievementAmount);
-
-
-    }
-
     // 특정 proCode 로 프로젝트 조회
     // toProjectDto 에서 부모 엔터티가 자식 엔터티에 접근하고 있어서 트랜잭션 처리 필수!
     @Transactional
-    public ProjectDto findByProCode(int proCode){
+    public ProjectDto findByProCode(int proCode) {
         Project optionalProject = projectRepository.findByProCode(proCode);
         Project project = optionalProject;
         ProjectDto projectDto = ProjectDto.toProjectDto(project);
-        return  projectDto;
+        return projectDto;
     }
 
     // 모든 프로젝트 조회
@@ -292,15 +257,53 @@ public class ProjectServiceImpl {
         }
     }
 
+    // 프로젝트 참여인원 가져오기
+    public void proPaidCnt(ProjectDto projectDto) {
+        int proCode = projectDto.getProCode();
+        Optional<Project> optionalProject = projectRepository.findById(proCode);
+        Project project = new Project();
+        if (optionalProject.isPresent()) {
+            project = optionalProject.get();
+        }
+        Long proPaidCnt = orderRepository.countByProCode(project);
+        projectDto.setProPaidCnt(Math.toIntExact(proPaidCnt));
+    }
+
+    // 달성 금액 구하기
+    public void proAchievementAmount(ProjectDto projectDto) {
+        int proPaidCnt = projectDto.getProPaidCnt();
+        int proPrice = Integer.parseInt(projectDto.getProPrice().replace(",", ""));
+        int proAchievementAmount = proPrice * proPaidCnt;
+        // 숫자 포맷팅을 위한 NumberFormat 인스턴스 생성
+        NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
+        String formattedProAchievementAmount = format.format(proAchievementAmount);
+        projectDto.setProAchievementAmount(formattedProAchievementAmount);
+    }
+
+    //달성률 구하기
+    public void proAchievementRate(ProjectDto projectDto) {
+        // 문자열을 정수로 변환
+        double proGoalAmount = Double.parseDouble(projectDto.getProGoalAmount().replace(",", ""));
+        double proPrice = Double.parseDouble(projectDto.getProPrice().replace(",", ""));
+        double proPaidCnt = projectDto.getProPaidCnt();
+        // 달성률 계산 (소수점까지 계산)
+        double proAchievementRate = (proPrice * proPaidCnt / proGoalAmount) * 100.0;
+        // 계산된 달성률을 반올림하여 정수로 변환
+        int roundedAchievementRate = (int) Math.round(proAchievementRate);
+        // projectDto에 달성률 설정
+        projectDto.setProAchievementRate(roundedAchievementRate);
+    }
+
     // proStartDate에 따른 버튼 구현을 위한 디데이 구하기
     public void getProRemainingDay(ProjectDto projectDto) {
-        System.out.println("getRemainingDay() execute..");
-
         DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate today = LocalDate.now();
         LocalDate target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
         long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
         projectDto.setProRemainingDay(remainingDays);
     }
+
+
+
 
 }
