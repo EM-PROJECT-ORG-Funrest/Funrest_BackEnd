@@ -122,8 +122,9 @@
             </div>
         </div>
         <div class=" col-md-12 order-info-btns text-center">
-            <button class="mx-5">주문 목록으로</button>
-            <button class="mx-5">홈으로</button>
+            <button class="mx-5" th:onclick="'window.location.href=\'' + @{/th/payment/paymentHistory} + '\''">주문 목록으로</button>
+            <button class="mx-5" th:onclick="'window.location.href=\'' + @{/th/payment/applyRefund} + '\''">환불 신청</button>
+            <button class="mx-5" th:onclick="'window.location.href=\'' + @{/th/main/main} + '\''">홈으로</button>
         </div>
     </div>
     <div class="delivery-state">
