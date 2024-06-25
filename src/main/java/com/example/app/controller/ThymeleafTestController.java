@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/th")
 public class ThymeleafTestController {
 
+    //ㅎㅇㅎㅇ
     // member view page test
     @GetMapping("/member/signUp")
     public void test15(){
