@@ -11,8 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
     private String resourcePath = "/upload/**";
     // 실제 파일 저장 경로
     // - 윈도우인 경우
-    private String savePath = "file:///C:/springboot_img/";
-    private String savePath2 = "file:///C:/springboot_subImg/";
+    private String savePath = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/proMainImg/";
+    private String savePath2 = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/proSubImg/";
     // - 맥인 경우
     //private String savePath = "file:/Users/hongjaeseong/springboot_img/";
     //private String savePath2 = "file:/Users/hongjaeseong/springboot_subImg/";
