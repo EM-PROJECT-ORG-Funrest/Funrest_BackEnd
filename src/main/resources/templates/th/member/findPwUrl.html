@@ -18,7 +18,7 @@
     <script src="../../../js/member/findPwUrl.js"></script>
 </head>
 
-<div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
+<div th:replace="fragments/header :: afterLoginHeader"></div>
 <body>
 <form name="passwordForm" id="passwordForm" onsubmit="editPassword(event)" method="post" action="/th/member/findSetPw">
     <div class="container p-5 edit-password-container">
@@ -39,6 +39,6 @@
     </div>
 </form>
 </body>
-<div th:replace="~{/fragments/footer.html::footer}"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 </html>

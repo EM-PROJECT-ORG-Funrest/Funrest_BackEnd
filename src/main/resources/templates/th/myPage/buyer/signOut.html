@@ -18,7 +18,7 @@
     <script language="javascript" src="/js/myPage/buyer/signOut.js" defer></script>
 </head>
 
-<div th:replace="~{/fragments/header.html::adminHeader }"></div>
+<div th:replace="fragments/header :: afterLoginHeader"></div>
 <body>
 <div class="container w-50" style="min-width: 500px;">
     <div class="signout-header mb-5 text-center justify-content-center">
@@ -85,6 +85,6 @@
     </div>
 </div>
 </body>
-<div th:replace="~{/fragments/footer.html::footer}"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 </html>

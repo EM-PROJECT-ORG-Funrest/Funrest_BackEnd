@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
-<div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
+<div th:replace="fragments/header :: afterLoginHeader"></div>
 <body>
 <form  onsubmit="return false">
     <div class="container container-r my-custom-container">
@@ -106,6 +106,6 @@
     </div>
 </form>
 </body>
-<div th:replace="~{/fragments/footer.html::footer}"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 </html>

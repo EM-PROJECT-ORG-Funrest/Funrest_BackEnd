@@ -34,10 +34,10 @@
 </head>
 
 <th:block sec:authorize="isAnonymous()">
-    <div th:replace="~{/fragments/header.html::beforeLoginHeader}"></div>
+    <div th:replace="fragments/header :: beforeLoginHeader"></div>
 </th:block>
 <th:block sec:authorize="isAuthenticated()">
-    <div th:replace="~{/fragments/header.html::afterLoginHeader}"></div>
+    <div th:replace="fragments/header :: afterLoginHeader"></div>
 </th:block>
 <body>
 <div class="container my-custom-container">
@@ -182,6 +182,6 @@
 </div>
 
 </body>
-<div th:replace="~{/fragments/footer.html::footer}"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 </html>
