@@ -17,7 +17,7 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     Long countByUserIdAndOrderState(User userId, String orderState);
 
     // 사용자별 + 주문상태별 주문 조회
-    List<Order> findByUserIdAndOrderState(User userId, String orderState);
+    List<Order> findByUserIdAndOrderStateOrderByOrderDateDesc(User userId, String orderState);
 
     // 프로젝트별 주문횟수 조회
     Long countByProCode(Project proCode);

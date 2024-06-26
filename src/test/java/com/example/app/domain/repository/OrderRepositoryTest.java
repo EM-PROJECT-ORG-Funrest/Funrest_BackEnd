@@ -35,14 +35,14 @@ class OrderRepositoryTest {
     }
 
     @Test
-    public void findByUserIdAndOrderState() {
+    public void findByUserIdAndOrderStateOrderByOrderDateDesc() {
         User user = new User();
         Optional<User> optionalUser = userRepository.findById("hjs971102@naver.com");
         if (optionalUser.isPresent()) {
             user = optionalUser.get();
         }
         System.out.println("user = " + user);
-        List<Order> orderList = orderRepository.findByUserIdAndOrderState(user, "결제완료");
+        List<Order> orderList = orderRepository.findByUserIdAndOrderStateOrderByOrderDateDesc(user, "결제완료");
         orderList.forEach(entity -> {
             System.out.println("entity = " + entity);
         });

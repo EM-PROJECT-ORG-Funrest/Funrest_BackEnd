@@ -85,7 +85,7 @@ public class OrderDetailController {
                                      @RequestParam("orderState") String orderState,
                                      Model model) {
         log.info("GET /th/payment/paymentHistory...");
-        List<OrderDto> orderDtoList = orderService.findByUserIdAndOrderState(userId, orderState);
+        List<OrderDto> orderDtoList = orderService.findByUserIdAndOrderStateOrderByOrderDateDesc(userId, orderState);
         List<String> proNameList = new ArrayList<>();
         List<String> imgPathList = new ArrayList<>();
         for (OrderDto orderDto : orderDtoList) {
@@ -111,7 +111,7 @@ public class OrderDetailController {
                                 @RequestParam("orderState") String orderState,
                                 Model model) {
         log.info("GET /th/payment/refundHistory...");
-        List<OrderDto> orderDtoList = orderService.findByUserIdAndOrderState(userId, orderState);
+        List<OrderDto> orderDtoList = orderService.findByUserIdAndOrderStateOrderByOrderDateDesc(userId, orderState);
         List<String> proNameList = new ArrayList<>();
         List<String> imgPathList = new ArrayList<>();
         for (OrderDto orderDto : orderDtoList) {
