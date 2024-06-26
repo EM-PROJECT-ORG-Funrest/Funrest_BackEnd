@@ -1,22 +1,5 @@
-/* 헤더, 푸터 연결 */
-#header-ar{
-    /* position: fixed; */
-    /* top: 0;
-    margin-top: 2rem;
-    margin-left: 6rem;
-    left: 0;
-    width: 95%;
-    height: auto; */
-    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
-}
-#footer-ar{
-    /* position: relative;
-    top: 15rem; */
-    /* bottom: 0; 
-    left: 0;
-    width: 90%;
-    height: auto; */
-}
+@charset "utf-8";
+@import url("http://3.39.29.162:8080/css/payment/applyRefund.css");
 
 .my-custom-container{
     min-width: 500px;
