@@ -1,4 +1,4 @@
-    package com.example.app.controller.Main;
+    package com.example.app.controller.main;
     
     //import com.example.app.domain.dto.ProjectDto;
     //import com.example.app.domain.entity.Project;
