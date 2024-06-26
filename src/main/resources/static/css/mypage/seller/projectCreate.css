@@ -1,46 +1,34 @@
+@charset "utf-8";
+@import url("http://3.39.29.162:8080/css/mypage/seller/projectCreate.css");
+
 /* minimum width 설정 */
 .my-custom-container{
     min-width: 500px;
 }
 
 /* .project-manage-left */
-.container{
-    /*border: 1px solid;*/
-}
-.container>form>.row{
-    /* border: 1px solid red; */
-}
-.container>form>.row>.project-manage-left{
-    /* border: 1px solid blue; */
-}
 .container>form>.row>.project-manage-left>.project-image-files{
-    /* border: 1px solid blue; */
     border-radius: 10px;
     background-color: #E5E5E5;
     padding: 15px;
     height: 100%;
 }
 .container>form>.row>.project-manage-left>.project-image-files>.project-image-mainfile{
-    /* border: 1px solid red; */
     width: 100%; 
     margin-bottom: 5px;
 }
 .container>form>.row>.project-manage-left>.project-image-files>#image_container{
-    /* height:25vw; */
     height: 300px;
-    /* border: 1px solid blue; */
     border-radius: 5px;
     background-color: white;
 }
 .container>form>.row>.project-manage-left>.project-image-files>.project-image-subfile{
-    /*border: 1px solid red;*/
     width: 100%;
     margin-bottom: 5px;
 }
 .container>form>.row>.project-manage-left>.project-image-files>.project-image-subfile-list{
     height: 300px;
     overflow: auto;
-    /*border: 1px solid blue;*/
     border-radius: 5px;
     background-color: white;
     padding: 10px;
@@ -51,12 +39,9 @@
 }
 .project-image-subfile-list .filebox .delete{
     margin-left: 10px;
-    /*border: 1px solid red;*/
-    /*display: inline-block;*/
     width: 30px
 }
 .project-image-subfile-list .filebox .delete p {
-    /*border: 1px solid red;*/
     color: #ff5353;
     margin-left: 5px;
     display: inline-block;

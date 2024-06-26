@@ -1,26 +1,5 @@
-
-/* 헤더, 푸터 연결 */
-#header-p{
-    /* position: fixed; */
-    /* top: 5rem;
-    margin-top: 2rem;
-    margin-left: 6rem;
-    left: 0;
-    width: 95%;
-    height: auto; */
-    /* z-index: 1000; 다른 콘텐츠 위에 표시되도록 설정 */
-}
-#footer-p{
-    /* position: relative;
-    top: 15rem; */
-    /*화면 하단에 고정 */
-    /* bottom: 0; 
-    left: 0;
-    width: 100%;
-    height: auto; */
-}
-
-
+@charset "utf-8";
+@import url("http://3.39.29.162:8080/css/payment/payment.css");
 
 .container-p {
     margin-top: 4rem;
@@ -32,34 +11,12 @@
     min-width: 500px;
 }
 
-
-/* .container-p>.order-product-box>.order-product>.table td{
-    vertical-align : middle;
-}
-
-.container-p>.order-product-box>.order-product>.table>tr>td>img{
-    width: 50px;
-} */
 .container-p>.order-product-box>.order-product-box2>.order-main>.col-md-8>img{
     min-width : 130px;
     max-width : 14vw;
     border-radius: 10px;
 }
 
-/* .container-p>.cost-box>.cost-box2{
-    background-color: white;
-}
-.container-p>.cost-box>.cost-box2>.cost>div{
-    display: flex;
-    justify-content: space-between;
-}
-
-.container-p>.cost-box>.cost-box2>.cost>div>p{
-    width: 40vw;
-    text-align: center;
-} */
-
-/*  */
 .container-p>.cost-box>.order-product-box2>.order-main>.col-6:nth-child(1){
     padding-left: 0;
 }
