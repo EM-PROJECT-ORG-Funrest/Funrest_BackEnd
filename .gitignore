@@ -43,4 +43,4 @@ out/
 ### ProjectServiceImpl ###
 #/src/main/java/com/example/app/domain/service/ProjectServiceImpl.java
 ### SECRET KEY INFO ###
-#application-SECRET-KEY.properties
+application-SECRET-KEY.properties
