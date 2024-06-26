@@ -1,10 +1,9 @@
-package com.example.app.controller.Main;
-
+package com.example.app.controller.main;
 
 
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.domain.entity.Project;
 import com.example.app.domain.service.main.MainServiceImpl;
+import com.example.app.domain.service.myPage.SellerServiceImpl;
 import com.example.app.domain.service.notify.NotifyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,9 @@ public class MainRestController {
     @Autowired
     private NotifyService notifyService;
 
+    @Autowired
+    private SellerServiceImpl sellerServiceImpl;
+
     // 프로젝트 경로 (추후 변경 가능성 있음)
     String UPLOAD_PATH = "http://localhost:8080/upload/";
 
@@ -36,6 +38,8 @@ public class MainRestController {
                                         @RequestParam(name = "size", defaultValue = "12") int size) {
         // 프로젝트를 페이지별로 검색하여 반환
         Page<ProjectDto> projectDtoPage = mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
+        List<ProjectDto> projectDtoList = projectDtoPage.getContent();
+        sellerServiceImpl.proPaidCnt(projectDtoList);
         // 각 ProjectDto에 이미지 URL을 설정
         projectDtoPage.forEach(projectDto -> {
             if (!projectDto.getStoredFileName().isEmpty()) {
@@ -44,7 +48,6 @@ public class MainRestController {
                 projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
             }
         });
-
         return projectDtoPage;
     }
 
@@ -56,9 +59,11 @@ public class MainRestController {
         log.info("getProjectByCategory : " + proCategory + ", page : " + page + ", size : " + size);
         Page<ProjectDto> projectDtoPage = null;
         // 카테고리 들어오는 값 별로 나누기
-        if (proCategory.equals("all")){
+        if (proCategory.equals("all")) {
             // 프로젝트를 페이지별로 검색하여 반환
             projectDtoPage = mainService.getAllProjectsOrderedByProCode(PageRequest.of(page, size));
+            List<ProjectDto> projectDtoList = projectDtoPage.getContent();
+            sellerServiceImpl.proPaidCnt(projectDtoList);
             // 각 ProjectDto에 이미지 URL을 설정
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
@@ -69,9 +74,12 @@ public class MainRestController {
             });
             return projectDtoPage;
 
-        } else if (proCategory.equals("coming-soon")){
-            projectDtoPage = mainService.getAllProjectByComingSoon(PageRequest.of(page, size), page, size);
-
+        } else if (proCategory.equals("coming-soon")) {
+            Pageable pageable = PageRequest.of(page, size);
+            projectDtoPage = mainService.getAllProjectByComingSoon(pageable);
+            List<ProjectDto> projectDtoList = projectDtoPage.getContent();
+            sellerServiceImpl.proPaidCnt(projectDtoList);
+            // 이미지 경로 설정
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
@@ -80,9 +88,10 @@ public class MainRestController {
                 }
             });
             return projectDtoPage;
-
-        } else if (proCategory.equals("movie") || proCategory.equals("musical") || proCategory.equals("book")){
-            projectDtoPage = mainService.getAllProjectByProCategory(proCategory,PageRequest.of(page, size));
+        } else if (proCategory.equals("movie") || proCategory.equals("musical") || proCategory.equals("book")) {
+            projectDtoPage = mainService.getAllProjectByProCategory(proCategory, PageRequest.of(page, size));
+            List<ProjectDto> projectDtoList = projectDtoPage.getContent();
+            sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
@@ -91,12 +100,9 @@ public class MainRestController {
                 }
             });
             return projectDtoPage;
-
         }
-
         return projectDtoPage;
     }
-
 
 
     @GetMapping("/keyword")
@@ -107,7 +113,9 @@ public class MainRestController {
         Page<ProjectDto> projectDtoPage = null;
 
         if (proName.equals("")) {
-            projectDtoPage =  mainService.findAllByOrderByProCode(PageRequest.of(page, size));
+            projectDtoPage = mainService.findAllByOrderByProCode(PageRequest.of(page, size));
+            List<ProjectDto> projectDtoList = projectDtoPage.getContent();
+            sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
@@ -116,8 +124,10 @@ public class MainRestController {
                 }
             });
             return projectDtoPage;
-        }else{
+        } else {
             projectDtoPage = mainService.getProjectByProName(proName, PageRequest.of(page, size));
+            List<ProjectDto> projectDtoList = projectDtoPage.getContent();
+            sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());

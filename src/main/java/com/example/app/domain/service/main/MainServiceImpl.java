@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,7 +40,7 @@ public class MainServiceImpl {
 
     // 첫 페이지 로드시 인피니티 스크롤 + 카테고리 항목 중 "전체" 클릭시
     public Page<ProjectDto> getAllProjectsOrderedByProCode(Pageable pageable) {
-        Page<Project> projects = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable,1);
+        Page<Project> projects = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable, 1);
         return projects.map(ProjectDto::toProjectDto);
     }
 
@@ -55,41 +56,27 @@ public class MainServiceImpl {
     }
 
     // 카테고리 검색 - 오픈예정
-    public Page<ProjectDto> getAllProjectByComingSoon(Pageable pageable, int page, int size){
-        List<Project> projectPage = projectRepository.findAllByProStatusOrderByProCode(1);
-
-        if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            List<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCode(1);
-            return entityListToPage(projectPage2, page, size);
-        }
-
-        int projectListSize = projectPage.size();
-        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public Page<ProjectDto> getAllProjectByComingSoon(Pageable pageable) {
+        // 프로젝트 조회
+        List<Project> projects = projectRepository.findAllByProStatusOrderByProCode(1);
+        // 날짜 비교를 위한 변수 설정
         LocalDate today = LocalDate.now();
-        LocalDate target = null;
+        // ProjectDto 리스트로 변환
+        List<ProjectDto> projectDtos = projects.stream()
+                .map(project -> {
+                    ProjectDto projectDto = ProjectDto.toProjectDto(project);
+                    LocalDate target = LocalDate.parse(projectDto.getProStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    long remainingDays = ChronoUnit.DAYS.between(today, target);
+                    projectDto.setProRemainingDay(remainingDays);
+                    return projectDto;
+                })
+                .filter(projectDto -> projectDto.getProRemainingDay() > 0) // 남은 날짜가 0 이상인 것만 필터링
+                .collect(Collectors.toList());
 
-        List<ProjectDto> projectDtos = projectPage.stream()
-                .map(ProjectDto::toProjectDto)
-                .collect(Collectors.toList()); // Stream을 List로 변환하여 ListIterator 사용 가능
-
-        ListIterator<ProjectDto> iterator = projectDtos.listIterator();
-        while (iterator.hasNext()) {
-            ProjectDto projectDto = iterator.next();
-            target = LocalDate.parse(projectDto.getProStartDate(), DATE_FORMATTER);
-            long remainingDays = java.time.temporal.ChronoUnit.DAYS.between(today, target);
-            projectDto.setProRemainingDay(remainingDays);
-            if (remainingDays <= 0) {
-                iterator.remove();
-                projectListSize--;
-            }
-        }
-
-        if (projectListSize == 0) {
-            List<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCode(1);
-            return entityListToPage(projectPage2, page, size);
-        }
-
-        return dtoListToPage(projectDtos, page, size);
+        // 페이지네이션 처리
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), projectDtos.size());
+        return new PageImpl<>(projectDtos.subList(start, end), pageable, projectDtos.size());
     }
 
     // List<Project> -> Page<ProjectDto>
@@ -111,7 +98,7 @@ public class MainServiceImpl {
     }
 
     // 키워드 검색
-    public Page<ProjectDto> getProjectByProName(String proName, Pageable pageable){
+    public Page<ProjectDto> getProjectByProName(String proName, Pageable pageable) {
         Page<Project> projectPage = projectRepository.findByProNameContainingAndProStatus(proName, pageable, 1);
 
         // 첫번째 페이지에서 12개 이상이 안되면 페이지에 도출 자체가 안되서  이코드 추가
@@ -133,7 +120,6 @@ public class MainServiceImpl {
 
         return projectPage.map(ProjectDto::toProjectDto);
     }
-
 
 //    public Page<ProjectDto> findByProNameAndCategory(String proName, String proCategory, String sortingMethod, Pageable pageable) {
 //

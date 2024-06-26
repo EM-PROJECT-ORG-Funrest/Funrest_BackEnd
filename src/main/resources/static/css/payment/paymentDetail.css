@@ -33,6 +33,7 @@
     padding: 0.7rem 1.3rem 0.7rem 1.3rem;
     border-radius: 5px;
     display: inline;
+    margin-right: 2rem;
 }
 .container-d>.cost-box>.order-info-btns>button:nth-child(2){
     /* margin-left: 20vw; */
@@ -62,8 +63,6 @@
 
 /* order-product */
 #project_img{
-    min-width : 130px;
-    max-width : 14vw;
     border-radius: 10px;
 }
 

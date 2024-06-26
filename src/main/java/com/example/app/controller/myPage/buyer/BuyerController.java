@@ -1,10 +1,8 @@
-package com.example.app.controller.MyPageController.BuyerController;
+package com.example.app.controller.myPage.buyer;
 
 import com.example.app.config.auth.logoutHandler.CustomLogoutSuccessHandler;
 import com.example.app.domain.dto.NotifyDto;
 import com.example.app.domain.dto.ProjectDto;
-import com.example.app.config.auth.jwt.JwtTokenProvider;
-import com.example.app.config.auth.logoutHandler.CustomLogoutHandler;
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.entity.User;
 import com.example.app.domain.repository.UserRepository;
@@ -14,11 +12,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,18 +29,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
 @RequestMapping("/th/myPage/buyer")
 public class BuyerController {
 
@@ -78,7 +76,8 @@ public class BuyerController {
         user1.setUserId(userId);
 
         // 결제 횟수 및 알림 신청 횟수 가져오기
-        Long OrderCnt = buyerService.countOrderByUserId(user1);
+        Long OrderCnt = buyerService.countByUserIdAndOrderState(user1, "결제완료");
+        Long RefundCnt = buyerService.countByUserIdAndOrderState(user1, "환불완료");
         Long NotifyCnt = buyerService.countNotifyByUserId(user1);
 
         // 사용자 이름 넣어주기
@@ -88,8 +87,9 @@ public class BuyerController {
 
         model.addAttribute("userId", userId);
         model.addAttribute("userName", userName);
-        model.addAttribute("OrderCnt",OrderCnt);
-        model.addAttribute("NotifyCnt",NotifyCnt);
+        model.addAttribute("OrderCnt", OrderCnt);
+        model.addAttribute("RefundCnt", RefundCnt);
+        model.addAttribute("NotifyCnt", NotifyCnt);
         model.addAttribute("isSnsUser", snsType != null);
         return "th/myPage/buyer/buyer";
     }
@@ -98,7 +98,7 @@ public class BuyerController {
     private PortOneAuthInfoResponse portOneAuthInfoResponse;
 
     @GetMapping("/getToken")
-    public @ResponseBody  void getToken(){
+    public @ResponseBody void getToken() {
         log.info("GET /getToken....");
 
         //URL
@@ -109,11 +109,11 @@ public class BuyerController {
 
         //PARAMS
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("imp_key",portOne_API);
-        params.add("imp_secret",portOne_SECRET);
+        params.add("imp_key", portOne_API);
+        params.add("imp_secret", portOne_SECRET);
 
         //ENTITY
-        HttpEntity< MultiValueMap<String, String>> entity = new HttpEntity<>(params,headers);
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
         //REQUEST
         RestTemplate rt = new RestTemplate();
@@ -124,8 +124,8 @@ public class BuyerController {
         this.portOneTokenResponse = response.getBody();
     }
 
-    @GetMapping(value ="getAuthInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody PortOneAuthInfoResponse getAuthInfo(@PathVariable("imp_uid") String imp_uid){
+    @GetMapping(value = "getAuthInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody PortOneAuthInfoResponse getAuthInfo(@PathVariable("imp_uid") String imp_uid) {
         getToken();
         log.info("GET /getAuthInfo..." + imp_uid);
 
@@ -140,7 +140,7 @@ public class BuyerController {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         //ENTITY
-        HttpEntity< MultiValueMap<String, String>> entity = new HttpEntity<>(params,headers);
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
         //REQUEST
         RestTemplate rt = new RestTemplate();
@@ -153,20 +153,20 @@ public class BuyerController {
     }
 
     @GetMapping("/editProfile")
-    public void editProfile(Model model){
+    public void editProfile(Model model) {
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = buyerService.findUserByUserId(userId);
 
-        UserDto userDto =  UserDto.EntityToUserDto(user);
+        UserDto userDto = UserDto.EntityToUserDto(user);
         model.addAttribute("userDto", userDto);
 
 
     }
 
     @PostMapping("/editProfileSave")
-    public String editProfileSave(UserDto userDto){
+    public String editProfileSave(UserDto userDto) {
         User user = User.UserDtoToEntity(userDto);
         userRepository.save(user);
 
@@ -174,14 +174,14 @@ public class BuyerController {
     }
 
     @GetMapping("/editPassword")
-    public void editPassword(){
+    public void editPassword() {
         log.info("editPassword INVOKE....");
     }
 
     @PostMapping("/editPasswordSave")
-    public  ResponseEntity<Map<String, String>> editPassword(@RequestParam("password1") String password1,
-                                                  @RequestParam("password2") String password2,
-                                                  @RequestParam("password3") String password3){
+    public ResponseEntity<Map<String, String>> editPassword(@RequestParam("password1") String password1,
+                                                            @RequestParam("password2") String password2,
+                                                            @RequestParam("password3") String password3) {
         log.info("editPasswordSave INVOKE....");
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -212,7 +212,7 @@ public class BuyerController {
     }
 
     @GetMapping("/signOut")
-    public void signOut(){
+    public void signOut() {
         log.info("signOut INVOKE....");
     }
 
@@ -228,7 +228,7 @@ public class BuyerController {
 
 
     @Data
-    private static class TokenResponse{
+    private static class TokenResponse {
         public String access_token;
         public int now;
         public int expired_at;
@@ -236,14 +236,14 @@ public class BuyerController {
 
     @Component
     @Data
-    private static class PortOneTokenResponse{
+    private static class PortOneTokenResponse {
         public int code;
         public Object message;
         public TokenResponse response;
     }
 
     @Data
-    private static class AUthInfoResponse{
+    private static class AUthInfoResponse {
         public int birth;
         public String birthday;
         public boolean certified;
@@ -264,7 +264,7 @@ public class BuyerController {
 
     @Component
     @Data
-    private static class PortOneAuthInfoResponse{
+    private static class PortOneAuthInfoResponse {
         public int code;
         public Object message;
         public AUthInfoResponse response;
@@ -281,15 +281,15 @@ public class BuyerController {
             List<NotifyDto> notifyDtos = buyerService.getAllNotifyByUserId(userId);
             List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
 
-            for(ProjectDto projectDto : projectDtos) {
-                projectDto.setMainPageImgPath(UPLOAD_PATH+projectDto.getStoredFileName().getFirst());
+            for (ProjectDto projectDto : projectDtos) {
+                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
             }
 
             log.info("projectDtos result : " + projectDtos);
 
             model.addAttribute("projectDtos", projectDtos);
             return "th/myPage/buyer/buyer :: projectCardsFragment";
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
             return null;
         }
@@ -308,7 +308,7 @@ public class BuyerController {
             List<ProjectDto> verifiedProjectDtos = notifyService.deleteNotifyPassedDateFromToday(projectDtos);
 
             return projectDtos;
-        } catch(RuntimeException e) {
+        } catch (RuntimeException e) {
             //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
             return null;
         }

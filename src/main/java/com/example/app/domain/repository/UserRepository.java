@@ -9,12 +9,16 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, String> {
+
+    // userId 별 user 정보 조회
     Optional<User> findByUserId(String userId);
 
-
+    // userId 별 user 정보 삭제
     void deleteByUserId(String userId);
 
     Page<User> findAll(Pageable pageable);
 
+    // user 역할 별 user 정보 조회
     Optional<User> findByRole(String role);
+
 }

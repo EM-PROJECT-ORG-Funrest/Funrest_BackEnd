@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface NotifyRepository extends JpaRepository<Notify, Integer> {
+
     Long countByUserId(User user);
 
     // 신청한 알림 조회
