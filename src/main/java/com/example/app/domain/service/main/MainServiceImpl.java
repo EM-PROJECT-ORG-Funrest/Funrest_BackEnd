@@ -121,45 +121,4 @@ public class MainServiceImpl {
         return projectPage.map(ProjectDto::toProjectDto);
     }
 
-//    public Page<ProjectDto> findByProNameAndCategory(String proName, String proCategory, String sortingMethod, Pageable pageable) {
-//
-//        // sortingMethod == 1
-//            // proName - N && proCategory - N
-//            Page<Project> projectPage = projectRepository.find
-//
-//            // proName - N
-//
-//            // proCategory - N
-//
-//            // NN
-//
-//        // sortingMethod == 2
-//
-//
-//
-//        // sortingMethod == 3
-//
-//
-//        if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-//            Page<Project> projectPage2 = projectRepository.findByProNameContaining(proName, pageable.previousOrFirst());
-//            return projectPage2.map(ProjectDto::toProjectDto);
-//        }
-//
-//        return projectPage.map(ProjectDto::toProjectDto);
-//    }
-
-
-//    public Page<ProjectDto> ListToPage(int page, int size, List<ProjectDto> projectDtoList){
-//        PageRequest pageRequest = PageRequest.of(page, size);
-//        int start = (int) pageRequest.getOffset();
-//        int end = Math.min((start + pageRequest.getPageSize()), projectDtoList.size());
-//
-//        // 페이지가 유효한 범위를 벗어나는 경우 빈 페이지를 반환
-//        if (start > projectDtoList.size()) {
-//            return new PageImpl<>(List.of(), pageRequest, projectDtoList.size());
-//        }
-//
-//        List<ProjectDto> subList = projectDtoList.subList(start, end);
-//        return new PageImpl<>(subList, pageRequest, projectDtoList.size());
-//    }
 }

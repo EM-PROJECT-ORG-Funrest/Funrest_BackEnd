@@ -32,12 +32,12 @@
     <script src="/js/admin/adminDashboard.js" defer></script>
 </head>
 
-<div th:replace="~{/fragments/header.html::adminHeader }"></div>
+<div th:replace="fragments/header :: adminHeader"></div>
 <body>
 <div class="container my-custom-container">
     <div class="row">
         <div class="adminPage-left col-md-3">
-            <div th:replace="~{/fragments/adminPageLeft.html::adminPageLeft}"></div>
+            <div th:replace="fragments/adminPageLeft :: adminPageLeft"></div>
         </div>
         <div class="adminPage-right col-md-9">
             <div class="admin-visitor">
@@ -149,6 +149,6 @@
     </div>
 </div>
 </body>
-<div th:replace="~{/fragments/footer.html::footer}"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 </html>

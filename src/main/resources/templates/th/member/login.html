@@ -54,20 +54,6 @@
         <div class="row justify-content-center">
             <hr style="width:30vw;" class="mt-2">
             <div class="login-bottom">
-                <!-- <div class="external-login">
-                    <div class="external-login-kakao">
-                        <button type="button" class="btn mb-3">
-                            <img src="./imgs/kakaotalk_sharing_btn_small.png" alt="">
-                            카카오 로그인
-                        </button>
-                    </div>
-                    <div class="external-login-naver">
-                        <button type="button" class="btn mb-3">
-                            <img src="./imgs/btnG_아이콘원형.png" alt="">
-                            네이버 로그인
-                        </button>
-                    </div>
-                </div> -->
                 <div class="join-login mt-4">
                     <span>아직 펀레스트 회원이 아니신가요?</span>
                     <a th:href="@{/th/member/signUp}">회원가입</a>
@@ -77,5 +63,5 @@
     </div>
     <div id="footer-l"></div>
 </body>
-<div th:replace="~{/fragments/footer.html::footer}"></div>
+<div th:replace="fragments/footer :: footer"></div>
 </html>
