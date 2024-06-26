@@ -24,7 +24,7 @@ import java.util.List;
 public class ProjectDetailController {
 
     // 프로젝트 경로 (추후 변경 가능성 있음)
-    String UPLOAD_PATH = "http://localhost:8080/upload/";
+    String UPLOAD_PATH = "http://3.39.29.162:8080/upload/";
 
     @Autowired
     private ProjectRepository projectRepository;
