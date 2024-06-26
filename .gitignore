@@ -36,7 +36,7 @@ out/
 ### VS Code ###
 #.vscode/
 
-### DataSourceConfig ###
+### DataSourceConfigddd ###
 #/src/main/java/com/example/app/config/DataSourceConfig.java
 ### WebConfig ###
 #/src/main/java/com/example/app/config/WebConfig.java
