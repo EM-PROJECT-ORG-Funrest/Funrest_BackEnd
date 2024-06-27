@@ -44,7 +44,7 @@ public class SellerController {
         String userName = user1.getUserName();
         //사진 넣기
         for (int i = 0; i < projectDtoList.size(); i++) {
-            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH + projectDtoList.get(i).getStoredFileName().getFirst());
+            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH + projectDtoList.get(i).getStoredFileName().get(0));
             System.out.println("projectDtoList.get(i).getProCode()" + projectDtoList.get(i).getProCode());
         }
 
