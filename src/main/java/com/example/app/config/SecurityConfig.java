@@ -63,12 +63,12 @@ public class SecurityConfig {
                         .loginPage("/th/member/login")
                         .usernameParameter("userId") //식별자가 userId이므로 username -> userId로 변경
                         //.successHandler(new CustomLoginSuccessHandler(jwtTokenProvider))
-                        .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/th/main/main"))
+                        .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/"))
                         .failureHandler(new CustomAuthenticationFailureHandler())
                 )
                 .oauth2Login((oauth2) -> oauth2
                         .loginPage("/th/member/login")
-                        .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/th/main/main"))
+                        .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/"))
                         .failureHandler(new CustomOauthAuthenticationFailureHandler())
                 )
                 .logout((logout) -> logout
