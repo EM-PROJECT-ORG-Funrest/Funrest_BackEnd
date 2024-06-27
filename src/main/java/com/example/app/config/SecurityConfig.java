@@ -45,7 +45,6 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**", "/th/member/findPw", "/th/member/findId", "th/member/findIdCheck", "/th/member/findPwCheck", "/th/member/findPwUrl/**", "/th/member/findPwUrl", "/th/member/findSetPw").permitAll()
-                        .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
                         .requestMatchers("/th/myPage/**").hasRole("USER")
                         .requestMatchers("/th/myPage/seller/seller").hasRole("USER")
                         .requestMatchers("/th/notify/**").hasRole("USER")
@@ -64,12 +63,12 @@ public class SecurityConfig {
                         .loginPage("/th/member/login")
                         .usernameParameter("userId") //식별자가 userId이므로 username -> userId로 변경
                         //.successHandler(new CustomLoginSuccessHandler(jwtTokenProvider))
-                        .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/th/main/main"))
+                        .successHandler(new CustomLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/"))
                         .failureHandler(new CustomAuthenticationFailureHandler())
                 )
                 .oauth2Login((oauth2) -> oauth2
                         .loginPage("/th/member/login")
-                        .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/th/main/main"))
+                        .successHandler(new Oauth2JwtLoginSuccessHandler(jwtTokenProvider, refreshTokenRepository, "/"))
                         .failureHandler(new CustomOauthAuthenticationFailureHandler())
                 )
                 .logout((logout) -> logout

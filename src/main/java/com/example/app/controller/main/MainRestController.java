@@ -126,6 +126,8 @@ public class MainRestController {
                 }
             });
             return projectDtoPage;
+
+
         } else {
             projectDtoPage = mainService.getProjectByProName(proName, PageRequest.of(page, size));
             List<ProjectDto> projectDtoList = projectDtoPage.getContent();

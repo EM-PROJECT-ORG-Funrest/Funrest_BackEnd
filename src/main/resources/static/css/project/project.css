@@ -173,7 +173,9 @@ a{
 }
 .container>.row>.pro-right>.sticky-sidebar>.pro-seller>.pro-seller-header>.pro-seller-header-img{
     width: 15%;
-    border-radius: 5px;
+}
+#companyIcon{
+    width: 100%;
 }
 #companyIcon{
     width: 100%;

@@ -99,7 +99,7 @@ public class MainServiceImpl {
 
     // 키워드 검색
     public Page<ProjectDto> getProjectByProName(String proName, Pageable pageable) {
-        Page<Project> projectPage = projectRepository.findByProNameContainingAndProStatus(proName, pageable, 1);
+        Page<Project> projectPage = projectRepository.findByProNameContainingAndProStatus(proName, 1, pageable);
 
         // 첫번째 페이지에서 12개 이상이 안되면 페이지에 도출 자체가 안되서  이코드 추가
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
