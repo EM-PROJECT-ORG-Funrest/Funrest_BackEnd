@@ -45,6 +45,7 @@ public class ProjectServiceImpl {
     private S3Uploader s3Uploader;
 
     // 프로젝트 생성(만들기)
+    @Transactional
     public void createProject(ProjectDto projectDto) throws IOException {
         System.out.println("ProjectServiceImpl's projectDto : " + projectDto);
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -76,7 +77,7 @@ public class ProjectServiceImpl {
             project.setProMainFilePaths(proMainFilePaths);
             project.setProSubFilePaths(proSubFilePaths);
             // 5. project 엔터티를 DB 에 저장
-            Project project1 = projectRepository.save(project);
+            projectRepository.save(project);
         }
     }
 

@@ -29,7 +29,7 @@ public class FileRestController {
     private ProjectServiceImpl projectServiceImpl;
 
     // 다중 파일 업로드 및 seller 페이지 랜더링
-    @PostMapping("/create")
+    @PostMapping("/createProject")
     public ModelAndView projectSave(@ModelAttribute ProjectDto projectDto) throws IOException {
         log.info("POST /create...");
         projectServiceImpl.createProject(projectDto);
