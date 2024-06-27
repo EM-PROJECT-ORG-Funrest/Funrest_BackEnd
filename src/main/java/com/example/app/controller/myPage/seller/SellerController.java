@@ -21,7 +21,7 @@ import java.util.List;
 public class SellerController {
 
     // 프로젝트 경로 (추후 변경 가능성 있음)
-    private static final String UPLOAD_PATH = "http://localhost:8080/upload/";
+    private static final String UPLOAD_PATH = "http://3.39.29.162:8080/upload/";
 
     @Autowired
     SellerServiceImpl sellerServiceImpl;
