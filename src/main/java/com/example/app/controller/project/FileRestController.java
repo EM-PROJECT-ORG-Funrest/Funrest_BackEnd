@@ -1,15 +1,19 @@
 package com.example.app.controller.project;
 
+import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.service.S3.S3Uploader;
+import com.example.app.domain.service.project.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,15 +25,19 @@ public class FileRestController {
     @Autowired
     private S3Uploader s3Uploader;
 
-    // 다중 파일 업로드
-    @PostMapping("/upload")
-    public ResponseEntity<String> filesUpload(@RequestPart("multipartFiles") List<MultipartFile> multipartFiles) {
-        List<String> uploadedUrls = s3Uploader.saveFiles(multipartFiles);
-        return ResponseEntity.ok("Files uploaded successfully. URL: " + uploadedUrls);
+    @Autowired
+    private ProjectServiceImpl projectServiceImpl;
+
+    // 다중 파일 업로드 및 seller 페이지 랜더링
+    @PostMapping("/create")
+    public ModelAndView projectSave(@ModelAttribute ProjectDto projectDto) throws IOException {
+        log.info("POST /create...");
+        projectServiceImpl.createProject(projectDto);
+        return new ModelAndView("redirect:/th/myPage/seller/seller");
     }
 
     // 파일 삭제
-    @PostMapping("delete")
+    @PostMapping("/delete")
     public ResponseEntity<String> fileDelete(@RequestParam("uploadedUrl") String uploadedUrl) {
         try {
             s3Uploader.deleteFile(uploadedUrl);

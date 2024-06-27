@@ -33,7 +33,7 @@ public class SellerServiceImpl {
         List<Project> projectList = projectRepository.findByUserId(user);
         List<ProjectDto> projectDtoList = new ArrayList<>();
         for (Project project : projectList){
-            projectDtoList.add(ProjectDto.toProjectDto(project));
+            projectDtoList.add(ProjectDto.toDto(project));
         }
         return projectDtoList;
     }
@@ -44,9 +44,9 @@ public class SellerServiceImpl {
     }
 
     public User findUserByUserId(String userId){
-        Optional<User> findUserName = userRepository.findByUserId(userId);
+        Optional<User> optionalUser = userRepository.findByUserId(userId);
 
-        return findUserName.orElse(null);
+        return optionalUser.orElse(null);
     }
 
     //달성률 구하기

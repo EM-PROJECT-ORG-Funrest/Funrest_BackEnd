@@ -47,6 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/th/main/main/**", "/th/member/signUp/**", "/th/member/login", "/th/project/**", "/th/member/findPw", "/th/member/findId", "th/member/findIdCheck", "/th/member/findPwCheck", "/th/member/findPwUrl/**", "/th/member/findPwUrl", "/th/member/findSetPw").permitAll()
                         .requestMatchers("/th/myPage/buyer/buyer").hasRole("USER")
                         .requestMatchers("/th/myPage/**").hasRole("USER")
+                        .requestMatchers("/th/myPage/seller/seller").hasRole("USER")
                         .requestMatchers("/th/notify/**").hasRole("USER")
                         .requestMatchers("/th/admin/**").hasRole("ADMIN")
                         .requestMatchers("/th/payment/**").hasRole("USER")

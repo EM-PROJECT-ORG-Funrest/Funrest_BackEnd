@@ -61,89 +61,41 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2024/05/01</th>
-                            <td>12</td>
-                            <td>50,000</td>
+                        <tr th:each="orderInfo : ${orderInfoDtoPage}">
+                            <td th:text="${orderInfo.orderDate}">일자</td>
+                            <td th:text="${orderInfo.orderCnt}">주문 수</td>
+                            <td th:text="${orderInfo.totalAmount}">매출액</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center" id="pagination">
+                        <li class="page-item"
+                            th:classappend="${startPage == orderInfoDtoPage.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/th/admin/dashboard(page=${orderInfoDtoPage.pageable.pageNumber - 1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${num == orderInfoDtoPage.pageable.pageNumber + 1} ? 'active'"
+                            th:each="num : ${#numbers.sequence(startPage, endPage)}">
+                            <a class="page-link"
+                               th:href="@{/th/admin/dashboard(page=${num - 1})}" th:text="${num}">
+                            </a>
+                        </li>
+                        <li class="page-item"
+                            th:classappend="${endPage == orderInfoDtoPage.pageable.pageNumber + 1} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/th/admin/dashboard(page=${orderInfoDtoPage.pageable.pageNumber + 1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

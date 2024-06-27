@@ -36,7 +36,7 @@ public class S3Uploader {
     // 다중 파일 업로드 (여러 파일을 S3에 업로드 후 파일의 URL 저장 리스트 반환)
     public List<String> saveFiles(List<MultipartFile> multipartFiles) {
         // 1. 업로드된 파일의 URL 저장 리스트
-        List<String> uploadedUrls = new ArrayList<>();
+        List<String> filePaths = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             // 2. 파일 중복 검사
             if (isDuplicate(multipartFile)) {
@@ -44,13 +44,17 @@ public class S3Uploader {
             }
             // 3. 단일 파일로 업로드 후 URL 반환 후 저장
             String uploadedUrl = saveFile(multipartFile);
-            // 4. URL 저장 리스트에 추가
-            uploadedUrls.add(uploadedUrl);
+            // 4. 기본 URL 경로와 파일 경로 분리
+            String baseUrl = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/";
+            String filePath = uploadedUrl.substring(baseUrl.length());
+
+            // 5. 파일 경로만 리스트에 추가
+            filePaths.add(filePath);
         }
         // 5. 중복 체크를 위해 저장된 파일 정보 초기화
         clear();
         // 6. 업로드된 파일의 URL 저장 리스트 반환
-        return uploadedUrls;
+        return filePaths;
     }
 
     // 파일 삭제 (주어진 URL의 파일을 S3에서 삭제)

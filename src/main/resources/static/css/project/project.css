@@ -175,6 +175,9 @@ a{
     width: 15%;
     border-radius: 5px;
 }
+#companyIcon{
+    width: 100%;
+}
 .container>.row>.pro-right>.sticky-sidebar>.pro-seller>.pro-seller-header>.pro-seller-header-img>img{
     width: 100%;
 }

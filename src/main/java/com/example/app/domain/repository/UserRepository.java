@@ -16,6 +16,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     // userId 별 user 정보 삭제
     void deleteByUserId(String userId);
 
+    // 모든 user 정보 조회 (페이지 처리)
     Page<User> findAll(Pageable pageable);
 
     // user 역할 별 user 정보 조회

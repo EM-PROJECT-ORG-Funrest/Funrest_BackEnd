@@ -1,6 +1,7 @@
 package com.example.app.domain.service.order;
 
 import com.example.app.domain.dto.OrderDto;
+import com.example.app.domain.dto.OrderInfoDto;
 import com.example.app.domain.dto.RefundDto;
 import com.example.app.domain.entity.Order;
 import com.example.app.domain.entity.Project;
@@ -13,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -178,6 +183,17 @@ public class OrderService {
         } else {
             throw new RuntimeException("해당 결제 정보가 없습니다.");
         }
+    }
+
+    // 주문 일자를 내림차순으로 정렬하여 각 날짜별 주문 수, 총 결제금액 조회하는 서비스 메서드
+    public Page<OrderInfoDto> findOrderStatsByOrderDate(Pageable pageable) {
+        Page<Object[]> results = orderRepository.findOrderStatsByOrderDate(pageable);
+
+        List<OrderInfoDto> dtos = results.getContent().stream()
+                .map(result -> new OrderInfoDto((LocalDate) result[0], (long) result[1], (long) result[2]))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(dtos, pageable, results.getTotalElements());
     }
 
     // userId 별 주문상태(결제완료,환불완료) 별 주문 조회

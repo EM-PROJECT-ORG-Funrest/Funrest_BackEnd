@@ -6,6 +6,7 @@ import com.example.app.domain.service.myPage.SellerServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +21,8 @@ import java.util.List;
 @RequestMapping("/th/myPage/seller")
 public class SellerController {
 
-    // 프로젝트 경로 (추후 변경 가능성 있음)
-    private static final String UPLOAD_PATH = "http://localhost:8080/upload/";
+    // 이미지 파일 기본 경로
+    private static final String UPLOAD_PATH = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/";
 
     @Autowired
     SellerServiceImpl sellerServiceImpl;
@@ -44,7 +45,7 @@ public class SellerController {
         String userName = user1.getUserName();
         //사진 넣기
         for (int i = 0; i < projectDtoList.size(); i++) {
-            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH + projectDtoList.get(i).getStoredFileName().getFirst());
+            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH + projectDtoList.get(i).getProMainFilePaths().getFirst());
             System.out.println("projectDtoList.get(i).getProCode()" + projectDtoList.get(i).getProCode());
         }
 

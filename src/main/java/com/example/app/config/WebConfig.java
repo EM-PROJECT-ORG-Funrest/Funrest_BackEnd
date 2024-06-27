@@ -11,11 +11,11 @@ public class WebConfig implements WebMvcConfigurer {
     private String resourcePath = "/upload/**";
     // 실제 파일 저장 경로
     // - 윈도우인 경우
-    private String savePath = "file:///C:/springboot_img/";
-    private String savePath2 = "file:///C:/springboot_subImg/";
+    //private String savePath = "file:///C:/springboot_img/";
+    //private String savePath2 = "file:///C:/springboot_subImg/";
     // - 맥인 경우
-    //private String savePath = "file:/Users/hongjaeseong/springboot_img/";
-    //private String savePath2 = "file:/Users/hongjaeseong/springboot_subImg/";
+    private String savePath = "file:/Users/hongjaeseong/springboot_img/";
+    private String savePath2 = "file:/Users/hongjaeseong/springboot_subImg/";
 
     // view 에서 접근한 경로를 spring 이 실제 파일 저장 경로에서 찾아준다
     @Override
@@ -26,13 +26,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations(savePath2);
     }
 
-    // prevent CORS Error
-//    @Override
-//    public void addCorsMappings(CorsRegistry corsRegistry) {
-//        corsRegistry.addMapping("/**")
-//                .allowedOrigins("http://localhost:8080") // 허용할 출처
-//                .allowedMethods("GET", "POST") // 허용할 HTTP method
-//                .allowCredentials(true) // 쿠키 인증 요청 허용
-//                .maxAge(3000); // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱
-//    }
 }

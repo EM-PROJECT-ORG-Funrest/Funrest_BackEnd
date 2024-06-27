@@ -18,15 +18,17 @@ import java.util.List;
 @Slf4j
 public class MainRestController {
 
+    // 이미지 파일 기본 경로
+    private static final String UPLOAD_PATH = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/";
+
     private final MainServiceImpl mainService;
+
     @Autowired
     private NotifyService notifyService;
 
     @Autowired
     private SellerServiceImpl sellerServiceImpl;
 
-    // 프로젝트 경로 (추후 변경 가능성 있음)
-    String UPLOAD_PATH = "http://localhost:8080/upload/";
 
     @Autowired
     public MainRestController(MainServiceImpl mainService) {
@@ -42,8 +44,8 @@ public class MainRestController {
         sellerServiceImpl.proPaidCnt(projectDtoList);
         // 각 ProjectDto에 이미지 URL을 설정
         projectDtoPage.forEach(projectDto -> {
-            if (!projectDto.getStoredFileName().isEmpty()) {
-                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+            if (!projectDto.getProMainFilePaths().isEmpty()) {
+                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getProMainFilePaths().get(0));
             } else {
                 projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
             }
@@ -66,8 +68,8 @@ public class MainRestController {
             sellerServiceImpl.proPaidCnt(projectDtoList);
             // 각 ProjectDto에 이미지 URL을 설정
             projectDtoPage.forEach(projectDto -> {
-                if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+                if (!projectDto.getProMainFilePaths().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getProMainFilePaths().get(0));
                 } else {
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }
@@ -81,8 +83,8 @@ public class MainRestController {
             sellerServiceImpl.proPaidCnt(projectDtoList);
             // 이미지 경로 설정
             projectDtoPage.forEach(projectDto -> {
-                if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                if (!projectDto.getProMainFilePaths().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
                 } else {
                     projectDto.setMainPageImgPath("");
                 }
@@ -93,8 +95,8 @@ public class MainRestController {
             List<ProjectDto> projectDtoList = projectDtoPage.getContent();
             sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
-                if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                if (!projectDto.getProMainFilePaths().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
                 } else {
                     projectDto.setMainPageImgPath("");
                 }
@@ -117,8 +119,8 @@ public class MainRestController {
             List<ProjectDto> projectDtoList = projectDtoPage.getContent();
             sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
-                if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                if (!projectDto.getProMainFilePaths().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
                 } else {
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }
@@ -129,8 +131,8 @@ public class MainRestController {
             List<ProjectDto> projectDtoList = projectDtoPage.getContent();
             sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
-                if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                if (!projectDto.getProMainFilePaths().isEmpty()) {
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
                 } else {
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }

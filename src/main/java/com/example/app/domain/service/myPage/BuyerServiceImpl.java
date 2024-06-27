@@ -89,7 +89,7 @@ public class BuyerServiceImpl {
         List<ProjectDto> projectDtos = new ArrayList<>();
 
         for (NotifyDto notifyDto : notifyDtos) {
-            ProjectDto projectDto = ProjectDto.toProjectDto(projectRepository.findByProCode(notifyDto.getProCode()));
+            ProjectDto projectDto = ProjectDto.toDto(projectRepository.findByProCode(notifyDto.getProCode()));
             if (projectDto == null) {
                 // proCode로 조회되는 프로젝트가 없을 때 throw error
                 throw new RuntimeException();
