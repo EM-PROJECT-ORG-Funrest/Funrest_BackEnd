@@ -307,7 +307,7 @@ public class BuyerController {
             List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
             List<ProjectDto> verifiedProjectDtos = notifyService.deleteNotifyPassedDateFromToday(projectDtos);
 
-            return projectDtos;
+            return verifiedProjectDtos;
         } catch (RuntimeException e) {
             //ResponseEntity("Can not found User or Project", HttpStatus.BAD_REQUEST);
             return null;
