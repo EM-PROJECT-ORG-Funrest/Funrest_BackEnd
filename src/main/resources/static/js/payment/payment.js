@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function goToPay() {
 
-    IMP.init("imp33328838");
+    IMP.init("imp83318333");
 
     var payMethod = document.querySelector(".form-check-input").value;
     var merchantUid = document.getElementById("payment-name").value + new Date().getTime();
