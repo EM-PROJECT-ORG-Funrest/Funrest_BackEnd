@@ -1,6 +1,5 @@
 package com.example.app.controller.main;
 
-import com.example.app.config.WebConfig;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.service.myPage.SellerServiceImpl;
 import com.example.app.domain.service.visit.VisitService;
@@ -22,9 +21,6 @@ public class MainController {
 
     @Autowired
     private MainServiceImpl mainServiceImpl;
-
-    @Autowired
-    private WebConfig webConfig;
 
     @Autowired
     private VisitService visitService;
