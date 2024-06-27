@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -59,4 +61,16 @@ public class ProjectDetailController {
         }
         return "th/project/project.html";
     }
+
+    // 다중 파일 업로드 및 seller 페이지 랜더링
+    @PostMapping("/create")
+    public String projectCreate(@ModelAttribute ProjectDto projectDto) throws IOException {
+        log.info("POST /create...");
+        projectService.createProject(projectDto);
+        return "redirect:/th/myPage/seller/seller";
+    }
+
+
+
+
 }

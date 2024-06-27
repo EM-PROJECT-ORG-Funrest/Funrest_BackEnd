@@ -28,14 +28,6 @@ public class FileRestController {
     @Autowired
     private ProjectServiceImpl projectServiceImpl;
 
-    // 다중 파일 업로드 및 seller 페이지 랜더링
-    @PostMapping("/createProject")
-    public ModelAndView projectSave(@ModelAttribute ProjectDto projectDto) throws IOException {
-        log.info("POST /create...");
-        projectServiceImpl.createProject(projectDto);
-        return new ModelAndView("redirect:/th/myPage/seller/seller");
-    }
-
     // 파일 삭제
     @PostMapping("/delete")
     public ResponseEntity<String> fileDelete(@RequestParam("uploadedUrl") String uploadedUrl) {
