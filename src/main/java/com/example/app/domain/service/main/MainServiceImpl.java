@@ -32,7 +32,7 @@ public class MainServiceImpl {
     public List<ProjectDto> getAllProjectsOrderedByProCode() {
         List<Project> projects = projectRepository.findAllByProStatusOrderByProCodeDesc(1);
         List<ProjectDto> projectDtos = projects.stream()
-                .map(ProjectDto::toProjectDto)
+                .map(ProjectDto::toDto)
                 .collect(Collectors.toList());
 
         return projectDtos;
@@ -41,7 +41,7 @@ public class MainServiceImpl {
     // 첫 페이지 로드시 인피니티 스크롤 + 카테고리 항목 중 "전체" 클릭시
     public Page<ProjectDto> getAllProjectsOrderedByProCode(Pageable pageable) {
         Page<Project> projects = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable, 1);
-        return projects.map(ProjectDto::toProjectDto);
+        return projects.map(ProjectDto::toDto);
     }
 
     // 카테고리 검색
@@ -50,9 +50,9 @@ public class MainServiceImpl {
 
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
             Page<Project> projectPage2 = projectRepository.findAllByProCategoryAndProStatusOrderByProCodeDesc(proCategory, pageable.previousOrFirst(), 1);
-            return projectPage2.map(ProjectDto::toProjectDto);
+            return projectPage2.map(ProjectDto::toDto);
         }
-        return projectPage.map(ProjectDto::toProjectDto);
+        return projectPage.map(ProjectDto::toDto);
     }
 
     // 카테고리 검색 - 오픈예정
@@ -64,7 +64,7 @@ public class MainServiceImpl {
         // ProjectDto 리스트로 변환
         List<ProjectDto> projectDtos = projects.stream()
                 .map(project -> {
-                    ProjectDto projectDto = ProjectDto.toProjectDto(project);
+                    ProjectDto projectDto = ProjectDto.toDto(project);
                     LocalDate target = LocalDate.parse(projectDto.getProStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     long remainingDays = ChronoUnit.DAYS.between(today, target);
                     projectDto.setProRemainingDay(remainingDays);
@@ -85,7 +85,7 @@ public class MainServiceImpl {
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), projectList.size());
         Page<Project> projectListToPage = new PageImpl<>(projectList.subList(start, end), pageRequest, projectList.size());
-        return projectListToPage.map(ProjectDto::toProjectDto);
+        return projectListToPage.map(ProjectDto::toDto);
     }
 
     // List<ProjectDto> -> Page<ProjectDto>
@@ -103,10 +103,10 @@ public class MainServiceImpl {
 
         // 첫번째 페이지에서 12개 이상이 안되면 페이지에 도출 자체가 안되서  이코드 추가
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
-            Page<Project> projectPage2 = projectRepository.findByProNameContainingAndProStatus(proName, 1, pageable.previousOrFirst());
-            return projectPage2.map(ProjectDto::toProjectDto);
+            Page<Project> projectPage2 = projectRepository.findByProNameContainingAndProStatus(proName, pageable.previousOrFirst(), 1);
+            return projectPage2.map(ProjectDto::toDto);
         }
-        return projectPage.map(ProjectDto::toProjectDto);
+        return projectPage.map(ProjectDto::toDto);
     }
 
     // 키워드 검색할 때 아무 값도 안 넘겨준 경우
@@ -115,10 +115,10 @@ public class MainServiceImpl {
 
         if (projectPage.isEmpty() && pageable.getPageNumber() > 0) {
             Page<Project> projectPage2 = projectRepository.findAllByProStatusOrderByProCodeDesc(pageable.previousOrFirst(), 1);
-            return projectPage2.map(ProjectDto::toProjectDto);
+            return projectPage2.map(ProjectDto::toDto);
         }
 
-        return projectPage.map(ProjectDto::toProjectDto);
+        return projectPage.map(ProjectDto::toDto);
     }
 
 }

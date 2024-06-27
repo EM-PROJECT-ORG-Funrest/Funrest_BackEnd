@@ -32,6 +32,9 @@ public class OrderDto {
     private int totalAmount;
     private String merchantUid;
 
+    public OrderDto(LocalDate localDate, int i, int i1) {
+    }
+
     // Entity to Dto
     public static OrderDto EntityToOrderDto(Order order){
         OrderDto orderDto = new OrderDto();

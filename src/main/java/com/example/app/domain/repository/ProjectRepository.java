@@ -37,8 +37,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {    
     @Query("SELECT p FROM Project p WHERE p.proName LIKE %:proName% AND p.proStatus = :proStatus")
     Page<Project> findByProNameContainingAndProStatus(@Param("proName") String proName, @Param("proStatus")int proStatus, Pageable pageable);
 
-
-
+    // 해당 프로젝트 코드의 ProMainImgUrl, ProSubImgUrl 삭제
+    void deleteProMainImgUrlByProCode(int proCode);
+    void deleteProSubImgUrlByProCode(int proCode);
 
     // Notify --------------------------------
     @Query("SELECT p.proStartDate FROM Project p WHERE p.proCode = :proCode")

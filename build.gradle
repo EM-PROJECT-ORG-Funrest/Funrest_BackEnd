@@ -69,7 +69,7 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
-	// Thymeleaf Extras Springsecurity6
+	// Thymeleaf Extras Spring security6
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
 
 	// 이미지 리사이징 을 위한 라이브러리
@@ -80,6 +80,9 @@ dependencies {
 
 	//portOne
 	implementation 'com.github.iamport:iamport-rest-client-java:0.1.6'
+
+	// AWS S3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {

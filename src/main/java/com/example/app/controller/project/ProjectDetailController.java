@@ -23,8 +23,8 @@ import java.util.List;
 @RequestMapping("/th/project")
 public class ProjectDetailController {
 
-    // 프로젝트 경로 (추후 변경 가능성 있음)
-    String UPLOAD_PATH = "http://3.39.29.162:8080/upload/";
+    // 이미지 파일 기본 경로
+    private static final String UPLOAD_PATH = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/";
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -35,15 +35,9 @@ public class ProjectDetailController {
     // 프로젝트 상세페이지에 데이터 전송 API
     @GetMapping("/project/{proCode}")
     String project(@PathVariable("proCode") String proCode, Model model) {
-
-        Integer projectCode = Integer.parseInt(proCode); // proCode 'int' 형 변환
-
-        Project project = projectRepository.findByProCode(projectCode); // 해당 proCode 의 project 엔터티 행 찾기 및 저장
-        ProjectDto projectDto = ProjectDto.toProjectDto(project); // Entity -> Dto
-
-        // ProMainImg 를 리스트에 담기 (3개 고정)
-        List<String> storedFileName = projectDto.getStoredFileName();
-
+        Integer projectCode = Integer.parseInt(proCode);
+        Project project = projectRepository.findByProCode(projectCode);
+        ProjectDto projectDto = ProjectDto.toDto(project);
         // 프로젝트 참여인원 가져오기
         projectService.proPaidCnt(projectDto);
         // 프로젝트 달성 금액 가져오기
@@ -53,13 +47,13 @@ public class ProjectDetailController {
         // projectDto 에 proStartDate까지 남은 일자 넣기
         projectService.getProRemainingDay(projectDto);
         model.addAttribute("Project", projectDto);
-
+        // ProMainImg 를 리스트에 담기 (3개 고정)
+        List<String> storedFileName = projectDto.getProMainFilePaths();
         for (int i = 0; i < storedFileName.size(); i++) {
-            model.addAttribute("image"+(i+1), UPLOAD_PATH + storedFileName.get(i));
+            model.addAttribute("image" + (i + 1), UPLOAD_PATH + storedFileName.get(i));
         }
         // ProSubImg 를 리스트에 담기 (5개 고정)
-        List<String> subStoredFileName = projectDto.getSubStoredFileName();
-        // ProSubImg 리스트 -> model 에 담기
+        List<String> subStoredFileName = projectDto.getProSubFilePaths();
         for (int i = 0; i < subStoredFileName.size(); i++) {
             model.addAttribute("subImage" + (i + 1), UPLOAD_PATH + subStoredFileName.get(i));
         }

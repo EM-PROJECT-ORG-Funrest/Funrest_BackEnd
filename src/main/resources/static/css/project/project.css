@@ -177,7 +177,10 @@ a{
 #companyIcon{
     width: 100%;
 }
-.container>.row>.pro-right>.sticky-sidebar>.pro-seller>.pro-seller-header>.pro-seller-header-img>span{
+#companyIcon{
+    width: 100%;
+}
+.container>.row>.pro-right>.sticky-sidebar>.pro-seller>.pro-seller-header>.pro-seller-header-img>img{
     width: 100%;
 }
 .container>.row>.pro-right>.sticky-sidebar>.pro-seller>.pro-seller-header>.pro-seller-header-content{

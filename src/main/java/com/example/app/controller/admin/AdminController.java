@@ -1,8 +1,11 @@
 package com.example.app.controller.admin;
 
+import com.example.app.domain.dto.OrderDto;
+import com.example.app.domain.dto.OrderInfoDto;
 import com.example.app.domain.dto.ProjectDto;
 import com.example.app.domain.dto.UserDto;
 import com.example.app.domain.service.member.UserService;
+import com.example.app.domain.service.order.OrderService;
 import com.example.app.domain.service.project.ProjectServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -14,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -28,17 +33,31 @@ public class AdminController {
     @Autowired
     private ProjectServiceImpl projectServiceImpl;
 
+    @Autowired
+    private OrderService orderService;
+
+
     @GetMapping("/dashboard")
-    public void adminDashboard(Model model) {
+    public void adminDashboard(@RequestParam(name = "page", defaultValue = "0") int page,
+                               @RequestParam(name = "size", defaultValue = "10") int size,
+                               Model model) {
         log.info("GET /th/admin/dashboard");
         // 관리자 계정 전달
         String adminId = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("adminId",adminId);
+
+        Page<OrderInfoDto> orderInfoDtoPage = orderService.findOrderStatsByOrderDate(PageRequest.of(page, size));
+        // 2. 회원 관리 게시판 페이지 버튼
+        int startPage = Math.max(1, orderInfoDtoPage.getPageable().getPageNumber() -4);
+        int endPage = Math.min(orderInfoDtoPage.getPageable().getPageNumber() + 4, orderInfoDtoPage.getTotalPages());
+        model.addAttribute("orderInfoDtoPage", orderInfoDtoPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
     }
 
     @GetMapping("/member")
     public void adminMember(@RequestParam(name = "page", defaultValue = "0") int page,
-                            @RequestParam(name = "size", defaultValue = "2") int size,
+                            @RequestParam(name = "size", defaultValue = "5") int size,
                             Model model) {
         log.info("GET /th/admin/member");
         // 1. 전체 회원 정보 조회 (페이징 처리)

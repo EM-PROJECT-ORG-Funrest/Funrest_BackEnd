@@ -45,7 +45,8 @@ import java.util.Map;
 @RequestMapping("/th/myPage/buyer")
 public class BuyerController {
 
-    private final String UPLOAD_PATH = "http://3.39.29.162:8080/upload/";
+    // 이미지 파일 기본 경로
+    private static final String UPLOAD_PATH = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/";
 
     @Value("${portOne.rest-api}")
     private String portOne_API;
@@ -282,7 +283,7 @@ public class BuyerController {
             List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
 
             for (ProjectDto projectDto : projectDtos) {
-                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
+                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
             }
 
             log.info("projectDtos result : " + projectDtos);

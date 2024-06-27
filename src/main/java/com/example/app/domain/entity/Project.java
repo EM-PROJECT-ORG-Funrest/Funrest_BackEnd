@@ -57,24 +57,18 @@ public class Project {
     @Column(name = "sellerDetail", nullable = false, length = 300)
     private String sellerDetail;
 
-    @Column
-    private int fileAttached;   // proMainImg 파일 첨부 여부 (1:첨부, 0:미첨부)
-    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<ProjectFile> projectFileList = new ArrayList<>();
-
-    @Column
-    private int subFileAttached; // proSubImg 파일 첨부 여부 (1:첨부, 0:미첨부)
-    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<ProjectSubFile> projectSubFileList = new ArrayList<>();
+    @Column(name = "proMainImgUrl", length = 1000)
+    private List<String> proMainFilePaths = new ArrayList<>();
+    @Column(name = "proSubImgUrl", length = 1000)
+    private List<String> proSubFilePaths = new ArrayList<>();
 
     public Project(int proCode) {
         this.proCode = proCode;
     }
 
-
     // Dto to Entity
     // 파일이 없는 경우 toSaveEntity 메소드 호출
-    public static Project toSaveEntity(ProjectDto projectDto) {
+    public static Project toEntity(ProjectDto projectDto) {
         Project project = new Project();
         project.setProCode(projectDto.getProCode());
         project.setUserId(new User(projectDto.getUserId()));
@@ -93,32 +87,6 @@ public class Project {
         project.setProScript(projectDto.getProScript());
         project.setSellerName(projectDto.getSellerName());
         project.setSellerDetail(projectDto.getSellerDetail());
-        project.setFileAttached(0); // mainImg 파일 없음.
-        project.setSubFileAttached(0); // subImg 파일 없음.
-        return project;
-    }
-
-    // Dto to Entity
-    // 파일이 있는 경우 toSaveFileEntity 메소드 호출
-    public static Project toSaveFileEntity(ProjectDto projectDto) {
-        Project project = new Project();
-        project.setProCode(projectDto.getProCode());
-        project.setUserId(new User(projectDto.getUserId()));
-        project.setProCategory(projectDto.getProCategory());
-        project.setProName(projectDto.getProName());
-        project.setProPrice(projectDto.getProPrice());
-        project.setProGoalAmount(projectDto.getProGoalAmount());
-        project.setProDate(projectDto.getProDate());
-        project.setProStartDate(projectDto.getProStartDate());
-        project.setProEndDate(projectDto.getProEndDate());
-        project.setProStatus(projectDto.getProStatus());
-        project.setProPaidCnt(projectDto.getProPaidCnt());
-        project.setProNotifyCnt(projectDto.getProNotifyCnt());
-        project.setProScript(projectDto.getProScript());
-        project.setSellerName(projectDto.getSellerName());
-        project.setSellerDetail(projectDto.getSellerDetail());
-        project.setFileAttached(1); // mainImg 파일 있음.
-        project.setSubFileAttached(1); // subImg 파일 있음.
         return project;
     }
 

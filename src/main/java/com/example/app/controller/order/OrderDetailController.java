@@ -23,8 +23,8 @@ import java.util.List;
 @RequestMapping("/th/payment")
 public class OrderDetailController {
 
-    // 프로젝트 경로 (추후 변경 가능성 있음)
-    String UPLOAD_PATH = "http://3.39.29.162:8080/upload/";
+    // 이미지 파일 기본 경로
+    private static final String UPLOAD_PATH = "https://funrestbucket.s3.ap-northeast-2.amazonaws.com/";
 
     @Autowired
     private OrderService orderService;
@@ -41,7 +41,7 @@ public class OrderDetailController {
         log.info("payment() proCode : " + proCode); // 해당 프로젝트 proCode 확인
         Integer projectCode = Integer.parseInt(proCode); // proCode 'int' 형 변환
         Project project = projectRepository.findByProCode(projectCode); // 해당 proCode 의 project 엔터티 행 찾기 및 저장
-        ProjectDto projectDto = ProjectDto.toProjectDto(project); // Entity -> Dto
+        ProjectDto projectDto = ProjectDto.toDto(project); // Entity -> Dto
 
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         // ProMainImg 를 리스트에 담기 (3개 고정)
@@ -50,11 +50,9 @@ public class OrderDetailController {
         } else {
             model.addAttribute("deliveryPay", "0");
         }
-        List<String> storedFileName = projectDto.getStoredFileName();
         model.addAttribute("userId", userId);
         model.addAttribute("Project", projectDto);
-        model.addAttribute("mainImg", UPLOAD_PATH + storedFileName.get(0));
-        /*orderService.getToken();*/
+        model.addAttribute("mainImg", UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
         return "th/payment/payment";
     }
 
@@ -64,17 +62,12 @@ public class OrderDetailController {
         log.info("GET /th/payment/applyRefund...");
         // 해당 orderCode 주문 정보 조회
         OrderDto orderDto = orderService.findById(impUid);
-        System.out.println("orderDto = " + orderDto);
-        System.out.println("orderDto.getOrderState() = " + orderDto.getOrderState());
         model.addAttribute("order", orderDto);
         // 해당 주문의 proCode 조회
-        Integer proCode = orderDto.getProCode();
-        ProjectDto projectDto = projectService.findByProCode(proCode);
-        System.out.println("projectDto = " + projectDto);
+        ProjectDto projectDto = projectService.findByProCode(orderDto.getProCode());
         model.addAttribute("project", projectDto);
         // 해당 상품의 이미지 경로 조회
-        String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
-        model.addAttribute("imgPath", imgPath);
+        model.addAttribute("imgPath", UPLOAD_PATH+projectDto.getProMainFilePaths().getFirst());
 
         return "th/payment/applyRefund.html";
     }
@@ -90,16 +83,10 @@ public class OrderDetailController {
         List<String> imgPathList = new ArrayList<>();
         for (OrderDto orderDto : orderDtoList) {
             ProjectDto projectDto = projectService.findByProCode(orderDto.getProCode());
-            System.out.println("projectDto = " + projectDto);
-
-            String proName = projectDto.getProName();
-            proNameList.add(proName);
-            // proNameList.add(projectDto.getProName()); // 상단의 코드와 해당 코드 중 무엇이 좋은 코드인지
-            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
-            imgPathList.add(imgPath);
+            proNameList.add(projectDto.getProName());
+            imgPathList.add(UPLOAD_PATH+projectDto.getProMainFilePaths().getFirst());
         }
         OrderHistoryDto orderHistoryDto = new OrderHistoryDto(orderDtoList, proNameList, imgPathList);
-        System.out.println("orderHistoryDto = " + orderHistoryDto);
         model.addAttribute("orderHistoryDto", orderHistoryDto);
 
         return "th/payment/paymentHistory";
@@ -116,16 +103,10 @@ public class OrderDetailController {
         List<String> imgPathList = new ArrayList<>();
         for (OrderDto orderDto : orderDtoList) {
             ProjectDto projectDto = projectService.findByProCode(orderDto.getProCode());
-            System.out.println("projectDto = " + projectDto);
-
-            String proName = projectDto.getProName();
-            proNameList.add(proName);
-            // proNameList.add(projectDto.getProName()); // 상단의 코드와 해당 코드 중 무엇이 좋은 코드인지
-            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
-            imgPathList.add(imgPath);
+            proNameList.add(projectDto.getProName());
+            imgPathList.add(UPLOAD_PATH+projectDto.getProMainFilePaths().getFirst());
         }
         OrderHistoryDto orderHistoryDto = new OrderHistoryDto(orderDtoList, proNameList, imgPathList);
-        System.out.println("orderHistoryDto = " + orderHistoryDto);
         model.addAttribute("orderHistoryDto", orderHistoryDto);
 
         return "th/payment/refundHistory";
@@ -137,15 +118,12 @@ public class OrderDetailController {
         log.info("GET /th/payment/paymentDetail... orderCode: " + orderCode);
         // 해당 orderCode 주문 정보 조회
         OrderDto orderDto = orderService.findById(orderCode);
-        System.out.println("orderDto = " + orderDto);
         model.addAttribute("order", orderDto);
         // 해당 주문의 proCode 조회
-        Integer proCode = orderDto.getProCode();
-        ProjectDto projectDto = projectService.findByProCode(proCode);
-        System.out.println("projectDto = " + projectDto);
+        ProjectDto projectDto = projectService.findByProCode(orderDto.getProCode());
         model.addAttribute("project", projectDto);
         // 해당 상품의 이미지 경로 조회
-        String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
+        String imgPath = UPLOAD_PATH+projectDto.getProMainFilePaths().getFirst();
         model.addAttribute("imgPath", imgPath);
 
         return "th/payment/paymentDetail.html";
