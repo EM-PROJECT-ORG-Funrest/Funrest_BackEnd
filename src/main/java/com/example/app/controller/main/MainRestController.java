@@ -82,7 +82,7 @@ public class MainRestController {
             // 이미지 경로 설정
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
                 } else {
                     projectDto.setMainPageImgPath("");
                 }
@@ -94,7 +94,7 @@ public class MainRestController {
             sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
                 } else {
                     projectDto.setMainPageImgPath("");
                 }
@@ -118,21 +118,28 @@ public class MainRestController {
             sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
                 } else {
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }
             });
             return projectDtoPage;
+
+
         } else {
             projectDtoPage = mainService.getProjectByProName(proName, PageRequest.of(page, size));
             List<ProjectDto> projectDtoList = projectDtoPage.getContent();
             sellerServiceImpl.proPaidCnt(projectDtoList);
             projectDtoPage.forEach(projectDto -> {
                 if (!projectDto.getStoredFileName().isEmpty()) {
-                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                    projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
                 } else {
+                    // sadsadhjasdjhsakudhkashkd
+                    // dsakjdasjkhdkajhsdjkjkadjk
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
+                    //sdsddsddsdsdsds
+                    //dkjsadhkasjhfkjhfkashkfhask
+                    ///askjdhasdhkaushdukhs
                 }
             });
             return projectDtoPage;

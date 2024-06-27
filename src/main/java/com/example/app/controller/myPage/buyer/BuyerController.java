@@ -45,7 +45,7 @@ import java.util.Map;
 @RequestMapping("/th/myPage/buyer")
 public class BuyerController {
 
-    private final String UPLOAD_PATH = "http://localhost:8080/upload/";
+    private final String UPLOAD_PATH = "http://3.39.29.162:8080/upload/";
 
     @Value("${portOne.rest-api}")
     private String portOne_API;
@@ -124,7 +124,7 @@ public class BuyerController {
         this.portOneTokenResponse = response.getBody();
     }
 
-    @GetMapping(value = "getAuthInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getAuthInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody PortOneAuthInfoResponse getAuthInfo(@PathVariable("imp_uid") String imp_uid) {
         getToken();
         log.info("GET /getAuthInfo..." + imp_uid);
@@ -282,7 +282,7 @@ public class BuyerController {
             List<ProjectDto> projectDtos = buyerService.getAllProjectByProCode(notifyDtos);
 
             for (ProjectDto projectDto : projectDtos) {
-                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().getFirst());
+                projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
             }
 
             log.info("projectDtos result : " + projectDtos);

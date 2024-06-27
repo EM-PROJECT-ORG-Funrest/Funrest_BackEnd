@@ -21,7 +21,7 @@ import java.util.List;
 public class SellerController {
 
     // 프로젝트 경로 (추후 변경 가능성 있음)
-    private static final String UPLOAD_PATH = "http://localhost:8080/upload/";
+    private static final String UPLOAD_PATH = "http://3.39.29.162:8080/upload/";
 
     @Autowired
     SellerServiceImpl sellerServiceImpl;
@@ -44,7 +44,7 @@ public class SellerController {
         String userName = user1.getUserName();
         //사진 넣기
         for (int i = 0; i < projectDtoList.size(); i++) {
-            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH + projectDtoList.get(i).getStoredFileName().getFirst());
+            projectDtoList.get(i).setMainPageImgPath(UPLOAD_PATH + projectDtoList.get(i).getStoredFileName().get(0));
             System.out.println("projectDtoList.get(i).getProCode()" + projectDtoList.get(i).getProCode());
         }
 
