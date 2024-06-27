@@ -57,9 +57,9 @@ public class Project {
     @Column(name = "sellerDetail", nullable = false, length = 300)
     private String sellerDetail;
 
-    @Column(name = "proMainImgUrl", length = 1000)
+    @Column(name = "proMainFilePaths", length = 1000)
     private List<String> proMainFilePaths = new ArrayList<>();
-    @Column(name = "proSubImgUrl", length = 1000)
+    @Column(name = "proSubFilePaths", length = 1000)
     private List<String> proSubFilePaths = new ArrayList<>();
 
     public Project(int proCode) {
