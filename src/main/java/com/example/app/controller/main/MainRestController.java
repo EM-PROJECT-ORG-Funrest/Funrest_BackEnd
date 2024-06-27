@@ -135,6 +135,7 @@ public class MainRestController {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
                 } else {
                     // sadsadhjasdjhsakudhkashkd
+                    // dsakjdasjkhdkajhsdjkjkadjk
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }
             });
