@@ -136,6 +136,8 @@ public class MainRestController {
                 } else {
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                     //sdsddsddsdsdsds
+                    //dkjsadhkasjhfkjhfkashkfhask
+                    ///askjdhasdhkaushdukhs
                 }
             });
             return projectDtoPage;
