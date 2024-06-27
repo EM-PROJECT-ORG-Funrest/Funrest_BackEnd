@@ -134,6 +134,7 @@ public class MainRestController {
                 if (!projectDto.getStoredFileName().isEmpty()) {
                     projectDto.setMainPageImgPath(UPLOAD_PATH + projectDto.getStoredFileName().get(0));
                 } else {
+                    // sadsadhjasdjhsakudhkashkd
                     projectDto.setMainPageImgPath(""); // 이미지가 없는 경우 처리
                 }
             });
