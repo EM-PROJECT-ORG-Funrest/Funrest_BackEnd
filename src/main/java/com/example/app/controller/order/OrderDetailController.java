@@ -73,7 +73,7 @@ public class OrderDetailController {
         System.out.println("projectDto = " + projectDto);
         model.addAttribute("project", projectDto);
         // 해당 상품의 이미지 경로 조회
-        String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
+        String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
         model.addAttribute("imgPath", imgPath);
 
         return "th/payment/applyRefund.html";
@@ -95,7 +95,7 @@ public class OrderDetailController {
             String proName = projectDto.getProName();
             proNameList.add(proName);
             // proNameList.add(projectDto.getProName()); // 상단의 코드와 해당 코드 중 무엇이 좋은 코드인지
-            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
+            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
             imgPathList.add(imgPath);
         }
         OrderHistoryDto orderHistoryDto = new OrderHistoryDto(orderDtoList, proNameList, imgPathList);
@@ -121,7 +121,7 @@ public class OrderDetailController {
             String proName = projectDto.getProName();
             proNameList.add(proName);
             // proNameList.add(projectDto.getProName()); // 상단의 코드와 해당 코드 중 무엇이 좋은 코드인지
-            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
+            String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
             imgPathList.add(imgPath);
         }
         OrderHistoryDto orderHistoryDto = new OrderHistoryDto(orderDtoList, proNameList, imgPathList);
@@ -145,7 +145,7 @@ public class OrderDetailController {
         System.out.println("projectDto = " + projectDto);
         model.addAttribute("project", projectDto);
         // 해당 상품의 이미지 경로 조회
-        String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().getFirst();
+        String imgPath = UPLOAD_PATH+projectDto.getStoredFileName().get(0);
         model.addAttribute("imgPath", imgPath);
 
         return "th/payment/paymentDetail.html";
