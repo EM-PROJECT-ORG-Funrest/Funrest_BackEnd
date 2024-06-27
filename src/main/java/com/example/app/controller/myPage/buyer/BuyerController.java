@@ -124,7 +124,7 @@ public class BuyerController {
         this.portOneTokenResponse = response.getBody();
     }
 
-    @GetMapping(value = "/getAuthInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "getAuthInfo/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody PortOneAuthInfoResponse getAuthInfo(@PathVariable("imp_uid") String imp_uid) {
         getToken();
         log.info("GET /getAuthInfo..." + imp_uid);
