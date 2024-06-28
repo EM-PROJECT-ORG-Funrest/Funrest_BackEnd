@@ -34,16 +34,11 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-#.vscode/
+.vscode/
 
 ### DataSourceConfig ###
-#/src/main/java/com/example/app/config/DataSourceConfig.java
+/src/main/java/com/example/app/config/DataSourceConfig.java
 ### SECRET KEY INFO ###
-#application-SECRET-KEY.properties
-
-
-### ProjectServiceImpl ###
-##/src/main/java/com/example/app/domain/service/ProjectServiceImpl.java
-
-
-#commit 용 작성
+/src/main/resources/application-SECRET-KEY.properties
+### SecurityConfig ###
+/src/main/java/com/example/app/config/SecurityConfig.java

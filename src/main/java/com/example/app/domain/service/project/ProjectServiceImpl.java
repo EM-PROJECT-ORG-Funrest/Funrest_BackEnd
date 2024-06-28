@@ -65,8 +65,6 @@ public class ProjectServiceImpl {
         else {
             // 1. 부모 테이블 tbl_project 에 해당 데이터 먼저 저장 처리
             Project project = Project.toEntity(projectDto); // 전달된 dto -> entity 변환
-            //Integer savedProCode = projectRepository.save(projectEntity).getProCode(); // entity db에 저장 후 proCode 가져옴
-            //Project project = projectRepository.findByProCode(savedProCode); // 가져온 proCode 로 해당하는 부모 엔터티 객체의 데이터를 가져옴
             // 2. 이미지 파일 리사이징 하기
             List<MultipartFile> proMainImgFile = imageResizer.resizeImages(projectDto.getProMainImgFile());
             List<MultipartFile> proSubImgFile = imageResizer.resizeImages(projectDto.getProSubImgFile());
