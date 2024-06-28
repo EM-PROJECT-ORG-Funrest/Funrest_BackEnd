@@ -93,7 +93,7 @@ public class UserServiceImpl {
         message.setSubject("[펀레스트] 비밀번호 찾기 인증 이메일입니다.");
         message.setText("다음 링크를 클릭해 비밀번호를 변경 완료해 주세요.\n");
         // url에 랜덤값 붙여서 전송
-        message.setText("http://3.39.29.162:8080/th/member/findPwUrl/"+randomValue);
+        message.setText("http://3.39.29.162:80/th/member/findPwUrl/"+randomValue);
 
         javaMailSender.send(message);
     }
