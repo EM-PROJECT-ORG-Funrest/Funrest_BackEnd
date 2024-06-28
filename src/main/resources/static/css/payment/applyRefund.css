@@ -64,55 +64,10 @@ body{
     border-radius: 10px;
 }
 
-/*  */
-/* .container-r>.refund-product>.refund-product-box>.refund-main>.refund-choice{
-    display: flex !important;
-    
-} */
-
-
-
-
-/* 환불 사유 */
-/* .container-r>.reason-box{
-   justify-content: center;
-}
-.container-r>.reason-box>.refund{}
-.container-r>.reason-box>.refund .reufnd-reason{
-    width: 200px;
-    height: 30px;
-}
-
-.container-r>.reason-box>.refund>.refund-reason-text>input{
-    width: 100%;
-    height: 20vh;
-} */
-
 /* payment-history-guide */
 .container>.payment-history-guide{
     background-color: rgb(246, 248, 244);
 }
-
-
-
-/* payment-order-text */
-/* .container-r>.payment-order-text{
-    display: flex;
-    background-color: rgb(210, 226, 207);
-    padding: 2rem;
-}
-.container-r>.payment-order-text>.payment-order-text-title{
-    margin-top: 2vh;
-    font-weight: 700;
-    font-size: 1.5rem;
-    width: 15rem;
-}
-.container-r>.payment-order-text>.payment-order-text-list{
-    margin-left: 1vw;
-}
-.container-r>.payment-order-text>.payment-order-text-list>.payment-order-text-list-title{
-    font-weight: 700;
-} */
 
 /* btn-apply */
 .container-b>.btn-apply{

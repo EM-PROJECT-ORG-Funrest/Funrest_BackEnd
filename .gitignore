@@ -34,7 +34,7 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-#.vscode/
+.vscode/
 
 ### SECRET KEY INFO ###
 application-SECRET-KEY.properties
