@@ -43,9 +43,6 @@ application-SECRET-KEY.properties
 /src/main/java/com/example/app/config/DataSourceConfig.java
 /src/main/java/com/example/app/config/SecurityConfig.java
 
-### service
-src/main/java/com/example/app/domain/service/S3/S3Uploader.java
-
 ### imp_uid
 src/main/resources/templates/th/myPage/buyer/editProfile.html
 src/main/resources/static/js/payment/payment.js
