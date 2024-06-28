@@ -36,14 +36,16 @@ out/
 ### VS Code ###
 #.vscode/
 
-### DataSourceConfig ###
-#/src/main/java/com/example/app/config/DataSourceConfig.java
 ### SECRET KEY INFO ###
-#application-SECRET-KEY.properties
+application-SECRET-KEY.properties
 
+### config ###
+/src/main/java/com/example/app/config/DataSourceConfig.java
+/src/main/java/com/example/app/config/SecurityConfig.java
 
-### ProjectServiceImpl ###
-##/src/main/java/com/example/app/domain/service/ProjectServiceImpl.java
+### service
+src/main/java/com/example/app/domain/service/S3/S3Uploader.java
 
-
-#commit 용 작성
+### imp_uid
+src/main/resources/templates/th/myPage/buyer/editProfile.html
+src/main/resources/static/js/payment/payment.js
