@@ -151,6 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("프로젝트 상세 설명을 입력하세요.");
             return false;
         }
+        // 프로젝트 기간 확인
+        var projectDate = document.querySelector('input[name="datetimes"]').value;
+        if (projectDate === "") {
+            alert("프로젝트 기간을 입력해주세요.");
+            return false;
+        }
         return true;
     }
     // 폼 제출 전에 유효성 검사 실행
