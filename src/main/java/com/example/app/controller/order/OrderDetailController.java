@@ -38,22 +38,34 @@ public class OrderDetailController {
     // 주문 페이지 랜더링 API
     @GetMapping("/payment/{proCode}")
     String payment(@PathVariable("proCode") String proCode, Model model) throws Exception {
-        log.info("payment() proCode : " + proCode); // 해당 프로젝트 proCode 확인
-        Integer projectCode = Integer.parseInt(proCode); // proCode 'int' 형 변환
-        Project project = projectRepository.findByProCode(projectCode); // 해당 proCode 의 project 엔터티 행 찾기 및 저장
-        ProjectDto projectDto = ProjectDto.toDto(project); // Entity -> Dto
+        try {
+            log.info("payment() proCode : " + proCode); // 해당 프로젝트 proCode 확인
+            Integer projectCode = Integer.parseInt(proCode); // proCode 'int' 형 변환
+            Project project = projectRepository.findByProCode(projectCode); // 해당 proCode 의 project 엔터티 행 찾기 및 저장
+            ProjectDto projectDto = ProjectDto.toDto(project); // Entity -> Dto
 
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        // ProMainImg 를 리스트에 담기 (3개 고정)
-        if (projectDto.getProCategory().equals("book")) {
-            model.addAttribute("deliveryPay", "3000");
-        } else {
-            model.addAttribute("deliveryPay", "0");
+            String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+            // ProMainImg 를 리스트에 담기 (3개 고정)
+//            if (projectDto.getProCategory().equals("book")) {
+//                model.addAttribute("deliveryPay", "3000");
+//            } else {
+//                model.addAttribute("deliveryPay", "0");
+//            }
+            int deliveryPay = 0; // 기본값 설정
+            if (projectDto.getProCategory().equals("book")) {
+                deliveryPay = 3000;
+            }
+            model.addAttribute("deliveryPay", deliveryPay);
+
+            model.addAttribute("userId", userId);
+            model.addAttribute("Project", projectDto);
+            model.addAttribute("mainImg", UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
+            return "th/payment/payment";
+        }catch (Exception e) {
+            // 예외 발생 시 에러 페이지로 리다이렉트 또는 예외 처리
+            model.addAttribute("error", "주문 페이지 랜더링 중 오류가 발생했습니다.");
+            return "th/payment/error";
         }
-        model.addAttribute("userId", userId);
-        model.addAttribute("Project", projectDto);
-        model.addAttribute("mainImg", UPLOAD_PATH + projectDto.getProMainFilePaths().getFirst());
-        return "th/payment/payment";
     }
 
     // 반품 신청페이지 랜더링 API
