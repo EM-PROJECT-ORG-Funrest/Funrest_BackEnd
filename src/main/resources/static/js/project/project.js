@@ -4,6 +4,19 @@ window.onload = function() {
     pro_story_hidden_button.innerText = "스토리 더보기";
 };
 
+// url 복사
+function clip(){
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
 // btnClick() 함수 정의
 // 'pro_story_hidden_content' 요소의 'display'가 'block'(화면에 보이면)이면 'none'으로 변경,
 // 'none'(화면에 보이지 않으면)이면 'block'으로 변경한다
