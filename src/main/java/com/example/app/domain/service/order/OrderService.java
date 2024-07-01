@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.lang.Integer.parseInt;
+
 @Slf4j
 @Service
 public class OrderService {
@@ -118,10 +120,17 @@ public class OrderService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             // 예상 총 금액: 상품 금액 * 결제 수량 + 배송비
-            int productPrice = Integer.parseInt(project.getProPrice().replace(",", ""));
+            int productPrice = parseInt(project.getProPrice().replace(",", ""));
             int orderCnt = orderDto.getOrderCnt();
             int deliveryPay = orderDto.getDeliveryPay();
             int expectedTotalAmount = productPrice * orderCnt + deliveryPay;
+
+            System.out.println("productPrice : " + productPrice);
+            System.out.println("orderCnt : "+orderCnt);
+            System.out.println("deliverPay : "+deliveryPay);
+            System.out.println("getTotalAmount : " + orderDto.getTotalAmount());
+            System.out.println("expectedTotalAmount : " + expectedTotalAmount);
+
             if (orderDto.getTotalAmount() != expectedTotalAmount) {
                 throw new RuntimeException("결제 금액이 일치하지 않습니다.");
             }
