@@ -203,6 +203,8 @@
 
           const response = await axios.get(url);
           const projects = response.data.content;
+          console.log(projects.length);
+
           isLastPage = (projects.length < 12) ? 1 : 0;
           projects.forEach(project => {
               const projectElement = document.createElement('div');
