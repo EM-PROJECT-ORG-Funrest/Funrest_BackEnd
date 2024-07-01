@@ -118,7 +118,7 @@ public class OrderService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             // 예상 총 금액: 상품 금액 * 결제 수량 + 배송비
-            int productPrice = Integer.parseInt(project.getProPrice());
+            int productPrice = Integer.parseInt(project.getProPrice().replace(",", ""));
             int orderCnt = orderDto.getOrderCnt();
             int deliveryPay = orderDto.getDeliveryPay();
             int expectedTotalAmount = productPrice * orderCnt + deliveryPay;
