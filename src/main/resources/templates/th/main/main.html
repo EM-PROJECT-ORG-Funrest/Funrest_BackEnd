@@ -202,8 +202,9 @@
 
 
           const response = await axios.get(url);
+          console.log("response.data : " + response.data);
           const projects = response.data.content;
-          console.log(projects.length);
+          console.log("length : " + projects.length);
 
           isLastPage = (projects.length < 12) ? 1 : 0;
           projects.forEach(project => {
