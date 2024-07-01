@@ -186,7 +186,7 @@ public class ProjectServiceImpl {
             projectRepository.deleteProSubImgUrlByProCode(savedProCode);
             // 3. 이미지 파일 리사이징 하기
             List<MultipartFile> proMainImgFile = imageResizer.resizeImages(projectDto.getProMainImgFile());
-            List<MultipartFile> proSubImgFile = imageResizer.resizeImages(projectDto.getProSubImgFile());
+            List<MultipartFile> proSubImgFile = projectDto.getProSubImgFile();
             // 4. 리사이징한 proMainImgFile, proMainSubFile 를 AWS S3 에 담기
             List<String> proMainFilePaths = s3Uploader.saveFiles(proMainImgFile);
             List<String> proSubFilePaths = s3Uploader.saveFiles(proSubImgFile);
