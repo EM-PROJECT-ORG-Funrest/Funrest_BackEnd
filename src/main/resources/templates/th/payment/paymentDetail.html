@@ -18,7 +18,7 @@
     <script src="/js/payment/paymentDetail.js"></script>
 </head>
 
-<div th:replace="~{/fragments/header.html::afterLoginHeader }"></div>
+<div th:replace="fragments/header :: afterLoginHeader"></div>
 <body>
 <div class="container container-d my-custom-container">
     <div class="row orderdetail-product-box m-2 mb-5">
@@ -28,11 +28,11 @@
                 <!--                <p class="col-md-6 text-md-first m-0">상품 옵션 정보</p>-->
                 <div class="col-md-6">
                     <span class="font-weight-bold">주문일자:</span>
-                    <span  class="ml-1">2023-06-22</span>
+                    <span th:text="${order.orderDate}" class="ml-1">2023-06-22</span>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <span class="font-weight-bold">주문번호:</span>
-                    <span  class="ml-1">주문번호(impUid)</span>
+                    <span th:text="${order.impUid}" class="ml-1">주문번호(impUid)</span>
                 </div>
             </div>
             <div class="row orderdetail-main p-2">
@@ -50,14 +50,14 @@
                 <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                     <span class="d-md-block fw-bold pb-2">수량</span>
                     <div class="h-50 d-flex justify-content-center align-items-center">
-                        <span id="orderCnt">주문수량</span>
+                        <span th:text="${order.orderCnt + '개'}" id="orderCnt">주문수량</span>
                     </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-between d-md-block text-center m-1">
                     <span class="d-md-block fw-bold pb-2">주문 금액</span>
                     <div class="h-50 d-flex justify-content-center align-items-center">
                         <span class="" id="semiTotalPrice">주문금액</span>
-                        <input type="hidden" name="proPrice" id="proPrice">
+                        <input type="hidden" th:value="${project.proPrice}" name="proPrice" id="proPrice">
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                             <p id="orderTotalPrice">총 상품 가격</p>
                         </div>
                         <div class="col-12 text-center">
-                            <p>배송비</p>
+                            <p th:text="${order.deliveryPay + '원'}">배송비</p>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                         <p>총 결제 금액</p>
                     </div>
                     <div class="col-6 text-center pt-3">
-                        <p>총 결제 금액</p>
+                        <p th:text="${order.totalAmount + '원'}">총 결제 금액</p>
                     </div>
                 </div>
             </div>
@@ -119,13 +119,13 @@
                 <div class="col-6 my-3">
                     <div class="row order-title">
                         <div class="col-12 text-center pb-2">
-                            <p >김규호</p>
+                            <p th:text="${order.buyerName}">김규호</p>
                         </div>
                         <div class="col-12 text-center pb-2">
-                            <p >010-1234-5678</p>
+                            <p th:text="${order.buyerTel}">010-1234-5678</p>
                         </div>
                         <div class="col-12 text-center pb-2">
-                            <p>대구 북구 칠곡</p>
+                            <p th:text="${order.buyerAddr}" >대구 북구 칠곡</p>
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
         <div class="col-md-12 order-info-btns text-center">
             <button th:onclick="'window.location.href=\'' + @{/th/payment/paymentHistory/{userId}(userId=${order.userId})} + '\''">주문 목록으로</button>
             <button th:onclick="'window.location.href=\'' + @{/th/main/main} + '\''">홈으로</button>
-            <button class="">환불 신청</button>
+            <button class="" th:if="${order.orderState != '환불 완료'}" th:onclick="'window.location.href=\'' + @{/th/payment/applyRefund/{impUid}(impUid=${order.impUid})} + '\''">환불 신청</button>
 
         </div>
     </div>
@@ -185,6 +185,5 @@
     </div>
 </div>
 </body>
-<div th:replace="~{/fragments/footer.html::footer}"></div>
-
+<div th:replace="fragments/footer :: footer"></div>
 </html>
