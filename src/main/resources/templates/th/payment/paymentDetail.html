@@ -125,7 +125,7 @@
                             <p th:text="${order.buyerTel}">010-1234-5678</p>
                         </div>
                         <div class="col-12 text-center pb-2">
-                            <p th:text="${order.buyerAddr}" >대구 북구 칠곡</p>
+                            <p th:text="${order.buyerAddr}">대구 북구 칠곡</p>
                         </div>
                     </div>
                 </div>
@@ -133,9 +133,14 @@
             </div>
         </div>
         <div class="col-md-12 order-info-btns text-center">
-            <button th:onclick="'window.location.href=\'' + @{/th/payment/paymentHistory/{userId}(userId=${order.userId}, orderState=${'결제완료'})} + '\''">주문 목록으로</button>
+            <button th:onclick="'window.location.href=\'' + @{/th/payment/paymentHistory/{userId}(userId=${order.userId}, orderState=${'결제완료'})} + '\''">
+                주문 목록으로
+            </button>
             <button th:onclick="'window.location.href=\'' + @{/th/main/main} + '\''">홈으로</button>
-            <button class="" th:if="${order.orderState != '환불 완료'}" th:onclick="'window.location.href=\'' + @{/th/payment/applyRefund/{impUid}(impUid=${order.impUid})} + '\''">환불 신청</button>
+            <button class="" th:if="${order.orderState != '환불완료'}"
+                    th:onclick="'window.location.href=\'' + @{/th/payment/applyRefund/{impUid}(impUid=${order.impUid})} + '\''">
+                환불 신청
+            </button>
 
         </div>
     </div>
